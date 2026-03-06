@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="curso-ley1257"
+          version="1.0"
+          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2">
+
+    <organizations default="ORG1">
+        <organization identifier="ORG1">
+            <title>Curso Ley 1257 - No Violencia contra la Mujer</title>
+
+            <item identifier="ITEM1" identifierref="RESOURCE1">
+                <title>Contenido Principal</title>
+            </item>
+
+        </organization>
+    </organizations>
+
+    <resources>
+        <resource identifier="RESOURCE1"
+                  type="webcontent"
+                  adlcp:scormtype="sco"
+                  href="index.html">
+
+            <file href="index.html"/>
+            <file href="assets/js/main.js"/>
+            <file href="assets/js/scorm.js"/>
+
+        </resource>
+    </resources>
+
+</manifest>

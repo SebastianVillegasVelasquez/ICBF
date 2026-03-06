@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titulo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <main class="main-card">
+
+        <header class="card-header">
+            <div class="header-content">
+                <h1 class="title">Titulo</span></h1>
+
+                <nav class="internal-nav">
+                    <button id="btn-home" class="icon-btn" title="Inicio">🏠</button>
+                    <div class="location-badge">Estás en: <strong id="current-location">Inicio y Generalidades</strong></div>
+                    <button class="tab-btn active">PÁGINA <span id="page-num">1</span></button>
+                </nav>
+            </div>
+        </header>
+
+        <section class="content-area">
+            <div id="app" class="content-render">
+            </div>
+        </section>
+
+        <footer class="card-footer">
+            <button id="btn-prev" class="control-btn">◀ Anterior</button>
+            <div class="footer-spacer"></div>
+            <button id="btn-next" class="control-btn">Siguiente ▶</button>
+        </footer>
+
+    </main>
+
+    <aside class="sidebar-outer">
+
+        <div class="sidebar-top">
+            <img src="assets/img/logo-bienestar.png" alt="ICBF logo" class="floating-logo">
+        </div>
+
+        <div class="sidebar-menu">
+            <div id="course-nav"></div>
+        </div>
+
+        <div class="sidebar-tools">
+
+            <div class="tool-group">
+                <span class="label-text" id="progress-text">0%</span>
+                <div class="progress-track">
+                    <div id="progress-fill" class="progress-fill" style="height: 0%;"></div>
+                </div>
+            </div>
+
+<!--            <div class="tool-group">-->
+<!--                <button id="btn-mute" class="circle-btn">🔊</button>-->
+<!--            </div>-->
+
+            <div class="tool-group">
+                <button class="circle-btn">⬇</button>
+                <span class="label-tiny">PDF</span>
+            </div>
+
+        </div>
+    </aside>
+
+</div>
+
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
