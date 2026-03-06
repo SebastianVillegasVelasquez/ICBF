@@ -28,8 +28,12 @@ import {
     getPageByIndex,
     getCourseTitle,
     renderNavigation,
-    updateNavigationState
+    updateNavigationState,
+    renderSlideNavigation,
+    setupSlideNavListeners
 } from './navigation.js';
+
+import { generateCoursePDF } from './pdf-generator.js';
 
 
 // ==========================================================
@@ -234,8 +238,20 @@ function setupNavigation() {
         };
     }
 
-    // Renderizar menú lateral
+    // Renderizar menú lateral (sidebar derecho)
     renderNavigation(loadPage, currentPageIndex, visitedPages);
+
+    // Renderizar navegación deslizable (slide panel)
+    renderSlideNavigation(loadPage, currentPageIndex, visitedPages);
+
+    // Configurar listeners del menú hamburguesa
+    setupSlideNavListeners();
+
+    // Configurar botón de PDF
+    const btnPdf = document.getElementById('btn-pdf');
+    if (btnPdf) {
+        btnPdf.onclick = () => generateCoursePDF();
+    }
 }
 
 
