@@ -12,6 +12,8 @@
  * ==========================================================
  */
 
+console.log("[v0] main.js cargado");
+
 import {
     initSCORM,
     getLocation,
@@ -67,9 +69,11 @@ let btnNext;
  * @param {number} index - Índice de la página a cargar
  */
 export function loadPage(index) {
+    console.log("[v0] loadPage llamado con índice:", index);
+    
     // Validar índice
     if (index < 0 || index >= totalPages) {
-        console.warn("Página fuera de rango:", index);
+        console.warn("[v0] Página fuera de rango:", index);
         return;
     }
 
@@ -79,12 +83,15 @@ export function loadPage(index) {
     visitedPages.add(index);
 
     const page = getPageByIndex(index);
+    console.log("[v0] Página obtenida:", page);
     
     if (!page) {
+        console.error("[v0] Página no encontrada en la configuración");
         showError("Página no encontrada en la configuración");
         return;
     }
 
+    console.log("[v0] Cargando archivo:", page.file);
     fetch(page.file)
         .then(response => {
             if (!response.ok) {
@@ -244,11 +251,14 @@ function setupNavigation() {
 // ==========================================================
 
 window.onload = () => {
-    console.log("Inicializando curso...");
+    console.log("[v0] Inicializando curso...");
 
     // Cargar datos de la configuración
+    console.log("[v0] Obteniendo lista de páginas...");
     pages = getFlatPageList();
+    console.log("[v0] Páginas obtenidas:", pages);
     totalPages = getTotalPages();
+    console.log("[v0] Total páginas:", totalPages);
 
     if (totalPages === 0) {
         console.error("No hay páginas configuradas en course.config.js");
