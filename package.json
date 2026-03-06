@@ -1,14 +1,17 @@
 {
-  "name": "untitled",
+  "name": "icbf-course",
   "version": "1.0.0",
-  "description": "",
+  "description": "SCORM e-learning course",
   "main": "index.js",
   "scripts": {
+    "dev": "npx serve -l 3000",
+    "start": "npx serve -l 3000",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-scorm": "node build-scorm.js"
   },
   "private": true,
   "dependencies": {
-    "archiver": "^7.0.1"
+    "archiver": "^7.0.1",
+    "serve": "^14.2.1"
   }
 }

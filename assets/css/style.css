@@ -289,6 +289,17 @@ body {
   opacity:0.6;
 }
 
+.nav-page.visited{
+  color:var(--purple-dark);
+  background:var(--purple-light);
+  opacity:0.8;
+}
+
+.nav-page.visited::before{
+  content:"✓ ";
+  font-size:0.7rem;
+}
+
 /* Responsivo (Tablets/Laptops pequeños) */
 @media (max-width: 1000px) {
   .app-layout { flex-direction: column; height: auto; overflow-y: auto; }
