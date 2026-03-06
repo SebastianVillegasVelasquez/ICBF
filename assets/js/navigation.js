@@ -11,10 +11,7 @@
  * ==========================================================
  */
 
-console.log("[v0] navigation.js cargado");
-
 import { course } from './course.config.js';
-console.log("[v0] course config importado:", course);
 
 // ==========================================================
 // UTILIDADES

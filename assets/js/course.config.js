@@ -15,8 +15,6 @@
  * ==========================================================
  */
 
-console.log("[v0] course.config.js cargado");
-
 export const course = {
     // Título del curso (aparece en el header)
     title: "Ley 1257: No violencia contra la mujer",
