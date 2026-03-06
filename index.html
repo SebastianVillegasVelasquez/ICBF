@@ -14,6 +14,11 @@
 
         <header class="card-header">
             <div class="header-content">
+                <button id="btn-menu" class="hamburger-btn" title="Menú del curso" aria-label="Abrir menú de navegación">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <h1 class="title">Curso SCORM</h1>
 
                 <nav class="internal-nav">
@@ -23,6 +28,20 @@
                 </nav>
             </div>
         </header>
+
+        <!-- Overlay para cerrar el menú -->
+        <div id="menu-overlay" class="menu-overlay"></div>
+
+        <!-- Panel de navegación deslizable -->
+        <nav id="slide-nav" class="slide-nav" aria-label="Navegación del curso">
+            <div class="slide-nav-header">
+                <h2 class="slide-nav-title">Contenido del curso</h2>
+                <button id="btn-close-menu" class="close-menu-btn" aria-label="Cerrar menú">&times;</button>
+            </div>
+            <div id="slide-nav-content" class="slide-nav-content">
+                <!-- El contenido se genera dinámicamente -->
+            </div>
+        </nav>
 
         <section class="content-area">
             <div id="app" class="content-render">
@@ -61,7 +80,7 @@
 <!--            </div>-->
 
             <div class="tool-group">
-                <button class="circle-btn">⬇</button>
+                <button id="btn-pdf" class="circle-btn" title="Descargar PDF del curso">⬇</button>
                 <span class="label-tiny">PDF</span>
             </div>
 
@@ -70,6 +89,7 @@
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
