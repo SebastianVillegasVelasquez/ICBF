@@ -1,0 +1,39 @@
+/* ==========================================================
+   THEME.CSS  –  Design tokens for ICBF course template
+   Colors inspired by the Bienestar Familiar brand:
+     Green (primary actions), Amber (sidebar brand), White (content)
+   ========================================================== */
+
+:root {
+  /* Brand */
+  --green-dark:   #1a5c38;
+  --green-main:   #2e7d32;
+  --green-mid:    #388e3c;
+  --green-light:  #e8f5e9;
+  --green-pale:   #f1f8f1;
+
+  --amber-dark:   #8b5a1a;
+  --amber-main:   #c17f3a;
+  --amber-light:  #e8a85a;
+
+  /* Neutral */
+  --white:        #ffffff;
+  --bg-app:       #f0f2f0;
+  --border:       #e0e0e0;
+  --text-main:    #1a2b1f;
+  --text-muted:   #5a6b5d;
+  --text-light:   #8e9e91;
+
+  /* Semantic */
+  --card-bg:      var(--white);
+  --card-shadow:  0 8px 32px rgba(0,0,0,0.10);
+
+  /* Spacing */
+  --radius-sm:    8px;
+  --radius-md:    16px;
+  --radius-lg:    24px;
+  --radius-pill:  999px;
+
+  /* Sidebar */
+  --sidebar-w:    110px;
+}
