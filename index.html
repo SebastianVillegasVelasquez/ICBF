@@ -1,95 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso SCORM</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso ICBF</title>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
 
-<div class="app-layout">
+  <div class="app-shell">
 
-    <main class="main-card">
+    <!-- LEFT: main content card -->
+    <main class="main-card" id="main-card">
 
-        <header class="card-header">
-            <div class="header-content">
-                <button id="btn-menu" class="hamburger-btn" title="Menú del curso" aria-label="Abrir menú de navegación">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-                <h1 class="title">Curso SCORM</h1>
+      <!-- Slide-out navigation panel -->
+      <div id="menu-overlay" class="menu-overlay"></div>
+      <nav id="slide-nav" class="slide-nav" aria-label="Navegación del curso">
+        <div class="slide-nav-header">
+          <span class="slide-nav-title">Contenido del curso</span>
+          <button id="btn-close-menu" class="slide-nav-close" aria-label="Cerrar menú">&times;</button>
+        </div>
+        <div id="slide-nav-content" class="slide-nav-body"></div>
+      </nav>
 
-                <nav class="internal-nav">
-                    <button id="btn-home" class="icon-btn" title="Inicio">🏠</button>
-                    <div class="location-badge">Estás en: <strong id="current-location">Inicio y Generalidades</strong></div>
-                    <button class="tab-btn active">PÁGINA <span id="page-num">1</span></button>
-                </nav>
-            </div>
-        </header>
+      <!-- Header -->
+      <header class="card-header">
+        <button id="btn-menu" class="hamburger-btn" aria-label="Abrir menú">
+          <span class="hline"></span>
+          <span class="hline"></span>
+          <span class="hline"></span>
+        </button>
+        <h1 class="course-title" id="course-title">Curso ICBF</h1>
+        <div class="header-right">
+          <div class="location-chip">
+            <span class="location-label">Estás en:</span>
+            <strong id="current-location">—</strong>
+          </div>
+          <div class="page-chip">Página <span id="page-num">1</span></div>
+        </div>
+      </header>
 
-        <!-- Overlay para cerrar el menú -->
-        <div id="menu-overlay" class="menu-overlay"></div>
+      <!-- Content -->
+      <section class="content-area">
+        <div id="app" class="content-render"></div>
+      </section>
 
-        <!-- Panel de navegación deslizable -->
-        <nav id="slide-nav" class="slide-nav" aria-label="Navegación del curso">
-            <div class="slide-nav-header">
-                <h2 class="slide-nav-title">Contenido del curso</h2>
-                <button id="btn-close-menu" class="close-menu-btn" aria-label="Cerrar menú">&times;</button>
-            </div>
-            <div id="slide-nav-content" class="slide-nav-content">
-                <!-- El contenido se genera dinámicamente -->
-            </div>
-        </nav>
-
-        <section class="content-area">
-            <div id="app" class="content-render">
-            </div>
-        </section>
-
-        <footer class="card-footer">
-            <button id="btn-prev" class="control-btn">◀ Anterior</button>
-            <div class="footer-spacer"></div>
-            <button id="btn-next" class="control-btn">Siguiente ▶</button>
-        </footer>
+      <!-- Footer nav -->
+      <footer class="card-footer">
+        <button id="btn-home" class="nav-btn nav-btn--icon" title="Inicio">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Inicio</span>
+        </button>
+        <button id="btn-prev" class="nav-btn nav-btn--icon" title="Anterior">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          <span>Atrás</span>
+        </button>
+        <button id="btn-next" class="nav-btn nav-btn--icon nav-btn--primary" title="Siguiente">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          <span>Adelante</span>
+        </button>
+        <button id="btn-pdf" class="nav-btn nav-btn--download" title="Descargar PDF">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>Descarga</span>
+        </button>
+      </footer>
 
     </main>
 
-    <aside class="sidebar-outer">
-
-        <div class="sidebar-top">
-            <img src="assets/img/logo-bienestar.png" alt="ICBF logo" class="floating-logo">
-        </div>
-
-        <div class="sidebar-menu">
-            <div id="course-nav"></div>
-        </div>
-
-        <div class="sidebar-tools">
-
-            <div class="tool-group">
-                <span class="label-text" id="progress-text">0%</span>
-                <div class="progress-track">
-                    <div id="progress-fill" class="progress-fill" style="height: 0%;"></div>
-                </div>
-            </div>
-
-<!--            <div class="tool-group">-->
-<!--                <button id="btn-mute" class="circle-btn">🔊</button>-->
-<!--            </div>-->
-
-            <div class="tool-group">
-                <button id="btn-pdf" class="circle-btn" title="Descargar PDF del curso">⬇</button>
-                <span class="label-tiny">PDF</span>
-            </div>
-
-        </div>
+    <!-- RIGHT: amber sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <img src="assets/img/logo-bienestar.png" alt="Bienestar Familiar" class="logo-img">
+      </div>
+      <div class="sidebar-mid" id="sidebar-nav"></div>
+      <div class="sidebar-bottom">
+        <div class="module-chip" id="module-chip">Módulo 1</div>
+        <div class="progress-pct" id="progress-text">0%</div>
+        <div class="seg-progress" id="seg-progress" aria-label="Progreso del curso"></div>
+      </div>
     </aside>
 
-</div>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script type="module" src="assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
