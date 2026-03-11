@@ -1,14 +1,20 @@
 /**
  * router.js
  *
- * Builds a flat list of "routes" from the course config,
- * where each route is either:
- *   - a module cover  (type: 'cover')
- *   - a section page  (type: 'section', has sections[] array)
- *   - a legacy HTML page (type: 'html', has file path)
+ * Builds a flat list of "routes" from course.config.js.
  *
- * This keeps app.js clean and makes the course config the
- * single source of truth for navigation order.
+ * ROUTE TYPES:
+ *   - 'cover'  : Auto-generated module cover screen (no HTML file needed).
+ *                Shown when a module has showCover: true.
+ *   - 'page'   : A real HTML file fetched from disk via page.file.
+ *                All content pages are this type now.
+ *
+ * The router no longer handles JSON-driven "section" types.
+ * Content lives entirely in HTML files under /pages/.
+ *
+ * TEAM NOTE:
+ *   To add a page, just add { title, file } to a module's pages[]
+ *   in course.config.js. No changes here needed.
  */
 
 import { course } from './course.config.js';
@@ -16,47 +22,45 @@ import { course } from './course.config.js';
 let routes = [];
 
 /**
- * Build the routes array from course config.
- * Called once on init.
+ * buildRoutes()
+ * Called once at startup. Flattens the course config into an ordered
+ * array of route objects that app.js can navigate through by index.
  */
 export function buildRoutes() {
   routes = [];
 
   course.modules.forEach((mod, modIdx) => {
-    // Module cover (optional – only if module has description or highlights)
+
+    // Optional module cover — shown before the module's pages
     if (mod.showCover !== false) {
       routes.push({
         type: 'cover',
         moduleIndex: modIdx,
         module: mod,
         title: mod.title,
-        globalIndex: routes.length,
       });
     }
 
-    // Pages inside the module
-    (mod.pages || []).forEach((page, pageIdx) => {
+    // Each page inside the module becomes a 'page' route.
+    // app.js will fetch page.file and inject it into the content area.
+    (mod.pages || []).forEach((page) => {
       routes.push({
-        type: page.file ? 'html' : 'section',
+        type: 'page',        // always 'page' — content comes from an HTML file
         moduleIndex: modIdx,
-        pageIndex: pageIdx,
         module: mod,
-        page,
+        page,                // { title, file }
         title: page.title,
-        globalIndex: routes.length,
       });
     });
+
   });
 
   return routes;
 }
 
-export function getRoutes() { return routes; }
-
-export function getRoute(index) { return routes[index] || null; }
-
-export function getTotalRoutes() { return routes.length; }
-
-export function getCourseTitle() { return course.title; }
-
+// ── Accessors ──────────────────────────────────────────────
+export function getRoutes()       { return routes; }
+export function getRoute(index)   { return routes[index] || null; }
+export function getTotalRoutes()  { return routes.length; }
+export function getCourseTitle()  { return course.title; }
 export function getCourseConfig() { return course; }

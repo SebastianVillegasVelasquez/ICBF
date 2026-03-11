@@ -1,0 +1,26 @@
+<body>
+  <!-- Modulo 6 · Clasifica la violencia
+       Component: drag-drop
+       data-items:  JSON array of draggable item strings.
+       data-zones:  JSON array of { label, accepts[] } drop zone objects. -->
+
+  <div class="container py-4">
+    <h2 class="mb-1" style="color:var(--green-dark);">Clasifica cada situacion</h2>
+    <p class="text-muted mb-4">Arrastra cada situacion a la categoria de violencia que corresponde.</p>
+
+    <!-- drag-drop: data-config holds the draggable items array,
+                   data-zones holds the drop zone definitions. -->
+    <div data-component="drag-drop"
+         data-config='["Prohibir trabajar","Amenazar con golpear","Tomar el salario sin permiso","Gritar insultos","Controlar el acceso al dinero","Aislar de familiares y amigos"]'
+         data-zones='[
+           {"label":"Violencia psicologica","accepts":["Amenazar con golpear","Gritar insultos","Aislar de familiares y amigos"]},
+           {"label":"Violencia economica","accepts":["Prohibir trabajar","Tomar el salario sin permiso","Controlar el acceso al dinero"]}
+         ]'>
+    </div>
+
+    <!-- Bootstrap hint -->
+    <p class="text-muted small mt-3">
+      <strong>Sugerencia:</strong> Si no estas seguro, revisa las definiciones del Modulo 2 antes de continuar.
+    </p>
+  </div>
+</body>

@@ -389,6 +389,30 @@ html, body {
 .sidebar-nav-page.active { background: var(--green-dark); color: var(--white); font-weight: 700; }
 .sidebar-nav-page.visited::before { content: "✓ "; font-size: 0.6rem; }
 
+/* ── Nav module labels — hidden by default (tracking still works) ──
+   To re-show module labels, remove this rule or set display:block      */
+.nav-module-hidden { display: none; }
+
+/* ── Page loading / error states ── */
+.page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--green-main);
+  font-size: 1rem;
+  opacity: 0.7;
+}
+.page-error {
+  padding: 32px;
+  color: #b00020;
+  background: #fff0f0;
+  border-left: 4px solid #b00020;
+  border-radius: 4px;
+  margin: 24px;
+}
+.page-error p { margin: 8px 0 0; font-size: 0.9rem; }
+
 /* ── PDF loading overlay ── */
 .pdf-loading {
   position: fixed;
