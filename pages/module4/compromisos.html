@@ -1,0 +1,29 @@
+<body>
+  <!-- Modulo 4 · Compromisos
+       Component: checklist
+       data-config: JSON array of strings (one per item). -->
+
+  <div class="container py-4">
+    <h2 class="mb-1" style="color:var(--green-dark);">Compromisos del servidor publico</h2>
+    <p class="text-muted mb-4">Marca los compromisos que ya conoces y practicas en tu labor institucional.</p>
+
+    <div data-component="checklist"
+         data-config='[
+           "Identifico las senales de alerta de violencia contra la mujer",
+           "Conozco la ruta de atencion y la activo cuando es necesario",
+           "Trato a las victimas con respeto, confidencialidad y sin revictimizar",
+           "Remito a las instituciones competentes de forma oportuna",
+           "Me actualizo periodicamente en la normativa vigente",
+           "Garantizo la privacidad de la informacion de la victima"
+         ]'>
+    </div>
+
+    <!-- Bootstrap progress as visual feedback -->
+    <div class="mt-4">
+      <p class="mb-1 text-muted small">Completa todos los compromisos para continuar.</p>
+      <div class="progress" role="progressbar" style="height:8px;">
+        <div class="progress-bar bg-success" id="checklist-progress-bar" style="width:0%;"></div>
+      </div>
+    </div>
+  </div>
+</body>

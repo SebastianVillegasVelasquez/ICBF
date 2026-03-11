@@ -1,0 +1,28 @@
+<body>
+  <!-- Modulo 3 · Buenas practicas
+       Component: carousel
+       data-config: JSON array of { heading, body } slide objects. -->
+
+  <div class="container py-4">
+    <h2 class="mb-1" style="color:var(--green-dark);">Buenas practicas institucionales</h2>
+    <p class="text-muted mb-4">Desliza para conocer acciones que marcan la diferencia en la atencion a victimas.</p>
+
+    <div data-component="carousel"
+         data-config='[
+           {"heading":"Escucha activa sin juicios","body":"Recibir el relato de la victima con respeto, sin interrumpir ni minimizar, es el primer paso para una atencion efectiva."},
+           {"heading":"Activacion inmediata de la ruta","body":"No esperar a que la situacion sea mas grave. Ante cualquier senal de violencia, la ruta debe activarse de inmediato."},
+           {"heading":"Registro completo del caso","body":"Documentar con detalle fecha, descripcion de hechos y medidas tomadas garantiza seguimiento y proteccion legal."},
+           {"heading":"Trabajo interinstitucional","body":"La coordinacion entre ICBF, Fiscalia, Comisarias y salud mejora los resultados y evita la victimizacion secundaria."},
+           {"heading":"Confidencialidad","body":"Toda informacion que comparta la victima debe tratarse con estricta reserva para garantizar su seguridad e integridad."}
+         ]'>
+    </div>
+
+    <!-- Bootstrap list group as a quick reference -->
+    <h6 class="mt-4 mb-2" style="color:var(--green-dark);">Principios clave</h6>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Respeto y no discriminacion</li>
+      <li class="list-group-item">Celeridad en la atencion</li>
+      <li class="list-group-item">Coordinacion interinstitucional</li>
+    </ul>
+  </div>
+</body>

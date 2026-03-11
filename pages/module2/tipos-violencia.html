@@ -1,0 +1,27 @@
+<body>
+  <!-- Modulo 2 · Tipos de violencia
+       Component: cards
+       data-config: JSON array of { title, body } objects. -->
+
+  <div class="container py-4">
+    <h2 class="mb-1" style="color:var(--green-dark);">Formas de violencia segun la Ley 1257</h2>
+    <p class="text-muted mb-4">La ley reconoce cuatro formas principales de violencia contra la mujer.</p>
+
+    <div data-component="cards"
+         data-config='[
+           {"title":"Violencia fisica","body":"Accion u omision que cause dano o sufrimiento fisico, lesiones u otro dano en el cuerpo de la mujer."},
+           {"title":"Violencia psicologica","body":"Accion u omision destinada a degradar, controlar, aislar o humillar a la mujer, causando dano emocional."},
+           {"title":"Violencia sexual","body":"Toda accion que vulnere el derecho a decidir voluntariamente sobre la vida sexual e intima de la mujer."},
+           {"title":"Violencia economica","body":"Accion u omision orientada al abuso economico, control abusivo de las finanzas o robo de recursos de la mujer."}
+         ]'>
+    </div>
+
+    <!-- Bootstrap callout using card -->
+    <div class="card border-success mt-4">
+      <div class="card-body">
+        <h6 class="card-title text-success">Recuerda</h6>
+        <p class="card-text mb-0">Cualquier forma de violencia debe activar la ruta de atencion de forma inmediata, sin importar su tipo.</p>
+      </div>
+    </div>
+  </div>
+</body>

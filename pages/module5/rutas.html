@@ -1,0 +1,26 @@
+<body>
+  <!-- Modulo 5 · Rutas de atencion
+       Component: comparison-table
+       data-headers: JSON array of column header strings.
+       data-config:  JSON array of row arrays. -->
+
+  <div class="container py-4">
+    <h2 class="mb-1" style="color:var(--green-dark);">Rutas de atencion segun el tipo de violencia</h2>
+    <p class="text-muted mb-4">Consulta la primera instancia y las entidades de apoyo para cada tipo de violencia.</p>
+
+    <div data-component="comparison-table"
+         data-headers='["Tipo de violencia","Primera instancia","Entidad de apoyo","Marco legal"]'
+         data-config='[
+           ["Fisica / Sexual","Hospital o clinica","Fiscalia, Comisaria de Familia","Ley 1257, Art. 19"],
+           ["Psicologica","Comisaria de Familia","ICBF, Defensoria del Pueblo","Ley 1257, Art. 7"],
+           ["Economica","Comisaria de Familia","Superintendencia de Notariado","Ley 1257, Art. 8"],
+           ["Intrafamiliar","Policia Nacional","Comisaria de Familia, Fiscalia","Ley 599 de 2000"]
+         ]'>
+    </div>
+
+    <!-- Bootstrap callout -->
+    <div class="alert alert-warning mt-4" role="alert">
+      <strong>Importante:</strong> Aunque cada tipo tiene una primera instancia, cualquier entidad del Estado que reciba el caso debe activar la ruta de atencion inmediatamente.
+    </div>
+  </div>
+</body>
