@@ -1,0 +1,355 @@
+/* ==========================================================
+   SCREENS.CSS  –  Styles for reusable screen types
+   ========================================================== */
+
+/* ── Base screen container ── */
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+}
+
+/* ── Welcome Screen ── */
+.screen-welcome {
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.welcome-header {
+  margin-bottom: 32px;
+}
+
+.welcome-greeting {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.welcome-course {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--green-dark);
+  margin: 0;
+}
+
+.welcome-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.welcome-module-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.welcome-intro {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.welcome-progress {
+  margin-top: 16px;
+}
+
+.progress-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.progress-bar-mini {
+  position: relative;
+  height: 24px;
+  background: var(--teal-main);
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  min-width: 150px;
+  overflow: hidden;
+}
+
+.progress-bar-mini-fill {
+  height: 100%;
+  background: var(--yellow-main);
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+.progress-bar-mini-text {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--white);
+  z-index: 2;
+}
+
+.welcome-footer {
+  margin-top: 24px;
+}
+
+.welcome-cta {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Video Screen ── */
+.screen-video {
+  justify-content: flex-start;
+}
+
+.video-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 32px;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+}
+
+.video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-info {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.video-character {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 8px;
+}
+
+.video-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.video-meta {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-top: 12px;
+}
+
+.video-title {
+  display: inline-block;
+  background: var(--bg-secondary);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── Carousel Screen ── */
+.screen-carousel {
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.carousel-slide-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+}
+
+.carousel-slide-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.carousel-slide-objective {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.carousel-slide-contents {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.carousel-content-item {
+  font-size: 0.85rem;
+  padding: 6px 0;
+  color: var(--text-muted);
+}
+
+.carousel-content-item::before {
+  content: "✓ ";
+  color: var(--green-main);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* Carousel arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: var(--green-dark);
+  border: none;
+  border-radius: 50%;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+  background: var(--green-main);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.carousel-arrow--prev {
+  left: 16px;
+}
+
+.carousel-arrow--next {
+  right: 16px;
+}
+
+/* Carousel dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--border);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.carousel-dot.active {
+  background: var(--green-main);
+  width: 28px;
+  border-radius: 6px;
+}
+
+/* Carousel footer */
+.carousel-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.carousel-btn-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green-main);
+  color: var(--white);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.carousel-btn-continue:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.carousel-btn-continue svg {
+  width: 20px;
+  height: 20px;
+}

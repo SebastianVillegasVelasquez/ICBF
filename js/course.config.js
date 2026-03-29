@@ -2,21 +2,34 @@
  * course.config.js
  *
  * SINGLE SOURCE OF TRUTH for course structure.
+ * 
+ * Pages now use SCREEN TYPES instead of HTML files.
+ * This makes the course modular, reusable, and maintainable.
+ *
+ * Screen types available:
+ *   - 'welcome' → WelcomeScreen (module intro)
+ *   - 'video'   → VideoScreen (video player + character info)
+ *   - 'carousel'→ CarouselScreen (carousel of modules)
+ *   - 'html'    → Load from /pages/ (legacy, for custom content)
  *
  * HOW TO USE:
- *   - Each module has a title, optional description/highlights for the cover,
- *     and a pages[] array.
- *   - Each page ONLY needs a title and a file path pointing to an HTML file
- *     inside /pages/<module-folder>/.
- *   - The content team edits the HTML files directly — no JSON sections here.
+ *   Each page needs:
+ *     - title: string
+ *     - type: 'welcome' | 'video' | 'carousel' | 'html'
+ *     - config: object with type-specific settings
  *
- * ADDING A NEW PAGE:
- *   1. Create the HTML file in /pages/<module-folder>/
- *   2. Add an entry: { title: "Mi pagina", file: "pages/module-X/mi-pagina.html" }
+ * EXAMPLES:
+ *   Welcome page:
+ *     { title: "Bienvenida", type: "welcome", config: { moduleNumber: 1, ... } }
  *
- * ADDING A NEW MODULE:
- *   1. Create a folder under /pages/ (e.g. /pages/module12/)
- *   2. Add a new object to the modules[] array below
+ *   Video page:
+ *     { title: "Video", type: "video", config: { videoUrl: "...", characterName: "..." } }
+ *
+ *   Carousel page:
+ *     { title: "Modulos", type: "carousel", config: { slides: [...] } }
+ *
+ *   HTML page (legacy):
+ *     { title: "Contenido", type: "html", file: "pages/module0/custom.html" }
  */
 
 export const course = {
@@ -24,225 +37,196 @@ export const course = {
 
   modules: [
 
-    // ── 0: Introduccion ─────────────────────────────────────
+    // ── 0: Introduction ─────────────────────────────────────
     {
-      title: "Introduccion",
-      description: "Conoce el proposito de este curso, su estructura y la normativa que lo sustenta.",
-      highlights: [
-        "Marco legal de la Ley 1257 de 2008",
-        "Objetivo del curso y metodologia",
-        "Competencias a desarrollar"
-      ],
+      title: "Introducción",
+      description: "Conoce el propósito de este curso, su estructura y la normativa que lo sustenta.",
+      highlights: ["Marco legal", "Objetivo del curso", "Competencias"],
       showCover: true,
       pages: [
         {
           title: "Bienvenida",
-          file: "pages/module0/bienvenida.html"
+          type: "welcome",
+          config: {
+            courseTitle: "Ley 1257: No violencia contra la mujer",
+            moduleNumber: 1,
+            moduleTitle: "Introducción",
+            introText: "Este curso te introduce en la Ley 1257 de 2008, su marco legal, objetivos y competencias que desarrollarás.",
+            progressPercent: 0
+          }
         }
       ]
     },
 
-    // ── 1: Acordeon ──────────────────────────────────────────
+    // ── 1: Preguntas Frecuentes (Accordion) ──────────────────
     {
-      title: "Modulo 1: Preguntas frecuentes",
-      description: "Usa el acordeon para explorar respuestas a las preguntas mas comunes sobre la Ley 1257.",
-      highlights: [
-        "Poblacion protegida por la ley",
-        "Instituciones responsables",
-        "Medidas de proteccion disponibles"
-      ],
+      title: "Preguntas Frecuentes",
+      description: "Usa el acordeón para explorar respuestas a las preguntas más comunes.",
+      highlights: ["Población protegida", "Derechos de las víctimas", "Mecanismos de protección"],
       showCover: true,
       pages: [
         {
-          title: "Acordeon: preguntas frecuentes",
+          title: "Preguntas Frecuentes",
+          type: "html",
           file: "pages/module1/faq.html"
         }
       ]
     },
 
-    // ── 2: Tarjetas ──────────────────────────────────────────
+    // ── 2: Tipos de Violencia ────────────────────────────────
     {
-      title: "Modulo 2: Tipos de violencia",
-      description: "Conoce las cuatro formas de violencia reconocidas por la Ley 1257 a traves de tarjetas informativas.",
-      highlights: [
-        "Violencia fisica y sus consecuencias",
-        "Violencia psicologica y emocional",
-        "Violencia sexual y economica"
-      ],
+      title: "Tipos de Violencia",
+      description: "Conoce las categorías de violencia contempladas en la Ley 1257.",
+      highlights: ["Violencia física", "Violencia psicológica", "Violencia económica"],
       showCover: true,
       pages: [
         {
-          title: "Tarjetas: formas de violencia",
+          title: "Clasificación",
+          type: "html",
           file: "pages/module2/tipos-violencia.html"
         }
       ]
     },
 
-    // ── 3: Carrusel ──────────────────────────────────────────
+    // ── 3: Buenas Prácticas ──────────────────────────────────
     {
-      title: "Modulo 3: Buenas practicas",
-      description: "Desliza para conocer las buenas practicas institucionales en la atencion a victimas de violencia.",
-      highlights: [
-        "Escucha activa y sin juicios",
-        "Activacion oportuna de la ruta",
-        "Trabajo interinstitucional"
-      ],
+      title: "Buenas Prácticas",
+      description: "Estrategias y procedimientos recomendados para responder a casos.",
+      highlights: ["Protección de víctimas", "Investigación", "Seguimiento"],
       showCover: true,
       pages: [
         {
-          title: "Carrusel: buenas practicas",
+          title: "Buenas Prácticas",
+          type: "html",
           file: "pages/module3/buenas-practicas.html"
         }
       ]
     },
 
-    // ── 4: Lista de verificacion ─────────────────────────────
+    // ── 4: Compromisos ───────────────────────────────────────
     {
-      title: "Modulo 4: Compromisos",
-      description: "Verifica cuales compromisos ya practicas como servidor publico en la atencion a victimas.",
-      highlights: [
-        "Identificacion de senales de alerta",
-        "Activacion de la ruta de atencion",
-        "Trato digno y sin revictimizacion"
-      ],
+      title: "Compromisos",
+      description: "Compromisos institucionales y personales para prevenir la violencia.",
+      highlights: ["Responsabilidad", "Prevención", "Acción"],
       showCover: true,
       pages: [
         {
-          title: "Lista de verificacion: compromisos",
+          title: "Compromisos",
+          type: "html",
           file: "pages/module4/compromisos.html"
         }
       ]
     },
 
-    // ── 5: Tabla comparativa ─────────────────────────────────
+    // ── 5: Rutas de Atención ─────────────────────────────────
     {
-      title: "Modulo 5: Rutas de atencion",
-      description: "Compara las rutas de atencion disponibles segun el tipo de violencia reportada.",
-      highlights: [
-        "Ruta para violencia fisica y sexual",
-        "Ruta para violencia psicologica",
-        "Ruta para violencia economica"
-      ],
+      title: "Rutas de Atención",
+      description: "Procedimientos a seguir ante casos de violencia.",
+      highlights: ["Identificación", "Derivación", "Seguimiento"],
       showCover: true,
       pages: [
         {
-          title: "Tabla: rutas de atencion",
+          title: "Rutas de Atención",
+          type: "html",
           file: "pages/module5/rutas.html"
         }
       ]
     },
 
-    // ── 6: Arrastre y suelte ─────────────────────────────────
+    // ── 6: Clasificador (Drag & Drop) ────────────────────────
     {
-      title: "Modulo 6: Clasifica la violencia",
-      description: "Pon a prueba tu comprension clasificando situaciones reales en el tipo de violencia que representan.",
-      highlights: [
-        "Reconocer violencia psicologica",
-        "Identificar violencia economica",
-        "Distinguir tipos en situaciones cotidianas"
-      ],
+      title: "Clasificador de Violencia",
+      description: "Ejercicio interactivo: clasifica tipos de violencia.",
+      highlights: ["Violencia psicológica", "Violencia económica", "Aprendizaje activo"],
       showCover: true,
       pages: [
         {
-          title: "Arrastre: clasifica la violencia",
+          title: "Clasificador",
+          type: "html",
           file: "pages/module6/clasifica.html"
         }
       ]
     },
 
-    // ── 7: Mapa de puntos calientes ──────────────────────────
+    // ── 7: Mapa (Hotspot) ────────────────────────────────────
     {
-      title: "Modulo 7: Mapa de la ruta",
-      description: "Explora el mapa interactivo para conocer el rol de cada entidad en la ruta de atencion.",
-      highlights: [
-        "Denuncia inicial y primeras medidas",
-        "Rol de la Comisaria de Familia",
-        "Intervencion del ICBF y la Fiscalia"
-      ],
+      title: "Mapa de Recursos",
+      description: "Explora los recursos disponibles en tu región.",
+      highlights: ["Recursos locales", "Centros de atención", "Líneas de ayuda"],
       showCover: true,
       pages: [
         {
-          title: "Mapa interactivo de atencion",
+          title: "Mapa de Recursos",
+          type: "html",
           file: "pages/module7/mapa.html"
         }
       ]
     },
 
-    // ── 8: Seleccion multiple ────────────────────────────────
+    // ── 8: Evaluación (Multiple Choice) ──────────────────────
     {
-      title: "Modulo 8: Evaluacion",
-      description: "Responde las preguntas de seleccion multiple para evaluar tu comprension de la Ley 1257.",
-      highlights: [
-        "Fecha de expedicion de la ley",
-        "Tipos de violencia reconocidos",
-        "Instituciones competentes"
-      ],
+      title: "Evaluación",
+      description: "Verifica tu comprensión del contenido.",
+      highlights: ["10 preguntas", "Retroalimentación", "Certificado"],
       showCover: true,
       pages: [
         {
-          title: "Seleccion multiple: evaluacion",
+          title: "Evaluación Final",
+          type: "html",
           file: "pages/module8/evaluacion.html"
         }
       ]
     },
 
-    // ── 9: Linea de tiempo ───────────────────────────────────
+    // ── 9: Normativa ─────────────────────────────────────────
     {
-      title: "Modulo 9: Evolucion normativa",
-      description: "Recorre los hitos normativos mas importantes en la proteccion de los derechos de las mujeres en Colombia.",
-      highlights: [
-        "Constitucion Politica de 1991",
-        "Codigo Penal de 2000",
-        "Ley 1257 de 2008 y reformas"
-      ],
+      title: "Marco Normativo",
+      description: "Documentos legales y normativas de referencia.",
+      highlights: ["Ley 1257", "Sentencias emblemáticas", "Jurisprudencia"],
       showCover: true,
       pages: [
         {
-          title: "Linea de tiempo: normativa",
+          title: "Normativa",
+          type: "html",
           file: "pages/module9/normativa.html"
         }
       ]
     },
 
-    // ── 10: Narrativa ────────────────────────────────────────
+    // ── 10: Fundamentos ──────────────────────────────────────
     {
-      title: "Modulo 10: Que es la Ley 1257",
-      description: "Recorre paso a paso los fundamentos de la Ley 1257 y su impacto en la vida de las mujeres colombianas.",
-      highlights: [
-        "Definicion y alcance de la ley",
-        "Derechos que garantiza",
-        "Obligaciones del Estado"
-      ],
+      title: "Fundamentos Teóricos",
+      description: "Conceptos y teorías que sustentan la Ley.",
+      highlights: ["Derechos humanos", "Igualdad", "Dignidad"],
       showCover: true,
       pages: [
         {
-          title: "Narrativa: fundamentos de la ley",
+          title: "Fundamentos",
+          type: "html",
           file: "pages/module10/fundamentos.html"
         }
       ]
     },
 
-    // ── 11: Caja de herramientas ─────────────────────────────
+    // ── 11: Herramientas y Bibliografía ──────────────────────
     {
-      title: "Modulo 11: Herramientas",
-      description: "Accede a los recursos practicos y documentos de apoyo para la atencion de casos.",
-      highlights: [
-        "Protocolo de atencion institucional",
-        "Formulario unificado de denuncia",
-        "Directorio de servicios por region"
-      ],
+      title: "Recursos Adicionales",
+      description: "Herramientas y referencias bibliográficas.",
+      highlights: ["Plantillas", "Guías", "Bibliografía"],
       showCover: true,
       pages: [
         {
-          title: "Caja de herramientas",
+          title: "Herramientas",
+          type: "html",
           file: "pages/module11/herramientas.html"
         },
         {
-          title: "Bibliografia y referencias",
+          title: "Bibliografía",
+          type: "html",
           file: "pages/module11/bibliografia.html"
         }
       ]
     }
 
-  ]
+  ] // end modules
 };

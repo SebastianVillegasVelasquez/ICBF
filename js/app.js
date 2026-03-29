@@ -19,6 +19,12 @@ import { buildRoutes, getRoute, getTotalRoutes, getCourseTitle } from './router.
 import { renderModuleCover } from './modules/module-renderer.js';
 import { initSCORM, getLocation, setLocation, setProgress, setCompleted, setIncomplete, finishSCORM } from './scorm.js';
 
+// ── Screen imports ─────────────────────────────────────────
+// Modular, reusable screen types
+import { WelcomeScreen } from './screens/screen-welcome.js';
+import { VideoScreen } from './screens/screen-video.js';
+import { CarouselScreen } from './screens/screen-carousel.js';
+
 // ── Component registry ─────────────────────────────────────
 // Each entry maps a data-component name to { render, init }.
 // render(data) → HTML string
@@ -233,31 +239,54 @@ function renderRoute(route) {
       navigateTo(currentIndex + 1);
     });
 
-  } else if (route.type === 'page') {
-    // Show a brief loading state while fetching
+  } else if (route.type === 'welcome') {
+    // Welcome screen — modular, config-driven
+    const screen = new WelcomeScreen(route.config || {});
+    screen.mount(appEl);
+
+  } else if (route.type === 'video') {
+    // Video player screen — modular, config-driven
+    const screen = new VideoScreen(route.config || {});
+    screen.mount(appEl);
+
+  } else if (route.type === 'carousel') {
+    // Carousel screen — modular, config-driven
+    const screen = new CarouselScreen(route.config || {});
+    screen.mount(appEl);
+
+  } else if (route.type === 'page' || route.type === 'html') {
+    // HTML pages — fetch from disk
     appEl.innerHTML = `<div class="page-loading">Cargando...</div>`;
 
-    fetch(route.page.file)
+    const filePath = route.page?.file || route.file;
+    if (!filePath) {
+      appEl.innerHTML = `<div class="page-error"><strong>Error</strong><p>No file specified</p></div>`;
+      return;
+    }
+
+    fetch(filePath)
       .then(r => {
-        if (!r.ok) throw new Error(`${r.status} ${r.statusText} — ${route.page.file}`);
+        if (!r.ok) throw new Error(`${r.status} ${r.statusText} — ${filePath}`);
         return r.text();
       })
       .then(html => {
-        // Extract only the <body> content if the file is a full HTML document,
-        // otherwise use the raw HTML (partials / fragments are fine too).
+        // Extract body content or use raw HTML
         const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
         appEl.innerHTML = bodyMatch ? bodyMatch[1] : html;
 
-        // Boot any interactive components declared in the fetched HTML
+        // Boot interactive components in fetched HTML
         initComponentsInContainer(appEl);
       })
       .catch(err => {
         appEl.innerHTML = `
           <div class="page-error">
-            <strong>Error al cargar la pagina</strong>
+            <strong>Error al cargar la página</strong>
             <p>${err.message}</p>
           </div>`;
       });
+
+  } else {
+    appEl.innerHTML = `<div class="page-error"><strong>Unknown screen type</strong><p>${route.type}</p></div>`;
   }
 }
 
