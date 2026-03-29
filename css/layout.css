@@ -133,149 +133,65 @@ html, body {
 .content-render::-webkit-scrollbar-track { background: transparent; }
 .content-render::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
 
-/* ── Footer nav ── */
-.card-footer {
+/* ── Vertical pill navigation ── */
+.pill-nav {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 16px 24px;
-  border-top: 1px solid var(--border);
-  background: var(--white);
-  flex-shrink: 0;
+  gap: 0;
+  background: var(--amber-main);
+  border-radius: 60px;
+  padding: 18px 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  z-index: 100;
 }
 
-/* Nav buttons — circular dark-green with label below */
-.nav-btn {
+.pill-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 0.72rem;
-  font-weight: 600;
+  padding: 10px 4px;
+  transition: transform 0.15s;
   color: var(--white);
-  transition: transform 0.15s, opacity 0.15s;
-  background: transparent;
 }
-.nav-btn:hover { transform: translateY(-2px); }
-.nav-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.pill-btn:hover { transform: scale(1.08); }
+.pill-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-.nav-btn svg {
+.pill-icon {
   width: 48px;
   height: 48px;
   background: var(--green-dark);
   border-radius: 50%;
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--white);
+  flex-shrink: 0;
   transition: background 0.2s;
+}
+.pill-btn:hover:not(:disabled) .pill-icon { background: var(--green-mid); }
+
+.pill-icon svg {
+  width: 24px;
+  height: 24px;
   display: block;
 }
-.nav-btn:hover:not(:disabled) svg { background: var(--green-mid); }
 
-/* Download button — pill style */
-.nav-btn--download svg {
-  background: var(--green-main);
-  border-radius: 50%;
-}
-.nav-btn--download {
-  flex-direction: row;
-  background: var(--green-main);
-  color: var(--white);
-  padding: 10px 22px 10px 10px;
-  border-radius: var(--radius-pill);
-  gap: 10px;
-  font-size: 0.9rem;
-}
-.nav-btn--download svg {
-  width: 36px;
-  height: 36px;
-  padding: 8px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.nav-btn--download span { font-weight: 700; }
-
-/* ── RIGHT SIDEBAR ── */
-.sidebar {
-  width: var(--sidebar-w);
-  background: var(--amber-main);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0 16px;
-  flex-shrink: 0;
-}
-
-.sidebar-logo {
-  width: 100%;
-  padding: 0 10px;
-  flex-shrink: 0;
-}
-.logo-img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-
-.sidebar-mid {
-  flex: 1;
-  width: 100%;
-  overflow-y: auto;
-  padding: 12px 8px;
-}
-.sidebar-mid::-webkit-scrollbar { display: none; }
-
-/* Sidebar bottom: module chip + % + segmented bar */
-.sidebar-bottom {
-  width: 100%;
-  padding: 0 10px 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.module-chip {
-  background: rgba(255,255,255,0.85);
-  color: var(--amber-dark);
-  font-size: 0.72rem;
+.pill-label {
+  font-size: 0.68rem;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255,255,255,0.5);
-  white-space: nowrap;
-  text-align: center;
-}
-
-.progress-pct {
   color: var(--white);
-  font-size: 1.1rem;
-  font-weight: 800;
-}
-
-/* Segmented progress bar */
-.seg-progress {
-  display: flex;
-  gap: 2px;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 90%;
-}
-.seg-block {
-  width: 8px;
-  height: 10px;
-  border-radius: 2px;
-  background: rgba(255,255,255,0.25);
-  border: 1px solid rgba(255,255,255,0.4);
-  transition: background 0.3s;
-}
-.seg-block.filled {
-  background: var(--green-main);
-  border-color: var(--green-dark);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 62px;
 }
 
 /* ── Slide nav panel ── */
@@ -366,28 +282,8 @@ html, body {
 .snav-page.visited::before { content: "✓ "; font-size: 0.75rem; color: var(--green-main); }
 .snav-page.active.visited::before { color: rgba(255,255,255,0.8); }
 
-/* Sidebar right nav items */
-.sidebar-nav-module {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: rgba(255,255,255,0.7);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 6px 4px 2px;
-}
-.sidebar-nav-page {
-  font-size: 0.68rem;
-  padding: 5px 6px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: rgba(255,255,255,0.85);
-  transition: all 0.2s;
-  margin: 2px 0;
-  line-height: 1.3;
-}
-.sidebar-nav-page:hover { background: rgba(255,255,255,0.15); }
-.sidebar-nav-page.active { background: var(--green-dark); color: var(--white); font-weight: 700; }
-.sidebar-nav-page.visited::before { content: "✓ "; font-size: 0.6rem; }
+/* Sidebar nav items — kept for backwards compat but hidden */
+.sidebar-nav-module, .sidebar-nav-page { display: none; }
 
 /* ── Nav module labels — hidden by default (tracking still works) ──
    To re-show module labels, remove this rule or set display:block      */
