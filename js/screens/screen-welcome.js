@@ -1,17 +1,18 @@
 /**
  * screen-welcome.js
  * 
- * Module welcome screen.
- * Shows: welcome message + course title (top), module title + intro text + progress (center)
- * Clean, no graphics.
+ * Pantalla de bienvenida al módulo.
+ * - Arriba: Mensaje de bienvenida + nombre del curso
+ * - Centro: Título del módulo + texto introductorio + indicador de progreso
+ * - Diseño limpio, sin elementos gráficos
  * 
- * Config shape:
+ * Config:
  *   {
- *     courseTitle: "Curso ICBF",
+ *     courseTitle: "Ley 1257",
  *     moduleNumber: 1,
- *     moduleTitle: "Inicio y Generalidades",
- *     introText: "Bienvenido al primer módulo...",
- *     progressPercent: 0
+ *     moduleTitle: "Introducción",
+ *     introText: "Bienvenido...",
+ *     progressPercent: 25
  *   }
  */
 
@@ -29,35 +30,36 @@ export class WelcomeScreen extends Screen {
 
     return `
       <div class="screen screen-welcome">
-        <!-- Top: Welcome message + course title -->
+        <!-- Parte superior: Mensaje de bienvenida + nombre del curso -->
         <div class="welcome-header">
           <p class="welcome-greeting">Bienvenido al Módulo ${moduleNumber}</p>
-          <h1 class="welcome-course">${courseTitle}</h1>
+          <h1 class="welcome-course-title">${courseTitle}</h1>
         </div>
 
-        <!-- Center: Module title + intro + progress -->
+        <!-- Centro: Título del módulo + texto + progreso -->
         <div class="welcome-body">
           <h2 class="welcome-module-title">${moduleTitle}</h2>
-          <p class="welcome-intro">${introText}</p>
+          <p class="welcome-intro-text">${introText}</p>
           
-          <div class="welcome-progress">
-            <span class="progress-label">Progreso del curso</span>
-            <div class="progress-bar-mini">
-              <div class="progress-bar-mini-fill" style="width: ${progressPercent}%"></div>
-              <span class="progress-bar-mini-text">${progressPercent}%</span>
+          <!-- Indicador de progreso del curso -->
+          <div class="welcome-progress-section">
+            <label class="progress-label">Progreso del curso</label>
+            <div class="progress-indicator">
+              <div class="progress-indicator-fill" style="width: ${progressPercent}%"></div>
             </div>
+            <span class="progress-percentage">${progressPercent}%</span>
           </div>
         </div>
 
-        <!-- Footer: Call to action or instructions -->
+        <!-- Footer: Instrucción de navegación -->
         <div class="welcome-footer">
-          <p class="welcome-cta">Haz clic en "Adelante" para comenzar</p>
+          <p class="welcome-instruction">Haz clic en "Adelante" para continuar</p>
         </div>
       </div>
     `;
   }
 
   init() {
-    // No interactivity needed, navigation buttons in pill-nav handle progression
+    // No hay interactividad específica - el menú de navegación (pill-nav) maneja la progresión
   }
 }

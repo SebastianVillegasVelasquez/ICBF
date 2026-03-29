@@ -1,18 +1,22 @@
 /**
  * screen-carousel.js
  * 
- * Carousel screen with 5 slides (one per module).
- * Each slide: icon + title + objective + contents list.
- * Dots pagination, left/right arrows, "Continuar" button.
+ * Pantalla con carrusel de módulos.
+ * - Carrusel horizontal con 5 slides
+ * - Cada slide: ícono + título + objetivo + contenidos
+ * - Paginación con dots
+ * - Flechas de navegación izquierda/derecha
+ * - Botón "Continuar" al final
+ * - Barra de progreso + menú de navegación incluidos
  * 
- * Config shape:
+ * Config:
  *   {
  *     slides: [
  *       {
- *         icon: "🏠",
+ *         icon: "🌳",
  *         title: "Módulo 1",
- *         objective: "Objetivo del módulo...",
- *         contents: ["Contenido 1", "Contenido 2", ...]
+ *         objective: "Objetivo del módulo",
+ *         contents: ["Contenido 1", "Contenido 2"]
  *       },
  *       ...
  *     ]
@@ -31,11 +35,11 @@ export class CarouselScreen extends Screen {
     const { slides = [] } = this.config;
 
     if (slides.length === 0) {
-      return '<div class="screen screen-carousel"><p>No slides available</p></div>';
+      return '<div class="screen screen-carousel"><p>No hay diapositivas disponibles</p></div>';
     }
 
     const dotsHtml = slides
-      .map((_, i) => `<button class="carousel-dot ${i === 0 ? 'active' : ''}" data-slide="${i}" aria-label="Slide ${i + 1}"></button>`)
+      .map((_, i) => `<button class="carousel-dot ${i === 0 ? 'active' : ''}" data-slide="${i}" aria-label="Diapositiva ${i + 1}"></button>`)
       .join('');
 
     const slidesHtml = slides
@@ -44,28 +48,28 @@ export class CarouselScreen extends Screen {
 
     return `
       <div class="screen screen-carousel">
-        <!-- Carousel container -->
+        <!-- Contenedor del carrusel -->
         <div class="carousel-wrapper">
-          <!-- Slides -->
+          <!-- Diapositivas -->
           <div class="carousel-slides">
             ${slidesHtml}
           </div>
 
-          <!-- Navigation arrows -->
-          <button class="carousel-arrow carousel-arrow--prev" aria-label="Anterior slide">
+          <!-- Flechas de navegación -->
+          <button class="carousel-arrow carousel-arrow--prev" aria-label="Diapositiva anterior">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
           </button>
-          <button class="carousel-arrow carousel-arrow--next" aria-label="Siguiente slide">
+          <button class="carousel-arrow carousel-arrow--next" aria-label="Siguiente diapositiva">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
           </button>
         </div>
 
-        <!-- Dots pagination -->
+        <!-- Paginación con dots -->
         <div class="carousel-dots">
           ${dotsHtml}
         </div>
 
-        <!-- Call to action -->
+        <!-- Botón continuar -->
         <div class="carousel-footer">
           <button class="carousel-btn-continue" id="carousel-continue">
             Continuar
@@ -117,8 +121,7 @@ export class CarouselScreen extends Screen {
 
     if (continueBtn) {
       continueBtn.addEventListener('click', () => {
-        console.log('[carousel] Continue button clicked');
-        // Trigger navigation in app.js (via custom event or callback)
+        // Dispara evento personalizado para que app.js maneje la navegación
         this.el.dispatchEvent(new CustomEvent('carousel-continue', { detail: { slideIndex: this.currentSlide } }));
       });
     }
@@ -137,6 +140,6 @@ export class CarouselScreen extends Screen {
   }
 
   destroy() {
-    // Clean up event listeners if needed
+    // Limpieza de listeners si es necesario
   }
 }
