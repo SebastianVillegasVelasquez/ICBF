@@ -16,6 +16,10 @@
   --amber-main:   #c17f3a;
   --amber-light:  #e8a85a;
 
+  /* Teal for progress bar */
+  --teal-main:    #20b2aa;
+  --yellow-main:  #ffc107;
+
   /* Neutral */
   --white:        #ffffff;
   --bg-app:       #f0f2f0;

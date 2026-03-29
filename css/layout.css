@@ -36,7 +36,7 @@ html, body {
 /* ── Header (removed — now just progress bar) ── */
 .card-header { display: none; }
 
-/* ── Chevron Progress Bar ── */
+/* ── Chevron Progress Bar (matching design image) ── */
 .progress-bar-container {
   padding: 20px 24px 0;
   flex-shrink: 0;
@@ -45,52 +45,58 @@ html, body {
 .progress-bar-chevron {
   position: relative;
   height: 52px;
-  max-width: 400px;
+  max-width: 500px;
   background: var(--teal-main);
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: visible;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
-/* Filled portion (teal to yellow transition) */
+/* Percentage display box on left */
+.progress-bar-percentage {
+  position: relative;
+  z-index: 4;
+  background: var(--teal-main);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 12px 16px;
+  margin-left: -6px;
+  border-radius: 6px;
+  min-width: 60px;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: -2px 2px 6px rgba(0,0,0,0.12);
+}
+
+/* Yellow fill that grows left-to-right */
 .progress-bar-fill {
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
-  background: linear-gradient(90deg, var(--teal-main) 0%, var(--amber-main) 85%, var(--amber-main) 100%);
+  background: var(--yellow-main);
   width: 0%;
   transition: width 0.4s ease;
-  border-radius: 8px 0 0 8px;
+  border-radius: 6px 0 0 6px;
+  z-index: 1;
 }
 
-/* Percentage text */
-.progress-bar-percentage {
-  position: relative;
-  z-index: 2;
-  margin-left: 16px;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--white);
-  min-width: 45px;
-  white-space: nowrap;
-}
-
-/* Chevron arrow */
+/* Chevron arrow that moves with fill */
 .progress-bar-arrow {
   position: absolute;
-  left: 0;
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 26px 0 26px 20px;
-  border-color: transparent transparent transparent var(--amber-main);
+  border-width: 26px 0 26px 24px;
+  border-color: transparent transparent transparent var(--yellow-main);
   transition: left 0.4s ease;
+  left: 0%;
 }
 
 /* ── Header (removed) ── */
