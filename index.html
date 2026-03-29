@@ -17,7 +17,8 @@
     <!-- LEFT: main content card -->
     <main class="main-card" id="main-card">
 
-      <!-- Slide-out navigation panel -->
+      <!-- Slide-out navigation panel (hamburger menu - commented out for future use) -->
+      <!-- 
       <div id="menu-overlay" class="menu-overlay"></div>
       <nav id="slide-nav" class="slide-nav" aria-label="Navegación del curso">
         <div class="slide-nav-header">
@@ -26,23 +27,16 @@
         </div>
         <div id="slide-nav-content" class="slide-nav-body"></div>
       </nav>
+      -->
 
-      <!-- Header -->
-      <header class="card-header">
-        <button id="btn-menu" class="hamburger-btn" aria-label="Abrir menú">
-          <span class="hline"></span>
-          <span class="hline"></span>
-          <span class="hline"></span>
-        </button>
-        <h1 class="course-title" id="course-title">Curso ICBF</h1>
-        <div class="header-right">
-          <div class="location-chip">
-            <span class="location-label">Estás en:</span>
-            <strong id="current-location">—</strong>
-          </div>
-          <div class="page-chip">Página <span id="page-num">1</span></div>
+      <!-- Chevron progress bar -->
+      <div class="progress-bar-container">
+        <div class="progress-bar-chevron" id="progress-chevron">
+          <div class="progress-bar-fill"></div>
+          <div class="progress-bar-percentage" id="progress-percentage">0%</div>
+          <div class="progress-bar-arrow"></div>
         </div>
-      </header>
+      </div>
 
       <!-- Content -->
       <section class="content-area">

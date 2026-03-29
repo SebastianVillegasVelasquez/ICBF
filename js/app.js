@@ -137,7 +137,7 @@ let visitedSet   = new Set();
 let totalRoutes  = 0;
 
 // ── DOM refs ───────────────────────────────────────────────
-let appEl, progressTextEl, moduleChipEl, segProgressEl,
+let appEl, progressTextEl, progressFill, progressArrow,
     pageNumEl, currentLocationEl, courseTitleEl,
     btnHome, btnPrev, btnNext, btnPdf, btnMenu,
     slideNav, menuOverlay;
@@ -154,23 +154,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Cache DOM references
   appEl             = document.getElementById('app');
-  progressTextEl    = document.getElementById('progress-text');
-  moduleChipEl      = document.getElementById('module-chip');
-  segProgressEl     = document.getElementById('seg-progress');
-  pageNumEl         = document.getElementById('page-num');
-  currentLocationEl = document.getElementById('current-location');
-  courseTitleEl     = document.getElementById('course-title');
+  const progressChevron = document.getElementById('progress-chevron');
+  progressFill      = progressChevron?.querySelector('.progress-bar-fill');
+  progressArrow     = progressChevron?.querySelector('.progress-bar-arrow');
+  progressTextEl    = document.getElementById('progress-percentage');
+  pageNumEl         = null;  // removed from header
+  currentLocationEl = null;  // removed from header
+  courseTitleEl     = null;  // removed from header
   btnHome           = document.getElementById('btn-home');
   btnPrev           = document.getElementById('btn-prev');
   btnNext           = document.getElementById('btn-next');
   btnPdf            = document.getElementById('btn-pdf');
-  btnMenu           = document.getElementById('btn-menu');
-  slideNav          = document.getElementById('slide-nav');
-  menuOverlay       = document.getElementById('menu-overlay');
+  btnMenu           = null;  // commented out in HTML
+  slideNav          = null;  // commented out in HTML
+  menuOverlay       = null;  // commented out in HTML
 
-  // Set course title in header and browser tab
+  // Set course title in browser tab only (header removed)
   const title = getCourseTitle();
-  if (courseTitleEl) courseTitleEl.textContent = title;
   document.title = title;
 
   // SCORM — restore saved position if available
@@ -189,14 +189,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (btnPrev) btnPrev.addEventListener('click', () => navigateTo(currentIndex - 1));
   if (btnNext) btnNext.addEventListener('click', () => navigateTo(currentIndex + 1));
   if (btnPdf)  btnPdf.addEventListener('click',  exportPDF);
-  if (btnMenu) btnMenu.addEventListener('click',  toggleSlideNav);
-  if (menuOverlay) menuOverlay.addEventListener('click', closeSlideNav);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSlideNav(); });
-  document.getElementById('btn-close-menu')?.addEventListener('click', closeSlideNav);
+  // Hamburger menu commented out, so skip listeners
 
-  // Build both navigation lists
-  buildSideNav();
-  buildSlideNav();
+  // Build navigation lists (removed since sidebar nav is commented out)
+  // buildSideNav();
+  // buildSlideNav();
 
   // Load the first (or restored) page
   navigateTo(currentIndex);
@@ -214,8 +211,6 @@ function navigateTo(index) {
 
   renderRoute(route);
   updateUI(route);
-  updateSideNavState();
-  updateSlideNavState();
   syncSCORM();
 }
 
@@ -270,24 +265,10 @@ function renderRoute(route) {
 function updateUI(route) {
   const pct = Math.round((visitedSet.size / totalRoutes) * 100);
 
-  // Sidebar progress percentage + segmented bar
+  // Update chevron progress bar
   if (progressTextEl) progressTextEl.textContent = `${pct}%`;
-  if (segProgressEl) {
-    const SEG    = 10;
-    const filled = Math.round((pct / 100) * SEG);
-    segProgressEl.innerHTML = Array.from({ length: SEG }, (_, i) =>
-      `<span class="seg-block ${i < filled ? 'filled' : ''}"></span>`
-    ).join('');
-  }
-
-  // Module chip label in sidebar
-  if (moduleChipEl && route.module) {
-    moduleChipEl.textContent = route.module.title;
-  }
-
-  // Header breadcrumb + page counter
-  if (currentLocationEl) currentLocationEl.textContent = route.title || '—';
-  if (pageNumEl) pageNumEl.textContent = currentIndex + 1;
+  if (progressFill) progressFill.style.width = `${pct}%`;
+  if (progressArrow) progressArrow.style.left = `${pct}%`;
 
   // Disable Prev/Next at boundaries
   if (btnPrev) btnPrev.disabled = currentIndex === 0;

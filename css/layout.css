@@ -33,27 +33,69 @@ html, body {
   position: relative;
 }
 
-/* ── Header ── */
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 24px;
-  border-bottom: 1px solid var(--border);
-  background: var(--white);
+/* ── Header (removed — now just progress bar) ── */
+.card-header { display: none; }
+
+/* ── Chevron Progress Bar ── */
+.progress-bar-container {
+  padding: 20px 24px 0;
   flex-shrink: 0;
-  min-height: 62px;
 }
 
-.course-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--green-dark);
-  flex: 1;
-  white-space: nowrap;
+.progress-bar-chevron {
+  position: relative;
+  height: 52px;
+  max-width: 400px;
+  background: var(--teal-main);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  text-overflow: ellipsis;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
+
+/* Filled portion (teal to yellow transition) */
+.progress-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal-main) 0%, var(--amber-main) 85%, var(--amber-main) 100%);
+  width: 0%;
+  transition: width 0.4s ease;
+  border-radius: 8px 0 0 8px;
+}
+
+/* Percentage text */
+.progress-bar-percentage {
+  position: relative;
+  z-index: 2;
+  margin-left: 16px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--white);
+  min-width: 45px;
+  white-space: nowrap;
+}
+
+/* Chevron arrow */
+.progress-bar-arrow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 26px 0 26px 20px;
+  border-color: transparent transparent transparent var(--amber-main);
+  transition: left 0.4s ease;
+}
+
+/* ── Header (removed) ── */
+
+/* (removed — no longer needed) */
 
 .header-right {
   display: flex;
