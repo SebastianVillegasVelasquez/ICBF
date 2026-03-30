@@ -1,0 +1,221 @@
+/* ═══════════════════════════════════════════════════════════
+   SCREENS.CSS
+   Estilos para las pantallas del curso:
+     .screen-welcome  → Bienvenida al módulo
+     .screen-video    → Reproductor de video
+     .screen-content  → Plantilla de contenido con componentes
+   ═══════════════════════════════════════════════════════════ */
+
+/* Base compartida por todas las pantallas.
+   Se inyectan dentro de .content-render (el área scrolleable del shell). */
+.screen {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: screenFadeIn 0.25s ease;
+}
+
+@keyframes screenFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   PANTALLA DE BIENVENIDA
+   ───────────────────────────────────────────────────────── */
+
+.screen-welcome {
+  justify-content: space-between;
+  padding: 48px 56px;
+  gap: 32px;
+}
+
+.welcome-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.welcome-tag {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber-main);
+  margin: 0;
+}
+
+.welcome-course-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.welcome-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.welcome-module-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.welcome-intro-text {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.welcome-footer {
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.welcome-instruction {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────
+   PANTALLA DE VIDEO
+   ───────────────────────────────────────────────────────── */
+
+.screen-video {
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.video-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Video y su info debajo */
+.video-center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Ratio 16:9 */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+
+.video-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.video-character-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.video-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Columnas laterales de personajes */
+.video-character-side {
+  flex: 0 0 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.character-placeholder {
+  width: 100px;
+  height: 240px;
+  background: var(--green-light);
+  border: 2px dashed var(--green-mid);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-dark);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .video-layout { flex-direction: column; }
+  .video-character-side { display: none; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   PANTALLA DE CONTENIDO (plantilla genérica)
+   ───────────────────────────────────────────────────────── */
+
+.screen-content {
+  padding: 40px 48px;
+  gap: 32px;
+}
+
+/* Título opcional de la pantalla */
+.content-screen-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--green-light);
+}
+
+/* Cada componente inyectado tiene este wrapper */
+.component-wrapper {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────
+   RESPONSIVE GENERAL
+   ───────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .screen-welcome  { padding: 28px 24px; }
+  .screen-content  { padding: 24px 20px; }
+  .welcome-module-title { font-size: 1.8rem; }
+  .welcome-course-title { font-size: 1.3rem; }
+}

@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
 </head>
 <body>
 
@@ -17,7 +18,8 @@
     <!-- LEFT: main content card -->
     <main class="main-card" id="main-card">
 
-      <!-- Slide-out navigation panel -->
+      <!-- Slide-out navigation panel (hamburger menu - commented out for future use) -->
+      <!-- 
       <div id="menu-overlay" class="menu-overlay"></div>
       <nav id="slide-nav" class="slide-nav" aria-label="Navegación del curso">
         <div class="slide-nav-header">
@@ -26,63 +28,51 @@
         </div>
         <div id="slide-nav-content" class="slide-nav-body"></div>
       </nav>
+      -->
 
-      <!-- Header -->
-      <header class="card-header">
-        <button id="btn-menu" class="hamburger-btn" aria-label="Abrir menú">
-          <span class="hline"></span>
-          <span class="hline"></span>
-          <span class="hline"></span>
-        </button>
-        <h1 class="course-title" id="course-title">Curso ICBF</h1>
-        <div class="header-right">
-          <div class="location-chip">
-            <span class="location-label">Estás en:</span>
-            <strong id="current-location">—</strong>
-          </div>
-          <div class="page-chip">Página <span id="page-num">1</span></div>
+      <!-- Chevron progress bar -->
+      <div class="progress-bar-container">
+        <div class="progress-bar-chevron" id="progress-chevron">
+          <div class="progress-bar-fill"></div>
+          <div class="progress-bar-percentage" id="progress-percentage">0%</div>
+          <div class="progress-bar-arrow"></div>
         </div>
-      </header>
+      </div>
 
       <!-- Content -->
       <section class="content-area">
         <div id="app" class="content-render"></div>
       </section>
 
-      <!-- Footer nav -->
-      <footer class="card-footer">
-        <button id="btn-home" class="nav-btn nav-btn--icon" title="Inicio">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-          <span>Inicio</span>
-        </button>
-        <button id="btn-prev" class="nav-btn nav-btn--icon" title="Anterior">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-          <span>Atrás</span>
-        </button>
-        <button id="btn-next" class="nav-btn nav-btn--icon nav-btn--primary" title="Siguiente">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-          <span>Adelante</span>
-        </button>
-        <button id="btn-pdf" class="nav-btn nav-btn--download" title="Descargar PDF">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          <span>Descarga</span>
-        </button>
-      </footer>
-
     </main>
 
-    <!-- RIGHT: amber sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-logo">
-        <img src="assets/img/logo-bienestar.png" alt="Bienestar Familiar" class="logo-img">
-      </div>
-      <div class="sidebar-mid" id="sidebar-nav"></div>
-      <div class="sidebar-bottom">
-        <div class="module-chip" id="module-chip">Módulo 1</div>
-        <div class="progress-pct" id="progress-text">0%</div>
-        <div class="seg-progress" id="seg-progress" aria-label="Progreso del curso"></div>
-      </div>
-    </aside>
+    <!-- Vertical pill navigation -->
+    <nav class="pill-nav" aria-label="Navegación del curso">
+      <button id="btn-home" class="pill-btn" title="Inicio">
+        <span class="pill-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </span>
+        <span class="pill-label">Inicio</span>
+      </button>
+      <button id="btn-prev" class="pill-btn" title="Atrás">
+        <span class="pill-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </span>
+        <span class="pill-label">Atrás</span>
+      </button>
+      <button id="btn-next" class="pill-btn" title="Adelante">
+        <span class="pill-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </span>
+        <span class="pill-label">Adelante</span>
+      </button>
+      <button id="btn-pdf" class="pill-btn" title="Descargar Módulo">
+        <span class="pill-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </span>
+        <span class="pill-label">Descargar<br>Módulo</span>
+      </button>
+    </nav>
 
   </div>
 
