@@ -44,15 +44,15 @@ export const course = {
         // },
 
         // PANTALLA 2 — Video
-        {
-          type: "video",
-          title: "Video introductorio",
-          videoUrl: "",
-          characterName: "Ayla",
-          subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-          characterLeft: "Ayla",
-          characterRight: "Simón",
-        },
+        // {
+        //   type: "video",
+        //   title: "Video introductorio",
+        //   videoUrl: "",
+        //   characterName: "Ayla",
+        //   subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+        //   characterLeft: "Ayla",
+        //   characterRight: "Simón",
+        // },
 
         // PANTALLA 3 — Video 16:9
         // {
@@ -75,46 +75,57 @@ export const course = {
               data: {
                 slides: [
                   {
-                    heading: "MÓDULO  1. DERECHOS HUMANOS Y DERECHO INTERNACIONAL HUMANITARIO",
-                    body: "Objetivo del módulo: Reconocer los Derechos Humanos y Derecho Internacional Humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en los contextos sociales, institucionales." +
-                        "1.1.        Derechos Humanos\n" +
-                        "1.2.        Igualdad y no discriminación\n" +
-                        "1.3.        Derecho Internacional Humanitario"
+                    icon:"",
+                    title: "MÓDULO 1. DERECHOS HUMANOS Y DERECHO INTERNACIONAL HUMANITARIO",
+                    objective: "Reconocer los Derechos Humanos y Derecho Internacional Humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en los contextos sociales, institucionales.",
+                    contents: [
+                      "Derechos Humanos",
+                      "Igualdad y no discriminación",
+                      "Derecho Internacional Humanitario"
+                    ]
                   },
                   {
-                    heading: "MÓDULO 2. PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
-                    body: "Objetivo del módulo: Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.\n" +
-                        "\n" +
-                        "2.1.        Derechos civiles y políticos\n" +
-                        "2.2.        Mecanismos de protección\n" +
-                        "2.3.        Mecanismos de participación ciudadana\n" +
-                        "2.4.        Veedurías ciudadanas"
+                    icon:"",
+                    title: "MÓDULO 2. PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
+                    objective: "Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.",
+                    contents: [
+                      "Derechos civiles y políticos",
+                      "Mecanismos de protección",
+                      "Mecanismos de participación ciudadana",
+                      "Veedurías ciudadanas"
+                    ]
                   },
                   {
-                    heading: "MÓDULO 3. DERECHOS ECONÓMICOS, SOCIALES Y CULTURALES Y SUS MECANISMOS DE PROTECCIÓN",
-                    body: "Objetivo del módulo: Reconocer los Derechos Económicos, Sociales y Culturales y sus mecanismos de protección, para orientar acciones que contribuyan a la garantía integral de los derechos de niños, niñas y adolescentes.\n" +
-                        "\n" +
-                        "3.1.        Los Derechos Económicos, Sociales y Culturales\n" +
-                        "3.2.        Mecanismos de protección de los Derechos Económicos, Sociales y Culturales"
+                    icon:"",
+                    title: "MÓDULO 3. DERECHOS ECONÓMICOS, SOCIALES Y CULTURALES Y SUS MECANISMOS DE PROTECCIÓN",
+                    objective: "Reconocer los Derechos Económicos, Sociales y Culturales y sus mecanismos de protección, para orientar acciones que contribuyan a la garantía integral de los derechos de niños, niñas y adolescentes.",
+                    contents: [
+                      "Los Derechos Económicos, Sociales y Culturales",
+                      "Mecanismos de protección de los Derechos Económicos, Sociales y Culturales"
+                    ]
                   },
                   {
-                    heading: "MÓDULO 4. DERECHOS COLECTIVOS Y AMBIENTALES ",
-                    body: "Objetivo del módulo: Identificar los derechos colectivos y ambientales, los mecanismos nacionales de protección y los enfoques de multiculturalidad y diversidad étnica, para orientar acciones de protección y respeto por los derechos de niños, niñas y adolescentes y de sus comunidades, en los contextos sociales, culturales y territoriales\n" +
-                        "\n" +
-                        "4.1.        Derechos colectivos\n" +
-                        "4.2.        Mecanismos nacionales de protección\n" +
-                        "4.3.        Multiculturalidad y diversidad étnica"
+                    icon:"",
+                    title: "MÓDULO 4. DERECHOS COLECTIVOS Y AMBIENTALES",
+                    objective: "Identificar los derechos colectivos y ambientales, los mecanismos nacionales de protección y los enfoques de multiculturalidad y diversidad étnica, para orientar acciones de protección y respeto por los derechos de niños, niñas y adolescentes y de sus comunidades, en los contextos sociales, culturales y territoriales.",
+                    contents: [
+                      "Derechos colectivos",
+                      "Mecanismos nacionales de protección",
+                      "Multiculturalidad y diversidad étnica"
+                    ]
                   },
                   {
-                    heading: "MÓDULO 5. GRUPOS POBLACIONALES",
-                    body: "Objetivo del módulo: Reconocer los derechos de los distintos grupos poblacionales desde un enfoque diferencial, para orientar acciones institucionales inclusivas, respetuosas y pertinentes en la protección y garantía de los derechos\n" +
-                        "\n" +
-                        "5.1.        Derechos de mujeres y niñas\n" +
-                        "5.2.        Derechos de niños, niñas y adolescentes\n" +
-                        "5.3.        Derechos de la comunidad LGBTIQ+\n" +
-                        "5.4.        Derechos de pueblos y comunidades indígenas\n" +
-                        "5.5.        Derechos de las personas migrantes y refugiadas\n" +
-                        "5.6.        Personas con discapacidad y personas mayores"
+                    icon:"",
+                    title: "MÓDULO 5. GRUPOS POBLACIONALES",
+                    objective: "Reconocer los derechos de los distintos grupos poblacionales desde un enfoque diferencial, para orientar acciones institucionales inclusivas, respetuosas y pertinentes en la protección y garantía de los derechos.",
+                    contents: [
+                      "Derechos de mujeres y niñas",
+                      "Derechos de niños, niñas y adolescentes",
+                      "Derechos de la comunidad LGBTIQ+",
+                      "Derechos de pueblos y comunidades indígenas",
+                      "Derechos de las personas migrantes y refugiadas",
+                      "Personas con discapacidad y personas mayores"
+                    ]
                   }
                 ]
               }

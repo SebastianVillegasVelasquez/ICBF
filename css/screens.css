@@ -116,7 +116,7 @@
   justify-content: center;
   gap: 32px;
   width: 100%;
-  max-width: 900px; /* Reducido un poco para que se vea más contenido */
+  max-width: 1200px; /* Reducido un poco para que se vea más contenido */
   margin: 0 auto;
   z-index: 2; /* Por encima del árbol de fondo */
 }
@@ -135,17 +135,17 @@
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
-  background: #1a1a1a;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  /*background: #1a1a1a;*/
+  /*border-radius: 12px;*/
+  /*overflow: hidden;*/
+  /*box-shadow: 0 10px 30px rgba(0,0,0,0.25);*/
 }
 
 /* Imagen de referencia del video */
 .video-placeholder-img {
   position: absolute;
   top: 47%; /* Centrado vertical ajustado */
-  left: 47%; /* Centrado horizontal ajustado */
+  left: 40%; /* Centrado horizontal ajustado */
 
   /* Reducimos el tamaño un 5% y lo movemos hacia arriba y la izquierda */
   width: 95%;

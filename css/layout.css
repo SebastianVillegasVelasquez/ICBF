@@ -101,20 +101,37 @@ html, body {
   position: relative;
 }
 
+/* -- LOGO --*/
+
+.logo-container {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+
+  z-index: 10;
+  pointer-events: none;
+}
+
+.logo {
+  width: 120px; /* ajusta tamaño */
+  height: auto;
+  object-fit: contain;
+}
+
 /* ── Header (removed — now just progress bar) ── */
 .card-header { display: none; }
 
 /* ── Chevron Progress Bar (matching design image) ── */
 /* ── Chevron Progress Bar (refined + smaller) ── */
 .progress-bar-container {
-  padding: 70px 50px 0; /* menos espacio */
+  padding: 120px 50px 0; /* menos espacio */
   flex-shrink: 0;
 }
 
 .progress-bar-chevron {
   position: relative;
   height: 36px; /* antes 52px */
-  max-width: 420px; /* más compacto */
+  max-width: 360px; /* más compacto */
   background: var(--teal-main);
   border-radius: 5px;
   display: flex;
