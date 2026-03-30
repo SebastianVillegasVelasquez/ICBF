@@ -1,40 +1,101 @@
 /**
- * course.config.js
+ * course.config.js — Configuración del curso
  *
- * CONFIGURACIÓN CENTRAL DEL CURSO
- * 
- * Pantallas disponibles:
- *   - 'welcome' → Bienvenida al módulo
- *   - 'video'   → Reproductor de video
- *   - 'carousel'→ Carrusel de módulos/temas
+ * Cada módulo tiene un array "screens" con las pantallas en orden.
+ * Tipos de pantalla disponibles:
+ *
+ *   type: 'welcome'  → Pantalla de bienvenida
+ *     courseTitle    : Nombre del curso
+ *     moduleNumber   : Número del módulo
+ *     moduleTitle    : Título del módulo
+ *     introText      : Texto introductorio
+ *
+ *   type: 'video'    → Pantalla de video
+ *     videoUrl       : URL del video (mp4 o YouTube embed)
+ *     title          : Título del video
+ *     characterName  : Nombre del personaje que habla
+ *     subtitle       : Subtítulo o descripción
+ *     characterLeft  : Nombre personaje izquierdo (placeholder)
+ *     characterRight : Nombre personaje derecho (placeholder)
+ *
+ *   type: 'content'  → Plantilla de contenido con componentes
+ *     title          : Título de la pantalla (opcional)
+ *     components     : Array de componentes a renderizar en orden
+ *       Cada componente: { type: 'carousel' | 'accordion' | ..., data: { ... } }
  */
 
 export const course = {
-  title: "El ecosistema de los derechos humanos y Derecho Internacional Humanitario",
+  title: "Ecosistema de los Derechos Humanos",
 
   modules: [
 
-    // ── MÓDULO 0: Bienvenida General ────────────────────────
+    // ─────────────────────────────────────────────────────────
+    // MÓDULO 1
+    // ─────────────────────────────────────────────────────────
     {
-      title: "Bienvenida",
-      description: "Introducción al curso",
-      highlights: ["Inicio", "Objetivos", "Estructura"],
-      showCover: true,
-      pages: [
+      title: "Módulo 1: Introducción",
+      screens: [
+
+        // PANTALLA 1 — Bienvenida
         {
-          title: "Bienvenida General",
           type: "welcome",
-          config: {
-            courseTitle: "Ley 1257: Protección de la mujer",
-            moduleNumber: 0,
-            moduleTitle: "Bienvenido al Curso",
-            introText: "Este curso te guiará a través de los conceptos, normativas y mejores prácticas relacionadas con la Ley 1257 de 2008. Aprenderás sobre protección de derechos, prevención de violencia y procedimientos de atención.",
-            progressPercent: 0
-          }
+          title: "Bienvenida",
+          courseTitle: "Ecosistema de los Derechos Humanos",
+          moduleNumber: 1,
+          moduleTitle: "Introducción al Curso",
+          introText: "Bienvenido a este curso. Explorarás los conceptos fundamentales del ecosistema de derechos humanos y el Derecho Internacional Humanitario, desarrollando competencias para identificar, comprender y aplicar estos marcos normativos en tu labor diaria.",
+        },
+
+        // PANTALLA 2 — Video
+        {
+          type: "video",
+          title: "Video introductorio",
+          videoUrl: "",
+          characterName: "Ayla",
+          subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán.",
+          characterLeft: "Ayla",
+          characterRight: "Simón",
+        },
+
+        // PANTALLA 3 — Contenido con carrusel
+        // El componente 'carousel' espera slides con: heading y body
+        {
+          type: "content",
+          title: "Contenidos del curso",
+          components: [
+            {
+              type: "carousel",
+              data: {
+                title: "Lo que aprenderás en este curso",
+                slides: [
+                  {
+                    heading: "Módulo 1 — Marco normativo",
+                    body: "Reconoce el marco normativo de los derechos humanos: historia, Declaración Universal y Sistema ONU."
+                  },
+                  {
+                    heading: "Módulo 2 — DIH",
+                    body: "Comprende el Derecho Internacional Humanitario: Convenios de Ginebra, principios básicos y aplicación práctica."
+                  },
+                  {
+                    heading: "Módulo 3 — Mecanismos de protección",
+                    body: "Identifica sistemas regionales, la Corte IDH y los mecanismos de denuncia disponibles."
+                  },
+                  {
+                    heading: "Módulo 4 — Práctica",
+                    body: "Aplica los marcos normativos con casos prácticos, buenas prácticas y protocolos de actuación."
+                  },
+                  {
+                    heading: "Módulo 5 — Evaluación",
+                    body: "Verifica tu aprendizaje, accede a recursos adicionales y obtén tu certificación."
+                  }
+                ]
+              }
+            }
+          ]
         }
+
       ]
-    },
+    }
 
-
-  ] // end modules
+  ]
 };
