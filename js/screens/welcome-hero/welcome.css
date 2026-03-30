@@ -1,72 +1,155 @@
+/* ─────────────────────────────────────────
+   WELCOME HERO
+   ───────────────────────────────────────── */
+
 .welcome-hero {
-    height: 100%;
-    padding: 40px;
+    min-height: 100vh; /* 🔥 ocupa toda la pantalla */
+    padding: 60px 80px;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center; /* 🔥 centra horizontal */
+    justify-content: flex-start; /* 🔥 clave: evita space-between */
 
-    background: #f5f5f5;
     position: relative;
     overflow: hidden;
+
+    background-image: url('/assets/img/background-modulo-1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* TOP */
+/* Overlay */
+.welcome-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.welcome-hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ───────── TOP ───────── */
+
 .hero-top {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 120px;
+
+    margin-top: 20px; /* 🔥 reducido */
 }
 
-.hero-left h1 {
-    font-size: 2.5rem;
-    color: #4a5a70;
-}
-
+/* Contenedores */
+.hero-left,
 .hero-right {
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-right h1 {
-    font-size: 2.2rem;
-    color: #1f5e3b;
+/* Imágenes */
+.hero-left img,
+.hero-right img {
+    max-width: 620px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
-.hero-subtitle {
-    background: #d4a017;
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-}
+/* ───────── CENTER ───────── */
 
-/* CENTER */
 .hero-center {
     text-align: center;
+    max-width: 700px;
+    margin-top: 70px; /* 🔥 AHORA SÍ funciona */
 }
 
-.hero-center h2 {
-    font-size: 3rem;
-    color: #d4a017;
+/* Módulo 1 */
+.module-one {
+    font-size: 6rem;
+    font-weight: 800;
+    color: #E8C208;
+    margin-bottom: 10px;
 }
 
-.hero-center p {
-    max-width: 600px;
+/* Texto principal */
+.hero-text {
+    font-size: 1.6rem;
+    color: #4a5a70;
+    margin-bottom: 5px;
+}
+
+/* Subtexto */
+.hero-subtext {
+    font-size: 1.2rem;
+    color: #7a8594;
+}
+
+/* ───────── PROGRESS ───────── */
+
+.hero-progress-wrapper {
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-progress-wrapper .progress-bar-chevron {
+    position: relative;
+    height: 36px;
+    width: 100%;
+    max-width: 360px;
+    background: var(--teal-main);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
     margin: 0 auto;
 }
 
-/* PROGRESS */
-.hero-progress {
-    margin-top: 20px;
+.hero-progress-wrapper .progress-bar-percentage {
+    position: relative;
+    z-index: 4;
+    background: var(--teal-main);
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 16px 14px;
+    margin-left: -4px;
+    min-width: 48px;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: -1px 1px 4px rgba(0,0,0,0.12);
 }
 
-.progress-bar {
-    width: 300px;
-    height: 12px;
-    background: #ccc;
-    margin: 0 auto;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.progress-fill {
+.hero-progress-wrapper .progress-bar-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
     height: 100%;
-    background: #5cbdb9;
+    background: var(--yellow-main);
+    width: 20%;
+    transition: width 0.4s ease;
+    border-radius: 5px 0 0 5px;
+    z-index: 1;
+}
+
+.hero-progress-wrapper .progress-bar-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 18px 0 18px 16px;
+    border-color: transparent transparent transparent var(--yellow-main);
+    transition: left 0.4s ease;
+    left: 20%;
 }

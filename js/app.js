@@ -246,12 +246,25 @@ function bootComponents(container) {
     });
 }
 
-// ── Barra de progreso ───────────────────────────────────────
+// ── Barra de progreso compartida ───────────────────────────────────
 function updateProgressBar() {
-    const pct = Math.round((visitedSet.size / totalRoutes) * 100);
-    if (progressTextEl) progressTextEl.textContent = `${pct}%`;
-    if (progressFill) progressFill.style.width = `${pct}%`;
-    if (progressArrow) progressArrow.style.left = `${pct}%`;
+    // 1. La matemática: Empezar en 20 y repartir el resto en el 80% restante
+    const basePct = 20;
+    const avanceReal = visitedSet.size / totalRoutes; // Da un número entre 0 y 1
+    const pct = basePct + Math.round(avanceReal * (100 - basePct));
+
+    // 2. Buscar los elementos (usamos querySelector para que busque por clase)
+    // Esto buscará la barra ya sea la del index o la del welcome
+    const activeFill = document.querySelector('.progress-bar-fill');
+    const activeText = document.querySelector('.progress-bar-percentage');
+    const activeArrow = document.querySelector('.progress-bar-arrow');
+
+    // 3. Aplicar los cambios si los elementos existen en la pantalla actual
+    if (activeText) activeText.textContent = `${pct}%`;
+    if (activeFill) activeFill.style.width = `${pct}%`;
+    if (activeArrow) activeArrow.style.left = `${pct}%`;
+
+    // Control de botones
     if (btnPrev) btnPrev.disabled = currentIndex === 0;
     if (btnNext) btnNext.disabled = currentIndex === totalRoutes - 1;
 }

@@ -15,6 +15,22 @@ html, body {
   line-height: 1.5;
 }
 
+/*!* Contenedor específico para la barra dentro del Welcome Hero *!*/
+/*.hero-progress-wrapper {*/
+/*  width: 100%;*/
+/*  max-width: 600px; !* Para que no ocupe toda la pantalla y se vea elegante *!*/
+/*  margin: 10px auto 0 auto; !* Centrado horizontal y separado del texto de arriba *!*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
+
+/*!* Opcional: Si el Chevron necesita un tamaño específico aquí *!*/
+/*.hero-progress-wrapper .progress-bar-chevron {*/
+/*  width: 100%;*/
+/*  position: relative;*/
+/*  !* Aquí van tus estilos base del chevron que ya tienes creados *!*/
+/*}*/
+
 /* Cuando .app-shell tenga esta clase, se ocultan los elementos de navegación */
 .app-shell.layout-fullscreen .progress-bar-container,
 .app-shell.layout-fullscreen .pill-nav {
@@ -41,6 +57,30 @@ html, body {
 .app-shell.layout-fullscreen .content-render {
   height: 100%;
   width: 100%;
+}
+
+
+/* ── Layout Default (Contenido Limitado y Centrado) ── */
+
+/* 1. Evitar que el contenido quede debajo del menú/nav */
+/* Si tu .pill-nav mide por ejemplo 60px, ajustamos el padding */
+.app-shell:not(.layout-fullscreen) .content-area {
+  padding-top: 80px; /* Ajusta según el alto de tu navegación + un margen */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  overflow-y: auto; /* Permite scroll si el contenido es largo */
+  height: 100%;
+}
+
+/* 2. El limitador de ancho */
+/* Esta regla solo afecta al render del contenido en modo normal */
+.app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+  width: 95%;
+  max-width: 1400px; /* El ancho máximo que desees para lectura */
+  margin: 0 auto;    /* Asegura el centrado */
+  background: var(--card-bg); /* Opcional: para que resalte del fondo */
+  padding: 20px;
+  border-radius: 12px;
 }
 
 /* ── App shell ── */

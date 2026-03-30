@@ -27,10 +27,10 @@ export function renderVideo(route) {
 
       <div class="video-layout">
 
-        <!-- Personaje izquierdo -->
+        <!-- Personaje izquierdo 
         <div class="video-character-side">
-          <div class="character-placeholder">${characterLeft}</div>
-        </div>
+        <div class="character-placeholder">${characterLeft}</div>
+        </div>-->
 
         <!-- Video + info -->
         <div class="video-center">
@@ -49,10 +49,10 @@ export function renderVideo(route) {
 
         </div>
 
-        <!-- Personaje derecho -->
+        <!-- Personaje derecho
         <div class="video-character-side">
-          <div class="character-placeholder">${characterRight}</div>
-        </div>
+        <div class="character-placeholder">${characterRight}</div>
+        </div>-->
 
       </div>
 
