@@ -253,14 +253,14 @@ html, body {
 .pill-nav {
   position: fixed;
   right: 0px;
-  top: 50%;
+  top: 60%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
   background: var(--amber-main);
-  border-radius: 60px;
+  border-radius:30px;
   padding: 18px 10px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   z-index: 100;
@@ -284,14 +284,14 @@ html, body {
 .pill-icon {
   width: 48px;
   height: 48px;
-  background: var(--green-dark);
+  background: #ffffff; /* 🔥 fondo blanco */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
+  color: #bbc443; /* 🔥 color del icono */
   flex-shrink: 0;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 .pill-btn:hover:not(:disabled) .pill-icon { background: var(--green-mid); }
 

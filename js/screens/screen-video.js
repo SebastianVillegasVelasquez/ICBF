@@ -27,35 +27,23 @@ export function renderVideo(route) {
 
       <div class="video-layout">
 
-        <!-- Personaje izquierdo 
-        <div class="video-character-side">
-        <div class="character-placeholder">${characterLeft}</div>
-        </div>-->
-
-        <!-- Video + info -->
         <div class="video-center">
 
           <div class="video-wrapper">
-            <video class="video-player" controls controlsList="nodownload">
-              <source src="${videoUrl}" type="video/mp4">
-              Tu navegador no soporta video HTML5.
-            </video>
+            <img class="video-placeholder-img" src="/assets/img/video-plantilla.png" alt="video-plantilla">
           </div>
 
-          <div class="video-info">
-            ${characterName ? `<h3 class="video-character-name">${characterName}</h3>` : ''}
-            ${subtitle      ? `<p  class="video-subtitle">${subtitle}</p>`              : ''}
+          <div class="video-info-drawer">
+            <div class="video-info-content">
+              ${characterName ? `<h3 class="video-character-name">${characterName}</h3>` : ''}
+              ${subtitle      ? `<p  class="video-subtitle">${subtitle}</p>`              : ''}
+            </div>
           </div>
 
         </div>
 
-        <!-- Personaje derecho
-        <div class="video-character-side">
-        <div class="character-placeholder">${characterRight}</div>
-        </div>-->
-
-      </div>
+        </div>
 
     </div>
-  `
+  `;
 }

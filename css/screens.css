@@ -94,9 +94,20 @@
    ───────────────────────────────────────────────────────── */
 
 .screen-video {
+  display: flex;
   justify-content: center;
+  align-items: center;
   padding: 32px 24px;
+  position: relative;
+  height: 100%;
 
+  /* Fondo con el árbol abajo a la derecha */
+  background-image: url('/assets/img/arbol.png');
+  background-position: calc(100% - 5px) calc(100% - 5px);
+  background-repeat: no-repeat;
+
+  /* CAMBIA ESTE VALOR para ajustar el tamaño del árbol */
+  background-size: 600px auto;
 }
 
 .video-layout {
@@ -105,8 +116,9 @@
   justify-content: center;
   gap: 32px;
   width: 100%;
-  max-width: 1100px;
+  max-width: 900px; /* Reducido un poco para que se vea más contenido */
   margin: 0 auto;
+  z-index: 2; /* Por encima del árbol de fondo */
 }
 
 /* Video y su info debajo */
@@ -115,7 +127,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 /* Ratio 16:9 */
@@ -123,30 +135,51 @@
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
-  background: #000;
-  border-radius: 10px;
+  background: #1a1a1a;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-.video-player {
+/* Imagen de referencia del video */
+.video-placeholder-img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 47%; /* Centrado vertical ajustado */
+  left: 47%; /* Centrado horizontal ajustado */
+
+  /* Reducimos el tamaño un 5% y lo movemos hacia arriba y la izquierda */
+  width: 95%;
+  height: 95%;
   object-fit: contain;
+  transform: translate(-50%, -50%) translate(-8px, -8px);
+
+  transition: all 0.3s ease;
 }
 
-.video-info {
+/* ── Cajón de texto deslizable (Para subtítulos largos) ── */
+.video-info-drawer {
+  background: var(--white);
+  border-radius: 10px;
+  border-left: 5px solid var(--green-dark); /* Acento visual */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  /* Esto lo convierte en deslizable si hay mucho texto */
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* Contenido interno del cajón */
+.video-info-content {
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .video-character-name {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--green-dark);
   margin: 0;
 }
 
@@ -154,17 +187,17 @@
   font-size: 0.9rem;
   color: var(--text-muted);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* Columnas laterales de personajes */
+/* Estilos de personajes comentados por ahora */
+/*
 .video-character-side {
   flex: 0 0 120px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
-
 .character-placeholder {
   width: 100px;
   height: 240px;
@@ -180,10 +213,11 @@
   text-align: center;
   padding: 12px;
 }
+*/
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .video-layout { flex-direction: column; }
-  .video-character-side { display: none; }
+  .screen-video { background-image: none; /* Quitamos árbol en móvil para no estorbar */ }
 }
 
 /* ─────────────────────────────────────────────────────────

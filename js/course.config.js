@@ -49,7 +49,7 @@ export const course = {
           title: "Video introductorio",
           videoUrl: "",
           characterName: "Ayla",
-          subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán.",
+          subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
           characterLeft: "Ayla",
           characterRight: "Simón",
         },

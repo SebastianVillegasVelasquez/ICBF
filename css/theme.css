@@ -6,14 +6,14 @@
 
 :root {
   /* Brand */
-  --green-dark:   #1a5c38;
+  --green-dark: #ffffff;
   --green-main:   #2e7d32;
   --green-mid:    #388e3c;
   --green-light:  #e8f5e9;
   --green-pale:   #f1f8f1;
 
   --amber-dark:   #8b5a1a;
-  --amber-main:   #c17f3a;
+  --amber-main: #e8c208;
   --amber-light:  #e8a85a;
 
   /* Teal for progress bar */
@@ -21,7 +21,7 @@
   --yellow-main:  #ffc107;
 
   /* Neutral */
-  --white:        #ffffff;
+  --white: #ffffff;
   --bg-app:       #f0f2f0;
   --border:       #e0e0e0;
   --text-main:    #1a2b1f;
