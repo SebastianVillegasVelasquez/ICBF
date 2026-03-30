@@ -57,5 +57,5 @@ export function renderVideo(route) {
       </div>
 
     </div>
-  `;
+  `
 }

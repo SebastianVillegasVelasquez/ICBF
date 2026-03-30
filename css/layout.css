@@ -15,6 +15,34 @@ html, body {
   line-height: 1.5;
 }
 
+/* Cuando .app-shell tenga esta clase, se ocultan los elementos de navegación */
+.app-shell.layout-fullscreen .progress-bar-container,
+.app-shell.layout-fullscreen .pill-nav {
+  display: none !important;
+}
+
+/* Solo oculta la barra de progreso en pantallas de video */
+.app-shell.layout-video .progress-bar-container {
+  display: none !important;
+}
+
+/* El contenedor principal se expande al 100% de la pantalla */
+.app-shell.layout-fullscreen .main-card {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Aseguramos que el área donde se renderiza el HTML también ocupe todo */
+.app-shell.layout-fullscreen .content-area,
+.app-shell.layout-fullscreen .content-render {
+  height: 100%;
+  width: 100%;
+}
+
 /* ── App shell ── */
 .app-shell {
   display: flex;
@@ -37,21 +65,22 @@ html, body {
 .card-header { display: none; }
 
 /* ── Chevron Progress Bar (matching design image) ── */
+/* ── Chevron Progress Bar (refined + smaller) ── */
 .progress-bar-container {
-  padding: 20px 24px 0;
+  padding: 70px 50px 0; /* menos espacio */
   flex-shrink: 0;
 }
 
 .progress-bar-chevron {
   position: relative;
-  height: 52px;
-  max-width: 500px;
+  height: 36px; /* antes 52px */
+  max-width: 420px; /* más compacto */
   background: var(--teal-main);
-  border-radius: 6px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   overflow: visible;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12); /* más sutil */
 }
 
 /* Percentage display box on left */
@@ -60,18 +89,17 @@ html, body {
   z-index: 4;
   background: var(--teal-main);
   color: var(--white);
-  font-size: 1.1rem;
+  font-size: 0.85rem; /* más pequeño */
   font-weight: 800;
-  padding: 12px 16px;
-  margin-left: -6px;
-  border-radius: 6px;
-  min-width: 60px;
+  padding: 16px 14px; /* reducido */
+  margin-left: -4px;
+  min-width: 48px;
   text-align: center;
   white-space: nowrap;
-  box-shadow: -2px 2px 6px rgba(0,0,0,0.12);
+  box-shadow: -1px 1px 4px rgba(0,0,0,0.12);
 }
 
-/* Yellow fill that grows left-to-right */
+/* Yellow fill */
 .progress-bar-fill {
   position: absolute;
   left: 0;
@@ -80,11 +108,11 @@ html, body {
   background: var(--yellow-main);
   width: 0%;
   transition: width 0.4s ease;
-  border-radius: 6px 0 0 6px;
+  border-radius: 5px 0 0 5px;
   z-index: 1;
 }
 
-/* Chevron arrow that moves with fill */
+/* Chevron arrow */
 .progress-bar-arrow {
   position: absolute;
   top: 50%;
@@ -93,7 +121,7 @@ html, body {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 26px 0 26px 24px;
+  border-width: 18px 0 18px 16px;
   border-color: transparent transparent transparent var(--yellow-main);
   transition: left 0.4s ease;
   left: 0%;
@@ -184,7 +212,7 @@ html, body {
 /* ── Vertical pill navigation ── */
 .pill-nav {
   position: fixed;
-  right: 24px;
+  right: 0px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;

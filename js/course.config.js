@@ -36,14 +36,11 @@ export const course = {
       title: "Módulo 1: Introducción",
       screens: [
 
-        // PANTALLA 1 — Bienvenida
+        //PANTALLA 1 — Bienvenida
         {
-          type: "welcome",
-          title: "Bienvenida",
-          courseTitle: "Ecosistema de los Derechos Humanos",
-          moduleNumber: 1,
-          moduleTitle: "Introducción al Curso",
-          introText: "Bienvenido a este curso. Explorarás los conceptos fundamentales del ecosistema de derechos humanos y el Derecho Internacional Humanitario, desarrollando competencias para identificar, comprender y aplicar estos marcos normativos en tu labor diaria.",
+          type: "custom",
+          html: "js/screens/welcome-hero/welcome.html",
+          css: "js/screens/welcome-hero/welcome.css",
         },
 
         // PANTALLA 2 — Video
@@ -57,16 +54,25 @@ export const course = {
           characterRight: "Simón",
         },
 
+        // PANTALLA 3 — Video 16:9
+        {
+          type: "video",
+          title: "Video instructivo",
+          videoUrl: "",
+          characterName: "Ayla",
+          subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán.",
+          characterLeft: "Ayla",
+          characterRight: "Simón",
+        },
+
         // PANTALLA 3 — Contenido con carrusel
         // El componente 'carousel' espera slides con: heading y body
         {
           type: "content",
-          title: "Contenidos del curso",
           components: [
             {
               type: "carousel",
               data: {
-                title: "Lo que aprenderás en este curso",
                 slides: [
                   {
                     heading: "Módulo 1 — Marco normativo",

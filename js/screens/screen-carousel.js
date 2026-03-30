@@ -77,7 +77,7 @@ export class CarouselScreen extends Screen {
           </button>
         </div>
       </div>
-    `;
+    `
   }
 
   renderSlide(slide, isActive = false) {
@@ -90,8 +90,6 @@ export class CarouselScreen extends Screen {
     return `
       <div class="carousel-slide ${isActive ? 'active' : ''}" data-slide-index="${this.currentSlide}">
         <div class="carousel-slide-icon">${icon}</div>
-        <h3 class="carousel-slide-title">${title}</h3>
-        <p class="carousel-slide-objective">${objective}</p>
         ${contents.length > 0 ? `<ul class="carousel-slide-contents">${contentsHtml}</ul>` : ''}
       </div>
     `;

@@ -19,23 +19,28 @@ export function renderWelcome(route) {
     introText    = '',
   } = route;
 
-  return `
+  return {
+    layout:'full',
+    'html':`
     <div class="screen screen-welcome">
 
-      <div class="welcome-header">
-        <p class="welcome-tag">Módulo ${moduleNumber}</p>
-        <h1 class="welcome-course-title">${courseTitle}</h1>
+      <div class="welcome-top">
+        <div class="welcome-left">
+          <p class="welcome-message">Bienvenido</p>
+        </div>
+
+        <div class="welcome-right">
+          <h1 class="welcome-course-title">${courseTitle}</h1>
+        </div>
       </div>
 
-      <div class="welcome-body">
+      <div class="welcome-center">
+        <p class="welcome-tag">Módulo ${moduleNumber}</p>
         <h2 class="welcome-module-title">${moduleTitle}</h2>
         <p class="welcome-intro-text">${introText}</p>
       </div>
 
-      <div class="welcome-footer">
-        <p class="welcome-instruction">Haz clic en <strong>Adelante</strong> para comenzar</p>
-      </div>
-
     </div>
-  `;
+  `
+}
 }
