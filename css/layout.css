@@ -1,39 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 /* ==========================================================
    LAYOUT.CSS  –  App shell, card, header, footer, sidebar
    ========================================================== */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+
 html, body {
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--bg-app);
   color: var(--text-main);
   font-size: 15px;
   line-height: 1.5;
 }
 
-/*!* Contenedor específico para la barra dentro del Welcome Hero *!*/
-/*.hero-progress-wrapper {*/
-/*  width: 100%;*/
-/*  max-width: 600px; !* Para que no ocupe toda la pantalla y se vea elegante *!*/
-/*  margin: 10px auto 0 auto; !* Centrado horizontal y separado del texto de arriba *!*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*}*/
+button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span {
+  font-family: 'Nunito', sans-serif;
+}
 
-/*!* Opcional: Si el Chevron necesita un tamaño específico aquí *!*/
-/*.hero-progress-wrapper .progress-bar-chevron {*/
-/*  width: 100%;*/
-/*  position: relative;*/
-/*  !* Aquí van tus estilos base del chevron que ya tienes creados *!*/
-/*}*/
+#app {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Clase que aplicaremos por JS */
+#app.is-ready {
+  opacity: 1;
+}
+
 
 /* Cuando .app-shell tenga esta clase, se ocultan los elementos de navegación */
 .app-shell.layout-fullscreen .progress-bar-container,
-.app-shell.layout-fullscreen .pill-nav {
+.app-shell.layout-fullscreen .pill-nav,
+.app-shell.layout-fullscreen .logo-container
+{
   display: none !important;
 }
 
@@ -105,7 +111,7 @@ html, body {
 
 .logo-container {
   position: absolute;
-  top: 60px;
+  top: 20px;
   right: 40px;
 
   z-index: 10;
@@ -113,7 +119,7 @@ html, body {
 }
 
 .logo {
-  width: 120px; /* ajusta tamaño */
+  width: 80px; /* ajusta tamaño */
   height: auto;
   object-fit: contain;
 }
@@ -463,3 +469,364 @@ html, body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .pdf-loading p { margin-top: 18px; color: var(--green-dark); font-weight: 600; }
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN - MEDIA QUERIES
+   ═════════════════════════════════════════════════════════════════ */
+
+/* ── MOBILE / SMALL DEVICES (< 576px) ── */
+@media (max-width: 575.98px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  /* Logo adjustments for mobile */
+  .logo-container {
+    top: 12px;
+    right: 12px;
+  }
+
+  .logo {
+    width: 60px;
+  }
+
+  /* Progress bar - more compact on mobile */
+  .progress-bar-container {
+    padding: 60px 15px 0;
+  }
+
+  .progress-bar-chevron {
+    max-width: 280px;
+    height: 32px;
+  }
+
+  .progress-bar-percentage {
+    font-size: 0.75rem;
+    padding: 12px 10px;
+    min-width: 44px;
+  }
+
+  .progress-bar-arrow {
+    border-width: 16px 0 16px 14px;
+  }
+
+  /* Content area padding */
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 60px;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 95%;
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  /* Pill nav - hide labels on very small screens */
+  .pill-nav {
+    right: 5px;
+    padding: 12px 8px;
+    top: 50%;
+  }
+
+  .pill-btn {
+    padding: 8px 2px;
+  }
+
+  .pill-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pill-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pill-label {
+    font-size: 0.6rem;
+    max-width: 50px;
+  }
+
+  /* Slide nav - adjust for mobile */
+  .slide-nav {
+    width: 280px;
+    max-width: 85vw;
+  }
+
+  .slide-nav-header {
+    padding: 14px 14px;
+  }
+
+  .slide-nav-title {
+    font-size: 0.88rem;
+  }
+
+  .slide-nav-body {
+    padding: 10px;
+  }
+
+  .snav-module {
+    font-size: 0.73rem;
+    padding: 8px 6px 5px;
+  }
+
+  .snav-page {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  /* Error and loading states */
+  .page-error {
+    padding: 20px;
+    margin: 15px;
+    font-size: 0.9rem;
+  }
+
+  .page-error p {
+    font-size: 0.85rem;
+  }
+
+  /* Chips */
+  .location-chip {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  .page-chip {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+
+  .hamburger-btn {
+    width: 34px;
+    height: 34px;
+    padding: 6px 5px;
+  }
+}
+
+/* ── TABLET / MEDIUM DEVICES (576px - 991px) ── */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  /* Logo adjustments for tablet */
+  .logo-container {
+    top: 15px;
+    right: 30px;
+  }
+
+  .logo {
+    width: 70px;
+  }
+
+  /* Progress bar - medium size */
+  .progress-bar-container {
+    padding: 80px 30px 0;
+  }
+
+  .progress-bar-chevron {
+    max-width: 320px;
+    height: 34px;
+  }
+
+  .progress-bar-percentage {
+    font-size: 0.8rem;
+    padding: 14px 12px;
+    min-width: 46px;
+  }
+
+  .progress-bar-arrow {
+    border-width: 17px 0 17px 15px;
+  }
+
+  /* Content area */
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 70px;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 90%;
+    max-width: 1000px;
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  /* Pill nav - medium size */
+  .pill-nav {
+    padding: 16px 9px;
+  }
+
+  .pill-btn {
+    padding: 9px 3px;
+  }
+
+  .pill-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pill-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .pill-label {
+    font-size: 0.65rem;
+    max-width: 58px;
+  }
+
+  /* Slide nav - tablet */
+  .slide-nav {
+    width: 300px;
+    max-width: 80vw;
+  }
+
+  .snav-module {
+    font-size: 0.75rem;
+  }
+
+  .snav-page {
+    font-size: 0.85rem;
+  }
+}
+
+/* ── DESKTOP / LARGE DEVICES (≥ 992px) ── */
+@media (min-width: 992px) {
+  /* Default styles already optimized for desktop */
+
+  /* Optional: enhance for large screens */
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 92%;
+    max-width: 1400px;
+  }
+
+  .progress-bar-container {
+    padding: 120px 50px 0;
+  }
+
+  /* Pill nav - keep original size for desktop */
+  .pill-nav {
+    padding: 18px 10px;
+    right: 0px;
+  }
+
+  .pill-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .pill-label {
+    font-size: 0.68rem;
+  }
+}
+
+/* ── LANDSCAPE MODE (for tablets/devices in landscape) ── */
+@media (orientation: landscape) and (max-height: 600px) {
+  /* Reduce vertical padding in landscape */
+  .progress-bar-container {
+    padding: 40px 30px 0;
+  }
+
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 50px;
+  }
+
+  .logo-container {
+    top: 10px;
+    right: 20px;
+  }
+
+  .logo {
+    width: 50px;
+  }
+
+  .progress-bar-chevron {
+    height: 28px;
+  }
+
+  .progress-bar-percentage {
+    font-size: 0.7rem;
+    padding: 10px 8px;
+  }
+}
+
+/* ── ULTRA-WIDE SCREENS (≥ 1920px) ── */
+@media (min-width: 1920px) {
+  html, body {
+    font-size: 16px;
+  }
+
+  .progress-bar-container {
+    padding: 140px 80px 0;
+  }
+
+  .progress-bar-chevron {
+    max-width: 400px;
+    height: 40px;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    max-width: 1600px;
+  }
+
+  .pill-nav {
+    padding: 20px 12px;
+  }
+
+  .pill-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .pill-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* ── TOUCH DEVICES (haptic feedback improvements) ── */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch target sizes */
+  .pill-btn {
+    padding: 12px 6px;
+  }
+
+  .snav-page {
+    padding: 12px 14px;
+    margin: 5px 0;
+  }
+
+  /* Remove hover transforms that don't work on touch */
+  .pill-btn:hover { transform: scale(1); }
+  .snav-page:hover { transform: translateX(0); }
+
+  /* Add active states for touch instead */
+  .pill-btn:active { transform: scale(0.95); }
+  .snav-page:active { background: var(--green-dark); color: var(--white); }
+}
+
+/* ── PRINT MEDIA ── */
+@media print {
+  .pill-nav,
+  .progress-bar-container,
+  .logo-container,
+  .menu-overlay,
+  .slide-nav,
+  .hamburger-btn {
+    display: none !important;
+  }
+
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 0;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    background: white;
+  }
+}
+

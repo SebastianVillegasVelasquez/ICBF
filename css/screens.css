@@ -101,12 +101,11 @@
   position: relative;
   height: 100%;
 
-  /* Fondo con el árbol abajo a la derecha */
+  overflow-x: hidden;
+
   background-image: url('/assets/img/arbol.png');
   background-position: calc(100% - 5px) calc(100% - 5px);
   background-repeat: no-repeat;
-
-  /* CAMBIA ESTE VALOR para ajustar el tamaño del árbol */
   background-size: 600px auto;
 }
 

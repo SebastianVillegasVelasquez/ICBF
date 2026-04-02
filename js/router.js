@@ -36,4 +36,17 @@ export function getRoutes()       { return routes; }
 export function getRoute(index)   { return routes[index] || null; }
 export function getTotalRoutes()  { return routes.length; }
 export function getCourseTitle()  { return course.title; }
+export function getCourseModules(){ return course.moduleNumber; }
 export function getCourseConfig() { return course; }
+
+export function getFirstPageIndexByModuleId(moduleId) {
+  // Buscamos en el array global de routes (ya construido)
+  // el primer elemento cuyo objeto 'module' tenga ese id
+  const index = routes.findIndex(route => String(route.module.id) === String(moduleId));
+
+  if (index === -1) {
+    console.warn(`No se encontró el módulo con ID: ${moduleId}`);
+    return 0;
+  }
+  return index;
+}

@@ -28,22 +28,41 @@ export const course = {
   title: "Ecosistema de los Derechos Humanos",
 
   modules: [
+    // ─────────────────────────────────────────────────────────
+    // FRONT PAGE
+    // ─────────────────────────────────────────────────────────
+    {
+      title: "Portada",
+      screens: [
+        {
+          type: "custom",
+          html: "js/screens/front-page/front-page.html",
+          css: "css/front-page.css",
+        },
+      ],
+    },
 
     // ─────────────────────────────────────────────────────────
     // MÓDULO 1
     // ─────────────────────────────────────────────────────────
     {
+      id: 1,
       title: "Módulo 1: Introducción",
       screens: [
 
-        //PANTALLA 1 — Bienvenida
         // {
         //   type: "custom",
-        //   html: "js/screens/welcome-hero/welcome.html",
-        //   css: "js/screens/welcome-hero/welcome.css",
+        //   html: "js/screens/front-page/front-page.html",
+        //   css: "css/front-page.css",
         // },
-
-        // PANTALLA 2 — Video
+        //PANTALLA 1 — Bienvenida
+        {
+          type: "custom",
+          html: "js/screens/welcome-hero/welcome.html",
+          css: "css/welcome.css",
+        },
+        //
+        // // PANTALLA 2 — Video
         // {
         //   type: "video",
         //   title: "Video introductorio",

@@ -37,6 +37,10 @@ import {initTimeline, renderTimeline} from './components/timeline.js';
 import {initToolbox, renderToolbox} from './components/toolbox.js';
 import {initNarrativeScroll, renderNarrativeScroll} from './components/narrative-scroll.js';
 
+// Funciones de router.js
+
+import {getFirstPageIndexByModuleId} from './router.js';
+
 const COMPONENTS = {
     'accordion': {render: renderAccordion, init: initAccordion},
     'cards': {render: renderCards, init: initCards},
@@ -70,6 +74,24 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     appEl = document.getElementById('app');
+
+    appEl.addEventListener('click', (event) => {
+        // 1. Lógica para botones de módulo (PRIORIDAD)
+        const btn = event.target.closest('.module-btn');
+        if (btn) {
+            const moduleId = btn.dataset.module;
+            const targetIndex = getFirstPageIndexByModuleId(moduleId);
+            console.log(`Botón clickeado: Módulo ${moduleId}`);
+            navigateTo(targetIndex);
+            return;
+        }
+
+        // 2. Lógica para clic en cualquier parte de la pantalla de bienvenida
+        if (event.target.closest('.welcome-hero')) {
+            console.log("Clic en fondo welcome-hero detectado");
+            navigateTo(currentIndex + 1);
+        }
+    });
     progressTextEl = document.getElementById('progress-percentage');
     const chevron = document.getElementById('progress-chevron');
     progressFill = chevron?.querySelector('.progress-bar-fill');
@@ -94,6 +116,11 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-pdf')?.addEventListener('click', exportPDF);
 
     navigateTo(currentIndex);
+
+    // Quitar velo
+    setTimeout(() => {
+        document.getElementById('app').classList.add('is-ready');
+    }, 100);
 });
 
 // ── Navegación ─────────────────────────────────────────────
@@ -110,43 +137,28 @@ function navigateTo(index) {
 // Cada tipo de pantalla produce HTML y lo inyecta en #app.
 // La barra de progreso y el menú de navegación siempre están
 // presentes en el shell (index.html) — no forman parte de la pantalla.
-function renderRoute(route) {
+async function renderRoute(route) {
     if (!appEl || !route) return;
 
     let screen;
 
     if (route.type === 'welcome') {
         screen = renderWelcome(route);
-
-
     } else if (route.type === 'video') {
-        screen = {
-            layout: 'video',
-            html: renderVideo(route)
-        };
-
+        screen = { layout: 'video', html: renderVideo(route) };
     } else if (route.type === 'custom') {
+        const htmlContent = await renderCustomScreen(route);
         screen = {
             layout: 'full',
-            html: renderCustomScreen(route)
+            html: htmlContent
         };
-
     } else if (route.type === 'content') {
-        screen = {
-            layout: 'default',
-            html: renderContentScreen(route)
-        };
-
+        screen = { layout: 'default', html: renderContentScreen(route) };
     } else {
-        screen = {
-            layout: 'default',
-            html: `<div class="page-error">Tipo desconocido</div>`
-        };
+        screen = { layout: 'default', html: `<div class="page-error">Tipo desconocido</div>` };
     }
 
-
     applyLayout(screen);
-    console.log("Renderizando pantalla:", screen); // Mira la consola del navegador (F12)
     appEl.innerHTML = screen.html;
 
     if (route.type === 'content') {
@@ -157,10 +169,6 @@ function renderRoute(route) {
 
 // Componente para pantallas personalizadas
 async function renderCustomScreen(route) {
-    const mainCard = document.getElementById('main-card');
-
-    applyLayout({layout: 'full'});
-
     // Cargar CSS dinámico
     if (route.css) {
         loadCSS(route.css);
@@ -176,12 +184,11 @@ async function renderCustomScreen(route) {
 
         let html = await res.text();
 
-        // Inyectamos el HTML directamente sin procesar diccionarios
-        appEl.innerHTML = html;
+        return html;
 
     } catch (error) {
         console.error("Error al cargar la pantalla personalizada:", error);
-        appEl.innerHTML = `<div class="page-error">No se pudo cargar la pantalla. Revisa la ruta: ${route.html}</div>`;
+        return `<div class="page-error">No se pudo cargar la pantalla. Revisa la ruta: ${route.html}</div>`;
     }
 }
 
