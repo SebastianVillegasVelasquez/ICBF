@@ -1,30 +1,28 @@
 /**
- * app.js — Controlador principal de la aplicación
+ * app.js — Controlador principal de la aplicación (REFACTORIZADO)
  *
- * El shell (index.html) contiene permanentemente:
- *   - Barra de progreso (arriba izquierda)
- *   - Menú de navegación vertical (pill-nav, derecha)
+ * ARQUITECTURA:
+ * ─────────────────────────────────────────────────────────────
+ * 1. SCREEN REGISTRY: Registro centralizado de tipos de pantalla
+ * 2. PROGRESS MANAGER: Gestor único de barra de progreso (SINGLETON)
+ * 3. CSS LOADER: Cargador inteligente de CSS con caché
+ * 4. ROUTE RENDERER: Renderizador genérico que despacha por tipo
+ * 5. CLEAN ROUTER: Enrutador simple y declarativo
  *
- * Cada pantalla definida en course.config.js se inyecta en #app.
- * Tres tipos de pantalla:
- *   - 'welcome'  → renderWelcome()
- *   - 'video'    → renderVideo()
- *   - 'content'  → renderContent() — plantilla con componentes
- *
- * Para agregar un componente nuevo al registro:
- *   1. Crea /js/components/mi-componente.js con renderX e initX
- *   2. Impórtalo aquí y agrégalo a COMPONENTS
+ * Para agregar una pantalla nueva:
+ *   → Agregar entrada a SCREEN_REGISTRY
+ *   → Listo! El sistema se encarga del resto.
  */
 
 import {buildRoutes, getCourseTitle, getRoute, getTotalRoutes} from './router.js';
 import {finishSCORM, getLocation, initSCORM, setCompleted, setIncomplete, setLocation, setProgress} from './scorm.js';
 
 // ── Renderizadores de pantallas ────────────────────────────
-import {renderWelcome} from './screens/screen-welcome.js';
+import {renderWelcome} from './screens/screen-module-intro.js';
 import {renderVideo} from './screens/screen-video.js';
+import {renderPostIntro} from "./screens/screen-post-intro.js";
 
-// ── Registro de componentes ────────────────────────────────
-// Para agregar uno nuevo: importa y añade una entrada aquí.
+// ── Registro de componentes ────────────────────────────────────
 import {initAccordion, renderAccordion} from './components/accordion.js';
 import {initCards, renderCards} from './components/cards.js';
 import {initCarousel, renderCarousel} from './components/carousel.js';
@@ -37,9 +35,11 @@ import {initTimeline, renderTimeline} from './components/timeline.js';
 import {initToolbox, renderToolbox} from './components/toolbox.js';
 import {initNarrativeScroll, renderNarrativeScroll} from './components/narrative-scroll.js';
 
-// Funciones de router.js
-
 import {getFirstPageIndexByModuleId} from './router.js';
+
+// ════════════════════════════════════════════════════════════════
+// COMPONENTS REGISTRY — Mapeo de componentes
+// ════════════════════════════════════════════════════════════════
 
 const COMPONENTS = {
     'accordion': {render: renderAccordion, init: initAccordion},
@@ -55,174 +55,168 @@ const COMPONENTS = {
     'narrative-scroll': {render: renderNarrativeScroll, init: initNarrativeScroll},
 };
 
-// ── Estado ─────────────────────────────────────────────────
-let currentIndex = 0;
-let visitedSet = new Set();
-let totalRoutes = 0;
+// ════════════════════════════════════════════════════════════════
+// SCREEN REGISTRY — Registro centralizado de tipos de pantalla
+// Cada tipo define: renderizador, CSS dinámico (si aplica), layout
+// ════════════════════════════════════════════════════════════════
 
-// ── Referencias DOM ────────────────────────────────────────
-let appEl, progressTextEl, progressFill, progressArrow, btnPrev, btnNext;
-
-// ── Inicio ─────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-    buildRoutes();
-    totalRoutes = getTotalRoutes();
-
-    if (totalRoutes === 0) {
-        console.error('[app] No hay pantallas definidas en course.config.js');
-        return;
+const SCREEN_REGISTRY = {
+    'module-intro': {
+        css: 'css/welcome.css',
+        layout: 'full',
+        render: (route) => renderWelcome(route)
+    },
+    'video': {
+        css: 'css/screens.css',
+        layout: 'video',
+        render: (route) => renderVideo(route)
+    },
+    'post-intro': {
+        css: 'css/post-intro.css',
+        layout: 'full',
+        render: (route) => renderPostIntro(route)
+    },
+    'content': {
+        css: 'css/components.css',
+        layout: 'default',
+        render: (route) => renderContentScreen(route)
+    },
+    'custom': {
+        css: null,
+        layout: 'full',
+        render: (route) => renderCustomScreen(route)
     }
+};
 
-    appEl = document.getElementById('app');
+// ════════════════════════════════════════════════════════════════
+// CSS LOADER — Cargador inteligente con caché
+// ════════════════════════════════════════════════════════════════
 
-    appEl.addEventListener('click', (event) => {
-        // 1. Lógica para botones de módulo (PRIORIDAD)
-        const btn = event.target.closest('.module-btn');
-        if (btn) {
-            const moduleId = btn.dataset.module;
-            const targetIndex = getFirstPageIndexByModuleId(moduleId);
-            console.log(`Botón clickeado: Módulo ${moduleId}`);
-            navigateTo(targetIndex);
+const cssCache = new Set();
+
+function loadCSS(href) {
+    return new Promise((resolve, reject) => {
+        // Ya está cargado
+        if (cssCache.has(href) || document.querySelector(`link[href="${href}"]`)) {
+            resolve();
             return;
         }
 
-        // 2. Lógica para clic en cualquier parte de la pantalla de bienvenida
-        if (event.target.closest('.welcome-hero')) {
-            console.log("Clic en fondo welcome-hero detectado");
-            navigateTo(currentIndex + 1);
-        }
-    });
-    progressTextEl = document.getElementById('progress-percentage');
-    const chevron = document.getElementById('progress-chevron');
-    progressFill = chevron?.querySelector('.progress-bar-fill');
-    progressArrow = chevron?.querySelector('.progress-bar-arrow');
-    btnPrev = document.getElementById('btn-prev');
-    btnNext = document.getElementById('btn-next');
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
 
-    document.title = getCourseTitle();
-
-    const scormActive = initSCORM();
-    if (scormActive) {
-        const saved = getLocation();
-        if (saved !== null && !isNaN(saved) && saved < totalRoutes) {
-            currentIndex = parseInt(saved, 10);
-            for (let i = 0; i <= currentIndex; i++) visitedSet.add(i);
-        }
-    }
-
-    document.getElementById('btn-home')?.addEventListener('click', () => navigateTo(0));
-    btnPrev?.addEventListener('click', () => navigateTo(currentIndex - 1));
-    btnNext?.addEventListener('click', () => navigateTo(currentIndex + 1));
-    document.getElementById('btn-pdf')?.addEventListener('click', exportPDF);
-
-    navigateTo(currentIndex);
-
-    // Quitar velo
-    setTimeout(() => {
-        document.getElementById('app').classList.add('is-ready');
-    }, 100);
-});
-
-// ── Navegación ─────────────────────────────────────────────
-function navigateTo(index) {
-    if (index < 0 || index >= totalRoutes) return;
-    currentIndex = index;
-    visitedSet.add(index);
-    renderRoute(getRoute(index));
-    updateProgressBar();
-    syncSCORM();
-}
-
-// ── Renderizado de pantallas ────────────────────────────────
-// Cada tipo de pantalla produce HTML y lo inyecta en #app.
-// La barra de progreso y el menú de navegación siempre están
-// presentes en el shell (index.html) — no forman parte de la pantalla.
-async function renderRoute(route) {
-    if (!appEl || !route) return;
-
-    let screen;
-
-    if (route.type === 'welcome') {
-        screen = renderWelcome(route);
-    } else if (route.type === 'video') {
-        screen = { layout: 'video', html: renderVideo(route) };
-    } else if (route.type === 'custom') {
-        const htmlContent = await renderCustomScreen(route);
-        screen = {
-            layout: 'full',
-            html: htmlContent
+        link.onload = () => {
+            cssCache.add(href);
+            resolve();
         };
-    } else if (route.type === 'content') {
-        screen = { layout: 'default', html: renderContentScreen(route) };
-    } else {
-        screen = { layout: 'default', html: `<div class="page-error">Tipo desconocido</div>` };
+
+        link.onerror = () => {
+            console.error(`[CSS Loader] Error cargando ${href}`);
+            reject(new Error(`CSS load failed: ${href}`));
+        };
+
+        document.head.appendChild(link);
+    });
+}
+
+// ════════════════════════════════════════════════════════════════
+// PROGRESS MANAGER — Gestor centralizado de barra de progreso
+// SINGLETON que expone un API limpio
+// ════════════════════════════════════════════════════════════════
+
+class ProgressManager {
+    constructor() {
+        this.progressTextEl = document.getElementById('progress-percentage');
+        this.chevron = document.getElementById('progress-chevron');
+        this.progressFill = this.chevron?.querySelector('.progress-bar-fill');
+        this.progressArrow = this.chevron?.querySelector('.progress-bar-arrow');
     }
 
-    applyLayout(screen);
-    appEl.innerHTML = screen.html;
+    /**
+     * Actualiza la barra de progreso de forma centralizada
+     * @param {number} currentIndex - Índice actual de la pantalla
+     * @param {number} totalRoutes - Total de rutas
+     * @param {Set} visitedSet - Conjunto de índices visitados
+     */
+    update(currentIndex, totalRoutes, visitedSet) {
+        // Matemática: empezar en 20% y repartir el 80% restante
+        const basePct = 20;
+        const avanceReal = visitedSet.size / totalRoutes;
+        const pct = basePct + Math.round(avanceReal * (100 - basePct));
 
-    if (route.type === 'content') {
-        bootComponents(appEl);
+        // Aplicar cambios solo si los elementos existen
+        if (this.progressTextEl) this.progressTextEl.textContent = `${pct}%`;
+        if (this.progressFill) this.progressFill.style.width = `${pct}%`;
+        if (this.progressArrow) this.progressArrow.style.left = `${pct}%`;
+
+        return pct;
+    }
+
+    /**
+     * Actualiza estado de botones de navegación
+     * @param {boolean} isFirst
+     * @param {boolean} isLast
+     */
+    updateNavButtons(isFirst, isLast) {
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        if (btnPrev) btnPrev.disabled = isFirst;
+        if (btnNext) btnNext.disabled = isLast;
     }
 }
 
+// Instancia única
+const progressManager = new ProgressManager();
 
-// Componente para pantallas personalizadas
-async function renderCustomScreen(route) {
-    // Cargar CSS dinámico
-    if (route.css) {
-        loadCSS(route.css);
+// ════════════════════════════════════════════════════════════════
+// LOADING VEIL MANAGER — Controla el velo de carga global
+// ════════════════════════════════════════════════════════════════
+
+class LoadingVeilManager {
+    constructor() {
+        this.veil = document.getElementById('app-loading-veil');
     }
 
-    try {
-        // Cargar HTML
-        const res = await fetch(route.html);
-
-        if (!res.ok) {
-            throw new Error(`No se pudo cargar el archivo: ${res.statusText}`);
+    show() {
+        if (this.veil) {
+            this.veil.classList.remove('hidden');
         }
+    }
 
-        let html = await res.text();
-
-        return html;
-
-    } catch (error) {
-        console.error("Error al cargar la pantalla personalizada:", error);
-        return `<div class="page-error">No se pudo cargar la pantalla. Revisa la ruta: ${route.html}</div>`;
+    hide() {
+        if (this.veil) {
+            this.veil.classList.add('hidden');
+        }
     }
 }
 
-function loadCSS(href) {
-    if (document.querySelector(`link[href="${href}"]`)) return;
+const loadingVeil = new LoadingVeilManager();
 
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    document.head.appendChild(link);
-}
+// ════════════════════════════════════════════════════════════════
+// LAYOUT SYSTEM — Aplica layouts dinámicos
+// ════════════════════════════════════════════════════════════════
 
-// --Layout Dinamico --
-// Aplica un layout diferente segun las necesidades de la pantalla que se use
-// Por ejemplo, la pantalla de un modulo es full screen y no debe de usar la comun
-function applyLayout(screen) {
+function applyLayout(layoutType) {
     const appShell = document.querySelector('.app-shell');
     if (!appShell) return;
 
-    // 1. Limpiamos TODAS las clases de layout primero
+    // Remover todas las clases de layout
     appShell.classList.remove('layout-fullscreen', 'layout-video');
 
-    // 2. Aplicamos solo la que necesitamos
-    if (screen.layout === 'full') {
+    // Aplicar la requerida
+    if (layoutType === 'full') {
         appShell.classList.add('layout-fullscreen');
-    } else if (screen.layout === 'video') {
+    } else if (layoutType === 'video') {
         appShell.classList.add('layout-video');
     }
-    // Si es 'default', no entra en ninguno y queda el diseño normal
+    // 'default' no aplica ninguna clase
 }
 
-// ── Plantilla de contenido ──────────────────────────────────
-// Itera sobre route.components[] y renderiza cada uno en orden.
-// Cada componente es: { type: 'carousel', data: { ... } }
+// ════════════════════════════════════════════════════════════════
+// CONTENT SCREEN RENDERER — Plantilla genérica para pantallas de contenido
+// ════════════════════════════════════════════════════════════════
+
 function renderContentScreen(route) {
     const title = route.title ? `<h2 class="content-screen-title">${route.title}</h2>` : '';
     const body = (route.components || []).map(comp => {
@@ -238,7 +232,32 @@ function renderContentScreen(route) {
     return `<div class="screen screen-content">${title}${body}</div>`;
 }
 
-// Inicializa la interactividad de los componentes ya renderizados.
+// ════════════════════════════════════════════════════════════════
+// CUSTOM SCREEN RENDERER — Carga HTML externo + CSS dinámico
+// ════════════════════════════════════════════════════════════════
+
+async function renderCustomScreen(route) {
+    // Cargar CSS dinámico si está especificado
+    if (route.css) {
+        await loadCSS(route.css);
+    }
+
+    try {
+        const res = await fetch(route.html);
+        if (!res.ok) {
+            throw new Error(`No se pudo cargar: ${res.statusText}`);
+        }
+        return await res.text();
+    } catch (error) {
+        console.error("[Custom Screen] Error:", error);
+        return `<div class="page-error">No se pudo cargar la pantalla. Revisa: ${route.html}</div>`;
+    }
+}
+
+// ════════════════════════════════════════════════════════════════
+// COMPONENT BOOTSTRAPPER — Inicializa interactividad de componentes
+// ════════════════════════════════════════════════════════════════
+
 function bootComponents(container) {
     container.querySelectorAll('[data-booted]').forEach(el => {
         const name = el.dataset.booted;
@@ -247,57 +266,120 @@ function bootComponents(container) {
             try {
                 entry.init(el);
             } catch (err) {
-                console.error(`[app] init error "${name}":`, err);
+                console.error(`[Component Boot] Error en "${name}":`, err);
             }
         }
     });
 }
 
-// ── Barra de progreso compartida ───────────────────────────────────
-function updateProgressBar() {
-    // 1. La matemática: Empezar en 20 y repartir el resto en el 80% restante
-    const basePct = 20;
-    const avanceReal = visitedSet.size / totalRoutes; // Da un número entre 0 y 1
-    const pct = basePct + Math.round(avanceReal * (100 - basePct));
+// ════════════════════════════════════════════════════════════════
+// ROUTE RENDERER — Renderizador genérico y escalable
+// Despacha según tipo de pantalla usando SCREEN_REGISTRY
+// ════════════════════════════════════════════════════════════════
 
-    // 2. Buscar los elementos (usamos querySelector para que busque por clase)
-    // Esto buscará la barra ya sea la del index o la del welcome
-    const activeFill = document.querySelector('.progress-bar-fill');
-    const activeText = document.querySelector('.progress-bar-percentage');
-    const activeArrow = document.querySelector('.progress-bar-arrow');
+async function renderRoute(route) {
+    const appEl = document.getElementById('app');
+    if (!appEl || !route) return;
 
-    // 3. Aplicar los cambios si los elementos existen en la pantalla actual
-    if (activeText) activeText.textContent = `${pct}%`;
-    if (activeFill) activeFill.style.width = `${pct}%`;
-    if (activeArrow) activeArrow.style.left = `${pct}%`;
+    try {
+        const screenDef = SCREEN_REGISTRY[route.type];
 
-    // Control de botones
-    if (btnPrev) btnPrev.disabled = currentIndex === 0;
-    if (btnNext) btnNext.disabled = currentIndex === totalRoutes - 1;
+        if (!screenDef) {
+            appEl.innerHTML = `<div class="page-error">Tipo de pantalla desconocido: "${route.type}"</div>`;
+            return;
+        }
+
+        // 1. Cargar CSS dinámico (si aplica)
+        if (screenDef.css) {
+            await loadCSS(screenDef.css);
+        }
+
+        // 2. Renderizar contenido
+        let html;
+        if (route.type === 'custom') {
+            html = await renderCustomScreen(route);
+        } else {
+            html = screenDef.render(route);
+        }
+
+        // 3. Aplicar layout
+        applyLayout(screenDef.layout);
+
+        // 4. Inyectar HTML
+        appEl.innerHTML = html;
+
+        // 5. Inicializar componentes (solo para pantallas de contenido)
+        if (route.type === 'content') {
+            bootComponents(appEl);
+        }
+
+    } catch (err) {
+        console.error("[Route Render] Error:", err);
+        appEl.innerHTML = `<div class="page-error">Error al renderizar pantalla: ${err.message}</div>`;
+    }
 }
 
-// ── SCORM ──────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// NAVIGATION & STATE
+// ════════════════════════════════════════════════════════════════
+
+let currentIndex = 0;
+let visitedSet = new Set();
+let totalRoutes = 0;
+
+async function navigateTo(index) {
+    if (index < 0 || index >= totalRoutes) return;
+
+    currentIndex = index;
+    visitedSet.add(index);
+
+    // Mostrar velo mientras se carga
+    loadingVeil.show();
+
+    try {
+        // Renderizar la ruta
+        await renderRoute(getRoute(index));
+
+        // Actualizar progreso
+        progressManager.update(currentIndex, totalRoutes, visitedSet);
+        progressManager.updateNavButtons(currentIndex === 0, currentIndex === totalRoutes - 1);
+
+        // Sincronizar con SCORM
+        syncSCORM();
+    } finally {
+        // Ocultar velo
+        loadingVeil.hide();
+    }
+}
+
+// ════════════════════════════════════════════════════════════════
+// SCORM SYNC
+// ════════════════════════════════════════════════════════════════
+
 function syncSCORM() {
     try {
         setLocation(currentIndex);
         const pct = Math.round((visitedSet.size / totalRoutes) * 100);
         setProgress(pct);
         pct >= 100 ? setCompleted() : setIncomplete();
-    } catch (_) { /* Not running inside a SCORM LMS — safe to ignore */
+    } catch (_) {
+        // No SCORM LMS — ignorar silenciosamente
     }
 }
 
 window.addEventListener('beforeunload', () => {
     try {
         finishSCORM();
-    } catch (_) {
-    }
+    } catch (_) { }
 });
 
-// ── PDF Export ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// PDF EXPORT
+// ════════════════════════════════════════════════════════════════
+
 async function exportPDF() {
     if (typeof html2pdf === 'undefined') {
-        alert('La libreria PDF no esta disponible.');
+        alert('La librería PDF no está disponible.');
         return;
     }
 
@@ -320,8 +402,7 @@ async function exportPDF() {
 
         if (route.type === 'cover') {
             section.innerHTML = `<h2 style="color:#c17f3a;">${route.module.title}</h2>
-        ${route.module.description ? `<p>${route.module.description}</p>` : ''}`;
-
+            ${route.module.description ? `<p>${route.module.description}</p>` : ''}`;
         } else if (route.type === 'page') {
             try {
                 const res = await fetch(route.page.file);
@@ -349,9 +430,79 @@ async function exportPDF() {
     try {
         await html2pdf().set(opt).from(wrapper).save();
     } catch (err) {
-        console.error('[app] PDF error:', err);
+        console.error('[PDF Export] Error:', err);
         alert('Error generando PDF');
     } finally {
         document.body.removeChild(loading);
     }
 }
+
+// ════════════════════════════════════════════════════════════════
+// INITIALIZATION
+// ════════════════════════════════════════════════════════════════
+
+window.addEventListener('DOMContentLoaded', async () => {
+    buildRoutes();
+    totalRoutes = getTotalRoutes();
+
+    if (totalRoutes === 0) {
+        console.error('[app] No hay pantallas definidas en course.config.js');
+        loadingVeil.hide();
+        return;
+    }
+
+    const appEl = document.getElementById('app');
+
+    // ── Event Delegation para clicks ──
+    appEl.addEventListener('click', (event) => {
+        // Botones de módulo
+        const moduleBtn = event.target.closest('.module-btn');
+        if (moduleBtn) {
+            const moduleId = moduleBtn.dataset.module;
+            const targetIndex = getFirstPageIndexByModuleId(moduleId);
+            navigateTo(targetIndex);
+            return;
+        }
+
+        // Botón siguiente pantalla
+        const nextBtn = event.target.closest('.btn-next-screen');
+        if (nextBtn) {
+            navigateTo(currentIndex + 1);
+            return;
+        }
+
+        // Pantalla de bienvenida: click en cualquier lugar = siguiente
+        if (event.target.closest('.welcome-hero')) {
+            navigateTo(currentIndex + 1);
+        }
+    });
+
+    // ── Navegación global ──
+    document.getElementById('btn-home')?.addEventListener('click', () => navigateTo(0));
+    document.getElementById('btn-prev')?.addEventListener('click', () => navigateTo(currentIndex - 1));
+    document.getElementById('btn-next')?.addEventListener('click', () => navigateTo(currentIndex + 1));
+    document.getElementById('btn-pdf')?.addEventListener('click', exportPDF);
+
+    // ── SCORM ──
+    document.title = getCourseTitle();
+    const scormActive = initSCORM();
+    if (scormActive) {
+        const saved = getLocation();
+        if (saved !== null && !isNaN(saved) && saved < totalRoutes) {
+            currentIndex = parseInt(saved, 10);
+            for (let i = 0; i <= currentIndex; i++) visitedSet.add(i);
+        }
+    }
+
+    // ── Navegar a la pantalla inicial ──
+    await navigateTo(currentIndex);
+
+    // ── Guardar API global (opcional, para debugging) ──
+    window.courseApp = {
+        navigateTo,
+        getProgressManager: () => progressManager,
+        getCurrentIndex: () => currentIndex,
+        getTotalRoutes: () => totalRoutes
+    };
+});
+

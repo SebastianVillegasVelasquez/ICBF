@@ -144,7 +144,7 @@ course.config.js
       │     }
       │     │
       │     ▼
-      │  screen-welcome.js - render()
+      │  screen-module-intro.js - render()
       │     │
       │     └─ const { courseTitle = '...', ... } = this.config
       │        └─ return `
@@ -187,7 +187,7 @@ proyecto/
 │  │  │  └─ init()
 │  │  │  └─ mount(element)
 │  │  │
-│  │  ├─ screen-welcome.js      ◄─── Pantalla 1
+│  │  ├─ screen-module-intro.js      ◄─── Pantalla 1
 │  │  ├─ screen-video.js        ◄─── Pantalla 2
 │  │  ├─ screen-carousel.js     ◄─── Pantalla 3
 │  │  ├─ screen-quiz.js         ◄─── EJEMPLO: Nueva pantalla

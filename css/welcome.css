@@ -44,7 +44,7 @@
     align-items: center;
     gap: 120px;
 
-    margin-top: 20px; /* 🔥 reducido */
+    margin-top: 40px;
 }
 
 /* Contenedores */
@@ -69,12 +69,12 @@
 .hero-center {
     text-align: center;
     max-width: 700px;
-    margin-top: 70px; /* 🔥 AHORA SÍ funciona */
+    margin-top: 80px;
 }
 
 /* Módulo 1 */
 .module-one {
-    font-size: 6rem;
+    font-size: 7rem;
     font-weight: 800;
     color: #E8C208;
     margin-bottom: 10px;
@@ -82,14 +82,14 @@
 
 /* Texto principal */
 .hero-text {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #4a5a70;
     margin-bottom: 5px;
 }
 
 /* Subtexto */
 .hero-subtext {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #7a8594;
 }
 

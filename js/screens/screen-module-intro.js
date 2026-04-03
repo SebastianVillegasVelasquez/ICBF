@@ -1,16 +1,3 @@
-/**
- * screen-module.js
- *
- * Pantalla de bienvenida al módulo.
- * Función pura: recibe la config del route, devuelve HTML string.
- *
- * Campos en course.config.js (dentro del screen):
- *   courseTitle  : Nombre del curso
- *   moduleNumber : Número del módulo
- *   moduleTitle  : Título del módulo
- *   introText    : Texto introductorio
- */
-
 export function renderWelcome(route) {
   const {
     moduleTitle = "",

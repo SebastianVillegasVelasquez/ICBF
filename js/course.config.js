@@ -1,29 +1,3 @@
-/**
- * course.config.js — Configuración del curso
- *
- * Cada módulo tiene un array "screens" con las pantallas en orden.
- * Tipos de pantalla disponibles:
- *
- *   type: 'welcome'  → Pantalla de bienvenida
- *     courseTitle    : Nombre del curso
- *     moduleNumber   : Número del módulo
- *     moduleTitle    : Título del módulo
- *     introText      : Texto introductorio
- *
- *   type: 'video'    → Pantalla de video
- *     videoUrl       : URL del video (mp4 o YouTube embed)
- *     title          : Título del video
- *     characterName  : Nombre del personaje que habla
- *     subtitle       : Subtítulo o descripción
- *     characterLeft  : Nombre personaje izquierdo (placeholder)
- *     characterRight : Nombre personaje derecho (placeholder)
- *
- *   type: 'content'  → Plantilla de contenido con componentes
- *     title          : Título de la pantalla (opcional)
- *     components     : Array de componentes a renderizar en orden
- *       Cada componente: { type: 'carousel' | 'accordion' | ..., data: { ... } }
- */
-
 export const course = {
   title: "Ecosistema de los Derechos Humanos",
 
@@ -49,18 +23,24 @@ export const course = {
       id: 1,
       title: "Módulo 1: Introducción",
       screens: [
-
-        // {
-        //   type: "custom",
-        //   html: "js/screens/front-page/front-page.html",
-        //   css: "css/front-page.css",
-        // },
         //PANTALLA 1 — Bienvenida
         {
-          type: "custom",
-          html: "js/screens/welcome-hero/welcome.html",
-          css: "css/welcome.css",
+          type: "module-intro",
+          moduleTitle: "Módulo 1",
+          introText: "El ecosistema de derechos",
+          subText: "Conceptos básicos y fundamentales",
         },
+        {
+          type: "post-intro",
+          moduleTitle: "Módulo 1",
+          introText: "El ecosistema de derechos",
+          subText: "Conceptos básicos y fundamentales",
+        },
+        // {
+        //   type: "custom",
+        //   html: "js/screens/welcome-hero/welcome.html",
+        //   css: "css/welcome.css",
+        // },
         //
         // // PANTALLA 2 — Video
         // {
@@ -161,8 +141,6 @@ export const course = {
           characterLeft: "Ayla",
           characterRight: "Simón",
         },
-
-
       ]
     }
 

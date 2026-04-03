@@ -1,0 +1,626 @@
+/**
+ * main.css — Bundle único que consolida:
+ * - layout.css (shell, navegación, barra de progreso)
+ * - components.css (componentes comunes)
+ * - screens.css (estilos de pantallas)
+ * + Loading veil (nuevo)
+ *
+ * Esto evita múltiples requests HTTP y permite lazy-loading de CSS específicas.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-app);
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span {
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ============================================================
+   APP LOADING VEIL (NEW - ANTI-FLICKER)
+   ============================================================ */
+
+.app-loading-veil {
+  position: fixed;
+  inset: 0;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+  pointer-events: auto;
+}
+
+.app-loading-veil.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.app-loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--green-light);
+  border-top-color: var(--green-main);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.app-loading-veil p {
+  color: var(--green-main);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   CONTENT RENDERING STATE
+   ============================================================ */
+
+#app {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+/* ============================================================
+   LAYOUT SYSTEM
+   ============================================================ */
+
+/* Cuando .app-shell tenga esta clase, se ocultan los elementos de navegación */
+.app-shell.layout-fullscreen .progress-bar-container,
+.app-shell.layout-fullscreen .pill-nav,
+.app-shell.layout-fullscreen .logo-container
+{
+  display: none !important;
+}
+
+/* Solo oculta la barra de progreso en pantallas de video */
+.app-shell.layout-video .progress-bar-container {
+  display: none !important;
+}
+
+/* El contenedor principal se expande al 100% de la pantalla */
+.app-shell.layout-fullscreen .main-card {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Aseguramos que el área donde se renderiza el HTML también ocupe todo */
+.app-shell.layout-fullscreen .content-area,
+.app-shell.layout-fullscreen .content-render {
+  height: 100%;
+  width: 100%;
+}
+
+/* ── Layout Default (Contenido Limitado y Centrado) ── */
+
+.app-shell:not(.layout-fullscreen) .content-area {
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* ── App shell ── */
+.app-shell {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  gap: 0;
+}
+
+/* ── Main card ── */
+.main-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Logo ── */
+
+.logo-container {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ── Chevron Progress Bar ── */
+.progress-bar-container {
+  padding: 120px 50px 0;
+  flex-shrink: 0;
+}
+
+.progress-bar-chevron {
+  position: relative;
+  height: 36px;
+  max-width: 360px;
+  background: var(--teal-main);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+
+.progress-bar-percentage {
+  position: relative;
+  z-index: 4;
+  background: var(--teal-main);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 16px 14px;
+  margin-left: -4px;
+  min-width: 48px;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: -1px 1px 4px rgba(0,0,0,0.12);
+}
+
+.progress-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--yellow-main);
+  width: 0%;
+  transition: width 0.4s ease;
+  border-radius: 5px 0 0 5px;
+  z-index: 1;
+}
+
+.progress-bar-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 18px 0 18px 16px;
+  border-color: transparent transparent transparent var(--yellow-main);
+  transition: left 0.4s ease;
+  left: 0%;
+}
+
+/* ── Content area ── */
+.content-area {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+}
+
+.content-render {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.content-render::-webkit-scrollbar { width: 6px; }
+.content-render::-webkit-scrollbar-track { background: transparent; }
+.content-render::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+/* ── Vertical pill navigation ── */
+.pill-nav {
+  position: fixed;
+  right: 0px;
+  top: 60%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: var(--amber-main);
+  border-radius:30px;
+  padding: 18px 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  z-index: 100;
+}
+
+.pill-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px 4px;
+  transition: transform 0.15s;
+  color: var(--white);
+}
+
+.pill-btn:hover { transform: scale(1.08); }
+.pill-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.pill-icon {
+  width: 48px;
+  height: 48px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbc443;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.pill-btn:hover:not(:disabled) .pill-icon { background: var(--green-mid); }
+
+.pill-icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.pill-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 62px;
+}
+
+/* ── Page loading / error states ── */
+.page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--green-main);
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.page-error {
+  padding: 32px;
+  color: #b00020;
+  background: #fff0f0;
+  border-left: 4px solid #b00020;
+  border-radius: 4px;
+  margin: 24px;
+}
+
+.page-error p { margin: 8px 0 0; font-size: 0.9rem; }
+
+/* ── PDF loading overlay ── */
+.pdf-loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.pdf-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--green-light);
+  border-top-color: var(--green-main);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.pdf-loading p { margin-top: 18px; color: var(--green-dark); font-weight: 600; }
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+
+@media (max-width: 575.98px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  .logo-container {
+    top: 12px;
+    right: 12px;
+  }
+
+  .logo {
+    width: 60px;
+  }
+
+  .progress-bar-container {
+    padding: 60px 15px 0;
+  }
+
+  .progress-bar-chevron {
+    max-width: 280px;
+    height: 32px;
+  }
+
+  .progress-bar-percentage {
+    font-size: 0.75rem;
+    padding: 12px 10px;
+    min-width: 44px;
+  }
+
+  .progress-bar-arrow {
+    border-width: 16px 0 16px 14px;
+  }
+
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 60px;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 95%;
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .pill-nav {
+    right: 5px;
+    padding: 12px 8px;
+  }
+
+  .pill-btn {
+    padding: 8px 2px;
+  }
+
+  .pill-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pill-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pill-label {
+    font-size: 0.6rem;
+    max-width: 50px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  .logo-container {
+    top: 15px;
+    right: 30px;
+  }
+
+  .logo {
+    width: 70px;
+  }
+
+  .progress-bar-container {
+    padding: 80px 30px 0;
+  }
+
+  .progress-bar-chevron {
+    max-width: 320px;
+    height: 34px;
+  }
+
+  .progress-bar-percentage {
+    font-size: 0.8rem;
+    padding: 14px 12px;
+    min-width: 46px;
+  }
+
+  .progress-bar-arrow {
+    border-width: 17px 0 17px 15px;
+  }
+
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 70px;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 90%;
+    max-width: 1000px;
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  .pill-nav {
+    padding: 16px 9px;
+  }
+
+  .pill-btn {
+    padding: 9px 3px;
+  }
+
+  .pill-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pill-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .pill-label {
+    font-size: 0.65rem;
+    max-width: 58px;
+  }
+}
+
+@media (min-width: 992px) {
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 92%;
+    max-width: 1400px;
+  }
+
+  .progress-bar-container {
+    padding: 120px 50px 0;
+  }
+
+  .pill-nav {
+    padding: 18px 10px;
+    right: 0px;
+  }
+
+  .pill-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .pill-label {
+    font-size: 0.68rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .progress-bar-container {
+    padding: 40px 30px 0;
+  }
+
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 50px;
+  }
+
+  .logo-container {
+    top: 10px;
+    right: 20px;
+  }
+
+  .logo {
+    width: 50px;
+  }
+
+  .progress-bar-chevron {
+    height: 28px;
+  }
+
+  .progress-bar-percentage {
+    font-size: 0.7rem;
+    padding: 10px 8px;
+  }
+}
+
+@media (min-width: 1920px) {
+  html, body {
+    font-size: 16px;
+  }
+
+  .progress-bar-container {
+    padding: 140px 80px 0;
+  }
+
+  .progress-bar-chevron {
+    max-width: 400px;
+    height: 40px;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    max-width: 1600px;
+  }
+
+  .pill-nav {
+    padding: 20px 12px;
+  }
+
+  .pill-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .pill-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .pill-btn {
+    padding: 12px 6px;
+  }
+
+  .pill-btn:hover { transform: scale(1); }
+  .pill-btn:active { transform: scale(0.95); }
+}
+
+@media print {
+  .pill-nav,
+  .progress-bar-container,
+  .logo-container,
+  .menu-overlay,
+  .slide-nav,
+  .hamburger-btn,
+  .app-loading-veil {
+    display: none !important;
+  }
+
+  .app-shell:not(.layout-fullscreen) .content-area {
+    padding-top: 0;
+  }
+
+  .app-shell:not(.layout-fullscreen):not(.layout-video) .content-render {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    background: white;
+  }
+}
+
