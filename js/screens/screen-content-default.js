@@ -5,10 +5,10 @@ export function renderScreenContentDefault(route) {
     <div class="container default-layout">
         <div class="header-layer">
             <div class="img-left">
-                <img src="assets/img/El-ecosistema-de-derechos.png" alt="Ecosistema">
+                <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="Ecosistema">
             </div>
             <div class="img-right">
-                <img src="assets/img/logo.png" alt="Logo">
+                <img src="${window.resolvePath('assets/img/logo.png')}" alt="Logo">
             </div>
         </div>
 

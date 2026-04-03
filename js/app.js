@@ -181,6 +181,10 @@ function injectCSSVariables() {
         .screen-video {
             background-image: url('${assetsPath}/img/arbol.png') !important;
         }
+        
+        .container.default-layout {
+            background-image: url('${assetsPath}/img/background-pantalla-defecto.png') !important;
+        }
     `;
     document.head.appendChild(styleEl);
 }
