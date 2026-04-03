@@ -1,12 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-<!--    <link rel="stylesheet" href="css/layout.css">-->
-<!--    <link rel="stylesheet" href="css/welcome.css">-->
-</head>
-<body>
+/**
+ * screen-module.js
+ *
+ * Pantalla de bienvenida al módulo.
+ * Función pura: recibe la config del route, devuelve HTML string.
+ *
+ * Campos en course.config.js (dentro del screen):
+ *   courseTitle  : Nombre del curso
+ *   moduleNumber : Número del módulo
+ *   moduleTitle  : Título del módulo
+ *   introText    : Texto introductorio
+ */
+
+export function renderWelcome(route) {
+  const {
+    moduleTitle = "",
+    introText = "",
+    subText=""
+  } = route;
+
+  return `
 <div class="welcome-hero">
 
     <div class="hero-top">
@@ -19,9 +31,9 @@
     </div>
 
     <div class="hero-center">
-        <p class="module-one">Módulo 1</p>
-        <p class="hero-text">Lorem ipsum dolor sit amet</p>
-        <p class="hero-subtext">Lorem ipsum dolor sit amet</p>
+        <p class="module-one">${moduleTitle}</p>
+        <p class="hero-text">${introText}</p>
+        <p class="hero-subtext">${subText}</p>
         <div class="hero-progress-wrapper">
             <div class="progress-bar-chevron">
                 <div class="progress-bar-fill"></div>
@@ -34,7 +46,6 @@
 
 
 </div>
-<script type="module" src="js/app.js"></script>
+  `
+}
 
-</body>
-</html>
