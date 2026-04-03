@@ -5,6 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curso ICBF</title>
 
+  <!-- Path Resolution ANTES de cualquier otro script -->
+  <script>
+    (function() {
+      // Detectar la carpeta base del proyecto
+      const currentPath = window.location.pathname;
+      const url = new URL(window.location);
+
+      // Buscar dónde termina el proyecto (por index.html o por carpeta)
+      let basePath = '';
+
+      // Si estamos en una subcarpeta de public_html
+      if (currentPath.includes('/index.html')) {
+        basePath = currentPath.substring(0, currentPath.lastIndexOf('/index.html'));
+      } else if (currentPath !== '/' && !currentPath.endsWith('.html')) {
+        // Estamos en una carpeta
+        basePath = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
+      }
+
+      // Limpiar paths redundantes
+      if (basePath && basePath !== '/') {
+        // Validar que sea una ruta real (no incluya los assets)
+        if (!basePath.includes('assets') && !basePath.includes('css') && !basePath.includes('js')) {
+          window.COURSE_BASE_PATH = basePath;
+        } else {
+          window.COURSE_BASE_PATH = '';
+        }
+      } else {
+        window.COURSE_BASE_PATH = '';
+      }
+
+      // Función robusta para resolver rutas
+      window.resolvePath = function(path) {
+        if (!path) return '';
+
+        // Si ya es absoluta y tiene protocolo, devolverla así
+        if (path.startsWith('http://') || path.startsWith('https://')) {
+          return path;
+        }
+
+        // Limpiar el path
+        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+
+        // Construir la ruta completa
+        if (window.COURSE_BASE_PATH) {
+          return `${window.COURSE_BASE_PATH}/${cleanPath}`;
+        }
+
+        return `/${cleanPath}`;
+      };
+
+      console.log('[ICBF] Base Path detectado:', window.COURSE_BASE_PATH);
+      console.log('[ICBF] Test resolvePath:', window.resolvePath('assets/img/logo.png'));
+    })();
+  </script>
+
   <!-- Preload críticos -->
   <link rel="preload" href="css/main.css" as="style">
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" as="style">

@@ -13,9 +13,19 @@ export const course = {
     //   - "custom"          : Pantalla HTML personalizada + CSS dinámico
     //   - "default-layout"  : Layout con imágenes izq/derecha + contenido central
     //
-    // Para background images dinámicos, usar en renderizadores:
-    //   window.resolvePath('assets/img/nombre.png')
-    // Esto funciona en CUALQUIER entorno (localhost, subcarpetas, producción)
+    // NUNCA USAR RUTAS ABSOLUTAS (/assets/...)
+    // SIEMPRE USAR: window.resolvePath('assets/img/nombre.png')
+    // Esto garantiza funcionamiento en cualquier entorno:
+    //   - localhost
+    //   - subcarpetas
+    //   - Hostinger/producción
+    //
+    // Ejemplo correcto en screen-*.js:
+    //   <img src="${window.resolvePath('assets/img/logo.png')}" />
+    //
+    // REGLA PARA CSS: Las backgrounds ya se inyectan automáticamente
+    // desde app.js con injectCSSVariables(), solo agregar la clase
+    // CSS sin background-image y dejar que app.js lo maneje.
     // ─────────────────────────────────────────────────────────
     // FRONT PAGE
     {

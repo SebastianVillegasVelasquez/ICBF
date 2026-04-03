@@ -10,10 +10,10 @@ export function renderWelcome(route) {
 
     <div class="hero-top">
         <div class="hero-left">
-            <img src="/assets/img/Bienvenidos-al-curso.png" alt="Bienvenidos al curso">
+            <img src="${window.resolvePath('assets/img/Bienvenidos-al-curso.png')}" alt="Bienvenidos al curso">
         </div>
         <div class="hero-right">
-            <img src="/assets/img/El-ecosistema-de-derechos.png" alt="El ecosistema de derechos">
+            <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="El ecosistema de derechos">
         </div>
     </div>
 

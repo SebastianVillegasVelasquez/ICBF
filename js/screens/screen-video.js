@@ -30,7 +30,7 @@ export function renderVideo(route) {
         <div class="video-center">
 
           <div class="video-wrapper">
-            <img class="video-placeholder-img" src="/assets/img/video-plantilla.png" alt="video-plantilla">
+            <img class="video-placeholder-img" src="${window.resolvePath('assets/img/video-plantilla.png')}" alt="video-plantilla">
           </div>
             
           <!-- Video player 

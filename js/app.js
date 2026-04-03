@@ -17,11 +17,6 @@
 import {buildRoutes, getCourseTitle, getRoute, getTotalRoutes} from './router.js';
 import {finishSCORM, getLocation, initSCORM, setCompleted, setIncomplete, setLocation, setProgress} from './scorm.js';
 
-// ════════════════════════════════════════════════════════════════
-// PATH RESOLUTION — Ya está definida en index.html
-// ════════════════════════════════════════════════════════════════
-// window.COURSE_BASE_PATH y window.resolvePath() se definen en index.html
-// Verificar disponibilidad como fallback
 if (!window.resolvePath) {
     window.resolvePath = function(path) {
         if (!path) return '';
@@ -134,12 +129,15 @@ function loadCSS(href) {
             cssCache.add(resolvedHref);
             // Inyectar variables CSS con base path para que url() funcione en CSS dinámico
             injectCSSVariables();
+            console.log(`[CSS] Cargado correctamente: ${resolvedHref}`);
             resolve();
         };
 
         link.onerror = () => {
             console.error(`[CSS Loader] Error cargando ${resolvedHref}`);
-            reject(new Error(`CSS load failed: ${resolvedHref}`));
+            // NO rechazar, solo loguear. El contenido puede funcionar sin CSS
+            // pero con un layout por defecto. Mejor que dejar congelado el velo.
+            resolve();
         };
 
         document.head.appendChild(link);
@@ -253,23 +251,40 @@ class ProgressManager {
 const progressManager = new ProgressManager();
 
 // ════════════════════════════════════════════════════════════════
-// LOADING VEIL MANAGER — Controla el velo de carga global
+// LOADING VEIL MANAGER — Controla el velo de carga global con resiliencia
 // ════════════════════════════════════════════════════════════════
 
 class LoadingVeilManager {
     constructor() {
         this.veil = document.getElementById('app-loading-veil');
+        this.veilTimeout = null;
+        this.maxWaitTime = 30000; // 30 segundos máximo
     }
 
     show() {
         if (this.veil) {
             this.veil.classList.remove('hidden');
+
+            // Timeout de seguridad: si no se oculta en X segundos, ocultarlo automáticamente
+            this.clearTimeout();
+            this.veilTimeout = setTimeout(() => {
+                console.warn('[LoadingVeil] Timeout: velo no se ocultó. Ocultando automáticamente.');
+                this.hide();
+            }, this.maxWaitTime);
         }
     }
 
     hide() {
         if (this.veil) {
             this.veil.classList.add('hidden');
+            this.clearTimeout();
+        }
+    }
+
+    clearTimeout() {
+        if (this.veilTimeout) {
+            clearTimeout(this.veilTimeout);
+            this.veilTimeout = null;
         }
     }
 }
@@ -324,24 +339,37 @@ function renderContentScreen(route) {
 async function renderCustomScreen(route) {
     // Cargar CSS dinámico si está especificado
     if (route.css) {
-        await loadCSS(route.css);
+        try {
+            await loadCSS(route.css);
+        } catch (err) {
+            console.warn(`[Custom Screen] CSS no cargado: ${route.css}`, err);
+            // Continuar sin fallar
+        }
     }
 
     try {
         const resolvedPath = window.resolvePath(route.html);
-        const res = await fetch(resolvedPath);
+        
+        // Timeout de 10 segundos para fetch
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        
+        const res = await fetch(resolvedPath, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
         if (!res.ok) {
-            throw new Error(`No se pudo cargar: ${res.statusText}`);
+            throw new Error(`HTTP ${res.status}: ${res.statusText}`);
         }
+        
         let html = await res.text();
-
+        
         // Resolver rutas de imágenes en HTML personalizado
         html = resolveImageSrcInHTML(html);
-
+        
         return html;
     } catch (error) {
         console.error("[Custom Screen] Error:", error);
-        return `<div class="page-error">No se pudo cargar la pantalla. Revisa: ${route.html}</div>`;
+        return `<div class="page-error"><strong>Error cargando pantalla:</strong> ${error.message || error.name}</div>`;
     }
 }
 
@@ -383,7 +411,9 @@ function bootComponents(container) {
 
 async function renderRoute(route) {
     const appEl = document.getElementById('app');
-    if (!appEl || !route) return;
+    if (!appEl || !route) {
+        throw new Error('No se pudo acceder al contenedor de app o ruta');
+    }
 
     try {
         const screenDef = SCREEN_REGISTRY[route.type];
@@ -395,15 +425,30 @@ async function renderRoute(route) {
 
         // 1. Cargar CSS dinámico (si aplica)
         if (screenDef.css) {
-            await loadCSS(screenDef.css);
+            try {
+                await loadCSS(screenDef.css);
+            } catch (err) {
+                console.warn(`[renderRoute] CSS error: ${screenDef.css}`, err);
+                // Continuar sin CSS
+            }
         }
 
-        // 2. Renderizar contenido
+        // 2. Renderizar contenido con timeout de seguridad
         let html;
-        if (route.type === 'custom') {
-            html = await renderCustomScreen(route);
-        } else {
-            html = screenDef.render(route);
+        try {
+            if (route.type === 'custom') {
+                html = await Promise.race([
+                    renderCustomScreen(route),
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('Timeout renderizando pantalla')), 15000)
+                    )
+                ]);
+            } else {
+                html = screenDef.render(route);
+            }
+        } catch (err) {
+            console.error(`[renderRoute] Error renderizando:`, err);
+            html = `<div class="page-error"><strong>Error renderizando:</strong> ${err.message}</div>`;
         }
 
         // 3. Aplicar layout
@@ -414,12 +459,17 @@ async function renderRoute(route) {
 
         // 5. Inicializar componentes (solo para pantallas de contenido)
         if (route.type === 'content') {
-            bootComponents(appEl);
+            try {
+                bootComponents(appEl);
+            } catch (err) {
+                console.error('[renderRoute] Error bootComponents:', err);
+                // No fallar por esto
+            }
         }
 
     } catch (err) {
-        console.error("[Route Render] Error:", err);
-        appEl.innerHTML = `<div class="page-error">Error al renderizar pantalla: ${err.message}</div>`;
+        console.error("[renderRoute] Error fatal:", err);
+        appEl.innerHTML = `<div class="page-error"><strong>Error crítico:</strong> ${err.message}</div>`;
     }
 }
 
@@ -432,7 +482,10 @@ let visitedSet = new Set();
 let totalRoutes = 0;
 
 async function navigateTo(index) {
-    if (index < 0 || index >= totalRoutes) return;
+    if (index < 0 || index >= totalRoutes) {
+        console.warn(`[navigateTo] Índice inválido: ${index}`);
+        return;
+    }
 
     currentIndex = index;
     visitedSet.add(index);
@@ -442,7 +495,12 @@ async function navigateTo(index) {
 
     try {
         // Renderizar la ruta
-        await renderRoute(getRoute(index));
+        const route = getRoute(index);
+        if (!route) {
+            throw new Error(`No se pudo obtener la ruta en índice ${index}`);
+        }
+
+        await renderRoute(route);
 
         // Actualizar progreso
         progressManager.update(currentIndex, totalRoutes, visitedSet);
@@ -450,8 +508,15 @@ async function navigateTo(index) {
 
         // Sincronizar con SCORM
         syncSCORM();
+    } catch (err) {
+        console.error("[navigateTo] Error fatal:", err);
+        // Mostrar error al usuario pero no bloquear
+        const appEl = document.getElementById('app');
+        if (appEl) {
+            appEl.innerHTML = `<div class="page-error"><strong>Error al cargar:</strong> ${err.message}</div>`;
+        }
     } finally {
-        // Ocultar velo
+        // SIEMPRE ocultar el velo, sin excepción
         loadingVeil.hide();
     }
 }
@@ -542,79 +607,118 @@ async function exportPDF() {
 }
 
 // ════════════════════════════════════════════════════════════════
+// MANEJO GLOBAL DE ERRORES - Prevenir que el velo se quede congelado
+// ════════════════════════════════════════════════════════════════
+
+// Capturar promesas rechazadas no manejadas
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('[Global] Promesa rechazada no capturada:', event.reason);
+    // Asegurar que el velo se oculte
+    if (loadingVeil) {
+        loadingVeil.hide();
+    }
+    // Mostrar error amigable al usuario
+    const appEl = document.getElementById('app');
+    if (appEl && !appEl.innerHTML.includes('page-error')) {
+        appEl.innerHTML = `<div class="page-error"><strong>Error inesperado:</strong> Por favor recarga la página.</div>`;
+    }
+});
+
+// Capturar errores globales no capturados
+window.addEventListener('error', (event) => {
+    console.error('[Global] Error no capturado:', event.error);
+    // Ocultar velo en errores críticos
+    if (loadingVeil) {
+        loadingVeil.hide();
+    }
+});
+
+// ════════════════════════════════════════════════════════════════
 // INITIALIZATION
 // ════════════════════════════════════════════════════════════════
 
 window.addEventListener('DOMContentLoaded', async () => {
-    // Inyectar variables CSS globales para assets desde el inicio
-    injectCSSVariables();
+    try {
+        // Inyectar variables CSS globales para assets desde el inicio
+        injectCSSVariables();
 
-    // Resolver rutas de imágenes en HTML estático
-    const headerLogo = document.getElementById('header-logo');
-    if (headerLogo) {
-        headerLogo.src = window.resolvePath('assets/img/logo.png');
-    }
+        // Resolver rutas de imágenes en HTML estático
+        const headerLogo = document.getElementById('header-logo');
+        if (headerLogo) {
+            headerLogo.src = window.resolvePath('assets/img/logo.png');
+        }
 
-    buildRoutes();
-    totalRoutes = getTotalRoutes();
+        buildRoutes();
+        totalRoutes = getTotalRoutes();
 
-    if (totalRoutes === 0) {
-        console.error('[app] No hay pantallas definidas en course.config.js');
+        if (totalRoutes === 0) {
+            console.error('[app] No hay pantallas definidas en course.config.js');
+            loadingVeil.hide();
+            return;
+        }
+
+        const appEl = document.getElementById('app');
+
+        // ── Event Delegation para clicks ──
+        appEl.addEventListener('click', (event) => {
+            // Botones de módulo
+            const moduleBtn = event.target.closest('.module-btn');
+            if (moduleBtn) {
+                const moduleId = moduleBtn.dataset.module;
+                const targetIndex = getFirstPageIndexByModuleId(moduleId);
+                navigateTo(targetIndex);
+                return;
+            }
+
+            // Botón siguiente pantalla
+            const nextBtn = event.target.closest('.btn-next-screen');
+            if (nextBtn) {
+                navigateTo(currentIndex + 1);
+                return;
+            }
+
+            // Pantalla de bienvenida: click en cualquier lugar = siguiente
+            if (event.target.closest('.welcome-hero')) {
+                navigateTo(currentIndex + 1);
+            }
+        });
+
+        // ── Navegación global ──
+        document.getElementById('btn-home')?.addEventListener('click', () => navigateTo(0));
+        document.getElementById('btn-prev')?.addEventListener('click', () => navigateTo(currentIndex - 1));
+        document.getElementById('btn-next')?.addEventListener('click', () => navigateTo(currentIndex + 1));
+        document.getElementById('btn-pdf')?.addEventListener('click', exportPDF);
+
+        // ── SCORM ──
+        document.title = getCourseTitle();
+        const scormActive = initSCORM();
+        if (scormActive) {
+            const saved = getLocation();
+            if (saved !== null && !isNaN(saved) && saved < totalRoutes) {
+                currentIndex = parseInt(saved, 10);
+                for (let i = 0; i <= currentIndex; i++) visitedSet.add(i);
+            }
+        }
+
+        // ── Navegar a la pantalla inicial ──
+        await navigateTo(currentIndex);
+
+        // ── Guardar API global (opcional, para debugging) ──
+        window.courseApp = {
+            navigateTo,
+            getProgressManager: () => progressManager,
+            getCurrentIndex: () => currentIndex,
+            getTotalRoutes: () => totalRoutes
+        };
+        
+    } catch (err) {
+        console.error('[DOMContentLoaded] Error crítico:', err);
+        // Ocultar velo de emergencia
         loadingVeil.hide();
-        return;
-    }
-
-    const appEl = document.getElementById('app');
-
-    // ── Event Delegation para clicks ──
-    appEl.addEventListener('click', (event) => {
-        // Botones de módulo
-        const moduleBtn = event.target.closest('.module-btn');
-        if (moduleBtn) {
-            const moduleId = moduleBtn.dataset.module;
-            const targetIndex = getFirstPageIndexByModuleId(moduleId);
-            navigateTo(targetIndex);
-            return;
-        }
-
-        // Botón siguiente pantalla
-        const nextBtn = event.target.closest('.btn-next-screen');
-        if (nextBtn) {
-            navigateTo(currentIndex + 1);
-            return;
-        }
-
-        // Pantalla de bienvenida: click en cualquier lugar = siguiente
-        if (event.target.closest('.welcome-hero')) {
-            navigateTo(currentIndex + 1);
-        }
-    });
-
-    // ── Navegación global ──
-    document.getElementById('btn-home')?.addEventListener('click', () => navigateTo(0));
-    document.getElementById('btn-prev')?.addEventListener('click', () => navigateTo(currentIndex - 1));
-    document.getElementById('btn-next')?.addEventListener('click', () => navigateTo(currentIndex + 1));
-    document.getElementById('btn-pdf')?.addEventListener('click', exportPDF);
-
-    // ── SCORM ──
-    document.title = getCourseTitle();
-    const scormActive = initSCORM();
-    if (scormActive) {
-        const saved = getLocation();
-        if (saved !== null && !isNaN(saved) && saved < totalRoutes) {
-            currentIndex = parseInt(saved, 10);
-            for (let i = 0; i <= currentIndex; i++) visitedSet.add(i);
+        // Mostrar error
+        const appEl = document.getElementById('app');
+        if (appEl) {
+            appEl.innerHTML = `<div class="page-error"><strong>Error al inicializar:</strong> ${err.message}</div>`;
         }
     }
-
-    // ── Navegar a la pantalla inicial ──
-    await navigateTo(currentIndex);
-
-    // ── Guardar API global (opcional, para debugging) ──
-    window.courseApp = {
-        navigateTo,
-        getProgressManager: () => progressManager,
-        getCurrentIndex: () => currentIndex,
-        getTotalRoutes: () => totalRoutes
-    };
 });

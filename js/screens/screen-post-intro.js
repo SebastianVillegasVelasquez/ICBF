@@ -25,13 +25,13 @@ export function renderPostIntro(route) {
 
 
             <div class="ecosystem-illustration">
-                <img src="assets/img/El-ecosistema-de-derechos.png" alt="El ecosistema de los derechos humanos">
+                <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="El ecosistema de los derechos humanos">
             </div>
         </div>
 
         <div class="summary-right">
             <div class="icbf-logo">
-                <img src="assets/img/logo.png" alt="Bienestar Familiar">
+                <img src="${window.resolvePath('assets/img/logo.png')}" alt="Bienestar Familiar">
             </div>
 
             <ul class="topics-list">
