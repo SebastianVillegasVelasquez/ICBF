@@ -6,11 +6,11 @@ export function renderPostIntro(route) {
     } = route;
 
     return `
-<div class="screen-module-summary">
+<div class="screen-module-summary container-fluid">
 
-    <div class="summary-container">
+    <div class="row summary-container align-items-center">
 
-        <div class="summary-left">
+        <div class="col-12 col-lg-7 summary-left">
             <div class="header-left">
                 <h1 class="mod-number">${moduleTitle}</h1>
                 <h2 class="mod-title">${introText}</h2>
@@ -22,26 +22,59 @@ export function renderPostIntro(route) {
                 </div>
             </div>
 
-
-
             <div class="ecosystem-illustration">
-                <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="El ecosistema de los derechos humanos">
+                <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" class="img-fluid" alt="El ecosistema de los derechos humanos">
             </div>
         </div>
 
-        <div class="summary-right">
+        <div class="col-12 col-lg-5 summary-right">
             <div class="icbf-logo">
-                <img src="${window.resolvePath('assets/img/logo.png')}" alt="Bienestar Familiar">
+                <img src="${window.resolvePath('assets/img/logo.png')}" class="img-fluid" alt="Bienestar Familiar">
             </div>
 
             <ul class="topics-list">
-                <li><span>Derechos de mujeres y niñas</span> <div class="search-box">🔍</div></li>
-                <li><span>Derechos de niños, niñas y adolescentes</span> <div class="search-box">🔍</div></li>
-                <li><span>Derechos de la comunidad LGBTIQ+</span> <div class="search-box">🔍</div></li>
-                <li><span>Derechos de pueblos y comunidades indígenas</span> <div class="search-box">🔍</div></li>
-                <li><span>Derechos de las personas migrantes y refugiadas</span> <div class="search-box">🔍</div></li>
-                <li><span>Personas con discapacidad y personas mayores</span> <div class="search-box">🔍</div></li>
-            </ul>
+    <li>
+        <span>Derechos de mujeres y niñas</span>
+        <div class="search-box">
+            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
+        </div>
+    </li>
+
+    <li>
+        <span>Derechos de niños, niñas y adolescentes</span>
+        <div class="search-box">
+            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
+        </div>
+    </li>
+
+    <li>
+        <span>Derechos de la comunidad LGBTIQ+</span>
+        <div class="search-box">
+            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
+        </div>
+    </li>
+
+    <li>
+        <span>Derechos de pueblos y comunidades indígenas</span>
+        <div class="search-box">
+            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
+        </div>
+    </li>
+
+    <li>
+        <span>Derechos de las personas migrantes y refugiadas</span>
+        <div class="search-box">
+            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
+        </div>
+    </li>
+
+    <li>
+        <span>Personas con discapacidad y personas mayores</span>
+        <div class="search-box">
+            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
+        </div>
+    </li>
+</ul>
 
             <div class="button-wrapper">
                 <button class="ingresar-btn btn-next-screen">

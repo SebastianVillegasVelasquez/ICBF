@@ -24,30 +24,35 @@ export class CarouselScreen extends Screen {
         .join('');
 
     return `
-      <div class="screen screen-carousel">
-        <div class="carousel-container">
-          
-          <div class="carousel-wrap">
-            <div class="carousel-track">
-              ${slidesHtml}
-            </div>
-          </div>
-
-          <button class="carousel-btn left carousel-arrow--prev" aria-label="Diapositiva anterior">&#8592;</button>
-          <button class="carousel-btn right carousel-arrow--next" aria-label="Siguiente diapositiva">&#8594;</button>
-        </div>
-
-        <div class="carousel-dots">
-          ${dotsHtml}
-        </div>
-
-        <div class="carousel-footer">
-          <button class="carousel-btn-continue" id="carousel-continue">
-            Continuar
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-          </button>
+      <div class="screen screen-carousel container-fluid">
+    <div class="carousel-container">
+      
+      <div class="carousel-wrap">
+        <div class="carousel-track">
+          ${slidesHtml}
         </div>
       </div>
+
+      <button class="carousel-btn left carousel-arrow--prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      
+      <button class="carousel-btn right carousel-arrow--next" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <div class="carousel-dots">
+      ${dotsHtml}
+    </div>
+
+    <div class="carousel-footer">
+      <button class="carousel-btn-continue" id="carousel-continue">
+        <span>Continuar</span>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+    </div>
+</div>
     `;
   }
 

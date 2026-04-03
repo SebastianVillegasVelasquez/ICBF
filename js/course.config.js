@@ -60,18 +60,18 @@ export const course = {
           introText: "El ecosistema de derechos",
           subText: "Conceptos básicos y fundamentales",
         },
-        {
-          type: "default-layout",
-          contentHtml: `
-    <div class="table-container">
-      <h2>Tabla de Datos Importantes</h2>
-      <table class="custom-table">
-         <tr><th>Concepto</th><th>Definición</th></tr>
-         <tr><td>Derecho Humano</td><td>Garantía universal...</td></tr>
-      </table>
-    </div>
-  `
-        },
+  //       {
+  //         type: "default-layout",
+  //         contentHtml: `
+  //   <div class="table-container">
+  //     <h2>Tabla de Datos Importantes</h2>
+  //     <table class="custom-table">
+  //        <tr><th>Concepto</th><th>Definición</th></tr>
+  //        <tr><td>Derecho Humano</td><td>Garantía universal...</td></tr>
+  //     </table>
+  //   </div>
+  // `
+  //       },
 
         // PANTALLA 2 — Video
         {

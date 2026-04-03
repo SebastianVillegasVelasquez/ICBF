@@ -1,7 +1,10 @@
+/* =========================================================
+   ESTILOS: Pantalla de Resumen de Módulo
+   ========================================================= */
+
 html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     height: 100%;
 }
 
@@ -9,7 +12,7 @@ html, body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-color: #fff;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,21 +20,19 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Contenedor principal aprovechando el espacio */
+/* Contenedor principal */
 .summary-container {
     display: flex;
     width: 100%;
-    max-width: 100%;
-    height: 85vh;
-    padding: 0 5vw;
+    max-width: 1920px;
+    height: clamp(80vh, 85vh, 95vh);
+    padding: 0 clamp(20px, 5vw, 80px);
     z-index: 2;
-    gap: 50px;
     box-sizing: border-box;
 }
 
-/* COLUMNA IZQUIERDA (Se mantiene intacta como pediste) */
+/* COLUMNA IZQUIERDA */
 .summary-left {
-    flex: 1.3;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -40,12 +41,12 @@ html, body {
 }
 
 .header-left {
-    margin-top: 20px;
+    margin-top: clamp(10px, 2vh, 20px);
 }
 
 .mod-number {
     color: #e8c208;
-    font-size: 5.5rem;
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
     font-weight: 800;
     margin: 0;
     line-height: 0.9;
@@ -53,40 +54,41 @@ html, body {
 
 .mod-title {
     color: #3c4146;
-    font-size: 2.5rem;
+    font-size: clamp(1.3rem, 2.5vw, 2.5rem);
     font-weight: 700;
-    margin: 10px 0 5px 0;
+    margin: clamp(5px, 1vh, 10px) 0 clamp(3px, 0.5vh, 5px) 0;
 }
 
 .mod-subtitle {
     color: #e8c208;
-    font-size: 1.8rem;
+    font-size: clamp(1rem, 1.8vw, 1.8rem);
     font-weight: 600;
-    margin: 0 0 25px 0;
+    margin: 0 0 clamp(15px, 3vh, 25px) 0;
 }
 
+/* Barra de progreso */
 .summary-left .progress-bar-chevron {
     display: flex;
     align-items: center;
     background-color: #e8c208;
-    height: 40px;
-    width: 280px;
-    border-radius: 6px;
+    height: clamp(28px, 4vh, 40px);
+    width: clamp(200px, 25vw, 320px);
+    border-radius: clamp(4px, 0.5vw, 6px);
     position: relative;
     overflow: hidden;
-    margin-bottom: 30px;
+    margin-bottom: clamp(15px, 3vh, 30px);
 }
 
 .summary-left .progress-bar-percentage {
     background-color: #82c9ca;
     color: white;
     font-weight: 800;
-    font-size: 1.1rem;
+    font-size: clamp(0.75rem, 1.2vw, 1.1rem);
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
+    padding: 0 clamp(12px, 1.5vw, 20px);
     z-index: 2;
 }
 
@@ -96,36 +98,31 @@ html, body {
 }
 
 .ecosystem-illustration {
-    margin-left: 10px;
-    margin-bottom: 100px;
+    transform: translateY(-60px);
 }
 
 .ecosystem-illustration img {
-    max-width: 700px;
+    max-width: clamp(300px, 35vw, 700px);
     height: auto;
     display: block;
 }
 
-
-/* COLUMNA DERECHA (Ajustada según tus peticiones) */
+/* COLUMNA DERECHA */
 .summary-right {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Control total del flujo */
+    justify-content: space-between;
     align-items: flex-end;
     height: 100%;
-    padding-top: 10px; /* 🔥 Logo más arriba */
-    gap: 0; /* Quitamos el gap general para controlarlo individualmente */
+    padding-top: clamp(10px, 2vh, 20px);
 }
 
 .icbf-logo {
-    margin-top: 0;
-    margin-bottom: 35px; /* 🔥 Separación controlada con la lista */
+    margin-bottom: clamp(15px, 3vh, 35px);
 }
 
 .icbf-logo img {
-    max-width: 140px;
+    max-width: clamp(80px, 10vw, 140px);
     height: auto;
 }
 
@@ -135,7 +132,7 @@ html, body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 24px; /* 🔥 Lista más grande y estirada verticalmente */
+    gap: clamp(12px, 2.2vh, 24px);
     width: 100%;
     align-items: flex-end;
 }
@@ -144,131 +141,132 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 15px;
+    gap: clamp(8px, 1.5vw, 15px);
     color: #3c4146;
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: clamp(0.9rem, 1.3vw, 1.3rem);
     text-align: right;
 }
 
 .search-box {
     background-color: #e8c208;
-    width: 36px;
-    height: 36px;
+    width: clamp(28px, 3vw, 36px);
+    height: clamp(28px, 3vw, 36px);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: clamp(4px, 0.5vw, 6px);
+    font-size: clamp(0.75rem, 1.2vw, 1rem);
+    flex-shrink: 0;
 }
 
 .button-wrapper {
-    margin-top: 50px; /* 🔥 Lista y botón más separados */
-    margin-bottom: 80px; /* 🔥 El botón NO queda abajo del todo */
+    margin-top: auto;
+    margin-bottom: clamp(10px, 3vh, 30px);
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .ingresar-btn {
     background-color: #fedb02;
     border: none;
-    border-radius: 12px;
-    padding: 13px 40px;
+    border-radius: clamp(8px, 1vw, 12px);
+    padding: clamp(10px, 1.2vw, 15px) clamp(25px, 3vw, 40px);
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: clamp(10px, 1.5vw, 20px);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
 }
 
 .ingresar-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(232, 194, 8, 0.4);
+    box-shadow: 0 clamp(3px, 0.5vw, 6px) clamp(9px, 1.5vw, 15px) rgba(232, 194, 8, 0.4);
 }
 
 .ingresar-btn span {
     color: #3c4146;
     font-weight: 800;
-    font-size: 1.5rem; /* 🔥 Corregido typo de 'rm' a 'rem' */
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
 }
 
 .arrow-circle {
-    background-color: #fff;
-    width: 35px;
-    height: 35px;
+    background-color: #ffffff;
+    width: clamp(28px, 3vw, 35px);
+    height: clamp(28px, 3vw, 35px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
-/* Curva Inferior Masiva */
+/* Curva Inferior */
 .yellow-wave-footer {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: clamp(30px, 5vh, 60px);
     background: #fedb02;
     border-top-left-radius: 80px;
     border-top-right-radius: 80px;
+    z-index: 1;
 }
 
 /* ─────────────────────────────────────────────────────────
-   RESPONSIVE
+   RESPONSIVE (Bajo la regla de colapso de Bootstrap col-lg)
    ───────────────────────────────────────────────────────── */
-@media (max-width: 1024px) {
 
-    html, body {
-        overflow: auto;
+@media (max-width: 991px) {
+    .screen-module-summary {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        padding: 80px 20px 80px 20px;
     }
 
     .summary-container {
-        flex-direction: column;
         height: auto;
-        padding: 20px;
-        align-items: center;
-        gap: 30px;
+        padding: 0;
     }
 
-    /* TODO CENTRADO */
-    .summary-left,
-    .summary-right {
-        width: 100%;
-        align-items: center;
-        text-align: center;
-    }
-
-    .summary-right {
-        align-items: center;
-    }
-
-    /* LOGO ARRIBA */
     .icbf-logo {
-        order: -1;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        margin: 0;
+        z-index: 10;
     }
 
     .icbf-logo img {
-        max-width: 90px; /* 🔥 más pequeño */
+        max-width: clamp(70px, 15vw, 100px);
     }
 
-    /* TITULO (IMAGEN CENTRAL) */
+    .summary-left,
+    .summary-right {
+        align-items: center;
+        text-align: center;
+        height: auto;
+    }
+
+    .summary-right {
+        margin-top: 30px;
+    }
+
+    /* Reseteamos el margen negativo en móvil para que fluya bien */
+    .ecosystem-illustration {
+        transform: none;
+        margin-top: 20px;
+    }
+
     .ecosystem-illustration img {
-        max-width: 320px; /* 🔥 más pequeño */
+        max-width: clamp(250px, 60vw, 400px);
+        margin: 20px auto;
     }
 
-    /* TEXTOS MÁS PEQUEÑOS */
-    .mod-number {
-        font-size: 3rem;
-    }
-
-    .mod-title {
-        font-size: 1.6rem;
-    }
-
-    .mod-subtitle {
-        font-size: 1.2rem;
-    }
-
-    /* LISTA CENTRADA */
     .topics-list {
         align-items: center;
     }
@@ -276,40 +274,17 @@ html, body {
     .topics-list li {
         justify-content: center;
         text-align: center;
-        font-size: 1rem;
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
     }
 
-    /* BOTÓN GRANDE Y CLICKEABLE */
-    .ingresar-btn {
-        width: 80%;
+    .button-wrapper {
         justify-content: center;
-        font-size: 1.3rem;
-        padding: 18px;
-    }
-
-    .arrow-circle {
-        width: 30px;
-        height: 30px;
-    }
-
-    .yellow-wave-footer {
-        height: 40px;
-    }
-}
-
-/* EXTRA PEQUEÑOS (CELULARES) */
-@media (max-width: 480px) {
-
-    .ecosystem-illustration img {
-        max-width: 260px;
+        margin-top: 30px;
     }
 
     .ingresar-btn {
         width: 100%;
-        font-size: 1.2rem;
-    }
-
-    .topics-list li {
-        font-size: 0.95rem;
+        max-width: 350px;
+        justify-content: center;
     }
 }

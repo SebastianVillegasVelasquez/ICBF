@@ -1,10 +1,6 @@
 
-body {
-
-    /*background-size: cover;*/
-    /*background-position: center;*/
-    /*background-repeat: no-repeat;*/
-    /*color: red;*/
+:root {
+    --offset-x: clamp(20px, 5vw, 80px);
 }
 
 .front-page {
@@ -16,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    padding: 60px 0;
+    padding: clamp(30px, 5vh, 60px) 0;
 
     /* background-image se inyecta dinámicamente por JS */
     background-size: auto 85%;
@@ -26,29 +22,62 @@ body {
 
 .module-btn {
     position: absolute;
-    padding: 10px 50px;
-    border-radius: 20px;
+    padding: clamp(6px, 2vw, 10px) clamp(30px, 5vw, 50px);
+    border-radius: clamp(12px, 2vw, 20px);
     border: none;
 
     background: #8fd3d3;
     color: #ffffff;
 
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: clamp(0.95rem, 2vw, 1.5rem);
 
     cursor: pointer;
 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 clamp(2px, 0.5vw, 4px) clamp(6px, 1.5vw, 10px) rgba(0,0,0,0.15);
     transition: all 0.2s ease;
 }
 
 .module-btn:hover {
     background: #66c1c1;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 clamp(3px, 0.7vw, 6px) clamp(9px, 2vw, 15px) rgba(0,0,0,0.2);
 }
 
-.m1 { top: 50%; left: 42%; }
-.m2 { top: 58%; left: 55%; }
-.m3 { top: 65%; left: 39%; }
-.m4 { top: 70%; left: 55%; }
-.m5 { top: 80%; left: 41%; }
+/* Posiciones responsivas usando calc con vw para escalar fluidamente */
+.m1 { top: 50%; left: calc(clamp(30%, 42vw, 52%) + var(--offset-x)); transform: translateX(-50%); }
+.m2 { top: 58%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
+.m3 { top: 65%; left: calc(clamp(25%, 39vw, 49%) + var(--offset-x)); transform: translateX(-50%); }
+.m4 { top: 70%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
+.m5 { top: 80%; left: calc(clamp(28%, 41vw, 51%) + var(--offset-x)); transform: translateX(-50%); }
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 768px) {
+    .front-page {
+        background-size: auto 100%;
+        padding: clamp(20px, 4vh, 40px) 0;
+    }
+
+    .module-btn {
+        font-size: clamp(0.75rem, 3vw, 1.1rem);
+    }
+
+    .m1 { top: 45%; left: 50%; }
+    .m2 { top: 52%; left: 55%; }
+    .m3 { top: 59%; left: 42%; }
+    .m4 { top: 66%; left: 58%; }
+    .m5 { top: 73%; left: 45%; }
+}
+
+@media (max-width: 480px) {
+    .module-btn {
+        font-size: clamp(0.65rem, 2.5vw, 0.9rem);
+        padding: clamp(4px, 1.5vw, 6px) clamp(20px, 3vw, 30px);
+    }
+
+    .m1 { top: 40%; left: 50%; }
+    .m2 { top: 48%; left: 52%; }
+    .m3 { top: 56%; left: 45%; }
+    .m4 { top: 64%; left: 55%; }
+    .m5 { top: 72%; left: 48%; }
+}
+

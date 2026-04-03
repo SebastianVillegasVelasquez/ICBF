@@ -129,12 +129,10 @@ function loadCSS(href) {
             cssCache.add(resolvedHref);
             // Inyectar variables CSS con base path para que url() funcione en CSS dinámico
             injectCSSVariables();
-            console.log(`[CSS] Cargado correctamente: ${resolvedHref}`);
             resolve();
         };
 
         link.onerror = () => {
-            console.error(`[CSS Loader] Error cargando ${resolvedHref}`);
             // NO rechazar, solo loguear. El contenido puede funcionar sin CSS
             // pero con un layout por defecto. Mejor que dejar congelado el velo.
             resolve();
@@ -342,7 +340,6 @@ async function renderCustomScreen(route) {
         try {
             await loadCSS(route.css);
         } catch (err) {
-            console.warn(`[Custom Screen] CSS no cargado: ${route.css}`, err);
             // Continuar sin fallar
         }
     }
@@ -368,7 +365,6 @@ async function renderCustomScreen(route) {
         
         return html;
     } catch (error) {
-        console.error("[Custom Screen] Error:", error);
         return `<div class="page-error"><strong>Error cargando pantalla:</strong> ${error.message || error.name}</div>`;
     }
 }
