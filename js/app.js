@@ -17,11 +17,24 @@
 import {buildRoutes, getCourseTitle, getRoute, getTotalRoutes} from './router.js';
 import {finishSCORM, getLocation, initSCORM, setCompleted, setIncomplete, setLocation, setProgress} from './scorm.js';
 
+// ════════════════════════════════════════════════════════════════
+// PATH RESOLUTION — Ya está definida en index.html
+// ════════════════════════════════════════════════════════════════
+// window.COURSE_BASE_PATH y window.resolvePath() se definen en index.html
+// Verificar disponibilidad como fallback
+if (!window.resolvePath) {
+    window.resolvePath = function(path) {
+        if (!path) return '';
+        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+        return `/${cleanPath}`;
+    };
+}
+
 // ── Renderizadores de pantallas ────────────────────────────
 import {renderWelcome} from './screens/screen-module-intro.js';
 import {renderVideo} from './screens/screen-video.js';
 import {renderPostIntro} from "./screens/screen-post-intro.js";
-
+import {renderScreenContentDefault} from './screens/screen-content-default.js';
 // ── Registro de componentes ────────────────────────────────────
 import {initAccordion, renderAccordion} from './components/accordion.js';
 import {initCards, renderCards} from './components/cards.js';
@@ -85,40 +98,106 @@ const SCREEN_REGISTRY = {
         css: null,
         layout: 'full',
         render: (route) => renderCustomScreen(route)
+    },
+    'default-layout': {
+        css: 'css/content-default.css',
+        layout: 'full',
+        render: (route) => renderScreenContentDefault(route)
+    },
+    default: {
+        css: 'css/screens.css',
+        layout: 'default',
+        render: (route) => `<div class="screen screen-default">Pantalla por defecto</div>`
     }
 };
 
 // ════════════════════════════════════════════════════════════════
-// CSS LOADER — Cargador inteligente con caché
+// CSS LOADER — Cargador inteligente con caché + variables de ruta
 // ════════════════════════════════════════════════════════════════
 
 const cssCache = new Set();
 
 function loadCSS(href) {
     return new Promise((resolve, reject) => {
-        // Ya está cargado
-        if (cssCache.has(href) || document.querySelector(`link[href="${href}"]`)) {
+        const resolvedHref = window.resolvePath(href);
+
+        if (cssCache.has(resolvedHref) || document.querySelector(`link[href="${resolvedHref}"]`)) {
             resolve();
             return;
         }
 
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = href;
+        link.href = resolvedHref;
 
         link.onload = () => {
-            cssCache.add(href);
+            cssCache.add(resolvedHref);
+            // Inyectar variables CSS con base path para que url() funcione en CSS dinámico
+            injectCSSVariables();
             resolve();
         };
 
         link.onerror = () => {
-            console.error(`[CSS Loader] Error cargando ${href}`);
-            reject(new Error(`CSS load failed: ${href}`));
+            console.error(`[CSS Loader] Error cargando ${resolvedHref}`);
+            reject(new Error(`CSS load failed: ${resolvedHref}`));
         };
 
         document.head.appendChild(link);
     });
 }
+
+/**
+ * Inyecta variables CSS globales para rutas de assets
+ * Necesario para que url() en CSS dinámicos funcione con subcarpetas
+ */
+function injectCSSVariables() {
+    // Evitar inyectar múltiples veces
+    if (document.getElementById('css-var-injection')) return;
+
+    const basePath = window.COURSE_BASE_PATH || '';
+    const assetsPath = basePath ? `${basePath}/assets` : '/assets';
+
+    const styleEl = document.createElement('style');
+    styleEl.id = 'css-var-injection';
+    styleEl.textContent = `
+        :root {
+            --assets-path: '${assetsPath}';
+            --base-path: '${basePath}';
+        }
+        
+        /* Inyectar background-images con rutas absolutas */
+        .welcome-hero {
+            background-image: url('${assetsPath}/img/background-modulo-1.png') !important;
+        }
+        
+        .front-page {
+            background-image: url('${assetsPath}/img/front-page-background.png') !important;
+        }
+        
+        .container.default-layout {
+            background-image: url('${assetsPath}/img/background-pantalla-defecto.png') !important;
+        }
+        
+        .screen-video {
+            background-image: url('${assetsPath}/img/arbol.png') !important;
+        }
+    `;
+    document.head.appendChild(styleEl);
+}
+
+/**
+ * API para registrar backgrounds personalizados en pantallas futuras
+ * @param {string} selector - Selector CSS
+ * @param {string} imagePath - Ruta relativa (ej: "assets/img/bg.png")
+ */
+window.registerBackgroundImage = function(selector, imagePath) {
+    const basePath = window.COURSE_BASE_PATH || '';
+    const fullPath = basePath ? `${basePath}/${imagePath}` : `/${imagePath}`;
+
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `${selector} { background-image: url('${fullPath}') !important; }`;
+    document.head.appendChild(styleEl);
+};
 
 // ════════════════════════════════════════════════════════════════
 // PROGRESS MANAGER — Gestor centralizado de barra de progreso
@@ -199,6 +278,7 @@ const loadingVeil = new LoadingVeilManager();
 
 function applyLayout(layoutType) {
     const appShell = document.querySelector('.app-shell');
+    const mainCard = document.querySelector('.main-card')
     if (!appShell) return;
 
     // Remover todas las clases de layout
@@ -207,6 +287,7 @@ function applyLayout(layoutType) {
     // Aplicar la requerida
     if (layoutType === 'full') {
         appShell.classList.add('layout-fullscreen');
+
     } else if (layoutType === 'video') {
         appShell.classList.add('layout-video');
     }
@@ -243,15 +324,34 @@ async function renderCustomScreen(route) {
     }
 
     try {
-        const res = await fetch(route.html);
+        const resolvedPath = window.resolvePath(route.html);
+        const res = await fetch(resolvedPath);
         if (!res.ok) {
             throw new Error(`No se pudo cargar: ${res.statusText}`);
         }
-        return await res.text();
+        let html = await res.text();
+
+        // Resolver rutas de imágenes en HTML personalizado
+        html = resolveImageSrcInHTML(html);
+
+        return html;
     } catch (error) {
         console.error("[Custom Screen] Error:", error);
         return `<div class="page-error">No se pudo cargar la pantalla. Revisa: ${route.html}</div>`;
     }
+}
+
+/**
+ * Resuelve rutas de imágenes en HTML usando window.resolvePath()
+ * @param {string} html - Contenido HTML
+ * @returns {string} HTML con rutas resueltas
+ */
+function resolveImageSrcInHTML(html) {
+    // Patrón para detectar src="assets/..." o src='assets/...'
+    return html.replace(/src=["']([^"']*assets[^"']*)["']/g, (match, src) => {
+        const resolved = window.resolvePath(src);
+        return `src="${resolved}"`;
+    });
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -442,6 +542,15 @@ async function exportPDF() {
 // ════════════════════════════════════════════════════════════════
 
 window.addEventListener('DOMContentLoaded', async () => {
+    // Inyectar variables CSS globales para assets desde el inicio
+    injectCSSVariables();
+
+    // Resolver rutas de imágenes en HTML estático
+    const headerLogo = document.getElementById('header-logo');
+    if (headerLogo) {
+        headerLogo.src = window.resolvePath('assets/img/logo.png');
+    }
+
     buildRoutes();
     totalRoutes = getTotalRoutes();
 
@@ -505,4 +614,3 @@ window.addEventListener('DOMContentLoaded', async () => {
         getTotalRoutes: () => totalRoutes
     };
 });
-

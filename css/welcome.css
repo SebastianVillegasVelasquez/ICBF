@@ -15,9 +15,8 @@
     overflow: hidden;
 
     cursor: pointer;
-    /* El resto de tus estilos individuales */
 
-    background-image: url('/assets/img/background-modulo-1.png');
+    /* background-image se inyecta dinámicamente por JS para soportar subcarpetas */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

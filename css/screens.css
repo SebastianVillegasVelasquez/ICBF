@@ -103,7 +103,7 @@
 
   overflow-x: hidden;
 
-  background-image: url('/assets/img/arbol.png');
+  /* background-image se inyecta dinámicamente por app.js */
   background-position: calc(100% - 5px) calc(100% - 5px);
   background-repeat: no-repeat;
   background-size: 600px auto;

@@ -3,8 +3,21 @@ export const course = {
 
   modules: [
     // ─────────────────────────────────────────────────────────
-    // FRONT PAGE
+    // CONFIGURACIÓN DE PANTALLAS
     // ─────────────────────────────────────────────────────────
+    // Tipos soportados:
+    //   - "module-intro"    : Pantalla de bienvenida con título
+    //   - "post-intro"      : Pantalla resumen post-módulo
+    //   - "video"           : Pantalla de video
+    //   - "content"         : Pantalla con componentes (carousel, cards, etc)
+    //   - "custom"          : Pantalla HTML personalizada + CSS dinámico
+    //   - "default-layout"  : Layout con imágenes izq/derecha + contenido central
+    //
+    // Para background images dinámicos, usar en renderizadores:
+    //   window.resolvePath('assets/img/nombre.png')
+    // Esto funciona en CUALQUIER entorno (localhost, subcarpetas, producción)
+    // ─────────────────────────────────────────────────────────
+    // FRONT PAGE
     {
       title: "Portada",
       screens: [
@@ -30,39 +43,47 @@ export const course = {
           introText: "El ecosistema de derechos",
           subText: "Conceptos básicos y fundamentales",
         },
+          // PANTALLA 2 - Post-intro
         {
           type: "post-intro",
           moduleTitle: "Módulo 1",
           introText: "El ecosistema de derechos",
           subText: "Conceptos básicos y fundamentales",
         },
-        // {
-        //   type: "custom",
-        //   html: "js/screens/welcome-hero/welcome.html",
-        //   css: "css/welcome.css",
-        // },
-        //
-        // // PANTALLA 2 — Video
-        // {
-        //   type: "video",
-        //   title: "Video introductorio",
-        //   videoUrl: "",
-        //   characterName: "Ayla",
-        //   subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-        //   characterLeft: "Ayla",
-        //   characterRight: "Simón",
-        // },
+  //       {
+  //         type: "default-layout",
+  //         contentHtml: `
+  //   <div class="table-container">
+  //     <h2>Tabla de Datos Importantes</h2>
+  //     <table class="custom-table">
+  //        <tr><th>Concepto</th><th>Definición</th></tr>
+  //        <tr><td>Derecho Humano</td><td>Garantía universal...</td></tr>
+  //     </table>
+  //   </div>
+  // `
+  //       },
+
+        // PANTALLA 2 — Video
+        {
+          type: "video",
+          title: "Video introductorio",
+          videoUrl: "",
+          characterName: "Ayla",
+          subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+          characterLeft: "Ayla",
+          characterRight: "Simón",
+        },
 
         // PANTALLA 3 — Video 16:9
-        // {
-        //   type: "video",
-        //   title: "Video instructivo",
-        //   videoUrl: "",
-        //   characterName: "Ayla",
-        //   subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán.",
-        //   characterLeft: "Ayla",
-        //   characterRight: "Simón",
-        // },
+        {
+          type: "video",
+          title: "Video instructivo",
+          videoUrl: "",
+          characterName: "Ayla",
+          subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán.",
+          characterLeft: "Ayla",
+          characterRight: "Simón",
+        },
 
         // PANTALLA 3 — Contenido con carrusel
         // El componente 'carousel' espera slides con: heading y body
