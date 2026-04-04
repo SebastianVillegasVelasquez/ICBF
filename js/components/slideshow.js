@@ -9,9 +9,6 @@
 export function renderSlideshow(data) {
     const slides = data.slides || [];
 
-    export function renderSlideshow(data) {
-        const slides = data.slides || [];
-
         return `
     <style>
       .slideshow-wrapper { width: 100%; box-sizing: border-box; padding: 0.5rem 0; }
@@ -136,5 +133,5 @@ export function renderSlideshow(data) {
             });
 
         });
-    }
+
 }
