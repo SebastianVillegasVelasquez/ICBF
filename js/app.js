@@ -128,7 +128,9 @@ const cssCache = new Set();
 function loadCSS(href) {
     return new Promise((resolve, reject) => {
         const resolvedHref = window.resolvePath(href);
-
+        console.log(`[loadCSS] href original: ${href}`);
+        console.log(`[loadCSS] href resuelto: ${resolvedHref}`);
+        console.log(`[loadCSS] ya en cache: ${cssCache.has(resolvedHref)}`);
         if (cssCache.has(resolvedHref) || document.querySelector(`link[href="${resolvedHref}"]`)) {
             resolve();
             return;
@@ -444,6 +446,7 @@ async function renderRoute(route) {
         // 1. Cargar CSS dinámico (si aplica)
         if (screenDef.css) {
             const cssList = Array.isArray(screenDef.css) ? screenDef.css : [screenDef.css];
+            console.log(cssList)
             try {
                 await Promise.all(cssList.map(href => loadCSS(href)));
             } catch (err) {
