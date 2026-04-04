@@ -44,7 +44,7 @@ class ProgressBar {
     if (!this.percentageEl) this._init();
 
     // Matemática: empezar en 20% y repartir el 80% restante
-    const basePct = 20;
+    const basePct = 0; // Puedes ajustar esto si quieres un punto de partida diferente
     const avanceReal = visitedSet.size / totalRoutes;
     const pct = basePct + Math.round(avanceReal * (100 - basePct));
 
@@ -101,14 +101,13 @@ class ProgressBar {
   renderTo(containerEl) {
     if (!containerEl) return;
 
-    const html = `
+    containerEl.innerHTML = `
       <div class="progress-bar-chevron" id="progress-chevron">
         <div class="progress-bar-fill"></div>
         <div class="progress-bar-percentage" id="progress-percentage">0%</div>
         <div class="progress-bar-arrow"></div>
       </div>
     `;
-    containerEl.innerHTML = html;
     this.container = containerEl;
     this._init();
   }

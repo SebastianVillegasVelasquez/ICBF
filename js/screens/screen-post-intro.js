@@ -2,7 +2,8 @@ export function renderPostIntro(route) {
     const {
         moduleTitle = "",
         introText = "",
-        subText = ""
+        subText = "",
+        elements: [] = []
     } = route;
 
     return `
@@ -34,46 +35,27 @@ export function renderPostIntro(route) {
 
             <ul class="topics-list">
     <li>
-        <span>Derechos de mujeres y niñas</span>
+        <span>Derechos humanos</span>
         <div class="search-box">
             <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
         </div>
     </li>
 
     <li>
-        <span>Derechos de niños, niñas y adolescentes</span>
+        <span>Igualdad y no discriminación</span>
         <div class="search-box">
             <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
         </div>
     </li>
 
     <li>
-        <span>Derechos de la comunidad LGBTIQ+</span>
+        <span>Derecho internacional humanitario</span>
         <div class="search-box">
             <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
         </div>
     </li>
 
-    <li>
-        <span>Derechos de pueblos y comunidades indígenas</span>
-        <div class="search-box">
-            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
-        </div>
-    </li>
-
-    <li>
-        <span>Derechos de las personas migrantes y refugiadas</span>
-        <div class="search-box">
-            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
-        </div>
-    </li>
-
-    <li>
-        <span>Personas con discapacidad y personas mayores</span>
-        <div class="search-box">
-            <img src="${window.resolvePath('assets/img/lupa.png')}" alt="Buscar">
-        </div>
-    </li>
+  
 </ul>
 
             <div class="button-wrapper">

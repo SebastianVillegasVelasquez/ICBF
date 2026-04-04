@@ -5,7 +5,7 @@ export function renderWelcome(route) {
     subText=""
   } = route;
 
-  return `
+return `
 <div class="welcome-hero container-fluid">
 
     <div class="row justify-content-center align-items-center g-4 g-lg-5 hero-top">
@@ -23,17 +23,12 @@ export function renderWelcome(route) {
             <p class="hero-text">${introText}</p>
             <p class="hero-subtext">${subText}</p>
             
-            <div class="hero-progress-wrapper">
-                <div class="progress-bar-chevron">
-                    <div class="progress-bar-fill"></div>
-                    <div class="progress-bar-percentage">20%</div>
-                    <div class="progress-bar-arrow"></div>
-                </div>
-            </div>
+            <div class="hero-progress-wrapper"></div>
+            
         </div>
     </div>
 
 </div>
-  `
+`;
 }
 

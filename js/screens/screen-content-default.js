@@ -2,20 +2,20 @@ export function renderScreenContentDefault(route) {
     const { contentHtml = "" } = route;
 
     return `
-    <div class="container default-layout">
-        <div class="header-layer">
-            <div class="img-left">
+    <div class="screen screen-default-content">
+        <header class="screen-header">
+            <div class="header-img-left">
                 <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="Ecosistema">
             </div>
-            <div class="img-right">
+            <div class="header-img-right">
                 <img src="${window.resolvePath('assets/img/logo.png')}" alt="Logo">
             </div>
-        </div>
+        </header>
 
-        <div class="main-layout">
+        <main class="main-layout">
             <div class="content-slot">
                 ${contentHtml}
             </div>
-        </div>
+        </main>
     </div> `;
 }

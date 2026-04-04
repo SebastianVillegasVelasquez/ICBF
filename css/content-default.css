@@ -1,130 +1,113 @@
-/* CONTENEDOR PRINCIPAL - FULLSCREEN */
-.container.default-layout {
-    position: fixed;
+/* ─────────────────────────────────────────────────────────
+   PANTALLA DE CONTENIDO DEFAULT - LAYOUT DE INYECCIÓN
+   ───────────────────────────────────────────────────────── */
+
+.screen-default-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background-color: var(--white);
+    overflow-x: hidden;
+
+    /* Imagen de fondo (ya opaca desde Illustrator) */
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) calc(100% - 10px);
+    background-size: clamp(450px, 45vw, 800px) auto;
+}
+
+/* Logos más discretos */
+.screen-default-content .screen-header {
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-size: contain;
-    background-position: right bottom;
-    background-repeat: no-repeat;
-}
-
-/* CAPA DE IMÁGENES EN EXTREMOS */
-.header-layer {
-    position: absolute;
     width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* IMAGEN IZQUIERDA */
-.img-left {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    z-index: 2;
-}
-
-.img-left img {
-    max-width: 500px;
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* IMAGEN DERECHA (LOGO) */
-.img-right {
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    z-index: 2;
-}
-
-.img-right img {
-    max-width: 120px;
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* CONTENIDO CENTRAL */
-.main-layout {
-    position: relative;
-    width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 25px 45px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.header-img-left img {
+    width: clamp(140px, 15vw, 220px);
+    height: auto;
     pointer-events: auto;
 }
 
+.header-img-right img {
+    width: clamp(70px, 7vw, 95px);
+    height: auto;
+    pointer-events: auto;
+}
+
+/* ── LAYOUT DE CONTENIDO: Empujado a la izquierda ── */
+
+.main-layout {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    /* Cambiamos center por flex-start para mover la tabla a la izquierda */
+    justify-content: flex-start;
+
+    /* Espacio para logos (top) y margen izquierdo (6%) */
+    padding: 130px 6% 60px;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
 .content-slot {
-    width: 90%;
-    max-width: 1000px;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.95);
+    width: 100%;
+
+    /* Limitamos el ancho al 65% para que no tape toda la imagen de fondo */
+    max-width: 65%;
+
+    /* Fondo con ligera transparencia para que se intuya el fondo pero sea legible */
+    background: rgba(255, 255, 255, 0.92);
+
+    padding: clamp(25px, 3vw, 45px);
     border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+
+    /* Animación suave al aparecer */
+    animation: fadeInContent 0.5s ease-out;
 }
 
-/* RESPONSIVE */
+@keyframes fadeInContent {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   RESPONSIVIDAD (Laptops y Tablets)
+   ───────────────────────────────────────────────────────── */
+
+@media (max-height: 800px) {
+    .main-layout {
+        padding-top: 100px;
+    }
+
+    .content-slot {
+        max-width: 75%; /* En laptops damos un poco más de ancho a la tabla */
+    }
+}
+
 @media (max-width: 1024px) {
-    .img-left img {
-        max-width: 350px;
-    }
-
-    .img-right img {
-        max-width: 100px;
+    .main-layout {
+        justify-content: center; /* En tablets volvemos a centrar */
+        padding: 100px 25px 50px;
     }
 
     .content-slot {
-        padding: 30px;
+        max-width: 95%; /* Ocupa casi todo el ancho */
+        margin: 0 auto;
+    }
+
+    .screen-default-content {
+        /* Reducimos el fondo en pantallas pequeñas para que no sature */
+        background-size: 350px auto;
     }
 }
-
-@media (max-width: 768px) {
-    .img-left {
-        top: 20px;
-        left: 20px;
-    }
-
-    .img-right {
-        top: 20px;
-        right: 20px;
-    }
-
-    .img-left img {
-        max-width: 250px;
-    }
-
-    .img-right img {
-        max-width: 80px;
-    }
-
-    .content-slot {
-        width: 95%;
-        padding: 20px;
-        max-height: 70vh;
-    }
-}
-
-@media (max-width: 480px) {
-    .img-left img {
-        max-width: 180px;
-    }
-
-    .img-right img {
-        max-width: 60px;
-    }
-
-    .content-slot {
-        padding: 15px;
-    }
-}
-

@@ -1,0 +1,112 @@
+.screen-video {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+
+    background-repeat: no-repeat;
+    background-position: calc(100% - 5px) calc(100% - 5px);
+    background-size: clamp(500px, 48vw, 780px) auto;
+}
+
+.screen-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 45px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.screen-logo {
+    width: clamp(240px, 22vw, 220px);
+    height: auto;
+    object-fit: contain;
+    display: block;
+    pointer-events: auto;
+}
+
+.screen-illustration {
+    width: clamp(50px, 5vw, 130px);
+    height: auto;
+    object-fit: contain;
+    display: block;
+    pointer-events: auto;
+}
+
+/* Layout del Video */
+.screen-video > .video-layout {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    z-index: 10;
+}
+
+.video-center {
+    width: 95%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform: translate(-30px, 40px);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 70%;
+    padding-bottom: 56.25%;
+    border-radius: 0;
+    overflow: hidden;
+    background: transparent;
+}
+
+.video-placeholder-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: translate(-50%, -50%);
+    border-radius: 0;
+}
+
+/* ─────────────────────────────────────────────────────────
+   RESPONSIVIDAD: LAPTOPS (1366x768)
+   ───────────────────────────────────────────────────────── */
+
+@media (max-height: 800px) {
+    .screen-header {
+        padding: 15px 35px;
+    }
+
+    .screen-logo { width: 200px; }
+    .screen-illustration { width: 90px; }
+
+    .video-center {
+        /* Ajuste de posición más sutil en laptops para no salirse del viewport */
+        transform: translate(-20px, 30px);
+        width: 90%;
+    }
+
+    .video-wrapper {
+        max-width: calc(72vh * (16/9));
+        padding-bottom: 0;
+        height: 72vh;
+    }
+
+    .screen-video {
+        /* Ajustamos el fondo para que no tape tanto espacio en pantallas bajas */
+        background-size: 550px auto;
+    }
+}

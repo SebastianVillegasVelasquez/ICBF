@@ -73,32 +73,43 @@ const SCREEN_REGISTRY = {
     'module-intro': {
         css: 'css/welcome.css',
         layout: 'full',
+        showNav: false,
         render: (route) => renderWelcome(route)
     },
     'video': {
-        css: 'css/screens.css',
+        css: 'css/video.css',
         layout: 'video',
+        showNav: true,
+        showPdf: true,
         render: (route) => renderVideo(route)
     },
     'post-intro': {
         css: 'css/post-intro.css',
         layout: 'full',
+        showNav: false,
+        showPdf: false,
         render: (route) => renderPostIntro(route)
+    },
+    'default-content': {
+        css: 'css/content-default.css',
+        layout: 'full',
+        showNav: true,
+        showPdf: false,
+        render: (route) => renderScreenContentDefault(route)
     },
     'content': {
         css: 'css/components.css',
         layout: 'default',
+        showNav: true,
+        showPdf: true,
         render: (route) => renderContentScreen(route)
     },
     'custom': {
         css: null,
         layout: 'full',
+        showNav: false,
+        showPdf: false,
         render: (route) => renderCustomScreen(route)
-    },
-    'default-layout': {
-        css: 'css/content-default.css',
-        layout: 'full',
-        render: (route) => renderScreenContentDefault(route)
     },
     default: {
         css: 'css/screens.css',
@@ -179,8 +190,8 @@ function injectCSSVariables() {
             background-image: url('${assetsPath}/img/arbol.png') !important;
         }
         
-        .container.default-layout {
-            background-image: url('${assetsPath}/img/background-pantalla-defecto.png') !important;
+        .screen-default-content {
+            background-image: url('${assetsPath}/img/background-defecto.png') !important;
         }
     `;
     document.head.appendChild(styleEl);
@@ -294,30 +305,31 @@ const loadingVeil = new LoadingVeilManager();
 // LAYOUT SYSTEM — Aplica layouts dinámicos + control de píldora nav
 // ════════════════════════════════════════════════════════════════
 
-function applyLayout(layoutType, hideNav = false) {
-     const appShell = document.querySelector('.app-shell');
-     const pillNav = document.querySelector('.pill-nav');
-     if (!appShell) return;
+function applyLayout(screenConfig) {
+    const appShell = document.querySelector('.app-shell');
+    const pillNav = document.querySelector('.pill-nav');
+    const btnPdf = document.querySelector('#btn-pdf');
 
-     // Remover todas las clases de layout
-     appShell.classList.remove('layout-fullscreen', 'layout-video');
+    if (!appShell) return;
 
-     // Aplicar la requerida
-     if (layoutType === 'full') {
-         appShell.classList.add('layout-fullscreen');
-     } else if (layoutType === 'video') {
-         appShell.classList.add('layout-video');
-     }
-     // 'default' no aplica ninguna clase
+    appShell.classList.remove('layout-fullscreen', 'layout-video');
 
-     // Controlar visibilidad de píldora según la pantalla
-     if (pillNav) {
-         if (hideNav) {
-             pillNav.style.display = 'none';
-         } else {
-             pillNav.style.display = 'flex';
-         }
-     }
+    const layoutType = screenConfig.layout;
+    if (layoutType === 'full') {
+        appShell.classList.add('layout-fullscreen');
+    } else if (layoutType === 'video') {
+        appShell.classList.add('layout-video');
+    }
+
+    if (pillNav) {
+        const shouldShowNav = screenConfig.showNav !== false;
+        pillNav.style.display = shouldShowNav ? 'flex' : 'none';
+    }
+
+    if (btnPdf) {
+        const shouldShowPdf = screenConfig.showPdf !== false;
+        btnPdf.style.display = shouldShowPdf ? 'flex' : 'none';
+    }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -444,7 +456,7 @@ async function renderRoute(route) {
             if (route.type === 'custom') {
                 html = await Promise.race([
                     renderCustomScreen(route),
-                    new Promise((_, reject) => 
+                    new Promise((_, reject) =>
                         setTimeout(() => reject(new Error('Timeout renderizando pantalla')), 15000)
                     )
                 ]);
@@ -456,12 +468,38 @@ async function renderRoute(route) {
             html = `<div class="page-error"><strong>Error renderizando:</strong> ${err.message}</div>`;
         }
 
-         // 3. Aplicar layout
-         const hideNav = route.hideNav === true; // Propiedad opcional en route
-         applyLayout(screenDef.layout, hideNav);
+        /* ─────────────────────────────────────────────────────────
+           3. APLICAR LAYOUT Y CONFIGURACIÓN DE PÍLDORA (Actualizado)
+           ───────────────────────────────────────────────────────── */
 
-         // 4. Inyectar HTML
+        // Creamos un objeto de configuración combinando el registro y la ruta
+        const screenConfig = {
+            layout: screenDef.layout,
+            // Si la ruta dice específicamente que oculte el nav, gana la ruta.
+            // Si no dice nada, se usa la configuración por defecto del SCREEN_REGISTRY.
+            showNav: route.hideNav === true ? false : screenDef.showNav,
+            showPdf: screenDef.showPdf
+        };
+
+        applyLayout(screenConfig);
+
+        // 4. Inyectar HTML
         appEl.innerHTML = html;
+        const localProgressContainer = appEl.querySelector('.hero-progress-wrapper');
+
+        if (localProgressContainer) {
+            // 1. Construye el HTML correcto con sus IDs dentro del contenedor
+            progressBar.renderTo(localProgressContainer);
+
+            // 2. Actualiza los valores reales.
+            // Debes pasarle las variables de tu estado global.
+            // Como ejemplo usaré valores fijos, pero aquí van tus variables reales:
+            const currentIndex = 0; // Índice de la pantalla actual
+            const totalRoutes = 10;  // Total de pantallas del curso
+            const visitedSet = new Set([0]); // Pantallas que ya vio el usuario
+
+            progressBar.update(currentIndex, totalRoutes, visitedSet);
+        }
 
         // 5. Inicializar componentes (solo para pantallas de contenido)
         if (route.type === 'content') {
