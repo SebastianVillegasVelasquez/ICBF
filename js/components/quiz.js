@@ -218,3 +218,41 @@ export function pickQuestions(bank, ids) {
         return { ...q, id };
     });
 }
+
+export function pickRandomQuestions(bank, ids, count = 5) {
+    const shuffledIds = [...ids].sort(() => Math.random() - 0.5);
+    const selectedIds = shuffledIds.slice(0, count);
+
+    return selectedIds.map(id => {
+        const q = bank[id];
+        if (!q) throw new Error(`[Quiz] Pregunta "${id}" no encontrada en el banco.`);
+        return { ...q, id };
+    });
+}
+
+export function getOrPickQuizQuestions(bank, ids, quizId, count = 5) {
+    const storageKey = `quiz_assigned_${quizId}`;
+    let selectedIds;
+
+    // 1. Intentamos recuperar las preguntas guardadas previamente
+    const storedIds = sessionStorage.getItem(storageKey);
+
+    if (storedIds) {
+        // Si existen, las parseamos
+        selectedIds = JSON.parse(storedIds);
+    } else {
+        // 2. Si no existen, barajamos los ids y tomamos los necesarios
+        const shuffledIds = [...ids].sort(() => Math.random() - 0.5);
+        selectedIds = shuffledIds.slice(0, count);
+
+        // 3. Las guardamos en el sessionStorage en formato string
+        sessionStorage.setItem(storageKey, JSON.stringify(selectedIds));
+    }
+
+    // 4. Mapeamos los IDs finales a los objetos reales del banco
+    return selectedIds.map(id => {
+        const q = bank[id];
+        if (!q) throw new Error(`[Quiz] Pregunta "${id}" no encontrada en el banco.`);
+        return { ...q, id };
+    });
+}

@@ -1,5 +1,6 @@
 import {renderSlideshow} from "./components/slideshow.js";
-import {pickQuestions, renderQuiz} from "./components/quiz.js";
+import {renderCarousel} from "./components/carousel.js";
+import {getOrPickQuizQuestions, pickRandomQuestions, renderQuiz} from "./components/quiz.js";
 import {QUESTIONS_BANK} from "./data/question-bank.js";
 
 export const course = {
@@ -45,7 +46,6 @@ export const course = {
             ],
         },
 
-
         // ─────────────────────────────────────────────────────────
         // MÓDULO 1
         // ─────────────────────────────────────────────────────────
@@ -53,6 +53,105 @@ export const course = {
             id: 1,
             title: "Módulo 1: Introducción",
             screens: [
+
+
+                // MODULO 0 - Introduccion
+                // PANTALLA 1- Video introductorio
+                {
+                    type: "video",
+                    title: "Video introductorio",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                // PANTALLA 2 - Video navegacion
+                {
+                    type: "video",
+                    title: "Video navegacion",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                // PANTALLA 3 — Contenido tematico
+                {
+                    type: "default-content",
+                    contentHtml: renderCarousel({
+                        slides: [
+                            {
+                                icon: "",
+                                title: "MÓDULO 1. DERECHOS HUMANOS Y DERECHO INTERNACIONAL HUMANITARIO",
+                                objective: "Reconocer los Derechos Humanos y Derecho Internacional Humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en los contextos sociales, institucionales.",
+                                contents: [
+                                    "Derechos Humanos",
+                                    "Igualdad y no discriminación",
+                                    "Derecho Internacional Humanitario"
+                                ]
+                            },
+                            {
+                                icon: "",
+                                title: "MÓDULO 2. PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
+                                objective: "Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.",
+                                contents: [
+                                    "Derechos civiles y políticos",
+                                    "Mecanismos de protección",
+                                    "Mecanismos de participación ciudadana",
+                                    "Veedurías ciudadanas"
+                                ]
+                            },
+                            {
+                                icon: "",
+                                title: "MÓDULO 3. DERECHOS ECONÓMICOS, SOCIALES Y CULTURALES Y SUS MECANISMOS DE PROTECCIÓN",
+                                objective: "Reconocer los Derechos Económicos, Sociales y Culturales y sus mecanismos de protección, para orientar acciones que contribuyan a la garantía integral de los derechos de niños, niñas y adolescentes.",
+                                contents: [
+                                    "Los Derechos Económicos, Sociales y Culturales",
+                                    "Mecanismos de protección de los Derechos Económicos, Sociales y Culturales"
+                                ]
+                            },
+                            {
+                                icon: "",
+                                title: "MÓDULO 4. DERECHOS COLECTIVOS Y AMBIENTALES",
+                                objective: "Identificar los derechos colectivos y ambientales, los mecanismos nacionales de protección y los enfoques de multiculturalidad y diversidad étnica, para orientar acciones de protección y respeto por los derechos de niños, niñas y adolescentes y de sus comunidades, en los contextos sociales, culturales y territoriales.",
+                                contents: [
+                                    "Derechos colectivos",
+                                    "Mecanismos nacionales de protección",
+                                    "Multiculturalidad y diversidad étnica"
+                                ]
+                            },
+                            {
+                                icon: "",
+                                title: "MÓDULO 5. GRUPOS POBLACIONALES",
+                                objective: "Reconocer los derechos de los distintos grupos poblacionales desde un enfoque diferencial, para orientar acciones institucionales inclusivas, respetuosas y pertinentes en la protección y garantía de los derechos.",
+                                contents: [
+                                    "Derechos de mujeres y niñas",
+                                    "Derechos de niños, niñas y adolescentes",
+                                    "Derechos de la comunidad LGBTIQ+",
+                                    "Derechos de pueblos y comunidades indígenas",
+                                    "Derechos de las personas migrantes y refugiadas",
+                                    "Personas con discapacidad y personas mayores"
+                                ]
+                            }
+                        ]
+                    })
+                },
+
+                // PANTALLA 4 - Video animado de concepto básico
+                {
+                    type: "video",
+                    title: "Video animado de concepto básico",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                //MODULO 1
                 //PANTALLA 1 — Bienvenida
                 {
                     type: "module-intro",
@@ -121,94 +220,20 @@ export const course = {
                     type: "default-content",
                     contentHtml: renderQuiz({
                         title: "Autodiagnóstico de la comprensión de los DDHH y DIH",
-                        description: "Cuestionario interactivo que permite al participante reconocer su nivel de conocimiento frente a los derechos humanos y derecho internacional humanitario, con retroalimentación automática.",
-                        questions: pickQuestions(QUESTIONS_BANK, [
-                            'dh-001', 'dh-002', 'part-003', 'part-004', 'iva-005',
-                            'dih-006', 'dh-007', 'part-008', 'dh-009', 'iva-010',
-                            'dh-011', 'part-012', 'dh-013', 'dh-014', 'iva-015',
-                            'dih-016', 'part-017', 'iva-018', 'dh-019', 'dh-020'
-                        ])
+                        description: "",
+                        questions: getOrPickQuizQuestions(
+                            QUESTIONS_BANK,
+                            [
+                                'dh-001', 'dh-002', 'part-003', 'part-004', 'iva-005',
+                                'dih-006', 'dh-007', 'part-008', 'dh-009', 'iva-010',
+                                'dh-011', 'part-012', 'dh-013', 'dh-014', 'iva-015',
+                                'dih-016', 'part-017', 'iva-018', 'dh-019', 'dh-020'
+                            ],
+                            'quiz-autodiagnostico',
+                            5
+                        )
                     })
                 }
-
-
-                // PANTALLA 3 — Contenido con carrusel
-                // El componente 'carousel' espera slides con: heading y body
-                // {
-                //     type: "content",
-                //     components: [
-                //         {
-                //             type: "carousel",
-                //             data: {
-                //                 slides: [
-                //                     {
-                //                         icon: "",
-                //                         title: "MÓDULO 1. DERECHOS HUMANOS Y DERECHO INTERNACIONAL HUMANITARIO",
-                //                         objective: "Reconocer los Derechos Humanos y Derecho Internacional Humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en los contextos sociales, institucionales.",
-                //                         contents: [
-                //                             "Derechos Humanos",
-                //                             "Igualdad y no discriminación",
-                //                             "Derecho Internacional Humanitario"
-                //                         ]
-                //                     },
-                //                     {
-                //                         icon: "",
-                //                         title: "MÓDULO 2. PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
-                //                         objective: "Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.",
-                //                         contents: [
-                //                             "Derechos civiles y políticos",
-                //                             "Mecanismos de protección",
-                //                             "Mecanismos de participación ciudadana",
-                //                             "Veedurías ciudadanas"
-                //                         ]
-                //                     },
-                //                     {
-                //                         icon: "",
-                //                         title: "MÓDULO 3. DERECHOS ECONÓMICOS, SOCIALES Y CULTURALES Y SUS MECANISMOS DE PROTECCIÓN",
-                //                         objective: "Reconocer los Derechos Económicos, Sociales y Culturales y sus mecanismos de protección, para orientar acciones que contribuyan a la garantía integral de los derechos de niños, niñas y adolescentes.",
-                //                         contents: [
-                //                             "Los Derechos Económicos, Sociales y Culturales",
-                //                             "Mecanismos de protección de los Derechos Económicos, Sociales y Culturales"
-                //                         ]
-                //                     },
-                //                     {
-                //                         icon: "",
-                //                         title: "MÓDULO 4. DERECHOS COLECTIVOS Y AMBIENTALES",
-                //                         objective: "Identificar los derechos colectivos y ambientales, los mecanismos nacionales de protección y los enfoques de multiculturalidad y diversidad étnica, para orientar acciones de protección y respeto por los derechos de niños, niñas y adolescentes y de sus comunidades, en los contextos sociales, culturales y territoriales.",
-                //                         contents: [
-                //                             "Derechos colectivos",
-                //                             "Mecanismos nacionales de protección",
-                //                             "Multiculturalidad y diversidad étnica"
-                //                         ]
-                //                     },
-                //                     {
-                //                         icon: "",
-                //                         title: "MÓDULO 5. GRUPOS POBLACIONALES",
-                //                         objective: "Reconocer los derechos de los distintos grupos poblacionales desde un enfoque diferencial, para orientar acciones institucionales inclusivas, respetuosas y pertinentes en la protección y garantía de los derechos.",
-                //                         contents: [
-                //                             "Derechos de mujeres y niñas",
-                //                             "Derechos de niños, niñas y adolescentes",
-                //                             "Derechos de la comunidad LGBTIQ+",
-                //                             "Derechos de pueblos y comunidades indígenas",
-                //                             "Derechos de las personas migrantes y refugiadas",
-                //                             "Personas con discapacidad y personas mayores"
-                //                         ]
-                //                     }
-                //                 ]
-                //             }
-                //         }
-                //     ]
-                // },
-                // PANTALLA 4 -
-                // {
-                //     type: "video",
-                //     title: "Video introductorio",
-                //     videoUrl: "",
-                //     characterName: "Ayla",
-                //     subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán.",
-                //     characterLeft: "Ayla",
-                //     characterRight: "Simón",
-                // },
             ]
         }
 
