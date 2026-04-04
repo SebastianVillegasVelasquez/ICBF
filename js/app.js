@@ -126,12 +126,22 @@ const SCREEN_REGISTRY = {
 const cssCache = new Set();
 
 function loadCSS(href) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const resolvedHref = window.resolvePath(href);
-        console.log(`[loadCSS] href original: ${href}`);
-        console.log(`[loadCSS] href resuelto: ${resolvedHref}`);
-        console.log(`[loadCSS] ya en cache: ${cssCache.has(resolvedHref)}`);
-        if (cssCache.has(resolvedHref) || document.querySelector(`link[href="${resolvedHref}"]`)) {
+
+        // Verificar por el href normalizado en el cache
+        if (cssCache.has(resolvedHref)) {
+            resolve();
+            return;
+        }
+
+        // Verificar si ya existe en el DOM (por si se cargó fuera del sistema)
+        const existing = document.querySelector(`link[rel="stylesheet"]`);
+        const alreadyInDOM = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+            .some(link => link.href.endsWith(resolvedHref) || link.href === resolvedHref);
+
+        if (alreadyInDOM) {
+            cssCache.add(resolvedHref);
             resolve();
             return;
         }
@@ -141,16 +151,16 @@ function loadCSS(href) {
         link.href = resolvedHref;
 
         link.onload = () => {
+            console.log(`[loadCSS] ✅ Cargado: ${resolvedHref}`);
             cssCache.add(resolvedHref);
-            // Inyectar variables CSS con base path para que url() funcione en CSS dinámico
             injectCSSVariables();
             resolve();
         };
 
         link.onerror = () => {
-            // NO rechazar, solo loguear. El contenido puede funcionar sin CSS
-            // pero con un layout por defecto. Mejor que dejar congelado el velo.
-            resolve();
+            console.error(`[loadCSS] ❌ Error cargando: ${resolvedHref}`);
+            console.warn(`[loadCSS] No se pudo cargar: ${resolvedHref}`);
+            resolve(); // No bloquear por CSS faltante
         };
 
         document.head.appendChild(link);
