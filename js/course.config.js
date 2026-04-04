@@ -1,4 +1,6 @@
 import {renderSlideshow} from "./components/slideshow.js";
+import {pickQuestions, renderQuiz} from "./components/quiz.js";
+import {QUESTIONS_BANK} from "./data/question-bank.js";
 
 export const course = {
     title: "Ecosistema de los Derechos Humanos",
@@ -32,16 +34,16 @@ export const course = {
 
 
         // FRONT PAGE
-        // {
-        //     title: "Portada",
-        //     screens: [
-        //         {
-        //             type: "custom",
-        //             html: "js/screens/front-page/front-page.html",
-        //             css: "css/front-page.css",
-        //         },
-        //     ],
-        // },
+        {
+            title: "Portada",
+            screens: [
+                {
+                    type: "custom",
+                    html: "js/screens/front-page/front-page.html",
+                    css: "css/front-page.css",
+                },
+            ],
+        },
 
 
         // ─────────────────────────────────────────────────────────
@@ -70,7 +72,7 @@ export const course = {
                         "Derecho internacional humanitario"
                     ]
                 },
-                // JUSTIFICACION MODULO 1
+                // PANTALLA 3 - JUSTIFICACION MODULO 1
                 {
                     type: "default-content",
                     contentHtml: renderSlideshow({
@@ -102,30 +104,32 @@ export const course = {
                         ]
                     })
                 },
-                // PANTALLA 3 - Contenido por defecto
-  //               {
-  //                   type: "default-content",
-  //                   contentHtml: `
-  //   <div class="table-container">
-  //     <h2>Tabla de Datos Importantes</h2>
-  //     <table class="custom-table">
-  //        <tr><th>Concepto</th><th>Definición</th></tr>
-  //        <tr><td>Derecho Humano</td><td>Garantía universal...</td></tr>
-  //     </table>
-  //   </div>
-  // `
-  //               },
 
-                // PANTALLA 2 — Video
-                // {
-                //     type: "video",
-                //     title: "Video introductorio",
-                //     videoUrl: "",
-                //     characterName: "Ayla",
-                //     subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                //     characterLeft: "Ayla",
-                //     characterRight: "Simón",
-                // },
+
+                // PANTALLA 4 - Video introductorio
+                {
+                    type: "video",
+                    title: "Video introductorio",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                {
+                    type: "default-content",
+                    contentHtml: renderQuiz({
+                        title: "Autodiagnóstico de la comprensión de los DDHH y DIH",
+                        description: "Cuestionario interactivo que permite al participante reconocer su nivel de conocimiento frente a los derechos humanos y derecho internacional humanitario, con retroalimentación automática.",
+                        questions: pickQuestions(QUESTIONS_BANK, [
+                            'dh-001', 'dh-002', 'part-003', 'part-004', 'iva-005',
+                            'dih-006', 'dh-007', 'part-008', 'dh-009', 'iva-010',
+                            'dh-011', 'part-012', 'dh-013', 'dh-014', 'iva-015',
+                            'dih-016', 'part-017', 'iva-018', 'dh-019', 'dh-020'
+                        ])
+                    })
+                }
 
 
                 // PANTALLA 3 — Contenido con carrusel

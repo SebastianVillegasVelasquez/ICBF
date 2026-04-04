@@ -81,18 +81,45 @@
 
 /* ───────── PROGRESS ───────── */
 
-/* Ubicación específica en la bienvenida */
 .hero-progress-wrapper {
-    width: 100%;
-    margin-top: clamp(15px, 3vh, 30px);
     display: flex;
-    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: clamp(280px, 80vw, 450px);
+    margin: clamp(15px, 3vh, 30px) auto 0;
 }
 
-/*.hero-progress-wrapper .progress-bar-chevron {*/
-/*    width: 100%;*/
-/*    max-width: clamp(280px, 80vw, 450px) !important;*/
-/*}*/
+.hero-progress-wrapper .progress-bar-percentage {
+    flex-shrink: 0;
+    width: 62px;
+    height: 52px;
+    background: #81cac9;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+}
+
+.hero-progress-wrapper .progress-bar-track {
+    position: relative;
+    flex: 1;
+    height: 28px;
+    background: #81cac9;
+    overflow: hidden;
+}
+
+.hero-progress-wrapper .progress-bar-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: #E8B800;
+    transition: width 0.4s ease;
+}
 
 /*.hero-progress-wrapper .progress-bar-percentage {*/
 /*    position: relative;*/

@@ -14,17 +14,10 @@
  *   → Listo! El sistema se encarga del resto.
  */
 
-import {buildRoutes, getCourseTitle, getRoute, getTotalRoutes} from './router.js';
+import {buildRoutes, getCourseTitle, getFirstPageIndexByModuleId, getRoute, getTotalRoutes} from './router.js';
 import {finishSCORM, getLocation, initSCORM, setCompleted, setIncomplete, setLocation, setProgress} from './scorm.js';
 import {initSlideshow, renderSlideshow} from './components/slideshow.js';
-if (!window.resolvePath) {
-    window.resolvePath = function(path) {
-        if (!path) return '';
-        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
-        return `/${cleanPath}`;
-    };
-}
-
+import {initQuiz, renderQuiz} from './components/quiz.js';
 // ── Renderizadores de pantallas ────────────────────────────
 import {renderWelcome} from './screens/screen-module-intro.js';
 import {renderVideo} from './screens/screen-video.js';
@@ -42,9 +35,15 @@ import {initMultipleChoice, renderMultipleChoice} from './components/multiple-ch
 import {initTimeline, renderTimeline} from './components/timeline.js';
 import {initToolbox, renderToolbox} from './components/toolbox.js';
 import {initNarrativeScroll, renderNarrativeScroll} from './components/narrative-scroll.js';
-
-import {getFirstPageIndexByModuleId} from './router.js';
 import {progressBar} from './components/progress-bar.js';
+
+if (!window.resolvePath) {
+    window.resolvePath = function (path) {
+        if (!path) return '';
+        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+        return `/${cleanPath}`;
+    };
+}
 
 // ════════════════════════════════════════════════════════════════
 // COMPONENTS REGISTRY — Mapeo de componentes
@@ -63,6 +62,7 @@ const COMPONENTS = {
     'toolbox': {render: renderToolbox, init: initToolbox},
     'narrative-scroll': {render: renderNarrativeScroll, init: initNarrativeScroll},
     'slideshow': {render: renderSlideshow, init: initSlideshow},
+    'quiz': {render: renderQuiz, init: initQuiz},
 };
 
 // ════════════════════════════════════════════════════════════════
@@ -203,7 +203,7 @@ function injectCSSVariables() {
  * @param {string} selector - Selector CSS
  * @param {string} imagePath - Ruta relativa (ej: "assets/img/bg.png")
  */
-window.registerBackgroundImage = function(selector, imagePath) {
+window.registerBackgroundImage = function (selector, imagePath) {
     const basePath = window.COURSE_BASE_PATH || '';
     const fullPath = basePath ? `${basePath}/${imagePath}` : `/${imagePath}`;
 
@@ -368,23 +368,23 @@ async function renderCustomScreen(route) {
 
     try {
         const resolvedPath = window.resolvePath(route.html);
-        
+
         // Timeout de 10 segundos para fetch
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000);
-        
-        const res = await fetch(resolvedPath, { signal: controller.signal });
+
+        const res = await fetch(resolvedPath, {signal: controller.signal});
         clearTimeout(timeoutId);
-        
+
         if (!res.ok) {
             throw new Error(`HTTP ${res.status}: ${res.statusText}`);
         }
-        
+
         let html = await res.text();
-        
+
         // Resolver rutas de imágenes en HTML personalizado
         html = resolveImageSrcInHTML(html);
-        
+
         return html;
     } catch (error) {
         return `<div class="page-error"><strong>Error cargando pantalla:</strong> ${error.message || error.name}</div>`;
@@ -487,18 +487,17 @@ async function renderRoute(route) {
         // 4. Inyectar HTML
         appEl.innerHTML = html;
 
-// 🎯 Buscamos el "gancho" que pusimos en el HTML de arriba
         const progressContainer = appEl.querySelector('.progress-bar-target');
 
         if (progressContainer) {
             progressBar.renderTo(progressContainer);
 
-            // Ajuste de lógica:
-            // SCREEN_REGISTRY suele ser un objeto, para saber el total usa Object.keys
-            const totalRoutes = Object.keys(SCREEN_REGISTRY).length;
-
-            // Aquí deberías usar tus variables globales de estado reales (ej: state.currentIndex)
-            progressBar.update(0, totalRoutes, new Set([0]));
+            // Esperar un frame para que el DOM y CSS calculen dimensiones
+            requestAnimationFrame(() => {
+                progressBar.update(currentIndex, totalRoutes, visitedSet);
+            });
+        } else {
+            progressBar.unmount();
         }
 
         // 5. Inicializar componentes (solo para pantallas de contenido)
@@ -525,10 +524,7 @@ let visitedSet = new Set();
 let totalRoutes = 0;
 
 async function navigateTo(index) {
-    if (index < 0 || index >= totalRoutes) {
-        console.warn(`[navigateTo] Índice inválido: ${index}`);
-        return;
-    }
+    if (index < 0 || index >= totalRoutes) return;
 
     currentIndex = index;
     visitedSet.add(index);
@@ -537,34 +533,19 @@ async function navigateTo(index) {
     loadingVeil.show();
 
     try {
-        // Renderizar la ruta
         const route = getRoute(index);
-        if (!route) {
-            throw new Error(`No se pudo obtener la ruta en índice ${index}`);
-        }
+        if (!route) throw new Error(`Ruta no encontrada en índice ${index}`);
 
-         await renderRoute(route);
+        await renderRoute(route);
 
-         // Actualizar progreso usando el módulo inyectable
-         progressBar.update(currentIndex, totalRoutes, visitedSet);
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        if (btnPrev) btnPrev.disabled = currentIndex === 0;
+        if (btnNext) btnNext.disabled = currentIndex === totalRoutes - 1;
 
-         // Actualizar botones de navegación
-         const btnPrev = document.getElementById('btn-prev');
-         const btnNext = document.getElementById('btn-next');
-         if (btnPrev) btnPrev.disabled = currentIndex === 0;
-         if (btnNext) btnNext.disabled = currentIndex === totalRoutes - 1;
-
-         // Sincronizar con SCORM
-        syncSCORM();
-    } catch (err) {
-        console.error("[navigateTo] Error fatal:", err);
-        // Mostrar error al usuario pero no bloquear
-        const appEl = document.getElementById('app');
-        if (appEl) {
-            appEl.innerHTML = `<div class="page-error"><strong>Error al cargar:</strong> ${err.message}</div>`;
-        }
+    } catch(err) {
+        console.error('[navigateTo]', err);
     } finally {
-        // SIEMPRE ocultar el velo, sin excepción
         loadingVeil.hide();
     }
 }
@@ -587,7 +568,8 @@ function syncSCORM() {
 window.addEventListener('beforeunload', () => {
     try {
         finishSCORM();
-    } catch (_) { }
+    } catch (_) {
+    }
 });
 
 // ════════════════════════════════════════════════════════════════
@@ -751,13 +733,13 @@ window.addEventListener('DOMContentLoaded', async () => {
         // ── Navegar a la pantalla inicial ──
         await navigateTo(currentIndex);
 
-         // ── Guardar API global (opcional, para debugging) ──
-         window.courseApp = {
-             navigateTo,
-             getProgressBar: () => progressBar,
-             getCurrentIndex: () => currentIndex,
-             getTotalRoutes: () => totalRoutes
-         };
+        // ── Guardar API global (opcional, para debugging) ──
+        window.courseApp = {
+            navigateTo,
+            getProgressBar: () => progressBar,
+            getCurrentIndex: () => currentIndex,
+            getTotalRoutes: () => totalRoutes
+        };
 
     } catch (err) {
         console.error('[DOMContentLoaded] Error crítico:', err);

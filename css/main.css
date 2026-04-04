@@ -175,69 +175,46 @@ button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span {
 }
 
 /* ── Chevron Progress Bar ── */
-.progress-bar-container {
-  padding: 120px 50px 0;
-  flex-shrink: 0;
-}
-
-.progress-bar-chevron {
-  position: relative;
-  height: 28px;
-  background: #81cac9;
-  border-radius: 5px;
+.progress-bar-wrapper {
   display: flex;
   align-items: center;
-  overflow: visible;
-
   width: 100%;
   max-width: 300px;
-
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 
+/* Cuadrado azul — más grande que la barra, sobresale */
 .progress-bar-percentage {
-  position: relative;
-  z-index: 4;
+  flex-shrink: 0;
+  width: 62px;
+  height: 52px;
   background: #81cac9;
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 800;
-
-  padding: 18px 15px;
-  margin-left: -5px;
-  min-width: 60px;
-
-  text-align: center;
-  white-space: nowrap;
-  box-shadow: -2px 1px 6px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
 }
 
+/* Barra base teal */
+.progress-bar-track {
+  position: relative;
+  flex: 1;
+  height: 28px;
+  background: #81cac9;
+  overflow: hidden;
+}
+
+/* Fill amarillo que crece */
 .progress-bar-fill {
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
-  background: #e8c208; /* Color de llenado solicitado */
   width: 0%;
+  background: #E8B800;
   transition: width 0.4s ease;
-  border-radius: 5px 0 0 5px;
-  z-index: 1;
-}
-
-.progress-bar-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  width: 0;
-  height: 0;
-  border-style: solid;
-
-  border-width: 14px 0 14px 12px;
-
-  border-color: transparent transparent transparent #e8c208;
-  transition: left 0.4s ease;
-  left: 0%;
 }
 
 .content-render {

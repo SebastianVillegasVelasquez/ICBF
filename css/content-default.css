@@ -50,11 +50,9 @@
     display: flex;
     align-items: center;
 
-    /* Cambiamos center por flex-start para mover la tabla a la izquierda */
-    justify-content: flex-start;
+    justify-content: center;
 
-    /* Espacio para logos (top) y margen izquierdo (6%) */
-    padding: 130px 6% 60px;
+    padding: 130px 5% 60px;
     z-index: 10;
     box-sizing: border-box;
 }
@@ -62,17 +60,15 @@
 .content-slot {
     width: 100%;
 
-    /* Limitamos el ancho al 65% para que no tape toda la imagen de fondo */
-    max-width: 65%;
 
-    /* Fondo con ligera transparencia para que se intuya el fondo pero sea legible */
+    max-width: 75%;
+
     background: rgba(255, 255, 255, 0.92);
 
     padding: clamp(25px, 3vw, 45px);
     border-radius: 12px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
 
-    /* Animación suave al aparecer */
     animation: fadeInContent 0.5s ease-out;
 }
 
@@ -85,29 +81,44 @@
    RESPONSIVIDAD (Laptops y Tablets)
    ───────────────────────────────────────────────────────── */
 
-@media (max-height: 800px) {
+@media (max-width: 1366px), (max-height: 800px) {
+
+    .screen-default-content .screen-header {
+        position: relative;
+        padding: 20px 35px;
+    }
+
+    .header-img-left img {
+        width: 120px;
+    }
+
+    .header-img-right img {
+        width: 60px;
+    }
+
     .main-layout {
-        padding-top: 100px;
+
+        padding: 30px 5% 40px;
     }
 
     .content-slot {
-        max-width: 75%; /* En laptops damos un poco más de ancho a la tabla */
+        max-width: 80%;
+        padding: 30px;
     }
 }
 
 @media (max-width: 1024px) {
     .main-layout {
-        justify-content: center; /* En tablets volvemos a centrar */
+        justify-content: center;
         padding: 100px 25px 50px;
     }
 
     .content-slot {
-        max-width: 95%; /* Ocupa casi todo el ancho */
+        max-width: 95%;
         margin: 0 auto;
     }
 
     .screen-default-content {
-        /* Reducimos el fondo en pantallas pequeñas para que no sature */
         background-size: 350px auto;
     }
 }
