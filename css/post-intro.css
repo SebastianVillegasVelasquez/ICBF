@@ -66,36 +66,6 @@ html, body {
     margin: 0 0 clamp(15px, 3vh, 25px) 0;
 }
 
-/* Barra de progreso */
-.summary-left .progress-bar-chevron {
-    display: flex;
-    align-items: center;
-    background-color: #e8c208;
-    height: clamp(28px, 4vh, 40px);
-    width: clamp(200px, 25vw, 320px);
-    border-radius: clamp(4px, 0.5vw, 6px);
-    position: relative;
-    overflow: hidden;
-    margin-bottom: clamp(15px, 3vh, 30px);
-}
-
-.summary-left .progress-bar-percentage {
-    background-color: #82c9ca;
-    color: white;
-    font-weight: 800;
-    font-size: clamp(0.75rem, 1.2vw, 1.1rem);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 clamp(12px, 1.5vw, 20px);
-    z-index: 2;
-}
-
-.summary-left .progress-bar-fill {
-    background-color: #e8c208;
-    height: 100%;
-}
 
 .ecosystem-illustration {
     transform: translateY(-60px);

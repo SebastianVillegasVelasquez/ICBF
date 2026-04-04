@@ -16,10 +16,8 @@ export function renderPostIntro(route) {
                 <h1 class="mod-number">${moduleTitle}</h1>
                 <h2 class="mod-title">${introText}</h2>
                 <h3 class="mod-subtitle">${subText}</h3>
-                <div class="progress-bar-chevron">
-                    <div class="progress-bar-percentage">20%</div>
-                    <div class="progress-bar-fill" style="width: 80%;"></div>
-                    <div class="progress-bar-arrow"></div>
+               <div class="post-intro-progress-wrapper">
+                <div class="progress-bar-target"></div>
                 </div>
             </div>
 
@@ -57,7 +55,6 @@ export function renderPostIntro(route) {
 
   
 </ul>
-
             <div class="button-wrapper">
                 <button class="ingresar-btn btn-next-screen">
                     <span>Ingresar</span>

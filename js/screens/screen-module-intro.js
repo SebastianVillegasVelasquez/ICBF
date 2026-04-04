@@ -23,8 +23,9 @@ return `
             <p class="hero-text">${introText}</p>
             <p class="hero-subtext">${subText}</p>
             
-            <div class="hero-progress-wrapper"></div>
-            
+            <div class="hero-progress-wrapper">
+            <div class="progress-bar-target"></div> 
+            </div>
         </div>
     </div>
 

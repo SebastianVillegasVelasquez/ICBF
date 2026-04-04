@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centrado vertical en toda la pantalla */
+    justify-content: center;
 
     position: relative;
     overflow: hidden;
@@ -81,6 +81,7 @@
 
 /* ───────── PROGRESS ───────── */
 
+/* Ubicación específica en la bienvenida */
 .hero-progress-wrapper {
     width: 100%;
     margin-top: clamp(15px, 3vh, 30px);
@@ -88,59 +89,51 @@
     justify-content: center;
 }
 
-.hero-progress-wrapper .progress-bar-chevron {
-    position: relative;
-    height: clamp(24px, 3vh, 36px);
-    width: 100%;
-    max-width: clamp(240px, 70vw, 360px);
-    background: var(--teal-main, #008080);
-    border-radius: clamp(3px, 0.5vw, 5px);
-    display: flex;
-    align-items: center;
-    overflow: visible;
-    box-shadow: 0 clamp(0.5px, 0.1vw, 1px) clamp(2px, 0.5vw, 4px) rgba(0,0,0,0.12);
-}
+/*.hero-progress-wrapper .progress-bar-chevron {*/
+/*    width: 100%;*/
+/*    max-width: clamp(280px, 80vw, 450px) !important;*/
+/*}*/
 
-.hero-progress-wrapper .progress-bar-percentage {
-    position: relative;
-    z-index: 4;
-    background: var(--teal-main, #008080);
-    color: var(--white, #ffffff);
-    font-size: clamp(0.65rem, 1.2vw, 0.85rem);
-    font-weight: 800;
-    padding: clamp(10px, 1.2vw, 16px) clamp(8px, 1.2vw, 14px);
-    margin-left: clamp(-2px, -0.5vw, -4px);
-    min-width: clamp(36px, 6vw, 48px);
-    text-align: center;
-    white-space: nowrap;
-    box-shadow: clamp(-0.5px, -0.1vw, -1px) clamp(0.5px, 0.2vw, 1px) clamp(2px, 0.5vw, 4px) rgba(0,0,0,0.12);
-}
+/*.hero-progress-wrapper .progress-bar-percentage {*/
+/*    position: relative;*/
+/*    z-index: 4;*/
+/*    background: var(--teal-main, #008080);*/
+/*    color: var(--white, #ffffff);*/
+/*    font-size: clamp(0.65rem, 1.2vw, 0.85rem);*/
+/*    font-weight: 800;*/
+/*    padding: clamp(10px, 1.2vw, 16px) clamp(8px, 1.2vw, 14px);*/
+/*    margin-left: clamp(-2px, -0.5vw, -4px);*/
+/*    min-width: clamp(36px, 6vw, 48px);*/
+/*    text-align: center;*/
+/*    white-space: nowrap;*/
+/*    box-shadow: clamp(-0.5px, -0.1vw, -1px) clamp(0.5px, 0.2vw, 1px) clamp(2px, 0.5vw, 4px) rgba(0,0,0,0.12);*/
+/*}*/
 
-.hero-progress-wrapper .progress-bar-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: var(--yellow-main, #ffcc00);
-    width: 20%;
-    transition: width 0.4s ease;
-    border-radius: clamp(3px, 0.5vw, 5px) 0 0 clamp(3px, 0.5vw, 5px);
-    z-index: 1;
-}
+/*.hero-progress-wrapper .progress-bar-fill {*/
+/*    position: absolute;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    height: 100%;*/
+/*    background: var(--yellow-main, #ffcc00);*/
+/*    width: 20%;*/
+/*    transition: width 0.4s ease;*/
+/*    border-radius: clamp(3px, 0.5vw, 5px) 0 0 clamp(3px, 0.5vw, 5px);*/
+/*    z-index: 1;*/
+/*}*/
 
-.hero-progress-wrapper .progress-bar-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 3;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: clamp(12px, 2vw, 18px) 0 clamp(12px, 2vw, 18px) clamp(10px, 1.5vw, 16px);
-    border-color: transparent transparent transparent var(--yellow-main, #ffcc00);
-    transition: left 0.4s ease;
-    left: 20%;
-}
+/*.hero-progress-wrapper .progress-bar-arrow {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*    z-index: 3;*/
+/*    width: 0;*/
+/*    height: 0;*/
+/*    border-style: solid;*/
+/*    border-width: clamp(12px, 2vw, 18px) 0 clamp(12px, 2vw, 18px) clamp(10px, 1.5vw, 16px);*/
+/*    border-color: transparent transparent transparent var(--yellow-main, #ffcc00);*/
+/*    transition: left 0.4s ease;*/
+/*    left: 20%;*/
+/*}*/
 
 /* REGLAS MANUALES DE RESPALDO (Sin tocar Bootstrap) */
 @media (max-width: 576px) {

@@ -16,7 +16,7 @@
 
 import {buildRoutes, getCourseTitle, getRoute, getTotalRoutes} from './router.js';
 import {finishSCORM, getLocation, initSCORM, setCompleted, setIncomplete, setLocation, setProgress} from './scorm.js';
-
+import {initSlideshow, renderSlideshow} from './components/slideshow.js';
 if (!window.resolvePath) {
     window.resolvePath = function(path) {
         if (!path) return '';
@@ -62,6 +62,7 @@ const COMPONENTS = {
     'timeline': {render: renderTimeline, init: initTimeline},
     'toolbox': {render: renderToolbox, init: initToolbox},
     'narrative-scroll': {render: renderNarrativeScroll, init: initNarrativeScroll},
+    'slideshow': {render: renderSlideshow, init: initSlideshow},
 };
 
 // ════════════════════════════════════════════════════════════════
@@ -91,7 +92,7 @@ const SCREEN_REGISTRY = {
         render: (route) => renderPostIntro(route)
     },
     'default-content': {
-        css: 'css/content-default.css',
+        css: ['css/content-default.css', 'css/components.css'],
         layout: 'full',
         showNav: true,
         showPdf: false,
@@ -442,11 +443,11 @@ async function renderRoute(route) {
 
         // 1. Cargar CSS dinámico (si aplica)
         if (screenDef.css) {
+            const cssList = Array.isArray(screenDef.css) ? screenDef.css : [screenDef.css];
             try {
-                await loadCSS(screenDef.css);
+                await Promise.all(cssList.map(href => loadCSS(href)));
             } catch (err) {
-                console.warn(`[renderRoute] CSS error: ${screenDef.css}`, err);
-                // Continuar sin CSS
+                console.warn(`[renderRoute] CSS error`, err);
             }
         }
 
@@ -485,29 +486,27 @@ async function renderRoute(route) {
 
         // 4. Inyectar HTML
         appEl.innerHTML = html;
-        const localProgressContainer = appEl.querySelector('.hero-progress-wrapper');
 
-        if (localProgressContainer) {
-            // 1. Construye el HTML correcto con sus IDs dentro del contenedor
-            progressBar.renderTo(localProgressContainer);
+// 🎯 Buscamos el "gancho" que pusimos en el HTML de arriba
+        const progressContainer = appEl.querySelector('.progress-bar-target');
 
-            // 2. Actualiza los valores reales.
-            // Debes pasarle las variables de tu estado global.
-            // Como ejemplo usaré valores fijos, pero aquí van tus variables reales:
-            const currentIndex = 0; // Índice de la pantalla actual
-            const totalRoutes = 10;  // Total de pantallas del curso
-            const visitedSet = new Set([0]); // Pantallas que ya vio el usuario
+        if (progressContainer) {
+            progressBar.renderTo(progressContainer);
 
-            progressBar.update(currentIndex, totalRoutes, visitedSet);
+            // Ajuste de lógica:
+            // SCREEN_REGISTRY suele ser un objeto, para saber el total usa Object.keys
+            const totalRoutes = Object.keys(SCREEN_REGISTRY).length;
+
+            // Aquí deberías usar tus variables globales de estado reales (ej: state.currentIndex)
+            progressBar.update(0, totalRoutes, new Set([0]));
         }
 
         // 5. Inicializar componentes (solo para pantallas de contenido)
-        if (route.type === 'content') {
+        if (route.type === 'content' || route.type === 'default-content') {
             try {
                 bootComponents(appEl);
             } catch (err) {
                 console.error('[renderRoute] Error bootComponents:', err);
-                // No fallar por esto
             }
         }
 

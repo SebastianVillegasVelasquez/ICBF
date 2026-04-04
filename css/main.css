@@ -182,29 +182,34 @@ button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span {
 
 .progress-bar-chevron {
   position: relative;
-  height: 36px;
-  max-width: 360px;
-  background: var(--teal-main);
+  height: 28px;
+  background: #81cac9;
   border-radius: 5px;
   display: flex;
   align-items: center;
   overflow: visible;
+
+  width: 100%;
+  max-width: 300px;
+
   box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 
 .progress-bar-percentage {
   position: relative;
   z-index: 4;
-  background: var(--teal-main);
-  color: var(--white);
-  font-size: 0.85rem;
+  background: #81cac9;
+  color: #ffffff;
+  font-size: 1rem;
   font-weight: 800;
-  padding: 16px 14px;
-  margin-left: -4px;
-  min-width: 48px;
+
+  padding: 18px 15px;
+  margin-left: -5px;
+  min-width: 60px;
+
   text-align: center;
   white-space: nowrap;
-  box-shadow: -1px 1px 4px rgba(0,0,0,0.12);
+  box-shadow: -2px 1px 6px rgba(0,0,0,0.15);
 }
 
 .progress-bar-fill {
@@ -212,7 +217,7 @@ button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span {
   left: 0;
   top: 0;
   height: 100%;
-  background: var(--yellow-main);
+  background: #e8c208; /* Color de llenado solicitado */
   width: 0%;
   transition: width 0.4s ease;
   border-radius: 5px 0 0 5px;
@@ -227,20 +232,13 @@ button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 18px 0 18px 16px;
-  border-color: transparent transparent transparent var(--yellow-main);
+
+  border-width: 14px 0 14px 12px;
+
+  border-color: transparent transparent transparent #e8c208;
   transition: left 0.4s ease;
   left: 0%;
 }
-
-/* ── Content area ── */
-/*.content-area {*/
-/*  flex: 1;*/
-/*  overflow: hidden;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  background: var(--white);*/
-/*}*/
 
 .content-render {
   flex: 1;
