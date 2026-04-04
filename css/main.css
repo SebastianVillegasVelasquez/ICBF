@@ -239,13 +239,13 @@ button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span {
 }
 
 /* ── Content area ── */
-.content-area {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background: var(--white);
-}
+/*.content-area {*/
+/*  flex: 1;*/
+/*  overflow: hidden;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  background: var(--white);*/
+/*}*/
 
 .content-render {
   flex: 1;

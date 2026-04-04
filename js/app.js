@@ -4,10 +4,10 @@
  * ARQUITECTURA:
  * ─────────────────────────────────────────────────────────────
  * 1. SCREEN REGISTRY: Registro centralizado de tipos de pantalla
- * 2. PROGRESS MANAGER: Gestor único de barra de progreso (SINGLETON)
+ * 2. PROGRESS BAR: Módulo inyectable para barra de progreso
  * 3. CSS LOADER: Cargador inteligente de CSS con caché
  * 4. ROUTE RENDERER: Renderizador genérico que despacha por tipo
- * 5. CLEAN ROUTER: Enrutador simple y declarativo
+ * 5. LAYOUT SYSTEM: Controla layout + visibilidad de píldora
  *
  * Para agregar una pantalla nueva:
  *   → Agregar entrada a SCREEN_REGISTRY
@@ -44,6 +44,7 @@ import {initToolbox, renderToolbox} from './components/toolbox.js';
 import {initNarrativeScroll, renderNarrativeScroll} from './components/narrative-scroll.js';
 
 import {getFirstPageIndexByModuleId} from './router.js';
+import {progressBar} from './components/progress-bar.js';
 
 // ════════════════════════════════════════════════════════════════
 // COMPONENTS REGISTRY — Mapeo de componentes
@@ -290,25 +291,33 @@ class LoadingVeilManager {
 const loadingVeil = new LoadingVeilManager();
 
 // ════════════════════════════════════════════════════════════════
-// LAYOUT SYSTEM — Aplica layouts dinámicos
+// LAYOUT SYSTEM — Aplica layouts dinámicos + control de píldora nav
 // ════════════════════════════════════════════════════════════════
 
-function applyLayout(layoutType) {
-    const appShell = document.querySelector('.app-shell');
-    const mainCard = document.querySelector('.main-card')
-    if (!appShell) return;
+function applyLayout(layoutType, hideNav = false) {
+     const appShell = document.querySelector('.app-shell');
+     const pillNav = document.querySelector('.pill-nav');
+     if (!appShell) return;
 
-    // Remover todas las clases de layout
-    appShell.classList.remove('layout-fullscreen', 'layout-video');
+     // Remover todas las clases de layout
+     appShell.classList.remove('layout-fullscreen', 'layout-video');
 
-    // Aplicar la requerida
-    if (layoutType === 'full') {
-        appShell.classList.add('layout-fullscreen');
+     // Aplicar la requerida
+     if (layoutType === 'full') {
+         appShell.classList.add('layout-fullscreen');
+     } else if (layoutType === 'video') {
+         appShell.classList.add('layout-video');
+     }
+     // 'default' no aplica ninguna clase
 
-    } else if (layoutType === 'video') {
-        appShell.classList.add('layout-video');
-    }
-    // 'default' no aplica ninguna clase
+     // Controlar visibilidad de píldora según la pantalla
+     if (pillNav) {
+         if (hideNav) {
+             pillNav.style.display = 'none';
+         } else {
+             pillNav.style.display = 'flex';
+         }
+     }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -447,10 +456,11 @@ async function renderRoute(route) {
             html = `<div class="page-error"><strong>Error renderizando:</strong> ${err.message}</div>`;
         }
 
-        // 3. Aplicar layout
-        applyLayout(screenDef.layout);
+         // 3. Aplicar layout
+         const hideNav = route.hideNav === true; // Propiedad opcional en route
+         applyLayout(screenDef.layout, hideNav);
 
-        // 4. Inyectar HTML
+         // 4. Inyectar HTML
         appEl.innerHTML = html;
 
         // 5. Inicializar componentes (solo para pantallas de contenido)
@@ -496,13 +506,18 @@ async function navigateTo(index) {
             throw new Error(`No se pudo obtener la ruta en índice ${index}`);
         }
 
-        await renderRoute(route);
+         await renderRoute(route);
 
-        // Actualizar progreso
-        progressManager.update(currentIndex, totalRoutes, visitedSet);
-        progressManager.updateNavButtons(currentIndex === 0, currentIndex === totalRoutes - 1);
+         // Actualizar progreso usando el módulo inyectable
+         progressBar.update(currentIndex, totalRoutes, visitedSet);
 
-        // Sincronizar con SCORM
+         // Actualizar botones de navegación
+         const btnPrev = document.getElementById('btn-prev');
+         const btnNext = document.getElementById('btn-next');
+         if (btnPrev) btnPrev.disabled = currentIndex === 0;
+         if (btnNext) btnNext.disabled = currentIndex === totalRoutes - 1;
+
+         // Sincronizar con SCORM
         syncSCORM();
     } catch (err) {
         console.error("[navigateTo] Error fatal:", err);
@@ -699,14 +714,14 @@ window.addEventListener('DOMContentLoaded', async () => {
         // ── Navegar a la pantalla inicial ──
         await navigateTo(currentIndex);
 
-        // ── Guardar API global (opcional, para debugging) ──
-        window.courseApp = {
-            navigateTo,
-            getProgressManager: () => progressManager,
-            getCurrentIndex: () => currentIndex,
-            getTotalRoutes: () => totalRoutes
-        };
-        
+         // ── Guardar API global (opcional, para debugging) ──
+         window.courseApp = {
+             navigateTo,
+             getProgressBar: () => progressBar,
+             getCurrentIndex: () => currentIndex,
+             getTotalRoutes: () => totalRoutes
+         };
+
     } catch (err) {
         console.error('[DOMContentLoaded] Error crítico:', err);
         // Ocultar velo de emergencia

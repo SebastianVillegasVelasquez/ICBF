@@ -1,16 +1,16 @@
 /**
  * screen-video.js
  *
- * Pantalla de video.
- * Función pura: recibe la config del route, devuelve HTML string.
- * Los controles son nativos del navegador (play, pausa, volumen, pantalla completa).
+ * Pantalla de video AUTOSUFICIENTE.
+ * - Provee su propio logo + ilustraciones
+ * - NO depende de layout.html global
+ * - Función pura: recibe config, devuelve HTML string
  *
- * Campos en course.config.js (dentro del screen):
- *   videoUrl       : URL del video (.mp4 o embed)
- *   characterName  : Nombre del personaje que habla (debajo del video)
- *   subtitle       : Subtítulo o descripción
- *   characterLeft  : Placeholder personaje izquierdo
- *   characterRight : Placeholder personaje derecho
+ * Campos en course.config.js:
+ *   videoUrl       : URL del video
+ *   characterName  : Nombre del personaje
+ *   subtitle       : Descripción/subtítulo
+ *   hideNav        : true si debe ocultar la píldora
  */
 
 export function renderVideo(route) {
@@ -18,33 +18,44 @@ export function renderVideo(route) {
     videoUrl       = '',
     characterName  = '',
     subtitle       = '',
-    characterLeft  = 'Ayla',
-    characterRight = 'Simón',
+    hideNav        = false,
   } = route;
+
+  // Logo local para esta pantalla
+  const logoPath = window.resolvePath('assets/img/logo.png');
 
   return `
     <div class="screen screen-video">
 
+      <!-- Logo local de esta pantalla -->
+      <div class="screen-header">
+        <img src="${logoPath}" alt="Logo" class="screen-logo" />
+      </div>
+
+      <!-- Contenido principal -->
       <div class="video-layout">
 
         <div class="video-center">
 
           <div class="video-wrapper">
-            <img class="video-placeholder-img" src="/assets/img/video-plantilla.png" alt="video-plantilla">
+            <img class="video-placeholder-img" src="${window.resolvePath('assets/img/video-plantilla.png')}" alt="video-plantilla">
           </div>
-            
-          <!-- Video player 
-          <div class="video-info-drawer">
-            <div class="video-info-content">
-              ${characterName ? `<h3 class="video-character-name">${characterName}</h3>` : ''}
-              ${subtitle      ? `<p  class="video-subtitle">${subtitle}</p>`              : ''}
+
+          <!-- Metadata del video -->
+          ${characterName || subtitle ? `
+            <div class="video-info-drawer">
+              <div class="video-info-content">
+                ${characterName ? `<h3 class="video-character-name">${characterName}</h3>` : ''}
+                ${subtitle ? `<p class="video-subtitle">${subtitle}</p>` : ''}
+              </div>
             </div>
-          </div>-->
+          ` : ''}
 
         </div>
 
-        </div>
+      </div>
 
     </div>
   `;
 }
+
