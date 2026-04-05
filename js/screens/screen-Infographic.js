@@ -1,9 +1,8 @@
-export function renderScreenContentDefault(route) {
-    const { contentHtml = "", hideBackground = false, htmlFile = "" } = route;
-    const isInfografia = !!htmlFile;
+export function renderInfographic() {
+    const {content}
 
     return `
-    <div class="screen screen-default-content${hideBackground ? ' no-background' : ''}${isInfografia ? ' is-infografia' : ''}">
+    <div class="screen screen-default-content">
         <header class="screen-header">
             <div class="header-img-left">
                 <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="Ecosistema">
@@ -12,10 +11,11 @@ export function renderScreenContentDefault(route) {
                 <img src="${window.resolvePath('assets/img/logo.png')}" alt="Logo">
             </div>
         </header>
+
         <main class="main-layout">
             <div class="content-slot">
                 ${contentHtml}
             </div>
         </main>
-    </div>`;
+    </div> `
 }

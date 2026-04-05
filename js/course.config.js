@@ -34,10 +34,18 @@ export const course = {
         // ─────────────────────────────────────────────────────────
 
 
+
         // FRONT PAGE
         {
             title: "Portada",
             screens: [
+                //Testing
+
+                {
+                  type: "default-content",
+                  hideBackground: true,
+                  htmlFile: "assets/revistas_didacticas/revista_didactica_m1_1.html"
+                },
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
@@ -216,6 +224,8 @@ export const course = {
                     characterRight: "Simón",
                 },
 
+                // PANTALLA 5 - ACTIVIDAD QUIZ
+
                 {
                     type: "default-content",
                     contentHtml: renderQuiz({
@@ -233,7 +243,17 @@ export const course = {
                             5
                         )
                     })
-                }
+                },
+                // PANTALLA 6 - REVISTA DIDÁCTICA
+
+
+
+                // PANTALLA 7 - INFOGRAFIA 1
+                {
+                    type: "default-content",
+                    hideBackground: true,
+                    htmlFile: "assets/infografias/linea-tiempo.html"
+                },
             ]
         }
 

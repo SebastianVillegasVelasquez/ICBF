@@ -92,7 +92,7 @@ const SCREEN_REGISTRY = {
         render: (route) => renderPostIntro(route)
     },
     'default-content': {
-        css: ['css/content-default.css', 'css/components.css'],
+        css: 'css/content-default.css',
         layout: 'full',
         showNav: true,
         showPdf: false,
@@ -118,6 +118,191 @@ const SCREEN_REGISTRY = {
         render: (route) => `<div class="screen screen-default">Pantalla por defecto</div>`
     }
 };
+
+// ════════════════════════════════════════════════════════════════
+// ROUTE RENDERER — Renderizador genérico y escalable
+// Despacha según tipo de pantalla usando SCREEN_REGISTRY
+// ════════════════════════════════════════════════════════════════
+
+async function renderRoute(route) {
+    const appEl = document.getElementById('app');
+    if (!appEl || !route) {
+        throw new Error('No se pudo acceder al contenedor de app o ruta');
+    }
+
+    try {
+        const screenDef = SCREEN_REGISTRY[route.type];
+
+        if (!screenDef) {
+            appEl.innerHTML = `<div class="page-error">Tipo de pantalla desconocido: "${route.type}"</div>`;
+            return;
+        }
+
+        // 1. Cargar CSS dinámico (si aplica)
+        if (screenDef.css) {
+            const cssList = Array.isArray(screenDef.css) ? screenDef.css : [screenDef.css];
+            console.log(cssList)
+            try {
+                await Promise.all(cssList.map(href => loadCSS(href)));
+            } catch (err) {
+                console.warn(`[renderRoute] CSS error`, err);
+            }
+        }
+
+        // 2. Renderizar contenido con timeout de seguridad
+        let html;
+        try {
+            if (route.type === 'custom') {
+                html = await Promise.race([
+                    renderCustomScreen(route),
+                    new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('Timeout')), 15000)
+                    )
+                ]);
+            } else if (route.type === 'default-content' && route.htmlFile) {
+                html = await loadHTMLFile(route);
+            } else {
+                html = screenDef.render(route);
+            }
+        } catch (err) {
+            console.error(`[renderRoute] Error renderizando:`, err);
+            html = `<div class="page-error"><strong>Error renderizando:</strong> ${err.message}</div>`;
+        }
+
+        /* ─────────────────────────────────────────────────────────
+           3. APLICAR LAYOUT Y CONFIGURACIÓN DE PÍLDORA (Actualizado)
+           ───────────────────────────────────────────────────────── */
+
+        // Creamos un objeto de configuración combinando el registro y la ruta
+        const screenConfig = {
+            layout: screenDef.layout,
+            // Si la ruta dice específicamente que oculte el nav, gana la ruta.
+            // Si no dice nada, se usa la configuración por defecto del SCREEN_REGISTRY.
+            showNav: route.hideNav === true ? false : screenDef.showNav,
+            showPdf: screenDef.showPdf
+        };
+
+        applyLayout(screenConfig);
+
+        // 4. Inyectar HTML
+        appEl.innerHTML = html;
+
+        if (route.type === 'default-content' && route.htmlFile) {
+            // Usamos un pequeño delay o requestAnimationFrame para asegurar que el navegador pintó
+            requestAnimationFrame(() => {
+                inicializarTarjetasInfografia();
+            });
+        }
+
+        const progressContainer = appEl.querySelector('.progress-bar-target');
+
+        if (progressContainer) {
+            progressBar.renderTo(progressContainer);
+
+            // Esperar un frame para que el DOM y CSS calculen dimensiones
+            requestAnimationFrame(() => {
+                progressBar.update(currentIndex, totalRoutes, visitedSet);
+            });
+        } else {
+            progressBar.unmount();
+        }
+
+        // 5. Inicializar componentes (solo para pantallas de contenido)
+        if (route.type === 'content' || route.type === 'default-content') {
+            try {
+                bootComponents(appEl);
+            } catch (err) {
+                console.error('[renderRoute] Error bootComponents:', err);
+            }
+        }
+
+    } catch (err) {
+        console.error("[renderRoute] Error fatal:", err);
+        appEl.innerHTML = `<div class="page-error"><strong>Error crítico:</strong> ${err.message}</div>`;
+    }
+}
+
+
+function inicializarTarjetasInfografia() {
+    const headers = document.querySelectorAll('.js-toggle-card');
+    if (headers.length === 0) return;
+
+    headers.forEach(header => {
+        const newHeader = header.cloneNode(true);
+        header.parentNode.replaceChild(newHeader, header);
+
+        newHeader.addEventListener('click', function() {
+            const card   = this.closest('.info-card-float');
+            const toggle = this.querySelector('.info-card-toggle');
+            const isOpen = card.classList.contains('is-open');
+
+            // Cerrar todas las demás tarjetas
+            document.querySelectorAll('.info-card-float').forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('is-open');
+                    const t = c.querySelector('.info-card-toggle');
+                    if (t) {
+                        t.textContent = '+';
+                        t.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+
+            // Alternar la tarjeta actual
+            if (!isOpen) {
+                card.classList.add('is-open');
+                toggle.textContent = '−';
+                toggle.style.transform = 'rotate(180deg)';
+            } else {
+                card.classList.remove('is-open');
+                toggle.textContent = '+';
+                toggle.style.transform = 'rotate(0deg)';
+            }
+        });
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarTarjetasInfografia);
+} else {
+    inicializarTarjetasInfografia();
+}
+
+// Esta es una funcion Helper para cargar contenido proveniente de un archivo HTML en la pantalla DefaultContent
+async function loadHTMLFile(route) {
+    try {
+        const resolvedPath = window.resolvePath(route.htmlFile);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        const res = await fetch(resolvedPath, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        let fragmentHtml = await res.text();
+        fragmentHtml = resolveImageSrcInHTML(fragmentHtml);
+
+        const hideBackground = route.hideBackground || false;
+
+        return `
+            <div class="screen screen-default-content no-background is-infografia">
+                <header class="screen-header">
+                    <div class="header-img-left">
+                        <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="Ecosistema">
+                    </div>
+                    <div class="header-img-right">
+                        <img src="${window.resolvePath('assets/img/logo.png')}" alt="Logo">
+                    </div>
+                </header>
+                <main class="main-layout">
+                    <div class="content-slot">
+                        ${fragmentHtml}
+                    </div>
+                </main>
+            </div>`;
+    } catch (err) {
+        return `<div class="page-error"><strong>Error cargando infografía:</strong> ${err.message}</div>`;
+    }
+}
 
 // ════════════════════════════════════════════════════════════════
 // CSS LOADER — Cargador inteligente con caché + variables de ruta
@@ -206,6 +391,11 @@ function injectCSSVariables() {
         .screen-default-content {
             background-image: url('${assetsPath}/img/background-defecto.png') !important;
         }
+        
+        .screen-default-content.no-background {
+        background-image: none !important;
+        background-color: #ffffff;
+    }
     `;
     document.head.appendChild(styleEl);
 }
@@ -434,99 +624,7 @@ function bootComponents(container) {
     });
 }
 
-// ════════════════════════════════════════════════════════════════
-// ROUTE RENDERER — Renderizador genérico y escalable
-// Despacha según tipo de pantalla usando SCREEN_REGISTRY
-// ════════════════════════════════════════════════════════════════
 
-async function renderRoute(route) {
-    const appEl = document.getElementById('app');
-    if (!appEl || !route) {
-        throw new Error('No se pudo acceder al contenedor de app o ruta');
-    }
-
-    try {
-        const screenDef = SCREEN_REGISTRY[route.type];
-
-        if (!screenDef) {
-            appEl.innerHTML = `<div class="page-error">Tipo de pantalla desconocido: "${route.type}"</div>`;
-            return;
-        }
-
-        // 1. Cargar CSS dinámico (si aplica)
-        if (screenDef.css) {
-            const cssList = Array.isArray(screenDef.css) ? screenDef.css : [screenDef.css];
-            console.log(cssList)
-            try {
-                await Promise.all(cssList.map(href => loadCSS(href)));
-            } catch (err) {
-                console.warn(`[renderRoute] CSS error`, err);
-            }
-        }
-
-        // 2. Renderizar contenido con timeout de seguridad
-        let html;
-        try {
-            if (route.type === 'custom') {
-                html = await Promise.race([
-                    renderCustomScreen(route),
-                    new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error('Timeout renderizando pantalla')), 15000)
-                    )
-                ]);
-            } else {
-                html = screenDef.render(route);
-            }
-        } catch (err) {
-            console.error(`[renderRoute] Error renderizando:`, err);
-            html = `<div class="page-error"><strong>Error renderizando:</strong> ${err.message}</div>`;
-        }
-
-        /* ─────────────────────────────────────────────────────────
-           3. APLICAR LAYOUT Y CONFIGURACIÓN DE PÍLDORA (Actualizado)
-           ───────────────────────────────────────────────────────── */
-
-        // Creamos un objeto de configuración combinando el registro y la ruta
-        const screenConfig = {
-            layout: screenDef.layout,
-            // Si la ruta dice específicamente que oculte el nav, gana la ruta.
-            // Si no dice nada, se usa la configuración por defecto del SCREEN_REGISTRY.
-            showNav: route.hideNav === true ? false : screenDef.showNav,
-            showPdf: screenDef.showPdf
-        };
-
-        applyLayout(screenConfig);
-
-        // 4. Inyectar HTML
-        appEl.innerHTML = html;
-
-        const progressContainer = appEl.querySelector('.progress-bar-target');
-
-        if (progressContainer) {
-            progressBar.renderTo(progressContainer);
-
-            // Esperar un frame para que el DOM y CSS calculen dimensiones
-            requestAnimationFrame(() => {
-                progressBar.update(currentIndex, totalRoutes, visitedSet);
-            });
-        } else {
-            progressBar.unmount();
-        }
-
-        // 5. Inicializar componentes (solo para pantallas de contenido)
-        if (route.type === 'content' || route.type === 'default-content') {
-            try {
-                bootComponents(appEl);
-            } catch (err) {
-                console.error('[renderRoute] Error bootComponents:', err);
-            }
-        }
-
-    } catch (err) {
-        console.error("[renderRoute] Error fatal:", err);
-        appEl.innerHTML = `<div class="page-error"><strong>Error crítico:</strong> ${err.message}</div>`;
-    }
-}
 
 // ════════════════════════════════════════════════════════════════
 // NAVIGATION & STATE

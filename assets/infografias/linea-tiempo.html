@@ -1,0 +1,310 @@
+<style>
+    .content-slot {
+        height: 100%;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .main-layout {
+        padding: 0 !important;
+        align-items: stretch !important;
+    }
+
+    .info-scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+        overflow-y: auto;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .info-scene-bg {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 78%;
+        height: 85%;
+        background-image: url('assets/img/background-infografia-1.png');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        z-index: 0;
+    }
+
+    .info-column {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+        z-index: 10;
+        width: auto;
+        transition: all 0.4s ease;
+    }
+
+    /* Columna Izquierda */
+    .col-left {
+        top: 35%;
+        left: 6%;
+        transform: translateY(-20%);
+    }
+
+    /* Columna Derecha: align-items flex-end para que margin-right funcione */
+    .col-right {
+        top: 50%;
+        right: 6%;
+        align-items: flex-end;
+    }
+
+    /* ── Tarjeta base ── */
+    .info-card-float {
+        position: relative;
+        background: rgba(255, 255, 255, 0.97);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        padding: 16px 18px;
+        box-sizing: border-box;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 12px;
+        width: 450px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .info-card-float:hover {
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .info-card-float.is-open {
+        z-index: 30;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+        transform: scale(1.02);
+    }
+
+    /* ══ ESCALERA IZQUIERDA ══ */
+    .card-03 { margin-left: 200px; }
+    .card-02 { margin-left: 50px; }
+    .card-01 { margin-left: -50px; }
+
+    /* ══ ESCALERA DERECHA ══ */
+    .card-05 { margin-right: 50px; }
+    .card-04 { margin-right: 200px; }
+
+    /* ── Header ── */
+    .info-card-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .info-card-num {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    .color-01 { background-color: #89c4c0; }
+    .color-02 { background-color: #1a4f27; }
+    .color-03 { background-color: #82b656; }
+    .color-04 { background-color: #559b9a; }
+    .color-05 { background-color: #ecc711; color: #1a4f27; }
+
+    .info-card-title {
+        margin: 0;
+        font-weight: 700;
+        color: #0b3d1b;
+        font-size: 0.95rem;
+        line-height: 1.35;
+        flex: 1;
+        padding-top: 2px;
+    }
+
+    .info-card-toggle {
+        background: #f0f0f0;
+        border: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+        line-height: 1;
+    }
+
+    .info-card-header:hover .info-card-toggle {
+        background: #e0e0e0;
+        color: #000;
+    }
+
+    /* ══ PANEL DESPLEGABLE ══ */
+    .info-card-panel {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, margin-top 0.3s ease;
+    }
+
+    .info-card-float.is-open .info-card-panel {
+        max-height: 300px;
+        opacity: 1;
+        margin-top: 15px;
+    }
+
+    .info-card-panel ul {
+        margin: 0;
+        padding-left: 18px;
+    }
+
+    .info-card-panel li {
+        font-size: 0.88rem;
+        color: #444;
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    .info-card-panel li:last-child { margin-bottom: 0; }
+
+
+    /* ══ LAPTOPS / PORTÁTILES ══ */
+    @media (max-width: 1400px) {
+        .info-card-float { width: 300px; }
+        .info-scene-bg { width: 65%; }
+
+        .col-left  { top: 28%; left: 5%; }
+        .col-right { top: 45%; right: 10%; }
+
+        .card-03 { margin-left: 150px; }
+        .card-02 { margin-left: 50px; }
+        .card-01 { margin-left: -30px; }
+
+        .card-05 { margin-right: 0px; }
+        .card-04 { margin-right: 100px; }
+    }
+
+    /* ══ TABLET ══ */
+    @media (max-width: 1024px) {
+        .info-card-float { width: 240px; }
+        .col-left { top: 40%; }
+        .card-03, .card-02, .card-01,
+        .card-05, .card-04 { margin: 0; }
+    }
+
+    /* ══ MÓVILES ══ */
+    @media (max-width: 900px) {
+        .info-card-float { width: 190px; }
+        .info-card-title { font-size: 0.8rem; }
+        .info-scene-bg { width: 90%; }
+
+        .col-left  { left: 2%; }
+        .col-right { right: 2%; }
+
+        .card-03 { margin-left: 5%; }
+        .card-02 { margin-left: 2%; }
+        .card-05 { margin-right: 5%; }
+        .card-04 { margin-right: 2%; }
+    }
+</style>
+
+<div class="info-scene">
+    <div class="info-scene-bg"></div>
+
+    <div class="info-column col-left">
+        <div class="info-card-float card-03">
+            <div class="info-card-header js-toggle-card">
+                <span class="info-card-num color-03">03</span>
+                <p class="info-card-title">Avances en la protección de los derechos humanos</p>
+                <button class="info-card-toggle">+</button>
+            </div>
+            <div class="info-card-panel">
+                <ul>
+                    <li>La ONU crea mecanismos especializados en la protección de los derechos humanos.</li>
+                    <li>Se crean mecanismos a nivel interamericano para la defensa de los derechos humanos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-card-float card-02">
+            <div class="info-card-header js-toggle-card">
+                <span class="info-card-num color-02">02</span>
+                <p class="info-card-title">La Segunda Guerra Mundial y la Declaración Universal (1945)</p>
+                <button class="info-card-toggle">+</button>
+            </div>
+            <div class="info-card-panel">
+                <ul>
+                    <li>Final de la Segunda Guerra Mundial: Los horrores impulsaron mecanismos para evitar abusos futuros.</li>
+                    <li>Creación de la ONU (1945): Fundada con el objetivo de proteger la dignidad humana.</li>
+                    <li>Declaración Universal de los Derechos Humanos (1948): Primer tratado que reconoce y protege los derechos fundamentales.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-card-float card-01">
+            <div class="info-card-header js-toggle-card">
+                <span class="info-card-num color-01">01</span>
+                <p class="info-card-title">Orígenes y primeras manifestaciones (antes del siglo XX)</p>
+                <button class="info-card-toggle">+</button>
+            </div>
+            <div class="info-card-panel">
+                <ul>
+                    <li>Antiguas culturas: Diversas comunidades han expresado la importancia de defender los derechos fundamentales.</li>
+                    <li>Revoluciones de los siglos XVII y XVIII: Se destacó el derecho a la libertad y la igualdad ante la ley.</li>
+                    <li>Revolución industrial: Surge el desarrollo de los derechos económicos, sociales y culturales.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-column col-right">
+        <div class="info-card-float card-05">
+            <div class="info-card-header js-toggle-card">
+                <span class="info-card-num color-05">05</span>
+                <p class="info-card-title">La Constitución de 1991: Colombia como Estado social de derecho</p>
+                <button class="info-card-toggle">+</button>
+            </div>
+            <div class="info-card-panel">
+                <ul>
+                    <li>Carta de derechos: La Constitución define a Colombia como un país comprometido con la protección de los derechos fundamentales.</li>
+                    <li>Mecanismos efectivos de cumplimiento para asegurar la efectividad de los derechos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-card-float card-04">
+            <div class="info-card-header js-toggle-card">
+                <span class="info-card-num color-04">04</span>
+                <p class="info-card-title">Colombia y la evolución normativa</p>
+                <button class="info-card-toggle">+</button>
+            </div>
+            <div class="info-card-panel">
+                <ul>
+                    <li>Protección de grupos específicos: pueblos indígenas, mujeres, entre otros.</li>
+                    <li>Constitución de 1991: Colombia se define como Estado social de derecho.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll('.js-toggle-card').forEach(header => {
+        header.addEventListener('click', () => {
+            const card = header.closest('.info-card-float');
+            const btn  = header.querySelector('.info-card-toggle');
+            const isOpen = card.classList.toggle('is-open');
+            btn.textContent = isOpen ? '−' : '+';
+        });
+    });
+</script>
