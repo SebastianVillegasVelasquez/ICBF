@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 1 — Derechos humanos y mecanismos de protección</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --t1:#81CAC9;--t2:#569E9A;--vd:#0B4923;--lm:#94B55A;--yw:#E8C208;
+  --ink:#1A1A1A;--paper:#FAFAF7;--cream:#F4F2EC;--fog:#E4E0D6;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:"Nunito",sans-serif;background:#D0CCC4;display:flex;align-items:center;justify-content:center;}
+.pr{display:none;}
+#book{width:980px;height:576px;position:relative;display:flex;align-items:stretch;filter:drop-shadow(0 20px 50px rgba(0,0,0,.22)) drop-shadow(0 4px 12px rgba(0,0,0,.14));border-radius:6px;overflow:hidden;}
+#lp,#rp{width:490px;height:100%;background:var(--paper);position:relative;overflow:hidden;flex-shrink:0;}
+#lp::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(270deg,rgba(0,0,0,.05) 0%,transparent 9%);}
+#rp::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.05) 0%,transparent 9%);}
+#spine{width:14px;height:100%;flex-shrink:0;background:linear-gradient(90deg,rgba(0,0,0,.2) 0%,rgba(255,255,255,.1) 35%,rgba(0,0,0,.08) 60%,rgba(0,0,0,.24) 100%);position:relative;z-index:10;}
+.lv,.rv{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .28s ease;padding:20px 24px 16px;display:flex;flex-direction:column;}
+#p0:checked ~ #book #lp .lv.s0,#p0:checked ~ #book #rp .rv.s0{opacity:1;pointer-events:all;}
+#p1:checked ~ #book #lp .lv.s1,#p1:checked ~ #book #rp .rv.s1{opacity:1;pointer-events:all;}
+#p2:checked ~ #book #lp .lv.s2,#p2:checked ~ #book #rp .rv.s2{opacity:1;pointer-events:all;}
+#p3:checked ~ #book #lp .lv.s3,#p3:checked ~ #book #rp .rv.s3{opacity:1;pointer-events:all;}
+#p4:checked ~ #book #lp .lv.s4,#p4:checked ~ #book #rp .rv.s4{opacity:1;pointer-events:all;}
+#p5:checked ~ #book #lp .lv.s5,#p5:checked ~ #book #rp .rv.s5{opacity:1;pointer-events:all;}
+#p6:checked ~ #book #lp .lv.s6,#p6:checked ~ #book #rp .rv.s6{opacity:1;pointer-events:all;}
+#p7:checked ~ #book #lp .lv.s7,#p7:checked ~ #book #rp .rv.s7{opacity:1;pointer-events:all;}
+#p8:checked ~ #book #lp .lv.s8,#p8:checked ~ #book #rp .rv.s8{opacity:1;pointer-events:all;}
+#p9:checked ~ #book #lp .lv.s9,#p9:checked ~ #book #rp .rv.s9{opacity:1;pointer-events:all;}
+#p10:checked ~ #book #lp .lv.s10,#p10:checked ~ #book #rp .rv.s10{opacity:1;pointer-events:all;}
+#p11:checked ~ #book #lp .lv.s11,#p11:checked ~ #book #rp .rv.s11{opacity:1;pointer-events:all;}
+#p12:checked ~ #book #lp .lv.s12,#p12:checked ~ #book #rp .rv.s12{opacity:1;pointer-events:all;}
+#p13:checked ~ #book #lp .lv.s13,#p13:checked ~ #book #rp .rv.s13{opacity:1;pointer-events:all;}
+#p14:checked ~ #book #lp .lv.s14,#p14:checked ~ #book #rp .rv.s14{opacity:1;pointer-events:all;}
+#p15:checked ~ #book #lp .lv.s15,#p15:checked ~ #book #rp .rv.s15{opacity:1;pointer-events:all;}
+#p16:checked ~ #book #lp .lv.s16,#p16:checked ~ #book #rp .rv.s16{opacity:1;pointer-events:all;}
+#p17:checked ~ #book #lp .lv.s17,#p17:checked ~ #book #rp .rv.s17{opacity:1;pointer-events:all;}
+
+.arr{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(11,73,35,.07);border:1.5px solid rgba(11,73,35,.14);display:none;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;z-index:30;}
+.arr:hover{background:var(--vd);border-color:var(--vd);}
+.arr:hover svg{stroke:white;}
+.arr svg{width:12px;height:12px;stroke:var(--vd);transition:stroke .18s;}
+.ap{left:6px;} .an{right:6px;}
+#p0:checked ~ #book .p0{display:flex;}
+#p1:checked ~ #book .p1{display:flex;}
+#p2:checked ~ #book .p2{display:flex;}
+#p3:checked ~ #book .p3{display:flex;}
+#p4:checked ~ #book .p4{display:flex;}
+#p5:checked ~ #book .p5{display:flex;}
+#p6:checked ~ #book .p6{display:flex;}
+#p7:checked ~ #book .p7{display:flex;}
+#p8:checked ~ #book .p8{display:flex;}
+#p9:checked ~ #book .p9{display:flex;}
+#p10:checked ~ #book .p10{display:flex;}
+#p11:checked ~ #book .p11{display:flex;}
+#p12:checked ~ #book .p12{display:flex;}
+#p13:checked ~ #book .p13{display:flex;}
+#p14:checked ~ #book .p14{display:flex;}
+#p15:checked ~ #book .p15{display:flex;}
+#p16:checked ~ #book .p16{display:flex;}
+#p17:checked ~ #book .p17{display:flex;}
+
+#dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:30;}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(11,73,35,.15);cursor:pointer;display:block;transition:all .2s;}
+#p0:checked ~ #book .d0{background:var(--vd);transform:scale(1.5);}
+#p1:checked ~ #book .d1{background:var(--vd);transform:scale(1.5);}
+#p2:checked ~ #book .d2{background:var(--vd);transform:scale(1.5);}
+#p3:checked ~ #book .d3{background:var(--vd);transform:scale(1.5);}
+#p4:checked ~ #book .d4{background:var(--vd);transform:scale(1.5);}
+#p5:checked ~ #book .d5{background:var(--vd);transform:scale(1.5);}
+#p6:checked ~ #book .d6{background:var(--vd);transform:scale(1.5);}
+#p7:checked ~ #book .d7{background:var(--vd);transform:scale(1.5);}
+#p8:checked ~ #book .d8{background:var(--vd);transform:scale(1.5);}
+#p9:checked ~ #book .d9{background:var(--vd);transform:scale(1.5);}
+#p10:checked ~ #book .d10{background:var(--vd);transform:scale(1.5);}
+#p11:checked ~ #book .d11{background:var(--vd);transform:scale(1.5);}
+#p12:checked ~ #book .d12{background:var(--vd);transform:scale(1.5);}
+#p13:checked ~ #book .d13{background:var(--vd);transform:scale(1.5);}
+#p14:checked ~ #book .d14{background:var(--vd);transform:scale(1.5);}
+#p15:checked ~ #book .d15{background:var(--vd);transform:scale(1.5);}
+#p16:checked ~ #book .d16{background:var(--vd);transform:scale(1.5);}
+#p17:checked ~ #book .d17{background:var(--vd);transform:scale(1.5);}
+
+.lbl{font-size:7.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--t2);display:flex;align-items:center;gap:5px;}
+.lbl-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.h1{font-size:19.5px;font-weight:900;color:var(--vd);line-height:1.12;margin-top:5px;}
+.h1 em{font-style:normal;color:inherit;}
+.acc{height:3px;width:30px;border-radius:99px;margin:6px 0 0;}
+.page-head{margin-bottom:10px;flex-shrink:0;}
+.page-content{flex:1;min-height:0;display:block;overflow:auto;padding-right:6px;scrollbar-width:thin;scrollbar-color:rgba(11,73,35,.18) transparent;}
+.page-content::-webkit-scrollbar{width:6px;}
+.page-content::-webkit-scrollbar-thumb{background:rgba(11,73,35,.18);border-radius:99px;}
+.page-content > *:first-child{margin-top:0;}
+.body{font-size:10.35px;line-height:1.62;color:#4a4a4a;text-align:justify;margin:0 0 9px;}
+.dense .body,.dense .b-list li,.dense .pill-list li{font-size:9.2px;line-height:1.52;}
+.mini-title{font-size:11px;font-weight:900;color:var(--vd);margin:2px 0 6px;break-inside:avoid;}
+.highlight{background:#F0F8F7;border-left:3px solid var(--t2);border-radius:0 8px 8px 0;padding:10px 12px;font-size:10.2px;color:#2a5a58;line-height:1.56;font-style:italic;font-weight:700;margin:12px 0;break-inside:avoid;}
+.highlight.alt{background:#FDFCEF;border-left-color:var(--yw);color:#6a5200;}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px;break-inside:avoid;}
+.card{border-radius:9px;padding:10px 10px 9px;font-size:10px;line-height:1.56;color:#4a4a4a;background:var(--cream);border:1px solid var(--fog);break-inside:avoid;}
+.cn{width:21px;height:21px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;margin-bottom:5px;color:white;}
+.ct{font-weight:800;font-size:10.1px;margin-bottom:3px;display:block;color:var(--ink);}
+.c-t .cn{background:var(--t2);} .c-t{border-top:2.5px solid var(--t2);}
+.c-l .cn{background:var(--lm);} .c-l{border-top:2.5px solid var(--lm);}
+.c-y .cn{background:var(--yw);color:var(--vd);} .c-y{border-top:2.5px solid var(--yw);}
+.c-g .cn{background:var(--vd);} .c-g{border-top:2.5px solid var(--vd);}
+.b-list{margin:6px 0 8px 15px;display:grid;gap:5px;}
+.b-list li{font-size:8.9px;line-height:1.48;color:#4a4a4a;break-inside:avoid;}
+.pill-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0 10px;}
+.pill-list li{background:var(--cream);border:1px solid var(--fog);border-radius:999px;padding:5px 8px;font-size:8.5px;font-weight:800;color:var(--vd);text-align:center;break-inside:avoid;}
+.pf{padding-top:6px;border-top:1px solid var(--fog);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.pfn{width:18px;height:18px;border-radius:6px;background:var(--vd);color:white;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+.fn{vertical-align:super;}
+.fn-btn{appearance:none;border:none;background:none;color:#A72C2C;font:inherit;font-size:8px;font-weight:900;cursor:pointer;line-height:1;padding:0 1px;}
+.note-pop{position:fixed;z-index:2000;max-width:260px;background:#FFFDF8;border:1px solid rgba(11,73,35,.14);box-shadow:0 12px 28px rgba(0,0,0,.16);border-radius:12px;padding:10px 12px;font-size:11px;line-height:1.45;color:#3d3d3d;display:none;}
+.note-pop.show{display:block;}
+.note-pop::before{content:"";position:absolute;width:10px;height:10px;background:#FFFDF8;border-left:1px solid rgba(11,73,35,.14);border-top:1px solid rgba(11,73,35,.14);transform:rotate(45deg);top:-6px;left:var(--arrow-left, 18px);}
+.cov-stripe{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--t2),var(--lm),var(--yw));z-index:2;pointer-events:none;}
+.cov-geo1{position:absolute;top:-50px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--t1),var(--lm));opacity:.1;pointer-events:none;}
+.cov-geo2{position:absolute;bottom:-30px;left:-20px;width:150px;height:150px;border-radius:50%;background:var(--yw);opacity:.08;pointer-events:none;}
+.bird-w{position:absolute;top:18px;right:22px;width:30px;opacity:.45;animation:bf 4s ease-in-out infinite;pointer-events:none;}
+@keyframes bf{0%,100%{transform:translateY(0)rotate(-5deg);}50%{transform:translateY(-7px)rotate(4deg);}}
+.eco-t{font-size:22px;font-weight:900;color:var(--vd);line-height:1.12;}
+.eco-t .tc{color:var(--t2);}
+.dih-p{display:inline-block;background:var(--yw);color:var(--vd);font-size:8px;font-weight:900;padding:3px 10px;border-radius:5px;margin-top:6px;}
+.chip{background:var(--cream);border:1.5px solid var(--fog);border-radius:7px;padding:4px 9px;font-size:7.5px;font-weight:800;color:var(--vd);}
+.cov-foot{display:flex;justify-content:flex-end;align-items:center;padding-top:7px;border-top:1px solid var(--fog);}
+.cov-mod{background:var(--vd);color:white;font-size:8.5px;font-weight:900;padding:4px 12px;border-radius:7px;}
+.idx-wm{position:absolute;bottom:-14px;right:-4px;font-size:110px;font-weight:900;color:rgba(11,73,35,.04);line-height:1;pointer-events:none;user-select:none;}
+.idx-hd{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.idx-bar{width:3px;height:20px;background:linear-gradient(180deg,var(--t2),var(--lm));border-radius:2px;}
+.idx-title{font-size:18px;font-weight:900;color:var(--vd);}
+.idx-list{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;flex:1;min-height:0;overflow:auto;padding-right:4px;}
+.ii{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;transition:all .18s;min-width:0;}
+.ii:hover{background:var(--cream);transform:translateX(3px);}
+.inum{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:white;flex-shrink:0;}
+.itx{display:flex;flex-direction:column;gap:1px;min-width:0;}
+.itx strong{font-size:9px;line-height:1.25;color:var(--vd);}
+.itx span{font-size:8px;line-height:1.3;color:#666;}
+.ipg{margin-left:auto;font-size:8px;font-weight:900;color:#888;white-space:nowrap;align-self:center;}
+.itip{background:var(--cream);border-radius:8px;padding:7px 10px;font-size:9.2px;color:#888;line-height:1.45;display:flex;align-items:center;gap:7px;border:1px solid var(--fog);margin-top:8px;}
+.itip-i{width:17px;height:17px;border-radius:5px;background:var(--t2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+.image-placeholder{width:100%;border:2px dashed rgba(232,194,8,.72);border-radius:12px;background:linear-gradient(180deg,#fcfbf4 0%,#f6f3e7 100%);display:flex;align-items:center;justify-content:center;text-align:center;color:#6d694f;font-weight:800;letter-spacing:.3px;margin:12px 0 14px;padding:12px;}
+.image-placeholder.small{min-height:118px;font-size:12px;}
+.image-placeholder.double{min-height:184px;font-size:13px;}
+.image-placeholder span{display:block;max-width:180px;}
+
+@media (max-width:1100px){
+  html,body{overflow:auto;padding:16px;align-items:flex-start;}
+}
+
+.infograph{margin:12px 0 14px;border:1px solid #e6dfc7;border-radius:14px;background:linear-gradient(180deg,#fffdf7 0%,#f7f3e7 100%);padding:12px;position:relative;overflow:hidden;}
+.infograph::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(129,202,201,.15),transparent 32%),radial-gradient(circle at bottom left,rgba(232,194,8,.12),transparent 28%);pointer-events:none;}
+.infograph > *{position:relative;z-index:1;}
+.ig-kicker{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--t2);font-weight:900;margin-bottom:8px;}
+.ig-title{font-size:13px;line-height:1.15;font-weight:900;color:var(--vd);margin-bottom:10px;}
+.ig-note{font-size:8.7px;line-height:1.45;color:#6e6a59;margin-top:8px;}
+.ig-grid{display:grid;gap:8px;}
+.ig-grid.two{grid-template-columns:repeat(2,minmax(0,1fr));}
+.ig-grid.three{grid-template-columns:repeat(3,minmax(0,1fr));}
+.ig-grid.four{grid-template-columns:repeat(4,minmax(0,1fr));}
+.ig-box{background:rgba(255,255,255,.72);border:1px solid rgba(148,181,90,.28);border-radius:12px;padding:9px;min-height:58px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 4px 10px rgba(11,73,35,.05);}
+.ig-box strong{font-size:9.7px;line-height:1.2;color:var(--vd);display:block;margin-bottom:3px;}
+.ig-box span{font-size:8.7px;line-height:1.38;color:#555;display:block;}
+.ig-pillrow{display:flex;flex-wrap:wrap;gap:6px;}
+.ig-pill{padding:6px 9px;border-radius:999px;background:rgba(129,202,201,.18);border:1px solid rgba(86,158,154,.25);font-size:8.9px;font-weight:800;color:#204f4d;}
+.ig-core{display:flex;align-items:center;justify-content:center;text-align:center;border-radius:50%;width:98px;height:98px;background:linear-gradient(180deg,var(--vd),#1a6a39);color:#fff;margin:4px auto 10px;font-size:10px;font-weight:900;padding:16px;box-shadow:0 8px 18px rgba(11,73,35,.18);}
+.ig-connector{height:14px;position:relative;margin:2px 0 8px;}
+.ig-connector::before{content:"";position:absolute;left:10%;right:10%;top:6px;height:2px;background:linear-gradient(90deg,var(--lm),var(--yw));}
+.ig-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.ig-step{background:#fff;border:1px dashed rgba(11,73,35,.18);border-radius:12px;padding:9px;min-height:78px;}
+.ig-step .n{display:inline-flex;width:18px;height:18px;border-radius:50%;align-items:center;justify-content:center;background:var(--yw);color:var(--vd);font-size:8px;font-weight:900;margin-bottom:6px;}
+.ig-step strong{display:block;font-size:9.3px;color:var(--vd);line-height:1.2;margin-bottom:3px;}
+.ig-step span{font-size:8.6px;color:#565656;line-height:1.35;}
+.ig-bars{display:flex;align-items:flex-end;gap:10px;height:110px;margin-top:6px;padding:10px 6px 0;border-bottom:2px solid rgba(11,73,35,.15);}
+.ig-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;}
+.ig-bar i{display:block;width:100%;max-width:50px;border-radius:10px 10px 0 0;background:linear-gradient(180deg,var(--t1),var(--t2));box-shadow:0 4px 10px rgba(86,158,154,.18);}
+.ig-bar:nth-child(2) i{background:linear-gradient(180deg,#cce28e,var(--lm));}
+.ig-bar:nth-child(3) i{background:linear-gradient(180deg,#f5dc72,var(--yw));}
+.ig-bar b{font-size:8.5px;color:#4c4c4c;text-align:center;line-height:1.2;}
+.ig-ringwrap{display:grid;grid-template-columns:112px 1fr;gap:10px;align-items:center;}
+.ig-ring{width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--vd) 0 25%,var(--t2) 25% 50%,var(--lm) 50% 75%,var(--yw) 75% 100%);position:relative;margin:auto;}
+.ig-ring::after{content:"SIDH";position:absolute;inset:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--vd);}
+.ig-list{display:grid;gap:7px;}
+.ig-list .row{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,.78);border:1px solid rgba(11,73,35,.08);border-radius:10px;padding:8px 9px;}
+.ig-list .tag{flex:0 0 auto;min-width:68px;text-align:center;padding:5px 7px;border-radius:999px;background:#edf6f5;color:var(--t2);font-size:8.2px;font-weight:900;}
+.ig-list .txt{font-size:8.6px;line-height:1.35;color:#555;}
+.ig-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.ig-panel{background:rgba(255,255,255,.8);border:1px solid rgba(11,73,35,.08);border-radius:14px;padding:10px;}
+.ig-panel h4{font-size:10px;line-height:1.2;color:var(--vd);margin-bottom:7px;}
+.ig-panel ul{padding-left:16px;}
+.ig-panel li{font-size:8.6px;line-height:1.38;color:#555;margin-bottom:4px;}
+.ig-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.ig-mini{background:#fff;border:1px solid rgba(11,73,35,.08);border-radius:12px;padding:9px;min-height:76px;}
+.ig-mini .cap{font-size:8px;font-weight:900;color:var(--t2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.ig-mini strong{display:block;font-size:9.5px;line-height:1.2;color:var(--vd);margin-bottom:4px;}
+.ig-mini span{font-size:8.4px;line-height:1.34;color:#555;}
+.ig-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.ig-compare .card{background:#fff;border:1px solid rgba(11,73,35,.08);border-radius:14px;padding:10px;}
+.ig-compare h4{font-size:10.2px;color:var(--vd);margin-bottom:7px;}
+.ig-compare p{font-size:8.6px;line-height:1.42;color:#555;margin-bottom:6px;}
+.ig-compare .meta{display:flex;gap:6px;flex-wrap:wrap;}
+.ig-compare .meta span{font-size:8px;font-weight:900;border-radius:999px;padding:5px 8px;background:#eef5df;color:#587021;}
+
+
+.ig-steps.two{grid-template-columns:repeat(2,minmax(0,1fr));}
+</style>
+</head>
+<body>
+<input checked="" class="pr" id="p0" name="pg" type="radio"/>
+<input class="pr" id="p1" name="pg" type="radio"/>
+<input class="pr" id="p2" name="pg" type="radio"/>
+<input class="pr" id="p3" name="pg" type="radio"/>
+<input class="pr" id="p4" name="pg" type="radio"/>
+<input class="pr" id="p5" name="pg" type="radio"/>
+<input class="pr" id="p6" name="pg" type="radio"/>
+<input class="pr" id="p7" name="pg" type="radio"/>
+<input class="pr" id="p8" name="pg" type="radio"/>
+<input class="pr" id="p9" name="pg" type="radio"/>
+<input class="pr" id="p10" name="pg" type="radio"/>
+<input class="pr" id="p11" name="pg" type="radio"/>
+<input class="pr" id="p12" name="pg" type="radio"/>
+<input class="pr" id="p13" name="pg" type="radio"/>
+<input class="pr" id="p14" name="pg" type="radio"/>
+<input class="pr" id="p15" name="pg" type="radio"/>
+<input class="pr" id="p16" name="pg" type="radio"/>
+<input class="pr" id="p17" name="pg" type="radio"/>
+<div id="book">
+<div id="lp">
+<section class="lv s0 cover-page" style="padding:0;overflow:hidden">
+<div class="cov-stripe"></div><div class="cov-geo1"></div><div class="cov-geo2"></div>
+<svg class="bird-w" fill="none" viewbox="0 0 60 40"><path d="M5 20 Q15 8 30 14 Q45 8 55 18 Q45 22 30 18 Q15 26 5 20Z" fill="#E8C208"></path><circle cx="48" cy="14" fill="#0B4923" r="3"></circle><path d="M50 16 L58 12" stroke="#0B4923" stroke-linecap="round" stroke-width="1.5"></path></svg>
+<div style="height:100%;padding:24px 26px 18px 30px;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2;">
+<div style="display:inline-flex;align-items:center;gap:7px;background:var(--vd);color:white;font-size:7.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:99px;width:fit-content">
+<svg height="7" viewbox="0 0 8 8" width="7"><circle cx="4" cy="4" fill="#E8C208" r="4"></circle></svg>
+      Módulo 1
+    </div>
+<div>
+<div class="eco-t">Derechos <span class="tc">humanos</span><br/>y mecanismos de<br/><span class="tc">protección</span></div>
+<div class="dih-p">Reconocimiento, exigibilidad y sistemas de protección</div>
+
+</div>
+<div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">
+<div class="chip">Universalidad</div><div class="chip">Igualdad</div>
+<div class="chip">Exigibilidad</div><div class="chip">Protección</div>
+</div>
+
+</div>
+</div>
+</section>
+<section class="lv s1 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 3</div>
+<h2 class="h1">El reconocimiento jurídico de los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content">
+<div class="infograph">
+<div class="ig-kicker">Gráfico editorial</div>
+<div class="ig-title">Del compromiso estatal al reconocimiento jurídico</div>
+<div class="ig-steps">
+<div class="ig-step"><div class="n">1</div><strong>Compromiso</strong><span>Los Estados asumen la garantía de los derechos de las personas.</span></div>
+<div class="ig-step"><div class="n">2</div><strong>Consagración</strong><span>Ese compromiso se incorpora en textos normativos permanentes o transnacionales.</span></div>
+<div class="ig-step"><div class="n">3</div><strong>Reconocimiento abierto</strong><span>El carácter evolutivo de los derechos impide limitar su alcance solo a lo ya positivizado.</span></div>
+</div>
+<div class="ig-pillrow" style="margin-top:10px">
+<div class="ig-pill">Declaraciones</div><div class="ig-pill">Tratados</div><div class="ig-pill">Constituciones</div><div class="ig-pill">Jurisprudencia</div>
+</div>
+</div><p class="body">La forma en que los Estados traducen su compromiso con la garantía de los derechos de las personas es mediante la consagración de éstos en sus textos normativos, bien sean de carácter permanente o transnacional. Generalmente, se pueden identificar estas normas en declaraciones, tratados internacionales, constituciones, así como en la jurisprudencia local e internacional.</p><p class="body">Sin embargo, dado el carácter evolutivo y dinámico de los derechos humanos, no podemos limitar el reconocimiento de éstos a aquellos que han sido incluidos en las normas legales. Lo anterior significa que los derechos humanos no son sólo aquellos consignados en la Declaración Universal de Derechos Humanos, o los que se encuentran en el capítulo de derechos fundamentales de la Constitución Política<sup class="fn"><button class="fn-btn" data-note="En efecto, la misma Constitución en su artículo 94 reconoce que los derechos enunciados tanto en la Constitución y tratados internacionales, no es taxativa y puede incluir otros que aunque no se encuentren positivizados en estos textos sean inherentes a la persona humana.">1</button></sup>, sino que se podrán incluir algunos que muchas veces no sean aún reconocidos en determinadas normas.</p><div class="highlight">Los derechos humanos no se agotan en los textos positivos: su carácter evolutivo y dinámico permite reconocer otros derechos inherentes a la persona humana.</div></div>
+<div class="pf"><span></span><div class="pfn">3</div></div>
+</section>
+<section class="lv s2 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 5</div>
+<h2 class="h1">Exigibilidad, solidaridad y <em>garantía efectiva</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">Pese a la limitación de recursos, los Estados deben fomentar el principio de solidaridad para que toda la sociedad colabore en la protección de los más vulnerables. No basta con el reconocimiento legal de los derechos; es imperativo garantizar su goce efectivo. Para ello los gobiernos deben asegurar condiciones óptimas y crear mecanismos de exigibilidad ante posibles amenazas o vulneraciones. A continuación se presentan algunos de ellos::</p><div class="card-grid"><article class="card c-t"><div class="cn">1</div><span class="ct">La Organización de las Naciones Unidas</span><div>La Organización de las Naciones Unidas</div></article><article class="card c-l"><div class="cn">2</div><span class="ct">La Declaración Universal de los Derechos Humanos</span><div>La Declaración Universal de los Derechos Humanos</div></article></div>
+<div class="infograph">
+<div class="ig-kicker">Ruta de exigibilidad</div>
+<div class="ig-title">Garantía efectiva frente a amenazas o vulneraciones</div>
+<div class="ig-steps">
+<div class="ig-step"><div class="n">1</div><strong>Solidaridad</strong><span>Toda la sociedad coopera en la protección de las personas más vulnerables.</span></div>
+<div class="ig-step"><div class="n">2</div><strong>Condiciones óptimas</strong><span>Los gobiernos deben asegurar escenarios reales para el goce efectivo de los derechos.</span></div>
+<div class="ig-step"><div class="n">3</div><strong>Mecanismos</strong><span>Se activan herramientas de exigibilidad ante amenazas o vulneraciones.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">5</div></div>
+</section>
+<section class="lv s3 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 7</div>
+<h2 class="h1">Declaración Universal de <em>Derechos Humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">En sus inicios, la Declaración tenía un carácter no vinculante, esto quiere decir, que por sí misma no creaba obligaciones internacionales para los estados. Sin embargo, es un instrumento de carácter político que compromete la voluntad y el accionar de los estados para el cumplimiento de lo dispuesto. Es por esto, que posteriormente se adopta el Pacto Internacional de Derechos Económicos, Sociales y Culturales, el Pacto Internacional de Derechos Civiles y Políticos, el Protocolo Facultativo del Pacto Internacional de Derechos Civiles y Políticos y el Segundo Protocolo Facultativo del Pacto Internacional de Derechos Civiles y Políticos, destinado a abolir la pena de muerte. Estos pactos son aceptados y ratificados por casi todos los estados miembros de Naciones Unidas.</p><p class="body">Hoy, la Declaración Universal de Derechos Humanos es vinculante para los estados, pues constituye costumbre internacional.</p><div class="highlight alt">Hoy, la Declaración Universal de Derechos Humanos es vinculante para los Estados, pues constituye costumbre internacional.</div><div class="infograph">
+<div class="ig-kicker">Gráfico de síntesis</div>
+<div class="ig-title">Estructura básica de la Declaración</div>
+<div class="ig-steps">
+<div class="ig-step"><div class="n">1</div><strong>Preámbulo</strong><span>Presenta los argumentos que fundamentan la declaración.</span></div>
+<div class="ig-step"><div class="n">2</div><strong>Proclamación</strong><span>Expone su carácter y la forma en que debe difundirse.</span></div>
+<div class="ig-step"><div class="n">3</div><strong>Articulado</strong><span>Treinta artículos con derechos fundamentales.</span></div>
+</div>
+<div class="ig-note">La secuencia sigue la organización indicada en el texto de la sección.</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">7</div></div>
+</section>
+<section class="lv s4 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 9</div>
+<h2 class="h1">Características: múltiples, <em>evolutivos y dinámicos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content">
+<div class="infograph">
+<div class="ig-kicker">Gráfico editorial</div>
+<div class="ig-title">Los derechos humanos se amplían con la sociedad</div>
+<div class="ig-columns">
+<div class="ig-panel"><h4>Múltiples</h4><ul><li>Abarcan todos los aspectos de la vida.</li><li>Comprenden derechos civiles, políticos, sociales, económicos y culturales.</li><li>Incluyen también derechos colectivos.</li></ul></div>
+<div class="ig-panel"><h4>Evolutivos y dinámicos</h4><ul><li>Las necesidades sociales cambian.</li><li>Surgen nuevas formas de reconocimiento.</li><li>La jurisprudencia internacional amplía su alcance.</li></ul></div>
+</div>
+<div class="ig-note">La evolución social y tecnológica exige lecturas abiertas sobre el contenido de los derechos.</div>
+</div><div class="mini-title">Son múltiples</div><p class="body">Los derechos humanos abarcan todos los aspectos de la vida. Su ejercicio permite a hombres y mujeres conformar y determinar su propia vida en condiciones de libertad, igualdad y respeto a la dignidad humana. Los derechos humanos comprenden no sólo derechos civiles y políticos y los derechos sociales, económicos y culturales, sino también derechos colectivos de los pueblos a la libre determinación, la igualdad, el desarrollo, la paz y un medio ambiente sano, entre otros.</p><div class="mini-title">Son evolutivos y dinámicos</div><p class="body">Esta característica significa que no podemos limitarnos a las categorías actuales de los derechos humanos (por ejemplo derechos a la libertad de culto, a la igualdad, a la libertad, a la libre asociación, a un ambiente sano, a la salud, etc.), ya que lo que no se identifica hoy como derechos inherentes al hombre, en un futuro podrá ser tenido como tal. Hay que pensar, por ejemplo, en lo que serán los derechos fundamentales en 50 o 60 años, con los desarrollos tecnológicos que se están adelantando de manera vertiginosa, pues estos son el resultado de la evolución y las necesidades de la sociedad.</p><p class="body">Adicionalmente, dado el carácter evolutivo y dinámico de los derechos humanos, no se puede limitar el reconocimiento de éstos a aquellos que han sido incluidos en las normas jurídicas, sino también incluir los que hayan sido reconocidos a través de la jurisprudencia internacional en la materia.</p></div>
+<div class="pf"><span></span><div class="pfn">9</div></div>
+</section>
+<section class="lv s5 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 11</div>
+<h2 class="h1">Indivisibilidad, interdependencia e <em>igualdad</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Indivisibilidad e interdependencia</div><p class="body">Dado que el ejercicio y la garantía de cada derecho humano depende del ejercicio y garantía de otros, se puede decir que la violación de un derecho afecta al ejercicio de otros. Por ejemplo, el derecho a la vida presupone la garantía del derecho a la salud y a un nivel de vida adecuado. Los derechos civiles y políticos y los derechos económicos, sociales y culturales son complementarios e igualmente indispensables para la dignidad e integridad de toda persona, por lo cual se puede decir que ninguno prima sobre el otro. El respeto de todos los derechos es un requisito fundamental para la paz y para el desarrollo.</p><div class="mini-title">Igualdad y no discriminación</div><p class="body">La no discriminación es un principio transversal en el derecho internacional de derechos humanos. El principio se aplica a toda persona en relación con todos los derechos humanos, y prohíbe la discriminación por razones tales como sexo, raza, credo, etc. El principio de la no discriminación se complementa con el principio de igualdad, tal como lo establece el artículo 1o de la Declaración Universal de Derechos Humanos: “Todos los seres humanos nacen libres e iguales en dignidad y derechos”.</p>
+<div class="infograph">
+<div class="ig-kicker">Relación entre principios</div>
+<div class="ig-title">Un derecho protegido fortalece a los demás</div>
+<div class="ig-core">Vida digna</div>
+<div class="ig-connector"></div>
+<div class="ig-grid three">
+<div class="ig-box"><strong>Salud</strong><span>Permite un nivel de vida adecuado.</span></div>
+<div class="ig-box"><strong>Paz</strong><span>Exige respeto simultáneo a todos los derechos.</span></div>
+<div class="ig-box"><strong>No discriminación</strong><span>La igualdad atraviesa todo el sistema.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">11</div></div>
+</section>
+<section class="lv s6 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 13</div>
+<h2 class="h1">Deberes estatales y <em>reparación</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">Se basa en la prohibición para los Estados de realizar ciertos actos que puedan menoscabar el disfrute de los derechos fundamentales.</p><p class="body">Exige que los Estados protejan a los individuos contra los abusos y que adopten medidas de toda índole (legislativas/administrativas, etc.) para la protección de los derechos de las personas, así como adelantar las investigaciones respecto de su vulneración.</p><p class="body">Los Estados son responsables de cumplir la normativa internacional y nacional en la que se han comprometido con el respeto y la garantía de los derechos humanos.</p><p class="body">Todo Estado está en la obligación de reparar a las víctimas que han sido vulneradas en sus derechos humanos o por infracciones al derecho internacional humanitario. Esta reparación puede comprender medidas de restitución, indemnización, rehabilitación, satisfacción (reparación simbólica) y garantías de no repetición, para ello los Estados deben establecer mecanismos judiciales y/o administrativos.</p>
+<div class="infograph">
+<div class="ig-kicker">Obligaciones estatales</div>
+<div class="ig-title">Cuatro deberes frente a los derechos humanos</div>
+<div class="ig-grid four">
+<div class="ig-box"><strong>Respetar</strong><span>Abstenerse de menoscabar derechos.</span></div>
+<div class="ig-box"><strong>Proteger</strong><span>Adoptar medidas e investigar vulneraciones.</span></div>
+<div class="ig-box"><strong>Cumplir</strong><span>Aplicar normativa nacional e internacional.</span></div>
+<div class="ig-box"><strong>Reparar</strong><span>Restituir, indemnizar, rehabilitar y garantizar no repetición.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">13</div></div>
+</section>
+<section class="lv s7 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 15</div>
+<h2 class="h1">Sistema universal: mecanismos <em>extraconvencionales</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">El sistema universal cuenta con dos mecanismos de protección:</p><div class="mini-title">Mecanismos extraconvencionales de Naciones Unidas</div><p class="body">Son aquellos mecanismos que no se crean en el marco de un tratado internacional, sino que se establecen en el sistema de Naciones Unidas para el monitoreo, seguimiento y elaboración de recomendaciones para la protección de los derechos humanos. Estos son:</p><p class="body">Procedimientos públicos especiales: expertos independientes nombrados para hacer frente a situaciones concretas en los países o en cuestiones temáticas en todo el mundo, relacionadas con los derechos humanos. Estos expertos (relatores temáticos o relatores por países) dependen del Consejo de Derechos Humanos de Naciones Unidas. Este Consejo se encuentra conformado por 47 Estados, que se eligen de manera periódica a través de elecciones abiertas entre todos los Estados parte de las Naciones Unidas. Sus principales funciones son promover el respeto por los derechos humanos y ocuparse de las situaciones que infrinjan los derechos y contribuir a prevenirlas. Adicionalmente, este Consejo es el encargado de realizar el examen periódico universal, que Colombia presentó por segunda vez en marzo de 2013.</p><div class="infograph">
+<div class="ig-kicker">Gráfico de síntesis</div>
+<div class="ig-title">Ruta de protección en Naciones Unidas</div>
+<div class="ig-core" style="width:64px;height:64px;font-size:11px">ONU</div>
+<div class="ig-connector"></div>
+<div class="ig-grid three">
+<div class="ig-box"><strong>Consejo de DD. HH.</strong><span>Promueve el respeto y previene vulneraciones.</span></div>
+<div class="ig-box"><strong>Procedimientos especiales</strong><span>Relatores temáticos o por país.</span></div>
+<div class="ig-box"><strong>EPU</strong><span>Evalúa la situación de derechos humanos de cada Estado.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">15</div></div>
+</section>
+<section class="lv s8 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 17</div>
+<h2 class="h1">Sistema universal: mecanismos <em>convencionales</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Mecanismos convencionales</div><p class="body">Este mecanismo se refiere a los comités que se crean a raíz de los tratados que ratifican los Estados, que traen consigo obligaciones legales de implementar los derechos humanos que el tratado reconoce. El país, una vez ratifica el tratado, asume la responsabilidad de presentar informes periódicamente al Comité de Monitoreo que se crea en el marco del tratado sobre cómo los derechos han sido protegidos y las estrategias implementadas para tal fin.</p><p class="body">Además del reporte presentado por un país sobre un tratado específico, el Comité de Seguimiento recibe información sobre la situación de los derechos humanos en los Estados parte a través de otras fuentes, como organizaciones no gubernamentales, agencias de las Naciones Unidas y la academia. Una vez que el Comité dispone de toda la información, examina el reporte junto con el país en escenarios de diálogo; posteriormente, publica sus preocupaciones y recomendaciones en un documento conocido como “observaciones finales”</p><p class="body">Así mismo, los Comités pueden recibir peticiones individuales por la vulneración de derechos por parte de los Estados y emitir un informe final en el que puede declarar que éstos han infringido los derechos contenidos en el tratado internacional que vigila. En Colombia la Ley 288 de 1996, permite que dichas decisiones sean vinculantes para el Estado colombiano. Los mecanismos convencionales coordinan sus actividades a través de la Reunión Anual de Presidentes de los Órganos de Tratados de Derechos Humanos y la Reunión Intercomités.</p><p class="body">Entre los tratados ratificados por Colombia que hacen parte de estos mecanismos convencionales se encuentran: el Pacto Internacional de Derechos Civiles y Políticos, el Pacto Internacional de Derechos Económicos, Sociales y Culturales, la Convención para la Prevención y Sanción del Delito de Genocidio, la Convención Internacional sobre la Eliminación de Todas las Formas de Discriminación Racial, la Convención Internacional sobre la Eliminación de todas las Formas de Discriminación contra la Mujer –CEDAW-, la Convención sobre los Derechos del Niño, la Convención contra la Tortura y otros Tratos o Penas Crueles, Inhumanos o Degradantes, la Convención Internacional sobre la Protección de los Derechos de todos los Trabajadores Migratorios y de sus Familiares, entre otros.</p>
+<div class="infograph">
+<div class="ig-kicker">Ruta convencional</div>
+<div class="ig-title">Cómo operan los comités derivados de tratados</div>
+<div class="ig-steps">
+<div class="ig-step"><div class="n">1</div><strong>Ratificación</strong><span>El Estado asume obligaciones jurídicas.</span></div>
+<div class="ig-step"><div class="n">2</div><strong>Informes y diálogo</strong><span>El país reporta medidas y el comité analiza otras fuentes.</span></div>
+<div class="ig-step"><div class="n">3</div><strong>Observaciones</strong><span>Se emiten recomendaciones y, en ciertos casos, decisiones vinculantes.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">17</div></div>
+</section>
+<section class="lv s9 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 19</div>
+<h2 class="h1">La OEA e instrumentos <em>interamericanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><div class="infograph">
+<div class="ig-kicker">Gráfico de síntesis</div>
+<div class="ig-title">Sistema Interamericano: pilares e instrumentos</div>
+<div class="ig-ringwrap">
+<div class="ig-ring"></div>
+<div class="ig-list">
+<div class="row"><div class="tag">Pilar I</div><div class="txt">Democracia</div></div>
+<div class="row"><div class="tag">Pilar II</div><div class="txt">Derechos humanos</div></div>
+<div class="row"><div class="tag">Pilar III</div><div class="txt">Seguridad</div></div>
+<div class="row"><div class="tag">Pilar IV</div><div class="txt">Desarrollo</div></div>
+</div>
+</div>
+<div class="ig-pillrow" style="margin-top:10px">
+<div class="ig-pill">Declaración Americana</div><div class="ig-pill">Convención Americana</div><div class="ig-pill">Belém do Pará</div><div class="ig-pill">Protocolo de San Salvador</div>
+</div>
+</div><ul class="pill-list"><li>Democracia</li><li>Los derechos humanos</li><li>La seguridad</li><li>El desarrollo</li></ul><div class="mini-title">Instrumentos interamericanos para la protección de los derechos humanos</div><ul class="b-list"><li>La Declaración Americana de los Derechos y Deberes del Hombre de 1948.</li><li>La Convención Americana sobre Derechos Humanos (“Pacto de San José de Costa Rica”) de 1969.</li><li>La Convención Interamericana para Prevenir y Sancionar la Tortura de 1985.</li><li>El Protocolo Adicional a la Convención Americana sobre Derechos Humanos en materia de Derechos Económicos, Sociales y Culturales (Protocolo de San Salvador) de 1988.</li><li>Protocolo a la Convención Americana sobre Derechos Humanos relativo a la Abolición de la Pena de Muerte de 1990.</li><li>La Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer (“Convención de Belém do Pará”) de 1994.</li><li>La Convención Interamericana sobre Desaparición Forzada de Personas de 1994.</li><li>La Convención Interamericana para la Eliminación de Todas las Formas de Discriminación contra las Personas con Discapacidad de 1999.</li></ul></div>
+<div class="pf"><span></span><div class="pfn">19</div></div>
+</section>
+<section class="lv s10 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 21</div>
+<h2 class="h1">La Comisión Interamericana de <em>Derechos Humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><div class="mini-title">La Comisión Interamericana de Derechos Humanos</div><p class="body">La Comisión Interamericana de Derechos Humanos es el órgano de la Organización de los Estados Americanos creado para promover la observancia y la defensa de los derechos humanos y servir como órgano consultivo de la Organización en esta materia. La Comisión Interamericana además de ser un órgano de la Convención Americana es un órgano de la O.E.A., estatus que no tiene la Corte, por eso tiene jurisdicción sobre todos los estados miembros de la O.E.A. ya que todos ellos han ratificado la Carta de esta organización.</p><div class="mini-title">Miembros que componen la Comisión Interamericana de Derechos Humanos</div><p class="body">Se compone de siete miembros, quienes deben ser personas de alta autoridad moral y de reconocidos en materia de Derechos Humanos, sus miembros son elegidos a título personal por la Asamblea General de la O.E.A</p><div class="mini-title">Instrumentos que regulan la Comisión Interamericana de Derechos Humanos</div><ul class="b-list"><li>El Estatuto de la Comisión Interamericana de Derechos Humanos.</li><li>El Reglamento de la Comisión Interamericana de Derechos Humanos.</li></ul><div class="infograph">
+<div class="ig-kicker">Gráfico de síntesis</div>
+<div class="ig-title">Comisión Interamericana: composición y funciones</div>
+<div class="ig-columns">
+<div class="ig-panel"><h4>Composición</h4><ul><li>Siete miembros.</li><li>Alta autoridad moral.</li><li>Elegidos por la Asamblea General de la OEA.</li></ul></div>
+<div class="ig-panel"><h4>Funciones</h4><ul><li>Promover la observancia y defensa de los derechos humanos.</li><li>Formular recomendaciones.</li><li>Preparar estudios e informes.</li><li>Practicar observaciones in loco.</li></ul></div>
+</div>
+<div class="ig-pillrow" style="margin-top:10px"><div class="ig-pill">Estatuto</div><div class="ig-pill">Reglamento</div><div class="ig-pill">Informes</div><div class="ig-pill">Consultas</div></div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">21</div></div>
+</section>
+<section class="lv s11 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 23</div>
+<h2 class="h1">La Corte Interamericana de <em>Derechos Humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><div class="mini-title">La Corte Interamericana de Derechos Humanos</div><p class="body">Es una institución judicial autónoma cuyo objetivo es la aplicación e interpretación de la Convención Americana sobre Derechos Humanos, según lo establece el artículo 1o de su Estatuto.</p><div class="mini-title">Funciones de la Corte Interamericana de Derechos Humanos</div><p class="body">La Corte Interamericana tiene dos funciones específicas:</p><ul class="b-list"><li>a. La función jurisdiccional: a través de la cual la Corte determina si un Estado ha incurrido en responsabilidad internacional por haber violado alguno de los derechos humanos consagrados en la Convención Americana.</li><li>b. La función consultiva: a través de la cual, la Corte responde aquellas consultas que le formulen los Estados Miembros de la OEA o los órganos de la misma, sobre temas atinentes a la interpretación de la Convención Americana o de otros tratados concernientes a la protección de los derechos humanos en las Américas. Así como, de la compatibilidad entre cualquiera de sus leyes internas y los mencionados instrumentos internacionales.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Dos funciones</div>
+<div class="ig-title">La Corte Interamericana de Derechos Humanos</div>
+<div class="ig-compare">
+<div class="card"><h4>Función jurisdiccional</h4><p>Determina si un Estado incurrió en responsabilidad internacional por violar la Convención Americana.</p><div class="meta"><span>Responsabilidad</span><span>Sentencia</span></div></div>
+<div class="card"><h4>Función consultiva</h4><p>Responde consultas sobre interpretación de tratados y compatibilidad de normas internas.</p><div class="meta"><span>Interpretación</span><span>Compatibilidad</span></div></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">23</div></div>
+</section>
+<section class="lv s12 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 25</div>
+<h2 class="h1">Acceso al Sistema <em>Interamericano</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><div class="mini-title">¿Quiénes pueden acceder al Sistema Interamericano de Derechos Humanos?</div><p class="body">Están legitimados para presentar una petición ante la Comisión Interamericana:</p><ul class="b-list"><li>Cualquier persona.</li><li>Grupo de personas.</li><li>Entidades no gubernamentales legalmente reconocidas en uno o más Estados miembros de la OEA.</li></ul><p class="body">Cualquiera de los anteriormente mencionados podrá presentar una petición ante la Comisión Interamericana de Derechos Humanos, CIDH, contra el Estado que presuntamente ha violado los derechos humanos, una vez que las víctimas o sus familiares agoten los recursos de jurisdicción interna o en su defecto se presente una de las excepciones del no agotamiento de los recursos de jurisdicción interna.</p><div class="mini-title">Requisitos para acceder a la Comisión Interamericana</div><p class="body">El artículo 46 de la Convención Americana establece como requisitos:</p><ul class="b-list"><li>Que se hayan interpuesto y agotado los recursos de jurisdicción interna, conforme a los principios del derecho internacional generalmente reconocidos.</li><li>Que sea presentada dentro del plazo de seis meses a partir de la fecha en que el presunto lesionado en sus derechos haya sido notificado de la decisión definitiva.</li><li>Que la materia de la petición o comunicación no esté pendiente de otro procedimiento de arreglo internacional.</li><li>Cuando se trate de peticiones individuales, éstas deberán contener el nombre, la nacionalidad, la profesión, el domicilio y la firma de la persona o personas o del representante legal de la entidad que somete la petición.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">¿Quién puede acudir?</div>
+<div class="ig-title">Acceso a la Comisión Interamericana</div>
+<div class="ig-grid three">
+<div class="ig-box"><strong>Cualquier persona</strong><span>Puede presentar petición.</span></div>
+<div class="ig-box"><strong>Grupo de personas</strong><span>Está legitimado para acudir al sistema.</span></div>
+<div class="ig-box"><strong>ONG reconocida</strong><span>Puede actuar en uno o más Estados miembros.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">25</div></div>
+</section>
+<section class="lv s13 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 27</div>
+<h2 class="h1">Medidas cautelares y medidas <em>provisionales</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><div class="mini-title">¿Se necesita un abogado para acudir al Sistema Interamericano de Derechos Humanos?</div><p class="body">No se requiere de abogado para presentar una petición o solicitar una medida cautelar a la Comisión Interamericana de Derechos Humanos. Los peticionarios pueden acudir directamente.</p><div class="mini-title">Las medidas cautelares</div><p class="body">Las medidas cautelares son instrumentos de protección inmediata que puede usar la Comisión Interamericana ante la amenaza de violaciones a los Derechos Humanos. Las medidas cautelares podrán proteger a personas o grupos de personas, siempre que el beneficiario o los beneficiarios puedan ser determinados o determinables, a través de su ubicación geográfica o su pertenencia o vínculo a un grupo, pueblo, comunidad u organización.</p><p class="body">Las medidas cautelares pueden estar o no relacionadas con una petición o caso que surta en la Comisión Interamericana. Para solicitarlas es necesario acreditar la gravedad, la urgencia y la necesidad de evitar un perjuicio irremediable.</p><div class="mini-title">Instancias de medidas cautelares</div><p class="body">La persona que se encuentre amenazada, o por intermedio de otra persona, las solicita ante la Comisión Interamericana de Derechos Humanos, la cual, una vez analiza la gravedad, la urgencia y la necesidad de evitar un perjuicio irremediable, decide solicitarle al Estado la adopción de la medida cautelar. El Estado (de quien se alega ha violado el o los derechos fundamentales) es quien adopta estas medidas.</p>
+<div class="infograph">
+<div class="ig-kicker">Protección inmediata</div>
+<div class="ig-title">Medidas cautelares y medidas provisionales</div>
+<div class="ig-compare">
+<div class="card"><h4>Medidas cautelares</h4><p>La Comisión las solicita al Estado cuando hay gravedad, urgencia y riesgo de perjuicio irremediable.</p><div class="meta"><span>Comisión</span><span>Urgencia</span></div></div>
+<div class="card"><h4>Medidas provisionales</h4><p>La Corte las ordena en casos de extrema gravedad y urgencia para evitar daños irreparables.</p><div class="meta"><span>Corte</span><span>Extrema gravedad</span></div></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">27</div></div>
+</section>
+<section class="lv s14 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 29</div>
+<h2 class="h1">Sistema nacional de protección de los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">Si bien todos los derechos son importantes, los derechos fundamentales tienen un tratamiento especial porque la Constitución refuerza la garantía de su protección, lo que le confiere un alto grado de inmunidad contra posibles intentos de violación, desconocimiento o restricción. Los derechos fundamentales son aquellos que:</p><ul class="b-list"><li>Pueden ser amparados a través de la acción de tutela (Constitución- artículo 86).</li><li>Tienen reserva de ley estatutaria (Constitución - artículo 152).</li><li>No son susceptibles de limitación durante los estados de excepción (Constitución - artículo 93).</li><li>Su reforma constitucional debe someterse a referendo (Constitución- artículo 377).</li><li>Están en la Constitución en el Título II De los Derechos las Garantías y los Deberes, Capítulo I. De los Derechos Fundamentales.</li><li>Por jurisprudencia de la Corte Constitucional son creados en relación directa con otros (ej. el salario mínimo vital y móvil en relación con la dignidad humana) y aquellos que tienen conexidad con derechos fundamentales pues ponen a éstos en peligro (ej. El derecho a la salud en conexidad con el de la vida).</li></ul><p class="body">En este sentido, el sistema normativo y las instituciones del Estado colombiano, tienen como función y propósito la garantía de los derechos de las personas. En Colombia, la Constitución Política de 1991 en sus artículos 23, 30, 86, 87 Y 88 (y las normas que los desarrollan), ha establecido algunos mecanismos puntuales destinados a la protección de los derechos<sup class="fn"><button class="fn-btn" data-note="Los derechos humanos, o fundamentales están ubicados en la Constitución de 1991 entre los artículos 11 y 40. Sin embargo, la Corte Constitucional (encargada de velar por el cumplimiento de la constitución por parte de todos los ciudadanos y funcionarios) en sus distintas sentencias, ha ampliado este rango, incluyendo algunos derechos sociales como por ejemplo, el derecho a la salud (Sentencia T-859 de 2003), el mínimo vital (Sentencias T-426/92; T-263/97; T-1103/00), dignidad humana (Sentencia T-881/02), derecho a la seguridad personal (Sentencias T-590/98; SU-256/98), derecho a la estabilidad laboral reforzada de sujetos de especial protección constitucional (Sentencias T-590/98; SU-256/98). En este sentido, no son solo derechos fundamentales los que reconozca la Constitución. Otro ejemplo es el derecho a la integridad personal el cual no está reconocido en la Constitución, pero sí en la Convención Americana sobre Derechos">9</button></sup> que permiten su exigibilidad por parte de los ciudadanos en caso de amenazas o violaciones. Entre estos mecanismos de defensa ciudadana figuran:</p>
+<div class="infograph">
+<div class="ig-kicker">Sistema nacional</div>
+<div class="ig-title">Rasgos de los derechos fundamentales en Colombia</div>
+<div class="ig-grid two">
+<div class="ig-box"><strong>Protección reforzada</strong><span>Tutela, reserva de ley estatutaria, límites a los estados de excepción y control constitucional.</span></div>
+<div class="ig-box"><strong>Ampliación jurisprudencial</strong><span>La Corte Constitucional ha reconocido nuevos contenidos fundamentales por conexidad y dignidad humana.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">29</div></div>
+</section>
+<section class="lv s15 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 31</div>
+<h2 class="h1">La acción de <em>tutela</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">¿Cuándo se puede usar? Para que una persona interponga una acción de tutela, es necesario que haya sufrido una amenaza o violación a sus derechos fundamentales, haga una solicitud ante la personería, o se dirija directamente (no requiere abogado, ni formalidad previa) a la oficina de radicación de cualquier juzgado laboral, civil, de familia o penal. El término de respuesta del juez encargado de fallar la acción de tutela es de 10 días hábiles.</p><p class="body">¿Quiénes la pueden usar? Aunque este procedimiento judicial en principio debe ser interpuesto por la persona directamente afectada, existe la posibilidad de que las personas con incapacidades físicas, las personas privadas de su libertad, e incluso, quienes así lo soliciten, puedan hacerlo a través de un delegado.</p><p class="body">¿Contra quiénes puede interponerse acción de tutela? Contra cualquier servidor público o contra los particulares cuando presten funciones públicas, exista una relación de indefensión o subordinación.</p><p class="body">¿Cuál es el término de cumplimiento de una sentencia de tutela? La persona obligada a cumplir una sentencia de tutela tiene el término de 48 horas para dar cumplimiento a la sentencia, y de no hacerlo puede enfrentarse a un incidente de desacato.</p>
+<div class="infograph">
+<div class="ig-kicker">Acción de tutela</div>
+<div class="ig-title">Ruta básica de activación</div>
+<div class="ig-steps">
+<div class="ig-step"><div class="n">1</div><strong>Amenaza o violación</strong><span>Debe existir afectación a un derecho fundamental.</span></div>
+<div class="ig-step"><div class="n">2</div><strong>Presentación</strong><span>Puede radicarse sin abogado y sin formalidades previas.</span></div>
+<div class="ig-step"><div class="n">3</div><strong>Decisión rápida</strong><span>El juez resuelve en 10 días hábiles.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">31</div></div>
+</section>
+<section class="lv s16 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 33</div>
+<h2 class="h1">Acción popular y acciones de <em>grupo</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">¿Cuándo se puede usar? El artículo 2o de la Ley 472 de 1998, asegura que “las acciones populares se ejercen para evitar el daño contingente, hacer cesar el peligro, la amenaza, la vulneración o agravio sobre los derechos e intereses colectivos, o restituir las cosas a su estado anterior cuando fuere posible”.</p><p class="body">Las acciones populares se pueden establecer contra todo aquel que viole o amenace los derechos o intereses colectivos. Al respecto, la Ley 472 señala en su artículo 14 que “la acción popular se dirigirá contra el particular, persona natural o jurídica, o la autoridad pública cuya actuación y omisión se considere que amenaza, viola o ha violado el derecho o interés colectivo”.</p><p class="body">¿Quiénes la pueden usar? La acción popular, al ser una acción pública, puede ser establecida por particulares, organizaciones no gubernamentales y por entidades públicas que cumplan funciones de control, intervención o vigilancia. Igualmente, el Procurador General de la Nación, el Defensor del Pueblo, los alcaldes, los servidores públicos y los personeros distritales y municipales, pueden hacerlo. La acción popular no requiere la intervención de un abogado para que sea llevada a cabo.</p><div class="mini-title">Las acciones de grupo</div><p class="body">¿Qué son? La segunda parte del artículo 88 de la Constitución colombiana, hace alusión a las acciones de grupo. Estas acciones han sido creadas para proteger a grupos mínimos de 20 personas o más, afectadas por una misma causa.</p><p class="body">¿Cuándo se pueden usar? Las acciones de clase o grupo son, fundamentalmente, restauradoras, por tanto, a través de ellas, se busca una indemnización para reparar los daños ocasionados.</p><p class="body">¿Quiénes las pueden usar? Estas acciones son de carácter privado, pues solamente, quienes pertenezcan al grupo afectado podrán solicitarlas. Sin embargo, para ejercer la acción de grupo se requiere de un abogado. A través de las acciones de grupo se puede demandar al Estado, a los particulares que ejercen una función pública o a los particulares que ejercen una actividad privada, según quien sea el responsable del daño.</p>
+<div class="infograph">
+<div class="ig-kicker">Acciones colectivas</div>
+<div class="ig-title">Diferencia entre acción popular y acción de grupo</div>
+<div class="ig-columns">
+<div class="ig-panel"><h4>Acción popular</h4><ul><li>Protege derechos e intereses colectivos.</li><li>Es pública.</li><li>No requiere abogado.</li></ul></div>
+<div class="ig-panel"><h4>Acción de grupo</h4><ul><li>Requiere mínimo 20 personas afectadas.</li><li>Busca indemnización.</li><li>Exige abogado.</li></ul></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">33</div></div>
+</section>
+<section class="lv s17 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--t2)"><div class="lbl-dot" style="background:var(--t2)"></div>Página 35</div>
+<h2 class="h1">Contenido del derecho de <em>petición</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+</div>
+<div class="page-content"><p class="body">¿Qué debe contener un derecho de petición escrito? Las peticiones escritas deben contener, por lo menos:</p><ol class="b-list"><li>1. La designación de la autoridad a la que se dirigen.</li><li>2. Los nombres y apellidos completos del solicitante y de su representante legal o apoderado, si es el caso, con indicación del documento de identidad y de la dirección.</li><li>3. El objeto de la petición.</li><li>4. Las razones en que se apoya.</li><li>5. La relación de documentos que se acompañan.</li><li>6. La firma del peticionario, cuando fuere el caso<sup class="fn"><button class="fn-btn" data-note="Artículo 16. Ley 1437 de 2011. Código de Procedimiento Administrativo y de lo Contencioso Administrativo.">10</button></sup>.</li></ol><p class="body">¿Quiénes lo pueden usar? Los particulares pueden solicitar y tener acceso a la información y documentación que repose en las diferentes entidades, siempre y cuando no se trate de información que por ley, tenga el carácter de reservada, caso en el cual no procede el derecho de petición.</p><div class="mini-title">Mediante un derecho de petición se puedan hacer las siguientes peticiones:</div><ul class="b-list"><li>Quejas, cuando se ponen en conocimiento de las autoridades, conductas irregulares de funcionarios públicos o particulares a quienes se ha atribuido o adjudicado la prestación de un servicio público. Reclamos, cuando se da a las autoridades noticia de la suspensión injustificada o de la prestación deficiente de un servicio público.</li><li>Manifestaciones, cuando hacen llegar a las autoridades la opinión del peticionario sobre una materia sometida a actuación administrativa.</li><li>Peticiones de información, cuando se formulan a las autoridades para que estas den a conocer cómo han actuado en un caso concreto, permitan el acceso a los documentos públicos que tienen en su poder o expidan copia de documentos que reposan en una oficina pública.</li><li>Consultas, cuando se presentan a las autoridades para que manifiesten su parecer sobre materias relacionadas con sus atribuciones.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Contenido mínimo</div>
+<div class="ig-title">Elementos del derecho de petición escrito</div>
+<div class="ig-six">
+<div class="ig-mini"><div class="cap">1</div><strong>Autoridad</strong><span>Designación de la entidad a la que se dirige.</span></div>
+<div class="ig-mini"><div class="cap">2</div><strong>Identificación</strong><span>Nombres, documento y dirección.</span></div>
+<div class="ig-mini"><div class="cap">3</div><strong>Objeto</strong><span>Solicitud concreta.</span></div>
+<div class="ig-mini"><div class="cap">4</div><strong>Razones</strong><span>Fundamentos de la petición.</span></div>
+<div class="ig-mini"><div class="cap">5</div><strong>Documentos</strong><span>Relación de anexos.</span></div>
+<div class="ig-mini"><div class="cap">6</div><strong>Firma</strong><span>Cuando fuere el caso.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">35</div></div>
+</section>
+</div>
+<div id="spine"></div>
+<div id="rp">
+<section class="rv s0 index-page">
+<div class="idx-wm">01</div>
+<div class="idx-hd"><div class="idx-bar"></div><div class="idx-title">Contenido</div></div>
+<div class="idx-list"><label class="ii" for="p1">
+<div class="inum" style="background:var(--t2);">3</div>
+<div class="itx"><strong>El reconocimiento jurídico de los derechos humanos</strong><span>Reconocimiento jurídico</span></div>
+<div class="ipg">→ 3</div>
+</label>
+<label class="ii" for="p1">
+<div class="inum" style="background:var(--lm);">4</div>
+<div class="itx"><strong>Carácter de exigencia de los derechos humanos</strong><span>Carácter de exigencia</span></div>
+<div class="ipg">→ 4</div>
+</label>
+<label class="ii" for="p2">
+<div class="inum" style="background:var(--vd);">6</div>
+<div class="itx"><strong>La Organización de las Naciones Unidas</strong><span>ONU y Declaración Universal</span></div>
+<div class="ipg">→ 6</div>
+</label>
+<label class="ii" for="p3">
+<div class="inum" style="background:var(--lm);">8</div>
+<div class="itx"><strong>Algunas características de los derechos humanos</strong><span>Características</span></div>
+<div class="ipg">→ 8</div>
+</label>
+<label class="ii" for="p4">
+<div class="inum" style="background:var(--vd);">10</div>
+<div class="itx"><strong>Principios en los que se fundamentan los derechos humanos</strong><span>Principios</span></div>
+<div class="ipg">→ 10</div>
+</label>
+<label class="ii" for="p5">
+<div class="inum" style="background:var(--lm);">12</div>
+<div class="itx"><strong>Obligaciones de los Estados con respecto a los derechos humanos</strong><span>Obligaciones del Estado</span></div>
+<div class="ipg">→ 12</div>
+</label>
+<label class="ii" for="p6">
+<div class="inum" style="background:var(--vd);">14</div>
+<div class="itx"><strong>Sistemas de protección de los derechos humanos</strong><span>Sistemas de protección</span></div>
+<div class="ipg">→ 14</div>
+</label>
+<label class="ii" for="p7">
+<div class="inum" style="background:var(--t2);">15</div>
+<div class="itx"><strong>Sistema universal: mecanismos extraconvencionales</strong><span>Sistema universal</span></div>
+<div class="ipg">→ 15</div>
+</label>
+<label class="ii" for="p8">
+<div class="inum" style="background:var(--yw);color:var(--vd);">17</div>
+<div class="itx"><strong>Sistema universal: mecanismos convencionales</strong><span>Mecanismos convencionales</span></div>
+<div class="ipg">→ 17</div>
+</label>
+<label class="ii" for="p8">
+<div class="inum" style="background:var(--vd);">18</div>
+<div class="itx"><strong>Sistema regional de protección de los derechos humanos</strong><span>Sistema regional</span></div>
+<div class="ipg">→ 18</div>
+</label>
+<label class="ii" for="p9">
+<div class="inum" style="background:var(--lm);">20</div>
+<div class="itx"><strong>Convención Americana sobre Derechos Humanos</strong><span>Convención Americana</span></div>
+<div class="ipg">→ 20</div>
+</label>
+<label class="ii" for="p10">
+<div class="inum" style="background:var(--yw);color:var(--vd);">21</div>
+<div class="itx"><strong>La Comisión Interamericana de Derechos Humanos</strong><span>Comisión Interamericana</span></div>
+<div class="ipg">→ 21</div>
+</label>
+<label class="ii" for="p11">
+<div class="inum" style="background:var(--t2);">23</div>
+<div class="itx"><strong>La Corte Interamericana de Derechos Humanos</strong><span>Corte Interamericana</span></div>
+<div class="ipg">→ 23</div>
+</label>
+<label class="ii" for="p12">
+<div class="inum" style="background:var(--yw);color:var(--vd);">25</div>
+<div class="itx"><strong>Acceso al Sistema Interamericano</strong><span>Acceso al SIDH</span></div>
+<div class="ipg">→ 25</div>
+</label>
+<label class="ii" for="p13">
+<div class="inum" style="background:var(--t2);">27</div>
+<div class="itx"><strong>Medidas cautelares y medidas provisionales</strong><span>Medidas cautelares</span></div>
+<div class="ipg">→ 27</div>
+</label>
+<label class="ii" for="p14">
+<div class="inum" style="background:var(--yw);color:var(--vd);">29</div>
+<div class="itx"><strong>Sistema nacional de protección de los derechos humanos</strong><span>Sistema nacional</span></div>
+<div class="ipg">→ 29</div>
+</label>
+<label class="ii" for="p15">
+<div class="inum" style="background:var(--t2);">31</div>
+<div class="itx"><strong>La acción de tutela</strong><span>Acción de tutela</span></div>
+<div class="ipg">→ 31</div>
+</label>
+<label class="ii" for="p16">
+<div class="inum" style="background:var(--vd);">34</div>
+<div class="itx"><strong>Habeas corpus y derecho de petición</strong><span>Habeas corpus y petición</span></div>
+<div class="ipg">→ 34</div>
+</label>
+<label class="ii" for="p17">
+<div class="inum" style="background:var(--lm);">36</div>
+<div class="itx"><strong>Habeas data</strong><span>Habeas data</span></div>
+<div class="ipg">→ 36</div>
+</label></div>
+<div class="itip"><div class="itip-i"><svg fill="none" height="9" viewbox="0 0 10 10" width="9"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>Usa las flechas o haz clic en el índice para navegar entre los spreads.</div>
+</section>
+<section class="rv s1 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 4</div>
+<h2 class="h1">Carácter de exigencia de los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><p class="body">El Estado colombiano, así como la mayoría de los estados modernos, ha sido diseñado en función del respeto y la garantía de los derechos de sus habitantes.</p><p class="body">Por un lado, mientras hablamos de obligaciones de respeto, en principio se trata del deber negativo o de abstención que se tiene frente a la vulneración de los derechos de las personas. Lo anterior implica que el Estado en su conjunto<sup class="fn"><button class="fn-btn" data-note="Por Estado en su conjunto se entiende que se habla de, no sólo las instituciones y órganos diseñados en su estructura para la satisfacción de los derechos, sino también de cada uno de los miembros de éste.">2</button></sup> e incluso la comunidad internacional<sup class="fn"><button class="fn-btn" data-note="Lo anterior derivado de la característica de universalidad que tienen los derechos humanos.">3</button></sup>, tienen una obligación de no realizar acciones que vayan en contravía de los derechos de las personas. No obstante, a raíz de la evolución de situaciones en algunos Estados de desigualdad social, económica, etc., éstos también tienen la obligación de realizar acciones positivas que busquen garantizar dichos derechos<sup class="fn"><button class="fn-btn" data-note="Cuando se hace referencia a factores propios de desigualdad, se refiere a aquellas circunstancias particulares económicas, sociales y culturales, que ponen en desventaja en materia de garantías de los derechos a algunas personas frente a otras.">4</button></sup></p><p class="body">Estas obligaciones que en principio se encuentran en cabeza del Estado, serán materializadas mediante la expedición de normas, la subsecuente aplicación de políticas públicas, así como mediante acciones judiciales que busquen la garantía de los derechos de todas y cada una de las personas que hacen parte de determinado Estado.</p><p class="body">Ahora, existe la necesidad de generar acciones específicas, enfocadas a ciertos grupos o personas que hayan sido tradicionalmente discriminados (Minorías étnicas, políticas, etc.) o que se encuentren en situación de vulnerabilidad (por condiciones, físicas, económicas o sociales), con el ánimo de corregir estas desigualdades. Este deber de los estados de realizar acciones positivas que busquen la garantía de los derechos de las personas, se extiende también a particulares, cuando éstos ostentan posiciones de garantía frente a los demás. Lo anterior se presenta especialmente en algunas situaciones de subordinación, por ejemplo en las relaciones laborales, o cuando se derivan situaciones particulares que pueden poner en riesgo los derechos de las otras personas.</p><div class="infograph">
+<div class="ig-kicker">Gráfico de síntesis</div>
+<div class="ig-title">Exigencia: abstención y acción positiva</div>
+<div class="ig-grid two">
+<div class="ig-box"><strong>Obligación de respeto</strong><span>Deber negativo: no vulnerar derechos.</span></div>
+<div class="ig-box"><strong>Obligación de garantía</strong><span>Acciones positivas para corregir desigualdades y proteger a personas vulnerables.</span></div>
+</div>
+<div class="ig-pillrow" style="margin-top:10px"><div class="ig-pill">Estado</div><div class="ig-pill">Comunidad internacional</div><div class="ig-pill">Particulares con posición de garantía</div></div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">4</div></div>
+</section>
+<section class="rv s2 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 6</div>
+<h2 class="h1">La Organización de las <em>Naciones Unidas</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><p class="body">La Organización de las Naciones Unidas (ONU) es una organización internacional formada por 193 estados que trabaja por mantener la paz y la seguridad internacional, fomentar entre las naciones relaciones de amistad y promover el progreso social, la mejora del nivel de vida y los derechos humanos, entre otra amplia gama de temas fundamentales, con el fin de alcanzar sus objetivos y coordinar los esfuerzos para tener un mundo más seguro para las generaciones presentes y futuras.</p><div class="mini-title">La Declaración Universal de los Derechos Humanos</div><p class="body">Como se mencionó anteriormente, la Declaración Universal de Derechos Humanos fue un acuerdo de voluntades en un documento declarativo al que se llegó en 1948 entre los estados miembros de las Naciones Unidas. Fue adoptada por la Asamblea General de Naciones Unidas después de la Segunda Guerra Mundial para establecer parámetros comunes sobre los derechos más fundamentales del ser humano. En este sentido, la declaración tiene las siguientes partes:</p><ul class="b-list"><li>Preámbulo: contiene los argumentos que fundamentan la declaración.</li><li>Proclamación: señala el carácter de la Declaración e indica cómo debe promocionarse.</li><li>Articulado: treinta artículos, mencionando los derechos fundamentales en cada uno.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Panorama ONU</div>
+<div class="ig-title">La Organización de las Naciones Unidas</div>
+<div class="ig-grid three">
+<div class="ig-box"><strong>193 Estados</strong><span>Organización internacional integrada por un amplio número de países.</span></div>
+<div class="ig-box"><strong>Paz y seguridad</strong><span>Busca mantener la paz y la seguridad internacional.</span></div>
+<div class="ig-box"><strong>Progreso y derechos</strong><span>Promueve relaciones de amistad, desarrollo social y derechos humanos.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">6</div></div>
+</section>
+<section class="rv s3 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 8</div>
+<h2 class="h1">Algunas características de los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Son derechos que tiene toda persona en virtud de su dignidad humana</div><p class="body">La dignidad es inherente a la persona humana desde el momento en el que nace, y al igual que los derechos humanos, es una condición a la que no se puede renunciar<sup class="fn"><button class="fn-btn" data-note="Corte Constitucional. Sentencia T 702 del 5 de julio de 2001. M.P. Marco Gerardo Monroy Cabra.">5</button></sup>. Es la dignidad lo que nos hace personas merecedoras de respeto en las relaciones entre los individuos y con las estructuras de poder, especialmente con el Estado.</p><div class="mini-title">Son la suma de derechos individuales y colectivos y son reconocidos en las normas jurídicas internas de los estados y en el derecho internacional</div><p class="body">Los estados tienen la obligación de respetar, proteger y satisfacer los derechos humanos. Desde un punto de vista jurídico, los derechos humanos pueden definirse como la suma de derechos individuales y colectivos reconocidos por los estados soberanos y consagrados en sus constituciones y en el derecho internacionall a través de tratados, el derecho internacional consuetudinario, los principios generales y otras fuentes del derecho internacional.</p>
+<div class="infograph">
+<div class="ig-kicker">Claves de lectura</div>
+<div class="ig-title">Características esenciales de los derechos humanos</div>
+<div class="ig-grid three">
+<div class="ig-box"><strong>Dignidad humana</strong><span>Toda persona es titular de derechos por el solo hecho de ser humana.</span></div>
+<div class="ig-box"><strong>Dimensión individual y colectiva</strong><span>Protegen a las personas y también a grupos y pueblos.</span></div>
+<div class="ig-box"><strong>Reconocimiento multinivel</strong><span>Se consagran en constituciones, tratados y demás fuentes del derecho internacional.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">8</div></div>
+</section>
+<section class="rv s4 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 10</div>
+<h2 class="h1">Principios en los que se fundamentan los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Universalidad</div><p class="body">Los derechos humanos son universales porque están basados en la dignidad de todo ser humano, con independencia de su raza, el color, el sexo, el origen étnico o social, la religión, el idioma, la nacionalidad, la edad, la orientación sexual, la discapacidad o cualquier otra característica distintiva. Son los mismos y son aceptados por todos los estados y se aplican a todas las personas de forma igual e indiscriminada.</p><div class="mini-title">Inalienabilidad</div><p class="body">Ninguna persona puede ser despojada o arrebatada de sus derechos humanos, salvo en circunstancias legales claramente definidas. Por ejemplo, el derecho de una persona a la libertad puede verse restringido si un juez la declara culpable de un delito.</p>
+<div class="infograph">
+<div class="ig-kicker">Principios</div>
+<div class="ig-title">Base conceptual de los derechos humanos</div>
+<div class="ig-grid four">
+<div class="ig-box"><strong>Universalidad</strong><span>Se aplican a todas las personas.</span></div>
+<div class="ig-box"><strong>Inalienabilidad</strong><span>No pueden ser arrebatados salvo restricciones legales definidas.</span></div>
+<div class="ig-box"><strong>Indivisibilidad</strong><span>Los derechos se sostienen mutuamente.</span></div>
+<div class="ig-box"><strong>Igualdad</strong><span>Se prohíbe toda forma de discriminación.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">10</div></div>
+</section>
+<section class="rv s5 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 12</div>
+<h2 class="h1">Obligaciones de los Estados con respecto a los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><p class="body">Todo Estado que haya ratificado un convenio internacional en materia de derechos humanos es responsable internacionalmente del cumplimiento de los deberes de respeto y garantía de éstos frente a las personas que están en el marco de su jurisdicción. Colombia ha ratificado un sin número de pactos, tratados, convenciones, etc., a nivel internacional, que obligan al Estado a proteger los derechos humanos. En este sentido, todos los funcionarios públicos, incluidos los contratistas, que trabajan para alguna entidad del Estado, tienen una obligación especial de proteger, respetar y sobre todo garantizar los derechos de las personas.</p><p class="body">Las instituciones estatales no pueden ser entendidas sin los funcionarios que las componen. Por esto, a continuación se enuncian las principales obligaciones que tienen las personas que trabajan en entidades estatales, ya sean municipales, departamentales o nacionales, sin importar el cargo que ocupan al interior de la entidad:</p><div class="card-grid"><article class="card c-t"><div class="cn">1</div><span class="ct">Obligación de respetar</span><div>Obligación de respetar</div></article><article class="card c-l"><div class="cn">2</div><span class="ct">Obligación de proteger</span><div>Obligación de proteger</div></article><article class="card c-y"><div class="cn">3</div><span class="ct">Obligación de cumplir la normativa nacional e internacional con respecto a los derechos humanos</span><div>Obligación de cumplir la normativa nacional e internacional con respecto a los derechos humanos</div></article><article class="card c-g"><div class="cn">4</div><span class="ct">Obligación de proporcionar reparación – derecho de toda persona a la reparación de su derecho vulnerado</span><div>Obligación de proporcionar reparación – derecho de toda persona a la reparación de su derecho vulnerado</div></article></div></div>
+<div class="pf"><span></span><div class="pfn">12</div></div>
+</section>
+<section class="rv s6 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 14</div>
+<h2 class="h1">Sistemas de protección de los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><p class="body">Para Colombia, existen tres sistemas principales para la protección de los derechos humanos: el sistema universal, el sistema regional y el sistema nacional. En este sentido, existen tres ámbitos en los cuales las personas que se encuentran en el territorio del Estado colombiano pueden exigir el cumplimiento y garantía de sus derechos. Cada nivel es subsidiario y complementario debido a que el principal obligado para la garantía de los derechos es el Estado nacional. Estos tres niveles se han conformado en sistemas de protección de acuerdo con las normas que los rigen.</p><div class="mini-title">Sistema universal de protección a los derechos humanos</div><p class="body">El sistema universal de los derechos humanos es el escenario que se originó con la creación de la Organización de Naciones Unidas en 1948 y que, con el paso de los años, se ha convertido en un sistema complejo y robusto a raíz de la gran cantidad de normatividad en materia de derechos humanos que se ha desarrollado allí. La Carta Internacional de Derechos Humanos está constituida por: la Declaración Universal de Derechos Humanos, el Pacto Internacional de Derechos Económicos, Sociales y Culturales, el Pacto Internacional de Derechos Civiles y Políticos, el Protocolo Facultativo del Pacto Internacional de Derechos Civiles y Políticos y el Segundo Protocolo Facultativo del Pacto Internacional de Derechos Civiles y Políticos, destinado a abolir la pena de muerte.</p><p class="body">Sin embargo, la Carta Internacional de Derechos Humanos resultó de alguna forma insuficiente para las situaciones que en el mundo se cometen frente a vulneraciones de estos derechos. Por ello, dentro del marco de Naciones Unidas, se han desarrollado muchos otros instrumentos que hacen parte del derecho internacional de los derechos humanos y que regulan y comprometen a los Estados que hacen parte de la organización con la protección y garantía de derechos más específicos.</p><div class="highlight">La Carta Internacional de Derechos Humanos está constituida por la Declaración Universal de Derechos Humanos, el Pacto Internacional de Derechos Económicos, Sociales y Culturales, el Pacto Internacional de Derechos Civiles y Políticos, el Protocolo Facultativo del Pacto Internacional de Derechos Civiles y Políticos y el Segundo Protocolo Facultativo del mismo Pacto.</div>
+<div class="infograph">
+<div class="ig-kicker">Tres niveles</div>
+<div class="ig-title">Sistemas de protección de los derechos humanos</div>
+<div class="ig-grid three">
+<div class="ig-box"><strong>Sistema universal</strong><span>Marco de Naciones Unidas.</span></div>
+<div class="ig-box"><strong>Sistema regional</strong><span>Para Colombia, el Sistema Interamericano.</span></div>
+<div class="ig-box"><strong>Sistema nacional</strong><span>Mecanismos constitucionales y legales internos.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">14</div></div>
+</section>
+<section class="rv s7 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 16</div>
+<h2 class="h1">Examen periódico <em>universal</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><p class="body">- Examen periódico universal<sup class="fn"><button class="fn-btn" data-note="Para más información del examen periódico universal, recientemente presentado por Colombia. En: www.derechoshumanos.gov.co">6</button></sup>: mecanismo de evaluación diseñado por el Consejo de Derechos Humanos de Naciones Unidas para examinar la situación de derechos humanos de todos los países miembros de esta organización internacional. Entre sus objetivos se encuentra:</p><ul class="b-list"><li>I. El mejoramiento de la situación de los derechos humanos en el terreno.</li><li>II. El cumplimiento de las obligaciones y los compromisos del Estado en materia de derechos humanos y la evaluación de los avances y los retos a los que se enfrenta.</li><li>III. El fortalecimiento de la capacidad del Estado y de la asistencia técnica, en consulta con el Estado examinado y con su consentimiento.</li><li>IV. El intercambio de las mejores prácticas entre los Estados y otros actores interesados.</li><li>V. El apoyo a la cooperación en la promoción y protección de los derechos humanos.</li><li>VI. El fomento de la plena cooperación y el compromiso con el Consejo, otros órganos de derechos humanos y la Oficina del Alto Comisionado de las Naciones Unidas para los Derechos Humanos<sup class="fn"><button class="fn-btn" data-note="El Alto Comisionado para los Derechos Humanos de Naciones Unidas es el principal funcionario de derechos humanos de esta organización y tiene la labor de proteger y promover estos derechos en todo el mundo a través de sus oficinas en diferentes países y regiones, procurando que las normas en materia de derechos humanos, se ven aplicadas efectivamente en terreno.">7</button></sup>.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Examen Periódico Universal</div>
+<div class="ig-title">Objetivos principales del mecanismo</div>
+<div class="ig-six">
+<div class="ig-mini"><div class="cap">I</div><strong>Mejoramiento</strong><span>Impulsa avances en terreno.</span></div>
+<div class="ig-mini"><div class="cap">II</div><strong>Evaluación</strong><span>Revisa obligaciones, avances y retos.</span></div>
+<div class="ig-mini"><div class="cap">III</div><strong>Capacidad estatal</strong><span>Fortalece asistencia técnica.</span></div>
+<div class="ig-mini"><div class="cap">IV</div><strong>Intercambio</strong><span>Comparte mejores prácticas.</span></div>
+<div class="ig-mini"><div class="cap">V</div><strong>Cooperación</strong><span>Apoya promoción y protección de derechos.</span></div>
+<div class="ig-mini"><div class="cap">VI</div><strong>Compromiso</strong><span>Fortalece la cooperación con órganos de DD. HH.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">16</div></div>
+</section>
+<section class="rv s8 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 18</div>
+<h2 class="h1">Sistema regional de protección de los <em>derechos humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><p class="body">El sistema regional de protección de los derechos humanos es para Colombia el Sistema Interamericano. El Sistema Interamericano de Derechos Humanos (SIDH) está conformado por una serie de instrumentos jurídicos creados y adoptados por los Estados miembros de la Organización de Estados Americanos –OEA-, cuyo principal tratado internacional es la Convención Americana sobre Derechos Humanos.</p><p class="body">El primer instrumento adoptado en este marco fue la Declaración Americana de los Derechos y Deberes del Hombre. Bajo este sistema, se definieron normas para la protección de los Derechos Civiles y Políticos mediante la Convención Americana sobre Derechos Humanos. Asimismo, en el marco del Sistema Interamericano, se han suscrito tratados orientados a la protección de derechos específicos, como la Convención contra la Tortura. Otros instrumentos se enfocan en los derechos de poblaciones vulnerables, como es el caso de la Convención Interamericana para Prevenir, Sancionar y Erradicar la Violencia contra la Mujer. Finalmente, existen tratados que refuerzan categorías particulares de derechos, como los Derechos Económicos, Sociales y Culturales (DESC), a través del Protocolo Adicional a la Convención Americana sobre Derechos Humanos en materia de Derechos Económicos, Sociales y Culturales “Protocolo de San Salvador”.</p><p class="body">Los órganos encargados de vigilar su cumplimiento son la Comisión Interamericana de Derechos Humanos y la Corte Interamericana de Derechos Humanos. La Comisión tiene competencia para elaborar informes y realizar visitas in loco, entre otras funciones. Por su parte, la Corte decide sobre la admisibilidad de los casos una vez agotados los recursos de la jurisdicción interna y emite sentencias definitivas. De no llegarse a una solución amistosa, la Comisión prosigue con el trámite del caso, emite un informe de fondo y supervisa el cumplimiento de sus recomendaciones. Si el Estado ha aceptado la competencia de la Corte y la Comisión considera que no se han acatado las recomendaciones, someterá el caso al tribunal, cuya sentencia es inapelable. En Colombia, estas decisiones tienen carácter vinculante según lo establece la Ley 288 de 1996.</p><div class="mini-title">La Organización de los Estados Americanos – OEA</div><p class="body">La Organización de Estados Americanos es una organización internacional de carácter regional, creada en 1948 cuando se suscribió en la ciudad de Bogotá la Carta de la OEA la cual entró en vigencia en diciembre de 1951. Se creó con el objetivo de lograr entre sus Estados miembros: “un orden de paz y de justicia, fomentar su solidaridad, robustecer su colaboración y defender su soberanía, su integridad territorial y su independencia”. Sus pilares son:</p>
+<div class="infograph">
+<div class="ig-kicker">Sistema regional</div>
+<div class="ig-title">Estructura básica del Sistema Interamericano</div>
+<div class="ig-grid four">
+<div class="ig-box"><strong>OEA</strong><span>Marco institucional regional.</span></div>
+<div class="ig-box"><strong>Convención Americana</strong><span>Tratado central del sistema.</span></div>
+<div class="ig-box"><strong>Comisión</strong><span>Informes, visitas y trámite inicial.</span></div>
+<div class="ig-box"><strong>Corte</strong><span>Sentencias definitivas y vinculantes.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">18</div></div>
+</section>
+<section class="rv s9 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 20</div>
+<h2 class="h1">Convención Americana sobre <em>Derechos Humanos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><p class="body">Colombia es Estado Parte en todos los instrumentos interamericanos de protección de derechos humanos, por lo que todos los funcionarios públicos, como agentes del Estado, deben respetar y garantizar el libre y pleno ejercicio de los derechos contenidos en los mismos.</p><div class="mini-title">Convención Americana sobre Derechos Humanos (“Pacto de San José de Costa Rica”) de 1969</div><p class="body">La Convención Americana sobre Derechos Humanos es un instrumento que tiene un fin garantista, el respeto de los derechos y libertades y como protagonista directo al ser humano sin discriminación alguna, es decir, sin tener en cuenta la nacionalidad, etnia, religión, orientación sexual, inclinación política, ni ninguna otra condición que genere un trato desigual, convirtiéndolo en la piedra angular del Sistema Interamericano.</p><div class="mini-title">Finalidades de la Convención Americana</div><ul class="b-list"><li>Consolidar en el continente americano un régimen de libertad personal y justicia social, fundado en el respeto de los derechos esenciales de las personas.</li><li>Proteger los derechos inherentes de las personas, independientemente de su nacionalidad.</li><li>Crear un sistema de protección coadyuvante o complementario al que ofrece el derecho interno de cada Estado Parte.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Convención Americana</div>
+<div class="ig-title">Finalidades y órganos de protección</div>
+<div class="ig-columns">
+<div class="ig-panel"><h4>Finalidades</h4><ul><li>Consolidar libertad personal y justicia social.</li><li>Proteger derechos inherentes de las personas.</li><li>Complementar la protección del derecho interno.</li></ul></div>
+<div class="ig-panel"><h4>Órganos</h4><ul><li>Comisión Interamericana de Derechos Humanos.</li><li>Corte Interamericana de Derechos Humanos.</li></ul></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">20</div></div>
+</section>
+<section class="rv s10 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 22</div>
+<h2 class="h1">Funciones de la Comisión <em>Interamericana</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Funciones de la Comisión Interamericana</div><ul class="b-list"><li>Estimular la conciencia de los Derechos Humanos en los Pueblos de América.</li><li>Formular recomendaciones a los gobiernos de los estados para que adopten medidas progresivas a favor de los derechos humanos, dentro del marco de sus legislaciones, de sus preceptos constitucionales y de sus compromisos internacionales, y también disposiciones apropiadas para fomentar el respeto a esos derechos.</li><li>Preparar los estudios o informes que considere convenientes para el desempeño de sus funciones.</li><li>Solicitar que los gobiernos de los estados le proporcionen informes sobre las medidas que adopten en materia de derechos humanos.</li><li>Atender las consultas que, por medio de la Secretaría General de la Organización, le formule cualquier Estado miembro sobre cuestiones relacionadas con los derechos humanos en ese Estado y, dentro de sus posibilidades, prestar el asesoramiento que le soliciten.</li><li>Rendir un informe anual a la Asamblea General de la Organización, en el cual se tenga debida cuenta del régimen jurídico aplicable a los estados parte en la Convención Americana y de los Estados que no son partes.</li><li>Practicar observaciones in loco en un Estado, con la anuencia o a invitación del gobierno respectivo.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Funciones de la Comisión</div>
+<div class="ig-title">Herramientas principales de actuación</div>
+<div class="ig-grid three">
+<div class="ig-box"><strong>Promover</strong><span>Estimula la conciencia de derechos humanos en los pueblos de América.</span></div>
+<div class="ig-box"><strong>Recomendar</strong><span>Formula medidas progresivas a los Estados.</span></div>
+<div class="ig-box"><strong>Supervisar</strong><span>Solicita informes y realiza observaciones in loco.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">22</div></div>
+</section>
+<section class="rv s11 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 24</div>
+<h2 class="h1">Corte Interamericana: jueces e <em>instrumentos</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Jueces que componen la Corte Interamericana de Derechos Humanos</div><p class="body">La Corte está compuesta por siete jueces, nacionales de los estados miembros de la Organización, elegidos a título personal entre juristas de la más alta autoridad moral y reconocida competencia en materia de derechos humanos, que reúnan las condiciones requeridas para el ejercicio de las más elevadas funciones judiciales conforme a la ley del país del cual sean nacionales o del Estado que los proponga candidatos. En todo caso, no debe haber dos jueces de la misma nacionalidad.</p><div class="mini-title">Instrumentos que regulan la Corte Interamericana de Derechos Humanos</div><ul class="b-list"><li>El Estatuto de la Corte Interamericana de Derechos Humanos.</li><li>El Reglamento de la Corte Interamericana de Derechos Humanos.</li></ul><div class="mini-title">Mecanismos exttraconvencionales de protección en el Sistema Interamericano</div><p class="body">En el marco del Sistema Interamericano, además de los mecanismos convencionales antes referenciados, se cuenta con expertos independientes que buscan estimular la defensa hemisférica del contenido de los derechos. Estas relatorías tienen un mandato específico. A continuación, se relacionan algunos referentes a la promoción y protección de los derechos civiles y políticos:</p><ul class="b-list"><li>Relator sobre Defensores y Defensoras de Derechos Humanos.</li><li>Relator sobre los Derechos de las personas privadas de la libertad.</li><li>Relatora Especial para la libertad de expresión.</li><li>Relatora sobre los Derechos de las Mujeres.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Composición e instrumentos</div>
+<div class="ig-title">Jueces e instrumentos de la Corte</div>
+<div class="ig-grid two">
+<div class="ig-box"><strong>Siete jueces</strong><span>Juristas de alta autoridad moral y reconocida competencia. No puede haber dos de la misma nacionalidad.</span></div>
+<div class="ig-box"><strong>Normas internas</strong><span>El Estatuto y el Reglamento orientan el funcionamiento del tribunal.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">24</div></div>
+</section>
+<section class="rv s12 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 26</div>
+<h2 class="h1">Subsidiariedad, requisitos y <em>excepciones</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><div class="mini-title">¿Cuándo se puede acudir al Sistema Interamericano de Derechos Humanos?</div><p class="body">El Sistema Interamericano de Derechos Humanos gira alrededor del principio de subsidiariedad, por lo cual no existe acceso directo e inmediato a la jurisdicción internacional de los derechos humanos, por cuanto deberán interponerse y agotarse los recursos de jurisdicción interna, según lo preceptuado por la Convención Americana sobre Derechos Humanos y el Reglamento de la Comisión.</p><p class="body">Lo anterior significa que la jurisdicción nacional colombiana (jurisdicción penal, contencioso-administrativa, constitucional, etc.), es la jurisdicción principal, mientras que la jurisdicción internacional de los derechos humanos (Comisión y Corte Interamericanas de Derechos Humanos) es la jurisdicción subsidiaria o complementaria a la jurisdicción nacional. Así, si se presentan violaciones a la Convención Americana, los peticionarios no podrán acudir en forma directa e inmediata ante la Comisión Interamericana, porque lo procedente sería interponer y agotar los recursos de jurisdicción interna, como requisito esencial de procedibilidad de una petición presentada contra el Estado ante la Comisión<sup class="fn"><button class="fn-btn" data-note="La figura del peticionario no está limitada a las víctimas y sus familiares, puede ser cualquier persona, grupo de personas o entidad no gubernamental a nombre propio o en el nombre de terceras personas.">8</button></sup></p><p class="body">Por ejemplo, una vez sucedidos los hechos que generan las violaciones de los derechos humanos, generalmente quienes lo realizan cometen delitos, por lo cual se debe interponer la acción penal correspondiente y agotar el respectivo proceso penal, con sentencia ejecutoriada. Así mismo, tales hechos generan unos daños a las víctimas o a sus familiares, por lo cual ellos tienen la legitimación para interponer y agotar la acción contencioso administrativa correspondiente (acción de reparación directa) contra la administración pública (Nación - Ministerio de Defensa – fuerza pública, etc.) ante los jueces administrativos competentes y agotar el respectivo proceso contencioso administrativo con sentencia ejecutoriada.</p><div class="mini-title">Excepciones al agotamiento de los recursos de jurisdicción interna</div><p class="body">El artículo 46 de la Convención Americana y el artículo 31 del Reglamento de la CIDH establecen las excepciones al agotamiento de los recursos de jurisdicción interna:</p><ul class="b-list"><li>Cuando no exista en la legislación interna del Estado de que se trata, el debido proceso legal para la protección del derecho o derechos que se alega han sido violados</li><li>Cuando no se haya permitido al presunto lesionado en sus derechos el acceso a los recursos de la jurisdicción interna, o haya sido impedido de agotarlos, y/o</li><li>Cuando haya retardo injustificado en la decisión sobre los recursos internos.</li></ul>
+<div class="infograph">
+<div class="ig-kicker">Procedibilidad</div>
+<div class="ig-title">Subsidiariedad, requisitos y excepciones</div>
+<div class="ig-columns">
+<div class="ig-panel"><h4>Regla general</h4><ul><li>Agotar recursos internos.</li><li>Presentar la petición dentro de seis meses.</li><li>No duplicar otros procedimientos internacionales.</li></ul></div>
+<div class="ig-panel"><h4>Excepciones</h4><ul><li>Falta de debido proceso.</li><li>Imposibilidad de acceso a recursos internos.</li><li>Retardo injustificado en la decisión.</li></ul></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">26</div></div>
+</section>
+<section class="rv s13 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 28</div>
+<h2 class="h1">Medidas provisionales y sistema <em>nacional</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Las medidas provisionales</div><p class="body">Las medidas provisionales son instrumentos de protección inmediata de los derechos humanos, ante la extrema gravedad, urgencia y la necesidad de evitar un perjuicio irremediable.</p><div class="mini-title">¿Cuándo se pueden solicitar las medidas provisionales y quién lo puede hacer?</div><ul class="b-list"><li>En cualquier estado del procedimiento, siempre que se trate de casos de extrema gravedad y urgencia y cuando sea necesario para evitar daños irreparables a las personas, la Corte, de oficio, podrá ordenar las medidas provisionales que considere pertinentes.</li><li>Si se tratare de asuntos aún no sometidos a su conocimiento, la Corte podrá actuar a solicitud de la Comisión.</li><li>En los casos contenciosos que se encuentren en conocimiento de la Corte, las víctimas o las presuntas víctimas, o sus representantes, podrán presentar directamente a ésta una solicitud de medidas provisionales, las que deberán tener relación con el objeto del caso.</li></ul><div class="mini-title">Sistema nacional de protección de los derechos humanos</div>
+<div class="infograph">
+<div class="ig-kicker">Puente de cierre</div>
+<div class="ig-title">De la protección interamericana al sistema nacional</div>
+<div class="ig-steps">
+<div class="ig-step"><div class="n">1</div><strong>Medidas provisionales</strong><span>Respuesta urgente en el plano internacional.</span></div>
+<div class="ig-step"><div class="n">2</div><strong>Garantía constitucional</strong><span>La Constitución refuerza la protección interna.</span></div>
+<div class="ig-step"><div class="n">3</div><strong>Mecanismos ciudadanos</strong><span>Las personas pueden exigir sus derechos en sede nacional.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">28</div></div>
+</section>
+<section class="rv s14 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 30</div>
+<h2 class="h1">Mecanismos de defensa <em>ciudadana</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><div class="infograph">
+<div class="ig-kicker">Gráfico de síntesis</div>
+<div class="ig-title">Mapa rápido de mecanismos</div>
+<div class="ig-six">
+<div class="ig-mini"><div class="cap">Mecanismo</div><strong>Acción de tutela</strong><span>Protección inmediata de derechos fundamentales.</span></div>
+<div class="ig-mini"><div class="cap">Mecanismo</div><strong>Habeas corpuss</strong><span>Garantiza la libertad personal.</span></div>
+<div class="ig-mini"><div class="cap">Mecanismo</div><strong>Derecho de petición</strong><span>Solicita información y respuestas a autoridades.</span></div>
+<div class="ig-mini"><div class="cap">Mecanismo</div><strong>Acción de cumplimiento</strong><span>Exige obedecer normas o actos administrativos.</span></div>
+<div class="ig-mini"><div class="cap">Mecanismo</div><strong>Acción popular</strong><span>Protege derechos e intereses colectivos.</span></div>
+<div class="ig-mini"><div class="cap">Mecanismo</div><strong>Acción de grupo</strong><span>Busca indemnización por daños comunes.</span></div>
+</div>
+</div><ul class="pill-list"><li>Acción de tutela</li><li>Habeas corpuss</li><li>Derecho de petición</li><li>Acción de cumplimiento</li><li>Acción popular</li><li>Acción de grupo</li></ul><div class="mini-title">La acción de tutela</div><p class="body">¿Qué es? La acción de tutela, consagrada en el artículo 86 de la Constitución colombiana, es un mecanismo de protección inmediata, a través del cual se protegen los derechos fundamentales de todas las personas que habitan el territorio nacional.</p><p class="body">Se trata de un mecanismo subsidiario preferente y sumario. Subsidiario, pues en caso de que exista otro mecanismo o recurso legal, este debe ser interpuesto, a no ser que pueda causarse un perjuicio irremediable. Preferente, porque para su resolución el juez de tutela debe darle prelación. Y sumario, porque es el único proceso judicial que se debe surtir en menos de 10 días.</p></div>
+<div class="pf"><span></span><div class="pfn">30</div></div>
+</section>
+<section class="rv s15 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 32</div>
+<h2 class="h1">Acción de cumplimiento y acción <em>popular</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><div class="mini-title">La acción de cumplimiento</div><p class="body">¿Qué es? La acción de cumplimiento, reconocida en el artículo 87 de la Constitución Política, se define como uno de los mecanismos de protección tanto como de derechos, como del principio de legalidad y eficacia del ordenamiento jurídico.</p><p class="body">¿Cuándo se puede usar? La acción de cumplimiento procede contra cualquier autoridad que no cumpla con sus funciones establecidas bien sea por ley o por un acto administrativo, sin importar la rama del poder público a la cual pertenezca. Además, puede ser ejecutada contra particulares que ejerzan funciones públicas.</p><p class="body">¿Quiénes la pueden usar? Esta acción constitucional, según el artículo 4o de la Ley 393 de 1997, puede ser instaurada por cualquier persona, siempre y cuando el incumplimiento obedezca a una Ley o a un acto administrativo de carácter general.</p><div class="mini-title">La acción popular</div><p class="body">¿Qué es? La acción popular, prevista en el artículo 88 de la Constitución, es el mecanismo de protección de los derechos e intereses colectivos relacionados con el medio ambiente, la moralidad administrativa, el espacio público, el patrimonio cultural, la seguridad y la salubridad pública, entre otros mencionados de forma enunciativa en la Ley.</p>
+<div class="infograph">
+<div class="ig-kicker">Comparativo</div>
+<div class="ig-title">Acción de cumplimiento y acción popular</div>
+<div class="ig-compare">
+<div class="card"><h4>Acción de cumplimiento</h4><p>Busca que una autoridad o particular que ejerce función pública cumpla la ley o un acto administrativo.</p><div class="meta"><span>Legalidad</span><span>Eficacia</span></div></div>
+<div class="card"><h4>Acción popular</h4><p>Protege derechos e intereses colectivos frente a amenazas o vulneraciones.</p><div class="meta"><span>Colectivos</span><span>Prevención</span></div></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">32</div></div>
+</section>
+<section class="rv s16 page">
+<div class="page-head">
+<div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 34</div>
+<h2 class="h1">Habeas corpus y derecho de <em>petición</em></h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--t2),var(--vd))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Habeas corpus</div><p class="body">¿Qué es? De conformidad con lo establecido en la Constitución en su artículo 30, el habeas corpus es una institución jurídica que garantiza la libertad personal del individuo, con el fin de evitar los arrestos y detenciones arbitrarias. Se basa en la obligación de presentar a todo detenido en un plazo perentorio ante el que podría ordenar la libertad inmediata del detenido, si no encontrara motivo suficiente de arresto.</p><p class="body">¿Quiénes lo pueden usar? El habeas corpus puede ser alegado por quien se encuentre privado de la libertad, creyendo estarlo ilegalmente, es decir, si no media para la restricción de la libertad una orden judicial previa o si no se legaliza la captura ante un juez dentro de las 36 horas siguientes. El habeas corpus debe ser resuelto por cualquier juez en el término mencionado.</p><div class="mini-title">Derecho de petición</div><p class="body">¿Qué es? El derecho de petición es un derecho que la Constitución nacional en su artículo 23 ha concedido a los ciudadanos para que éstos puedan presentar peticiones a las autoridades con el fin de que se les suministre información sobre situaciones de interés general o particular o para manifestar quejas, reclamos, etc. Toda persona podrá hacer peticiones respetuosas a las autoridades, verbalmente o por escrito, a través de cualquier medio. Contra la no respuesta de un derecho de petición procede la acción de tutela.</p><div class="infograph">
+<div class="ig-kicker">Gráfico de síntesis</div>
+<div class="ig-title">Dos mecanismos, dos finalidades</div>
+<div class="ig-compare">
+<div class="card"><h4>Habeas corpus</h4><p>Protege la libertad personal frente a arrestos o detenciones arbitrarias.</p><div class="meta"><span>Libertad</span><span>36 horas</span><span>Juez</span></div></div>
+<div class="card"><h4>Derecho de petición</h4><p>Permite solicitar información, formular quejas, reclamos, consultas o manifestaciones ante autoridades.</p><div class="meta"><span>Información</span><span>Quejas</span><span>Consultas</span></div></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">34</div></div>
+</section>
+<section class="rv s17 page dense">
+<div class="page-head">
+<div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 36</div>
+<h2 class="h1">Habeas data</h2>
+<div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+</div>
+<div class="page-content"><div class="mini-title">Habeas data</div><p class="body">¿Qué es? El habeas data es un derecho constitucional y un mecanismo con el cual cuentan los ciudadanos para proteger su información personal que ha sido consignada en un banco o base de datos, para acceder a esta información, solicitar corrección o eliminación de los datos si esta información le causa algún perjuicio, y conocer cuál es el uso que el dueño de la base de datos está haciendo de la información. Igualmente, puede aplicarse al derecho al olvido, el cual consiste en eliminar información que se considera obsoleta por el transcurso del tiempo y ha perdido relevancia para seguir siendo informada.</p><p class="body">¿Quiénes lo pueden usar? La Ley 1581 de 2012 desarrolla el derecho constitucional que tienen todas las personas a conocer, actualizar y rectificar las informaciones que se hayan recogido sobre ellas en bases de datos o archivos, y los demás derechos, libertades y garantías constitucionales a que se refiere el artículo 15 de la Constitución Política; así como el derecho a la información consagrado en el artículo 20 de la misma. Esta Ley debe implementarse a partir de los principios de: tratamiento de datos personales, legalidad en materia de tratamiento de datos, finalidad, libertad, veracidad o calidad, transparencia, acceso y circulación restringida, de seguridad y de confidencialidad. Igualmente, la Ley asigna a la Superintendencia de Industria y Comercio las facultades para ejercer como autoridad de vigilancia, y en consecuencia, tramitar reclamos de los ciudadanos y adelantar investigaciones por el incumplimiento de los deberes de los responsables y encargados del tratamiento de los respectivos datos.</p><p class="body">Adicionalmente, la Ley 1266 de 2008, también conocida como Ley de habeas data financiera, se aplica a todos los datos personales financieros, crediticios, comerciales y de servicios registrados en un banco de datos.</p>
+<div class="infograph">
+<div class="ig-kicker">Protección de datos</div>
+<div class="ig-title">Alcances del habeas data</div>
+<div class="ig-grid four">
+<div class="ig-box"><strong>Conocer</strong><span>Acceder a la información personal almacenada.</span></div>
+<div class="ig-box"><strong>Actualizar</strong><span>Solicitar corrección de datos.</span></div>
+<div class="ig-box"><strong>Eliminar</strong><span>Pedir supresión cuando cause perjuicio o haya perdido relevancia.</span></div>
+<div class="ig-box"><strong>Vigilar</strong><span>La SIC ejerce funciones de control e investigación.</span></div>
+</div>
+</div></div>
+<div class="pf"><span></span><div class="pfn">36</div></div>
+</section>
+</div>
+<label aria-label="Siguiente" class="arr an p0" for="p1"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p1" for="p0"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p1" for="p2"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p2" for="p1"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p2" for="p3"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p3" for="p2"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p3" for="p4"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p4" for="p3"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p4" for="p5"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p5" for="p4"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p5" for="p6"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p6" for="p5"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p6" for="p7"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p7" for="p6"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p7" for="p8"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p8" for="p7"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p8" for="p9"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p9" for="p8"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p9" for="p10"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p10" for="p9"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p10" for="p11"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p11" for="p10"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p11" for="p12"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p12" for="p11"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p12" for="p13"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p13" for="p12"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p13" for="p14"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p14" for="p13"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p14" for="p15"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p15" for="p14"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p15" for="p16"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p16" for="p15"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Siguiente" class="arr an p16" for="p17"><svg fill="none" viewbox="0 0 12 12"><path d="M4.2 2 8 6l-3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<label aria-label="Anterior" class="arr ap p17" for="p16"><svg fill="none" viewbox="0 0 12 12"><path d="M7.8 2 4 6l3.8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg></label>
+<div id="dots"><label class="dot d0" for="p0"></label><label class="dot d1" for="p1"></label><label class="dot d2" for="p2"></label><label class="dot d3" for="p3"></label><label class="dot d4" for="p4"></label><label class="dot d5" for="p5"></label><label class="dot d6" for="p6"></label><label class="dot d7" for="p7"></label><label class="dot d8" for="p8"></label><label class="dot d9" for="p9"></label><label class="dot d10" for="p10"></label><label class="dot d11" for="p11"></label><label class="dot d12" for="p12"></label><label class="dot d13" for="p13"></label><label class="dot d14" for="p14"></label><label class="dot d15" for="p15"></label><label class="dot d16" for="p16"></label><label class="dot d17" for="p17"></label></div>
+</div>
+<div aria-live="polite" class="note-pop" id="notePop" role="dialog"></div>
+<script>
+const pop = document.getElementById('notePop');
+let activeBtn = null;
+function placePopup(btn){
+  const rect = btn.getBoundingClientRect();
+  const margin = 12;
+  pop.style.display = 'block';
+  pop.classList.add('show');
+  let left = rect.left - 12;
+  let top = rect.bottom + 10;
+  const popRect = pop.getBoundingClientRect();
+  if(left + popRect.width > window.innerWidth - margin) left = window.innerWidth - popRect.width - margin;
+  if(left < margin) left = margin;
+  if(top + popRect.height > window.innerHeight - margin) top = rect.top - popRect.height - 14;
+  if(top < margin) top = margin;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  const arrowLeft = Math.max(14, Math.min(popRect.width - 20, rect.left - left + rect.width/2 - 5));
+  pop.style.setProperty('--arrow-left', arrowLeft + 'px');
+}
+document.querySelectorAll('.fn-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const same = activeBtn === btn && pop.classList.contains('show');
+    if(same) {
+      pop.classList.remove('show');
+      pop.style.display = 'none';
+      activeBtn = null;
+      return;
+    }
+    activeBtn = btn;
+    pop.textContent = btn.dataset.note;
+    placePopup(btn);
+  });
+});
+window.addEventListener('resize', () => activeBtn && placePopup(activeBtn));
+window.addEventListener('scroll', () => activeBtn && placePopup(activeBtn), true);
+document.addEventListener('click', (e) => {
+  if(!pop.contains(e.target) && !e.target.closest('.fn-btn')) {
+    pop.classList.remove('show');
+    pop.style.display = 'none';
+    activeBtn = null;
+  }
+});
+</script>
+</body>
+</html>

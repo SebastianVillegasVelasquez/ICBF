@@ -160,7 +160,14 @@ async function renderRoute(route) {
                     )
                 ]);
             } else if (route.type === 'default-content' && route.htmlFile) {
-                html = await loadHTMLFile(route);
+                // 1. Cargamos el HTML o SVG del archivo externo
+                const fileContent = await loadHTMLFile(route);
+
+                // 2. Se lo pasamos a la función constructora original
+                html = renderScreenContentDefault({
+                    ...route,
+                    contentHtml: fileContent
+                });
             } else {
                 html = screenDef.render(route);
             }
@@ -188,9 +195,11 @@ async function renderRoute(route) {
         appEl.innerHTML = html;
 
         if (route.type === 'default-content' && route.htmlFile) {
-            // Usamos un pequeño delay o requestAnimationFrame para asegurar que el navegador pintó
             requestAnimationFrame(() => {
                 inicializarTarjetasInfografia();
+
+                // ══ EJECUTAMOS LOS SCRIPTS DE LA REVISTA AQUÍ ══
+                ejecutarScriptsInyectados(appEl);
             });
         }
 
@@ -222,6 +231,38 @@ async function renderRoute(route) {
     }
 }
 
+
+function renderScripts() {
+        document.querySelectorAll('.note').forEach(function(n){
+        n.addEventListener('mouseenter', function(){
+            var tip = n.querySelector('.tip');
+            if(!tip) return;
+            tip.style.display = 'block';
+            var r = n.getBoundingClientRect();
+            var tw = 240;
+            var th = tip.offsetHeight || 80;
+            var left = r.left + r.width/2 - tw/2;
+            var top = r.top - th - 10;
+            // Keep inside viewport
+            if(left < 8) left = 8;
+            if(left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+            if(top < 8){ top = r.bottom + 10; tip.style.setProperty('--arr','top'); }
+            tip.style.left = left + 'px';
+            tip.style.top = top + 'px';
+            tip.style.transform = 'none';
+        });
+        n.addEventListener('mouseleave', function(){
+        var tip = n.querySelector('.tip');
+        if(tip) tip.style.display = 'none';
+    });
+    });
+
+        function go(i){
+        document.querySelectorAll('.panel').forEach(function(p,j){ p.classList.toggle('active',j===i); });
+        document.querySelectorAll('.ni').forEach(function(n,j){ n.classList.toggle('active',j===i); });
+        document.querySelectorAll('.dot').forEach(function(d,j){ d.classList.toggle('active',j===i); });
+    }
+}
 
 function inicializarTarjetasInfografia() {
     const headers = document.querySelectorAll('.js-toggle-card');
@@ -268,6 +309,40 @@ if (document.readyState === 'loading') {
     inicializarTarjetasInfografia();
 }
 
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderScripts);
+} else {
+    renderScripts();
+}
+
+// Funcion para ejecutar scripts inyectados en el contenedor de la infografía.
+// Esto es necesario porque los scripts inyectados no se ejecutan automáticamente por seguridad,
+// así que los clonamos y reinsertamos para forzar su ejecución.
+function ejecutarScriptsInyectados(contenedor) {
+    if (!contenedor) return;
+
+    // Buscamos todas las etiquetas script dentro del contenedor inyectado
+    const scripts = contenedor.querySelectorAll('script');
+
+    scripts.forEach(scriptOriginal => {
+        const scriptNuevo = document.createElement('script');
+
+        // Copiamos el contenido de texto del script
+        scriptNuevo.textContent = scriptOriginal.textContent;
+
+        // Copiamos todos los atributos por si acaso (ej. src, type, etc.)
+        Array.from(scriptOriginal.attributes).forEach(attr => {
+            scriptNuevo.setAttribute(attr.name, attr.value);
+        });
+
+        // Lo insertamos en el body para obligar al navegador a ejecutarlo
+        document.body.appendChild(scriptNuevo);
+
+        // Lo eliminamos inmediatamente para no ensuciar el DOM
+        scriptNuevo.parentNode.removeChild(scriptNuevo);
+    });
+}
+
 // Esta es una funcion Helper para cargar contenido proveniente de un archivo HTML en la pantalla DefaultContent
 async function loadHTMLFile(route) {
     try {
@@ -276,31 +351,18 @@ async function loadHTMLFile(route) {
         const timeoutId = setTimeout(() => controller.abort(), 10000);
         const res = await fetch(resolvedPath, { signal: controller.signal });
         clearTimeout(timeoutId);
+
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         let fragmentHtml = await res.text();
+
+        // Ejecutamos tu helper para resolver las imágenes
         fragmentHtml = resolveImageSrcInHTML(fragmentHtml);
 
-        const hideBackground = route.hideBackground || false;
-
-        return `
-            <div class="screen screen-default-content no-background is-infografia">
-                <header class="screen-header">
-                    <div class="header-img-left">
-                        <img src="${window.resolvePath('assets/img/El-ecosistema-de-derechos.png')}" alt="Ecosistema">
-                    </div>
-                    <div class="header-img-right">
-                        <img src="${window.resolvePath('assets/img/logo.png')}" alt="Logo">
-                    </div>
-                </header>
-                <main class="main-layout">
-                    <div class="content-slot">
-                        ${fragmentHtml}
-                    </div>
-                </main>
-            </div>`;
+        return fragmentHtml;
     } catch (err) {
-        return `<div class="page-error"><strong>Error cargando infografía:</strong> ${err.message}</div>`;
+        console.error("Error cargando el archivo HTML:", err);
+        return `<div class="page-error"><strong>Error cargando contenido:</strong> ${err.message}</div>`;
     }
 }
 

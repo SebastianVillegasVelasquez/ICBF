@@ -75,12 +75,47 @@
     width: 100%;
     max-width: 80%;
 
-    /*background: rgba(255, 255, 255, 0.92);*/
-
     padding: clamp(15px, 2vw, 35px);
     border-radius: 12px;
-    /*box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);*/
     animation: fadeInContent 0.5s ease-out;
+
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    flex-direction: column;  /* Apila los elementos si hay más de uno */
+}
+
+.screen-default-content.is-infografia .content-slot .infografia {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Garantiza que no haya scrollbars molestos */
+}
+
+/* 2. Hacemos que el SVG escale proporcionalmente sin salirse de ese contenedor */
+.screen-default-content.is-infografia .content-slot svg {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    display: block;
+}
+
+.content-slot svg {
+    width: 100%;
+    height: auto;
+    max-height: 80vh; /* Para que no supere el alto de la pantalla */
+    display: block;
+    margin: 0 auto; /* Lo centra */
+}
+
+/* Si quieres que en las infografías use TODO el espacio disponible */
+.screen-default-content.is-infografia .content-slot svg {
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
 }
 
 @keyframes fadeInContent {
@@ -89,6 +124,9 @@
 }
 
 .screen-default-content.is-infografia {
+    height: 100vh !important;       /* Forzamos a que mida exactamente el alto visible */
+    max-height: 100vh !important;   /* No permitimos que crezca ni un pixel más */
+    /*overflow: hidden !important;*/
     background-image: none !important;
     background-color: transparent;
     overflow: hidden;
@@ -113,6 +151,10 @@
     border-radius: 0;
     margin: 0;
     animation: none;
+
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
 }
 
 /* Responsivo */
