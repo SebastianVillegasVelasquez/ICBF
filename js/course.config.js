@@ -85,6 +85,8 @@ export const course = {
 
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     htmlFile: "assets/tabla-contenidos/tabla-contenido.html",
                 },
                 // {
@@ -182,6 +184,8 @@ export const course = {
                 // PANTALLA 3 - JUSTIFICACION MODULO 1
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     contentHtml: renderSlideshow({
                         slides: [
                             {
@@ -228,6 +232,8 @@ export const course = {
 
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     contentHtml: renderQuiz({
                         title: "Autodiagnóstico de la comprensión de los DDHH y DIH",
                         description: "",
@@ -253,11 +259,11 @@ export const course = {
                 },
 
                 // PANTALLA 7 - INFOGRAFIA 1
-                // {
-                //     type: "default-content",
-                //     hideBackground: true,
-                //     htmlFile: "assets/infografias/linea-tiempo.html"
-                // },
+                {
+                    type: "default-content",
+                    hideBackground: true,
+                    htmlFile: "assets/infografias/linea-tiempo.html"
+                },
 
                 // PANTALLA 8 - REVISTA DIDACTICA 2
 
@@ -270,17 +276,23 @@ export const course = {
                 // PANTALLA 9 - INFOGRAFIA 2
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     htmlFile: "assets/infografias/info-m1-2.html",
                 },
 
                 // PANTALLA 10 - REVISTA DIDACTICA 3
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
                 },
                 // PANTALLA 11 - REVISTA DIDACTICA 4
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     htmlFile: "assets/revistas_didacticas/revista-didactica-m1-4.html",
                 },
 
@@ -288,6 +300,8 @@ export const course = {
 
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     htmlFile: "assets/infografias/info-m1-3.html"
                 },
 
@@ -295,6 +309,8 @@ export const course = {
 
                 {
                     type: "default-content",
+                    hideBackground: true,
+
                     htmlFile: "assets/actividades/estudio-casos-m1.html"
                 },
             ]
