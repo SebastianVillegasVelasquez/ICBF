@@ -1,201 +1,350 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El ecosistema de los derechos humanos</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{width:100%;min-height:100%;font-family:"Nunito",sans-serif;background:#fff;}
+  /* ── RESET Y VARIABLES SCOPEADAS AL CONTENEDOR ── */
+  .modulo-wrapper * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-:root{
---turquesa-claro:#81CAC9;
---turquesa:#569E9A;
---verde-oscuro:#0B4923;
---verde-lima:#94B55A;
---amarillo:#E8C208;
-}
+  .modulo-wrapper {
+    --turquesa-claro: #81CAC9;
+    --turquesa: #569E9A;
+    --verde-oscuro: #0B4923;
+    --verde-lima: #94B55A;
+    --amarillo: #E8C208;
 
+    /* CAMBIOS PARA CENTRADO */
+    width: fit-content;      /* Solo ocupa lo que miden las islas */
+    max-width: 100%;         /* No se sale de la pantalla */
+    margin: 0 auto;          /* Margen automático para centrar si el padre no es flex */
 
-/* ── HERO ── */
-.hero{background:#fff;padding:32px 48px 20px;text-align:center;border-bottom:1px solid #e8e4dc;}
-.hero-eye{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--turquesa);margin-bottom:8px;}
-.hero-title{font-size:28px;font-weight:900;color:var(--verde-oscuro);line-height:1.15;}
-.hero-title em{color:var(--turquesa);font-style:normal;}
-.hero-sub{font-size:13px;color:#777;margin-top:6px;font-weight:600;}
+    font-family: "Nunito", sans-serif;
+    background: transparent;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* Centra el Hero y la Leyenda internamente */
+  }
 
-/* ── MAPA WRAP ── */
-.mapa{background:#fff;padding:28px 40px 40px;position:relative;}
-.mapa-hint{text-align:center;font-size:11px;color:#aaa;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;}
+  /* ── HERO ── */
+  .modulo-wrapper .hero {
+    background: #fff;
+    padding: 32px 48px 20px;
+    text-align: center;
+    border-bottom: 1px solid #e8e4dc;
+  }
+  .modulo-wrapper .hero-eye {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--turquesa);
+    margin-bottom: 8px;
+  }
+  .modulo-wrapper .hero-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--verde-oscuro);
+    line-height: 1.15;
+  }
+  .modulo-wrapper .hero-title em {
+    color: var(--turquesa);
+    font-style: normal;
+  }
+  .modulo-wrapper .hero-sub {
+    font-size: 13px;
+    color: #777;
+    margin-top: 6px;
+    font-weight: 600;
+  }
 
-/* ── ISLA ── */
-.islas{display:flex;align-items:flex-end;justify-content:center;gap:20px;padding-bottom:24px;position:relative;}
-.isla{position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer;}
-.isla-blob{border-radius:50% 42% 58% 44% / 46% 54% 42% 52%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .22s ease, box-shadow .22s ease;box-shadow:0 4px 18px rgba(0,0,0,.1);}
-.isla:hover .isla-blob{transform:translateY(-8px) scale(1.06);box-shadow:0 12px 32px rgba(0,0,0,.16);}
-.isla-num{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.65;margin-bottom:3px;}
-.isla-name{font-size:10px;font-weight:900;text-align:center;padding:0 12px;line-height:1.2;max-width:130px;}
-.isla-shadow{width:80%;height:10px;border-radius:50%;background:rgba(0,0,0,.08);margin-top:6px;transition:all .22s;}
-.isla:hover .isla-shadow{width:90%;background:rgba(0,0,0,.12);}
+  /* ── MAPA WRAP ── */
+  .modulo-wrapper .mapa {
+    background: transparent; /* Dejado transparente para que fluya */
+    padding: 28px 40px 40px;
+    position: relative;
+    flex: 1; /* Permite que el mapa crezca y ocupe el espacio disponible */
+  }
+  .modulo-wrapper .mapa-hint {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
 
-/* ── CARD POPUP ── */
-.isla-card{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);
-  background:#fff;border-radius:14px;padding:14px 16px;min-width:190px;max-width:220px;
-  opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;
-  box-shadow:0 8px 32px rgba(0,0,0,.14);border:1px solid #e8e4dc;z-index:50;
-  transform:translateX(-50%) translateY(6px);}
-.isla:hover .isla-card{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
-.isla-card-num{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
-.isla-card-title{font-size:12px;font-weight:900;color:var(--verde-oscuro);line-height:1.35;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eee;}
-.isla-card-topics{list-style:none;display:flex;flex-direction:column;gap:4px;}
-.isla-card-topics li{font-size:10px;color:#555;line-height:1.4;display:flex;gap:6px;align-items:flex-start;}
-.isla-card-topics li::before{content:"";width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+  /* ── ISLA ── */
+  .modulo-wrapper .islas {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center; /* Centra las islas horizontalmente */
+    gap: 20px;
+    padding-bottom: 24px;
+    position: relative;
+    width: 100%;
+  }
+  .modulo-wrapper .isla {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  .modulo-wrapper .isla-blob {
+    border-radius: 50% 42% 58% 44% / 46% 54% 42% 52%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform .22s ease, box-shadow .22s ease;
+    box-shadow: 0 4px 18px rgba(0,0,0,.1);
+  }
+  .modulo-wrapper .isla:hover .isla-blob {
+    transform: translateY(-8px) scale(1.06);
+    box-shadow: 0 12px 32px rgba(0,0,0,.16);
+  }
+  .modulo-wrapper .isla-num {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .65;
+    margin-bottom: 3px;
+  }
+  .modulo-wrapper .isla-name {
+    font-size: 10px;
+    font-weight: 900;
+    text-align: center;
+    padding: 0 12px;
+    line-height: 1.2;
+    max-width: 130px;
+  }
+  .modulo-wrapper .isla-shadow {
+    width: 80%;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.08);
+    margin-top: 6px;
+    transition: all .22s;
+  }
+  .modulo-wrapper .isla:hover .isla-shadow {
+    width: 90%;
+    background: rgba(0,0,0,.12);
+  }
 
+  /* ── CARD POPUP ── */
+  .modulo-wrapper .isla-card {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-width: 190px;
+    max-width: 220px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    box-shadow: 0 8px 32px rgba(0,0,0,.14);
+    border: 1px solid #e8e4dc;
+    z-index: 50;
+    transform: translateX(-50%) translateY(6px);
+  }
+  .modulo-wrapper .isla:hover .isla-card {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+  .modulo-wrapper .isla-card-num {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .modulo-wrapper .isla-card-title {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--verde-oscuro);
+    line-height: 1.35;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #eee;
+  }
+  .modulo-wrapper .isla-card-topics {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .modulo-wrapper .isla-card-topics li {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.4;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  .modulo-wrapper .isla-card-topics li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
 
-/* ── DECORACIÓN FONDO ── */
-.deco{position:absolute;pointer-events:none;}
+  /* ── DECORACIÓN FONDO ── */
+  .modulo-wrapper .deco {
+    position: absolute;
+    pointer-events: none;
+  }
 
-/* ── LEYENDA ── */
-.leyenda{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:0 40px 32px;}
-.ley-item{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#555;}
-.ley-dot{width:10px;height:10px;border-radius:50%;}
+  /* ── LEYENDA ── */
+  .modulo-wrapper .leyenda {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 0 40px 32px;
+  }
+  .modulo-wrapper .ley-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+  }
+  .modulo-wrapper .ley-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
 </style>
-</head>
-<body>
 
-<div class="hero">
-  
-  <div class="hero-title">El ecosistema de los <em>derechos humanos</em></div>
-  <div class="hero-sub"></div>
+<div class="modulo-wrapper">
 
-</div>
+  <div class="hero">
+    <div class="hero-title">El ecosistema de los <em>derechos humanos</em></div>
+    <div class="hero-sub"></div>
+  </div>
 
-<div class="mapa">
+  <div class="mapa">
 
-  <!-- Decoración SVG de fondo -->
-  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.07" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice">
-    <!-- Hojas y plantas decorativas -->
-    <ellipse cx="60" cy="350" rx="45" ry="28" fill="var(--verde-lima)" transform="rotate(-30 60 350)"/>
-    <ellipse cx="85" cy="330" rx="38" ry="22" fill="var(--turquesa)" transform="rotate(-10 85 330)"/>
-    <line x1="60" y1="350" x2="60" y2="400" stroke="var(--verde-lima)" stroke-width="3"/>
-    <ellipse cx="940" cy="360" rx="45" ry="28" fill="var(--verde-lima)" transform="rotate(30 940 360)"/>
-    <ellipse cx="915" cy="340" rx="38" ry="22" fill="var(--verde-oscuro)" transform="rotate(10 915 340)"/>
-    <line x1="940" y1="360" x2="940" y2="400" stroke="var(--verde-lima)" stroke-width="3"/>
-    <ellipse cx="500" cy="30" rx="55" ry="32" fill="var(--turquesa-claro)" transform="rotate(-15 500 30)"/>
-    <line x1="500" y1="30" x2="500" y2="80" stroke="var(--turquesa-claro)" stroke-width="3"/>
-    <!-- Puntos decorativos -->
-    <circle cx="150" cy="80" r="4" fill="var(--amarillo)"/>
-    <circle cx="170" cy="95" r="3" fill="var(--verde-lima)"/>
-    <circle cx="850" cy="70" r="4" fill="var(--amarillo)"/>
-    <circle cx="830" cy="90" r="3" fill="var(--turquesa-claro)"/>
-    <circle cx="200" cy="360" r="3" fill="var(--turquesa)"/>
-    <circle cx="800" cy="350" r="3" fill="var(--amarillo)"/>
-  </svg>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.07" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice">
+      <ellipse cx="60" cy="350" rx="45" ry="28" fill="var(--verde-lima)" transform="rotate(-30 60 350)"/>
+      <ellipse cx="85" cy="330" rx="38" ry="22" fill="var(--turquesa)" transform="rotate(-10 85 330)"/>
+      <line x1="60" y1="350" x2="60" y2="400" stroke="var(--verde-lima)" stroke-width="3"/>
+      <ellipse cx="940" cy="360" rx="45" ry="28" fill="var(--verde-lima)" transform="rotate(30 940 360)"/>
+      <ellipse cx="915" cy="340" rx="38" ry="22" fill="var(--verde-oscuro)" transform="rotate(10 915 340)"/>
+      <line x1="940" y1="360" x2="940" y2="400" stroke="var(--verde-lima)" stroke-width="3"/>
+      <ellipse cx="500" cy="30" rx="55" ry="32" fill="var(--turquesa-claro)" transform="rotate(-15 500 30)"/>
+      <line x1="500" y1="30" x2="500" y2="80" stroke="var(--turquesa-claro)" stroke-width="3"/>
+      <circle cx="150" cy="80" r="4" fill="var(--amarillo)"/>
+      <circle cx="170" cy="95" r="3" fill="var(--verde-lima)"/>
+      <circle cx="850" cy="70" r="4" fill="var(--amarillo)"/>
+      <circle cx="830" cy="90" r="3" fill="var(--turquesa-claro)"/>
+      <circle cx="200" cy="360" r="3" fill="var(--turquesa)"/>
+      <circle cx="800" cy="350" r="3" fill="var(--amarillo)"/>
+    </svg>
 
-  <div class="mapa-hint">⬅︎ ⬅︎ Navega por los módulos siguiendo esta guía ➜ ➜  — Pasa el cursor sobre cada isla para descubrir su contenido</div>
+    <div class="mapa-hint">⬅︎ ⬅︎ Navega por los módulos siguiendo esta guía ➜ ➜  — Pasa el cursor sobre cada isla para descubrir su contenido</div>
 
-  <div class="islas">
+    <div class="islas">
 
-    <!-- M1 — verde oscuro var(--verde-oscuro) -->
-    <div class="isla" style="margin-bottom:0px">
-      <div class="isla-card">
-        <div class="isla-card-num" style="color:#0B4923">Módulo 1</div>
-        <div class="isla-card-title">Derechos Humanos y Derecho Internacional Humanitario</div>
-        <ul class="isla-card-topics">
-          <li style="color:#555"><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-oscuro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos Humanos</li>
-          <li style="color:#555"><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-oscuro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Igualdad y no discriminación</li>
-          <li style="color:#555"><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-oscuro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derecho Internacional Humanitario</li>
-        </ul>
+      <div class="isla" style="margin-bottom:0px">
+        <div class="isla-card">
+          <div class="isla-card-num" style="color:#0B4923">Módulo 1</div>
+          <div class="isla-card-title">Derechos Humanos y Derecho Internacional Humanitario</div>
+          <ul class="isla-card-topics">
+            <li style="color:#555"><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-oscuro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos Humanos</li>
+            <li style="color:#555"><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-oscuro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Igualdad y no discriminación</li>
+            <li style="color:#555"><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-oscuro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derecho Internacional Humanitario</li>
+          </ul>
         </div>
-      <div class="isla-blob" style="width:140px;height:120px;background:#81CAC9;">
-        <div class="isla-num" style="color:#ffffff">M1</div>
-        <div class="isla-name" style="color:#ffffff">Derechos Humanos y Derecho Internacional Humanitario</div>
-      </div>
-      <div class="isla-shadow" style="background:rgba(11,73,35,.15)"></div>
-    </div>
-
-    <!-- M2 — teal var(--turquesa) -->
-    <div class="isla" style="margin-bottom:30px">
-      <div class="isla-card">
-        <div class="isla-card-num" style="color:#569E9A">Módulo 2</div>
-        <div class="isla-card-title">Participación, Protección y Ejercicio de los Derechos en el Ámbito Público</div>
-        <ul class="isla-card-topics">
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos civiles y políticos</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos de protección</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos de participación ciudadana</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Veedurías ciudadanas</li>
-        </ul>
+        <div class="isla-blob" style="width:140px;height:120px;background:#81CAC9;">
+          <div class="isla-num" style="color:#ffffff">M1</div>
+          <div class="isla-name" style="color:#ffffff">Derechos Humanos y Derecho Internacional Humanitario</div>
         </div>
-      <div class="isla-blob" style="width:155px;height:130px;background:#569E9A;">
-        <div class="isla-num" style="color:#ffffff">M2</div>
-        <div class="isla-name" style="color:#ffffff">Participación, Protección y Ejercicio de los Derechos en el Ámbito Público</div>
+        <div class="isla-shadow" style="background:rgba(11,73,35,.15)"></div>
       </div>
-      <div class="isla-shadow" style="background:rgba(86,158,154,.18)"></div>
-    </div>
 
-    <!-- M3 — verde lima var(--verde-lima) -->
-    <div class="isla" style="margin-bottom:10px">
-      <div class="isla-card">
-        <div class="isla-card-num" style="color:#94B55A">Módulo 3</div>
-        <div class="isla-card-title">Derechos Económicos, Sociales y Culturales y sus Mecanismos de Protección</div>
-        <ul class="isla-card-topics">
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-lima);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Los derechos económicos, sociales y culturales</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-lima);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos de protección de los DESC</li>
-        </ul>
+      <div class="isla" style="margin-bottom:30px">
+        <div class="isla-card">
+          <div class="isla-card-num" style="color:#569E9A">Módulo 2</div>
+          <div class="isla-card-title">Participación, Protección y Ejercicio de los Derechos en el Ámbito Público</div>
+          <ul class="isla-card-topics">
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos civiles y políticos</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos de protección</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos de participación ciudadana</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Veedurías ciudadanas</li>
+          </ul>
         </div>
-      <div class="isla-blob" style="width:165px;height:140px;background:#0B4923;">
-        <div class="isla-num" style="color:#ffffff">M3</div>
-        <div class="isla-name" style="color:#ffffff">Derechos Económicos, Sociales y Culturales y sus Mecanismos de Protección</div>
-      </div>
-      <div class="isla-shadow" style="background:rgba(148,181,90,.18)"></div>
-    </div>
-
-    <!-- M4 — teal claro var(--turquesa-claro) -->
-    <div class="isla" style="margin-bottom:20px">
-      <div class="isla-card">
-        <div class="isla-card-num" style="color:#81CAC9">Módulo 4</div>
-        <div class="isla-card-title">Derechos Colectivos y Ambientales</div>
-        <ul class="isla-card-topics">
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa-claro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos colectivos</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa-claro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos nacionales de protección</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa-claro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Multiculturalidad y diversidad étnica</li>
-        </ul>
+        <div class="isla-blob" style="width:155px;height:130px;background:#569E9A;">
+          <div class="isla-num" style="color:#ffffff">M2</div>
+          <div class="isla-name" style="color:#ffffff">Participación, Protección y Ejercicio de los Derechos en el Ámbito Público</div>
         </div>
-      <div class="isla-blob" style="width:148px;height:125px;background:#94B55A;">
-        <div class="isla-num" style="color:#ffffff">M4</div>
-        <div class="isla-name" style="color:#ffffff">Derechos Colectivos y Ambientales</div>
+        <div class="isla-shadow" style="background:rgba(86,158,154,.18)"></div>
       </div>
-      <div class="isla-shadow" style="background:rgba(129,202,201,.18)"></div>
-    </div>
 
-    <!-- M5 — amarillo var(--amarillo) -->
-    <div class="isla" style="margin-bottom:0px">
-      <div class="isla-card" style="right:0;left:auto;transform:none;">
-        <div class="isla-card-num" style="color:#E8C208">Módulo 5</div>
-        <div class="isla-card-title">Grupos Poblacionales</div>
-        <ul class="isla-card-topics">
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos de mujeres y niñas</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos de NNA</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos de la comunidad LGBTIQ+</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Pueblos y comunidades indígenas</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Personas migrantes y refugiadas</li>
-          <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Personas con discapacidad y mayores</li>
-        </ul>
+      <div class="isla" style="margin-bottom:10px">
+        <div class="isla-card">
+          <div class="isla-card-num" style="color:#94B55A">Módulo 3</div>
+          <div class="isla-card-title">Derechos Económicos, Sociales y Culturales y sus Mecanismos de Protección</div>
+          <ul class="isla-card-topics">
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-lima);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Los derechos económicos, sociales y culturales</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--verde-lima);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos de protección de los DESC</li>
+          </ul>
         </div>
-      <div class="isla-blob" style="width:145px;height:122px;background:#E8C208;">
-        <div class="isla-num" style="color:#ffffff">M5</div>
-        <div class="isla-name" style="color:#ffffff">Grupos Poblacionales</div>
+        <div class="isla-blob" style="width:165px;height:140px;background:#0B4923;">
+          <div class="isla-num" style="color:#ffffff">M3</div>
+          <div class="isla-name" style="color:#ffffff">Derechos Económicos, Sociales y Culturales y sus Mecanismos de Protección</div>
+        </div>
+        <div class="isla-shadow" style="background:rgba(148,181,90,.18)"></div>
       </div>
-      <div class="isla-shadow" style="background:rgba(232,194,8,.2)"></div>
-    </div>
 
-  </div><!-- /islas -->
+      <div class="isla" style="margin-bottom:20px">
+        <div class="isla-card">
+          <div class="isla-card-num" style="color:#81CAC9">Módulo 4</div>
+          <div class="isla-card-title">Derechos Colectivos y Ambientales</div>
+          <ul class="isla-card-topics">
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa-claro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos colectivos</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa-claro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Mecanismos nacionales de protección</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--turquesa-claro);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Multiculturalidad y diversidad étnica</li>
+          </ul>
+        </div>
+        <div class="isla-blob" style="width:148px;height:125px;background:#94B55A;">
+          <div class="isla-num" style="color:#ffffff">M4</div>
+          <div class="isla-name" style="color:#ffffff">Derechos Colectivos y Ambientales</div>
+        </div>
+        <div class="isla-shadow" style="background:rgba(129,202,201,.18)"></div>
+      </div>
 
-</div><!-- /mapa -->
+      <div class="isla" style="margin-bottom:0px">
+        <div class="isla-card" style="right:0;left:auto;transform:none;">
+          <div class="isla-card-num" style="color:#E8C208">Módulo 5</div>
+          <div class="isla-card-title">Grupos Poblacionales</div>
+          <ul class="isla-card-topics">
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos de mujeres y niñas</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos de NNA</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Derechos de la comunidad LGBTIQ+</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Pueblos y comunidades indígenas</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Personas migrantes y refugiadas</li>
+            <li><span style="width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;margin-top:4px;display:inline-block;margin-right:0"></span>Personas con discapacidad y mayores</li>
+          </ul>
+        </div>
+        <div class="isla-blob" style="width:145px;height:122px;background:#E8C208;">
+          <div class="isla-num" style="color:#ffffff">M5</div>
+          <div class="isla-name" style="color:#ffffff">Grupos Poblacionales</div>
+        </div>
+        <div class="isla-shadow" style="background:rgba(232,194,8,.2)"></div>
+      </div>
 
-<!-- Leyenda -->
-<div class="leyenda">
+    </div></div><div class="leyenda">
   <div class="ley-item"><div class="ley-dot" style="background:var(--verde-oscuro)"></div>M1 · DDHH y DIH</div>
   <div class="ley-item"><div class="ley-dot" style="background:var(--turquesa)"></div>M2 · Participación</div>
   <div class="ley-item"><div class="ley-dot" style="background:var(--verde-lima)"></div>M3 · DESC</div>
@@ -203,5 +352,4 @@ html,body{width:100%;min-height:100%;font-family:"Nunito",sans-serif;background:
   <div class="ley-item"><div class="ley-dot" style="background:var(--amarillo)"></div>M5 · Grupos Poblacionales</div>
 </div>
 
-</body>
-</html>
+</div>

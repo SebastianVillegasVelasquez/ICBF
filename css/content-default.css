@@ -13,9 +13,9 @@
 
 
     background-image: none !important;
-    background-color: #ffffff;
-
+    background-color: transparent !important;
 }
+
 
 .screen-default-content {
     display: flex;
