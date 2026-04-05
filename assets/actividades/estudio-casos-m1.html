@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudio de caso – Cuando el suelo se agrieta</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c1:#3FD1CF;
+  --c2:#1FB7B4;
+  --c3:#0F5E38;
+  --c4:#7ED957;
+  --c5:#FFD84A;
+  --ink:#173133;
+  --muted:#4f7274;
+  --line:#d8eceb;
+  --soft:#f6fbfb;
+  --ok:#eef9ef;
+  --ok-b:#b9ddb6;
+  --bad:#fff3f2;
+  --bad-b:#efbbb6;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Nunito",sans-serif;
+  background:linear-gradient(180deg,#f4fbfb,#eef7f7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  color:var(--ink);
+}
+.deck{
+  width:min(1120px,100%);
+  height:min(720px,calc(100vh - 36px));
+  background:#fff;
+  border-radius:28px;
+  box-shadow:0 24px 60px rgba(0,0,0,.08);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.topbar{
+  padding:16px 22px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#fbfefe;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.badge{
+  padding:7px 12px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--c2),var(--c1));
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.title{
+  font-size:15px;
+  font-weight:800;
+  color:var(--c3);
+}
+.counter{
+  font-size:13px;
+  font-weight:800;
+  color:var(--muted);
+}
+.viewport{
+  flex:1;
+  overflow:hidden;
+  position:relative;
+  background:
+    radial-gradient(circle at top right, rgba(63,209,207,.12), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(126,217,87,.10), transparent 24%),
+    #fff;
+}
+.slides{
+  display:flex;
+  height:100%;
+  transition:transform .35s ease;
+}
+.slide{
+  min-width:100%;
+  height:100%;
+  overflow:auto;
+  padding:34px 38px 30px;
+}
+.slide::-webkit-scrollbar{width:8px}
+.slide::-webkit-scrollbar-thumb{background:#d7ebea;border-radius:99px}
+.kicker{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--c2);
+  margin-bottom:10px;
+}
+.h1{
+  margin:0 0 14px;
+  font-size:38px;
+  line-height:1.02;
+  color:var(--c3);
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:24px;
+  align-items:start;
+}
+.hero-card, .side-card{
+  background:linear-gradient(180deg,#fff,#f9fcfc);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:22px;
+}
+.hero-card p{
+  margin:0 0 14px;
+  font-size:15px;
+  line-height:1.82;
+  color:#35585a;
+}
+.hero-card p:last-child{margin-bottom:0}
+.side-card h3{
+  margin:0 0 12px;
+  font-size:22px;
+  color:var(--c3);
+}
+.side-card ul{
+  margin:0;
+  padding-left:18px;
+}
+.side-card li{
+  margin:0 0 10px;
+  font-size:14px;
+  line-height:1.65;
+  color:#48696b;
+}
+.qgrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.qsingle{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+.qcard{
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 10px 25px rgba(0,0,0,.04);
+}
+.qhead{
+  padding:14px 16px;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  background:linear-gradient(90deg,#fbfefe,#f2fbfb);
+  border-bottom:1px solid var(--line);
+}
+.qnum{
+  width:30px;height:30px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  color:#fff;
+  font-size:13px;
+  font-weight:900;
+  background:var(--c3);
+}
+.qtitle{
+  font-size:15px;
+  font-weight:800;
+  line-height:1.45;
+  color:var(--c3);
+}
+.qbody{padding:16px;}
+.options{display:grid;gap:10px;}
+.option{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.option:hover{
+  transform:translateY(-1px);
+  border-color:var(--c2);
+  background:#fbfefe;
+}
+.option input{
+  margin-top:3px;
+  accent-color:var(--c2);
+}
+.option span{
+  font-size:14px;
+  line-height:1.55;
+  color:#385a5b;
+}
+.tf-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.check-btn{
+  margin-top:14px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--c3),var(--c2));
+  color:#fff;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:800;
+  padding:11px 16px;
+  cursor:pointer;
+}
+.feedback{
+  display:none;
+  margin-top:12px;
+  padding:13px 14px;
+  border-radius:14px;
+  font-size:14px;
+  line-height:1.65;
+}
+.feedback.show{display:block;}
+.feedback.ok{background:var(--ok);border:1px solid var(--ok-b);color:#234c25;}
+.feedback.wrong{background:var(--bad);border:1px solid var(--bad-b);color:#7a2d28;}
+.nav{
+  padding:14px 20px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#fbfefe;
+}
+.btn{
+  border:none;
+  border-radius:12px;
+  padding:11px 16px;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+.btn.secondary{background:#eef7f7;color:#315b5d;}
+.btn.primary{background:linear-gradient(135deg,var(--c2),var(--c1));color:#fff;}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.dots{display:flex;gap:7px;}
+.dot{
+  width:9px;height:9px;border-radius:50%;
+  background:#d7ebea;transition:.2s ease;
+}
+.dot.active{background:var(--c2);transform:scale(1.2);}
+@media (max-width: 900px){
+  .slide{padding:24px 20px 20px;}
+  .hero,.qgrid{grid-template-columns:1fr;}
+  .h1{font-size:30px;}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="topbar">
+    <div class="brand">
+      <div class="badge">Módulo 1</div>
+      <div class="title">Estudio de caso · Cuando el suelo se agrieta</div>
+    </div>
+    <div class="counter" id="counter">1 / 3</div>
+  </div>
+
+  <div class="viewport">
+    <div class="slides" id="slides">
+
+      <section class="slide">
+        <div class="hero">
+          <div class="hero-card">
+            <div class="kicker">Estudio de caso</div>
+            <h1 class="h1">Cuando el suelo se agrieta</h1>
+            <p>En un territorio donde los ecosistemas sociales y familiares han sido devastados por años de conflicto armado, una comunidad que había encontrado refugio en la esperanza y la cooperación se ve ahora expuesta a nuevos retos. La violencia desplazó a muchas familias, generando un espacio donde las raíces de la dignidad humana, la igualdad y la no discriminación comienzan a agrietarse.</p>
+            <p>En este ecosistema, varios niños, niñas y adolescentes han quedado huérfanos, viviendo en condiciones precarias, y sin acceso a los derechos fundamentales que les garantizan una vida digna. Las tensiones aumentan, ya que la discriminación por su origen étnico, su condición de desplazados y la violencia social a la que se enfrentan pone en peligro su integridad y bienestar.</p>
+            <p>Una familia desplazada por la violencia se refugia en una zona urbana, pero se enfrenta a múltiples desafíos: discriminación por su origen, dificultades para acceder a servicios básicos como educación, salud y alimentación, y la constante amenaza de grupos armados que buscan reclutar a los jóvenes en sus filas. La situación empeora cuando los niños y niñas de la comunidad comienzan a sufrir el impacto de la violencia física y psicológica, poniendo en peligro sus derechos fundamentales.</p>
+          </div>
+
+          <div class="side-card">
+            <h3>Elementos clave del caso</h3>
+            <ul>
+              <li>Conflicto armado y desplazamiento forzado.</li>
+              <li>Discriminación por origen étnico y condición de desplazamiento.</li>
+              <li>Barreras de acceso a educación, salud y alimentación.</li>
+              <li>Riesgo de reclutamiento de adolescentes por grupos armados.</li>
+              <li>Afectación a la dignidad, la integridad y los derechos fundamentales.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="kicker">Preguntas de comprobación · Bloque 1</div>
+        <div class="qgrid">
+          <article class="qcard">
+            <div class="qhead">
+              <div class="qnum">1</div>
+              <div class="qtitle">¿Cuál de los siguientes principios del derecho internacional humanitario (DIH) se aplicaría para garantizar la protección de los niños, niñas y adolescentes desplazados por el conflicto armado, considerando su vulnerabilidad?</div>
+            </div>
+            <div class="qbody">
+              <div class="options">
+                <label class="option"><input type="radio" name="q1" value="A"><span><strong>A)</strong> Proporcionalidad.</span></label>
+                <label class="option"><input type="radio" name="q1" value="B"><span><strong>B)</strong> Distinción.</span></label>
+                <label class="option"><input type="radio" name="q1" value="C"><span><strong>C)</strong> Necesidad militar.</span></label>
+                <label class="option"><input type="radio" name="q1" value="D"><span><strong>D)</strong> Limitar el uso de la fuerza.</span></label>
+              </div>
+              <button class="check-btn" onclick="checkMCQ('q1','B',this,'El principio de distinción establece que se debe hacer una clara diferencia entre combatientes y no combatientes, como son los niños, niñas y adolescentes. Este principio es esencial para garantizar su protección frente a los efectos del conflicto armado, ya que protege a los civiles y personas fuera del combate.')">Comprobar</button>
+              <div class="feedback"></div>
+            </div>
+          </article>
+
+          <article class="qcard">
+            <div class="qhead">
+              <div class="qnum" style="background:var(--c2)">2</div>
+              <div class="qtitle">En el contexto del caso presentado, ¿cómo se relaciona el derecho internacional de los derechos humanos con el derecho internacional humanitario?</div>
+            </div>
+            <div class="qbody">
+              <div class="options">
+                <label class="option"><input type="radio" name="q2" value="A"><span><strong>A)</strong> Ambos se aplican únicamente en tiempos de conflicto armado.</span></label>
+                <label class="option"><input type="radio" name="q2" value="B"><span><strong>B)</strong> El DIH se ocupa solo de los derechos económicos y sociales, mientras que los derechos humanos se aplican en tiempo de paz.</span></label>
+                <label class="option"><input type="radio" name="q2" value="C"><span><strong>C)</strong> El derecho internacional de los derechos humanos prevalece sobre el DIH en situaciones de guerra.</span></label>
+                <label class="option"><input type="radio" name="q2" value="D"><span><strong>D)</strong> El DIH limita los derechos humanos de los civiles durante la guerra, mientras que el derecho internacional de los derechos humanos no puede ser suspendido.</span></label>
+              </div>
+              <button class="check-btn" onclick="checkMCQ('q2','D',this,'Aunque ambos cuerpos de normas buscan proteger la dignidad humana, el DIH se aplica específicamente en situaciones de conflicto armado, mientras que los derechos humanos siguen siendo aplicables durante todo el tiempo, incluso en situaciones de emergencia, garantizando derechos fundamentales que no pueden ser suspendidos, como el derecho a la vida y la prohibición de la tortura.')">Comprobar</button>
+              <div class="feedback"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="kicker">Preguntas de comprobación · Bloque 2</div>
+        <div class="qsingle">
+          <article class="qcard">
+            <div class="qhead">
+              <div class="qnum" style="background:var(--c4);color:#17331c">3</div>
+              <div class="qtitle">Según la Constitución colombiana y los principios de los derechos humanos, ¿cuál de los siguientes derechos de los niños, niñas y adolescentes en el caso sería prioritario para su protección inmediata?</div>
+            </div>
+            <div class="qbody">
+              <div class="options">
+                <label class="option"><input type="radio" name="q3" value="A"><span><strong>A)</strong> Derecho a la educación.</span></label>
+                <label class="option"><input type="radio" name="q3" value="B"><span><strong>B)</strong> Derecho a la participación.</span></label>
+                <label class="option"><input type="radio" name="q3" value="C"><span><strong>C)</strong> Derecho a la vida.</span></label>
+                <label class="option"><input type="radio" name="q3" value="D"><span><strong>D)</strong> Derecho a la vivienda.</span></label>
+              </div>
+              <button class="check-btn" onclick="checkMCQ('q3','C',this,'El derecho a la vida es el derecho fundamental que debe ser garantizado por encima de otros derechos. Este derecho está en el centro de la protección de las personas, especialmente en contextos de vulnerabilidad como los que enfrentan los niños, niñas y adolescentes desplazados por el conflicto armado.')">Comprobar</button>
+              <div class="feedback"></div>
+            </div>
+          </article>
+
+          <article class="qcard">
+            <div class="qhead">
+              <div class="qnum" style="background:var(--c5);color:#1e341f">4</div>
+              <div class="qtitle">El derecho internacional humanitario permite la privación de derechos humanos fundamentales en tiempos de conflicto armado, siempre que los Estados lo consideren necesario para la seguridad.</div>
+            </div>
+            <div class="qbody">
+              <div class="tf-grid">
+                <label class="option"><input type="radio" name="q4" value="Verdadero"><span><strong>Verdadero</strong></span></label>
+                <label class="option"><input type="radio" name="q4" value="Falso"><span><strong>Falso</strong></span></label>
+              </div>
+              <button class="check-btn" onclick="checkMCQ('q4','Falso',this,'El DIH establece restricciones claras en cuanto a la privación de derechos humanos, y ciertos derechos, como el derecho a la vida, la prohibición de tortura y la esclavitud, no pueden ser suspendidos ni siquiera en tiempos de guerra. La seguridad no justifica violaciones a estos derechos fundamentales.')">Comprobar</button>
+              <div class="feedback"></div>
+            </div>
+          </article>
+
+          <article class="qcard">
+            <div class="qhead">
+              <div class="qnum" style="background:linear-gradient(135deg,var(--c2),var(--c5));color:#17331c">5</div>
+              <div class="qtitle">El enfoque diferencial en la protección de los derechos de los niños y niñas desplazados por el conflicto armado implica tomar en cuenta sus condiciones de vulnerabilidad específicas y adaptar las medidas de protección para garantizar su inclusión y seguridad.</div>
+            </div>
+            <div class="qbody">
+              <div class="tf-grid">
+                <label class="option"><input type="radio" name="q5" value="Verdadero"><span><strong>Verdadero</strong></span></label>
+                <label class="option"><input type="radio" name="q5" value="Falso"><span><strong>Falso</strong></span></label>
+              </div>
+              <button class="check-btn" onclick="checkMCQ('q5','Verdadero',this,'El enfoque diferencial es clave para asegurar que las políticas de protección tengan en cuenta las particularidades de los niños, niñas y adolescentes en situaciones de desplazamiento y conflicto armado, garantizando que reciban la atención y medidas de protección necesarias para su desarrollo integral y bienestar.')">Comprobar</button>
+              <div class="feedback"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="nav">
+    <div>
+      <button class="btn secondary" id="prevBtn">Anterior</button>
+      <button class="btn primary" id="nextBtn">Siguiente</button>
+    </div>
+    <div class="dots" id="dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+let current = 0;
+const total = 3;
+const slides = document.getElementById('slides');
+const counter = document.getElementById('counter');
+const dots = Array.from(document.querySelectorAll('.dot'));
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function renderSlide(){
+  slides.style.transform = `translateX(-${current * 100}%)`;
+  counter.textContent = `${current + 1} / ${total}`;
+  dots.forEach((d,i)=>d.classList.toggle('active', i === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+
+prevBtn.addEventListener('click', ()=>{ if(current > 0){ current--; renderSlide(); } });
+nextBtn.addEventListener('click', ()=>{ if(current < total - 1){ current++; renderSlide(); } });
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight' && current < total - 1){ current++; renderSlide(); }
+  if(e.key === 'ArrowLeft' && current > 0){ current--; renderSlide(); }
+});
+
+function checkMCQ(name, correct, btn, feedbackText){
+  const selected = document.querySelector(`input[name="${name}"]:checked`);
+  const feedback = btn.nextElementSibling;
+  if(!selected){
+    feedback.className = 'feedback show wrong';
+    feedback.innerHTML = '<strong>Selecciona una opción.</strong> Debes marcar una respuesta antes de comprobar.';
+    return;
+  }
+  if(selected.value === correct){
+    feedback.className = 'feedback show ok';
+    feedback.innerHTML = '<strong>Respuesta correcta.</strong>';
+  } else {
+    feedback.className = 'feedback show wrong';
+    feedback.innerHTML = '<strong>Respuesta incorrecta.</strong><br><strong>Retroalimentación:</strong> ' + feedbackText;
+  }
+}
+renderSlide();
+</script>
+</body>
+</html>

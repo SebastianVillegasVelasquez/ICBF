@@ -196,9 +196,15 @@ async function renderRoute(route) {
 
         if (route.type === 'default-content' && route.htmlFile) {
             requestAnimationFrame(() => {
-                inicializarTarjetasInfografia();
+                // Solo ejecutamos el script de tarjetas de app.js si el archivo HTML NO trae sus propios scripts de tarjetas
+                // (Para evitar que choquen entre sí)
+                const traeScriptPropio = appEl.querySelector('script');
 
-                // ══ EJECUTAMOS LOS SCRIPTS DE LA REVISTA AQUÍ ══
+                if (!traeScriptPropio) {
+                    inicializarTarjetasInfografia();
+                }
+
+                // ══ EJECUTAMOS LOS SCRIPTS DE LA REVISTA AUTOMÁTICAMENTE ══
                 ejecutarScriptsInyectados(appEl);
             });
         }
@@ -207,8 +213,6 @@ async function renderRoute(route) {
 
         if (progressContainer) {
             progressBar.renderTo(progressContainer);
-
-            // Esperar un frame para que el DOM y CSS calculen dimensiones
             requestAnimationFrame(() => {
                 progressBar.update(currentIndex, totalRoutes, visitedSet);
             });
@@ -231,44 +235,41 @@ async function renderRoute(route) {
     }
 }
 
+/* ─────────────────────────────────────────────────────────
+   FUNCIONES DE APOYO Y UTILIDADES
+   ───────────────────────────────────────────────────────── */
 
-function renderScripts() {
-        document.querySelectorAll('.note').forEach(function(n){
-        n.addEventListener('mouseenter', function(){
-            var tip = n.querySelector('.tip');
-            if(!tip) return;
-            tip.style.display = 'block';
-            var r = n.getBoundingClientRect();
-            var tw = 240;
-            var th = tip.offsetHeight || 80;
-            var left = r.left + r.width/2 - tw/2;
-            var top = r.top - th - 10;
-            // Keep inside viewport
-            if(left < 8) left = 8;
-            if(left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
-            if(top < 8){ top = r.bottom + 10; tip.style.setProperty('--arr','top'); }
-            tip.style.left = left + 'px';
-            tip.style.top = top + 'px';
-            tip.style.transform = 'none';
+/**
+ * Busca etiquetas <script> en un contenedor inyectado, las clona
+ * y las ejecuta en el ámbito global.
+ */
+function ejecutarScriptsInyectados(contenedor) {
+    if (!contenedor) return;
+
+    const scripts = contenedor.querySelectorAll('script');
+
+    scripts.forEach(scriptOriginal => {
+        const scriptNuevo = document.createElement('script');
+        scriptNuevo.textContent = scriptOriginal.textContent;
+
+        Array.from(scriptOriginal.attributes).forEach(attr => {
+            scriptNuevo.setAttribute(attr.name, attr.value);
         });
-        n.addEventListener('mouseleave', function(){
-        var tip = n.querySelector('.tip');
-        if(tip) tip.style.display = 'none';
-    });
-    });
 
-        function go(i){
-        document.querySelectorAll('.panel').forEach(function(p,j){ p.classList.toggle('active',j===i); });
-        document.querySelectorAll('.ni').forEach(function(n,j){ n.classList.toggle('active',j===i); });
-        document.querySelectorAll('.dot').forEach(function(d,j){ d.classList.toggle('active',j===i); });
-    }
+        document.body.appendChild(scriptNuevo);
+        scriptNuevo.parentNode.removeChild(scriptNuevo);
+    });
 }
 
+/**
+ * Inicializa el comportamiento de acordeón de las tarjetas en las infografías.
+ */
 function inicializarTarjetasInfografia() {
     const headers = document.querySelectorAll('.js-toggle-card');
     if (headers.length === 0) return;
 
     headers.forEach(header => {
+        // Clonamos para limpiar cualquier evento previo colgado
         const newHeader = header.cloneNode(true);
         header.parentNode.replaceChild(newHeader, header);
 
@@ -303,47 +304,9 @@ function inicializarTarjetasInfografia() {
     });
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarTarjetasInfografia);
-} else {
-    inicializarTarjetasInfografia();
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderScripts);
-} else {
-    renderScripts();
-}
-
-// Funcion para ejecutar scripts inyectados en el contenedor de la infografía.
-// Esto es necesario porque los scripts inyectados no se ejecutan automáticamente por seguridad,
-// así que los clonamos y reinsertamos para forzar su ejecución.
-function ejecutarScriptsInyectados(contenedor) {
-    if (!contenedor) return;
-
-    // Buscamos todas las etiquetas script dentro del contenedor inyectado
-    const scripts = contenedor.querySelectorAll('script');
-
-    scripts.forEach(scriptOriginal => {
-        const scriptNuevo = document.createElement('script');
-
-        // Copiamos el contenido de texto del script
-        scriptNuevo.textContent = scriptOriginal.textContent;
-
-        // Copiamos todos los atributos por si acaso (ej. src, type, etc.)
-        Array.from(scriptOriginal.attributes).forEach(attr => {
-            scriptNuevo.setAttribute(attr.name, attr.value);
-        });
-
-        // Lo insertamos en el body para obligar al navegador a ejecutarlo
-        document.body.appendChild(scriptNuevo);
-
-        // Lo eliminamos inmediatamente para no ensuciar el DOM
-        scriptNuevo.parentNode.removeChild(scriptNuevo);
-    });
-}
-
-// Esta es una funcion Helper para cargar contenido proveniente de un archivo HTML en la pantalla DefaultContent
+/**
+ * Helper para cargar contenido de un archivo HTML externo vía Fetch.
+ */
 async function loadHTMLFile(route) {
     try {
         const resolvedPath = window.resolvePath(route.htmlFile);
@@ -355,8 +318,6 @@ async function loadHTMLFile(route) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         let fragmentHtml = await res.text();
-
-        // Ejecutamos tu helper para resolver las imágenes
         fragmentHtml = resolveImageSrcInHTML(fragmentHtml);
 
         return fragmentHtml;

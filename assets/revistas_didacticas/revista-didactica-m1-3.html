@@ -295,36 +295,5 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:"Nunito",sans-serif
   </div>
 </div>
 
-<script>
-document.querySelectorAll('.note').forEach(function(n){
-  n.addEventListener('mouseenter', function(){
-    var tip = n.querySelector('.tip');
-    if(!tip) return;
-    tip.style.display = 'block';
-    var r = n.getBoundingClientRect();
-    var tw = 240;
-    var th = tip.offsetHeight || 80;
-    var left = r.left + r.width/2 - tw/2;
-    var top = r.top - th - 10;
-    // Keep inside viewport
-    if(left < 8) left = 8;
-    if(left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
-    if(top < 8){ top = r.bottom + 10; tip.style.setProperty('--arr','top'); }
-    tip.style.left = left + 'px';
-    tip.style.top = top + 'px';
-    tip.style.transform = 'none';
-  });
-  n.addEventListener('mouseleave', function(){
-    var tip = n.querySelector('.tip');
-    if(tip) tip.style.display = 'none';
-  });
-});
-
-function go(i){
-  document.querySelectorAll('.panel').forEach(function(p,j){ p.classList.toggle('active',j===i); });
-  document.querySelectorAll('.ni').forEach(function(n,j){ n.classList.toggle('active',j===i); });
-  document.querySelectorAll('.dot').forEach(function(d,j){ d.classList.toggle('active',j===i); });
-}
-</script>
 </body>
 </html>
