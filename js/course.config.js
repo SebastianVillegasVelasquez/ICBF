@@ -1,6 +1,5 @@
 import {renderSlideshow} from "./components/slideshow.js";
-import {renderCarousel} from "./components/carousel.js";
-import {getOrPickQuizQuestions, pickRandomQuestions, renderQuiz} from "./components/quiz.js";
+import {getOrPickQuizQuestions, renderQuiz} from "./components/quiz.js";
 import {QUESTIONS_BANK} from "./data/question-bank.js";
 
 export const course = {
@@ -34,7 +33,6 @@ export const course = {
         // ─────────────────────────────────────────────────────────
 
 
-
         // FRONT PAGE
         {
             title: "Portada",
@@ -42,10 +40,16 @@ export const course = {
                 //Testing
 
                 {
-                    type: "custom",
-                    html: "js/screens/front-page/front-page.html",
-                    css: "css/front-page.css",
+                    type: "html-injection",
+                    htmlFile: "assets/infografias/linea-tiempo.html",
+                    css: "css/html-injection.css",
                 },
+
+                // {
+                //     type: "custom",
+                //     html: "js/screens/front-page/front-page.html",
+                //     css: "css/front-page.css",
+                // },
             ],
         },
 
@@ -85,8 +89,6 @@ export const course = {
 
                 {
                     type: "default-content",
-                    hideBackground: true,
-
                     htmlFile: "assets/tabla-contenidos/tabla-contenido.html",
                 },
                 // {

@@ -23,6 +23,7 @@ import {renderWelcome} from './screens/screen-module-intro.js';
 import {renderVideo} from './screens/screen-video.js';
 import {renderPostIntro} from "./screens/screen-post-intro.js";
 import {renderScreenContentDefault} from './screens/screen-content-default.js';
+import {renderHtmlInjectionScreen} from './screens/screen-html-injection.js';
 // ── Registro de componentes ────────────────────────────────────
 import {initAccordion, renderAccordion} from './components/accordion.js';
 import {initCards, renderCards} from './components/cards.js';
@@ -98,6 +99,13 @@ const SCREEN_REGISTRY = {
         showPdf: false,
         render: (route) => renderScreenContentDefault(route)
     },
+    "html-injection": {
+        render: renderHtmlInjectionScreen,
+        layout: 'full',
+        showNav: true,
+        showPdf: false,
+        css: "css/html-injection.css",
+    },
     'content': {
         css: 'css/components.css',
         layout: 'default',
@@ -160,14 +168,14 @@ async function renderRoute(route) {
                     )
                 ]);
             } else if (route.type === 'default-content' && route.htmlFile) {
-                // 1. Cargamos el HTML o SVG del archivo externo
                 const fileContent = await loadHTMLFile(route);
-
-                // 2. Se lo pasamos a la función constructora original
                 html = renderScreenContentDefault({
                     ...route,
                     contentHtml: fileContent
                 });
+            } else if (route.type === 'html-injection') {
+                // Renderiza el shell vacío; el contenido se inyecta después del innerHTML
+                html = screenDef.render(route);
             } else {
                 html = screenDef.render(route);
             }
@@ -193,6 +201,27 @@ async function renderRoute(route) {
 
         // 4. Inyectar HTML
         appEl.innerHTML = html;
+
+        if (route.type === 'html-injection' && route.htmlFile) {
+            try {
+                const fileContent = await loadHTMLFile(route);
+
+                const bodyMatch = fileContent.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+                if (bodyMatch) {
+                    fileContent = bodyMatch[1];
+                }
+
+                const slot = appEl.querySelector('.injection-slot');
+                if (slot) {
+                    slot.innerHTML = fileContent;
+                    ejecutarScriptsInyectados(slot);
+                }
+            } catch (err) {
+                console.error(`[renderRoute] Error cargando htmlFile:`, err);
+                const slot = appEl.querySelector('.injection-slot');
+                if (slot) slot.innerHTML = `<div class="page-error"><strong>Error cargando contenido:</strong> ${err.message}</div>`;
+            }
+        }
 
         if (route.type === 'default-content' && route.htmlFile) {
             requestAnimationFrame(() => {
