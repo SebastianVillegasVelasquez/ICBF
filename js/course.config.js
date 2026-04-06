@@ -44,6 +44,18 @@ export const course = {
                 //     htmlFile: "assets/revistas_didacticas/revista_didactica_m1_1.html",
                 // },
 
+                {
+                    type: "end-module",
+                    moduleTitle: "Módulo 1",
+                    introText: "El suelo y las raíces del ecosistema",
+                    subText: "",
+                },
+
+                {
+                    type: "default-content",
+                    hideBackground: true,
+                    htmlFile: "assets/infografias/infografia-3-int.html"
+                },
 
                 {
                     type: "custom",
@@ -89,7 +101,7 @@ export const course = {
 
                 {
                     type: "default-content",
-                    htmlFile: "assets/tabla-contenidos/tabla-contenido.html",
+                    htmlFile: "assets/tabla-contenidos/tabla-contenido-int.html",
                 },
 
                 // PANTALLA 4 - Video animado de concepto básico

@@ -24,6 +24,8 @@ import {renderVideo} from './screens/screen-video.js';
 import {renderPostIntro} from "./screens/screen-post-intro.js";
 import {renderScreenContentDefault} from './screens/screen-content-default.js';
 import {renderHtmlInjectionScreen} from './screens/screen-html-injection.js';
+import {renderModuleEnd} from "./screens/screen-end-module.js";
+
 // ── Registro de componentes ────────────────────────────────────
 import {initAccordion, renderAccordion} from './components/accordion.js';
 import {initCards, renderCards} from './components/cards.js';
@@ -91,6 +93,13 @@ const SCREEN_REGISTRY = {
         showNav: false,
         showPdf: false,
         render: (route) => renderPostIntro(route)
+    },
+    'end-module': {
+      css: 'css/end-module.css',
+        layout: 'full',
+        showNav: false,
+        showPdf:false,
+        render: (route) => renderModuleEnd(route)
     },
     'default-content': {
         css: 'css/content-default.css',

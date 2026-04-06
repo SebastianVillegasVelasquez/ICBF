@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Infografía interactiva - Infracciones al DIH</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f3f1;
+  --text:#1d2422;
+  --teal:#61a8a7;
+  --teal-2:#7fc1c1;
+  --lime:#c8d45a;
+  --gold:#dfbe10;
+  --shadow:0 26px 60px rgba(0,0,0,.14);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text)}
+.page{min-height:100vh;flex:fit-content;  min-width:100%;padding:28px;display:flex;justify-content:center}
+.infographic{width:min(1600px,100%);background:var(--bg);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.08);position:relative;overflow:hidden;padding:34px 34px 40px}
+.infographic::before,.infographic::after{content:"";position:absolute;border-radius:50%;filter:blur(14px);pointer-events:none;opacity:.28}
+.infographic::before{width:240px;height:240px;right:-60px;top:-40px;background:radial-gradient(circle, rgba(97,168,167,.45), transparent 68%)}
+.infographic::after{width:280px;height:280px;left:-70px;bottom:-90px;background:radial-gradient(circle, rgba(200,212,90,.30), transparent 68%)}
+.hero h1{margin:0;font-size:clamp(34px,4vw,62px);color:#1c3d33;line-height:1.02}
+.hero p{margin:12px 0 0;font-size:clamp(18px,1.3vw,24px);max-width:980px;color:#2d3632;line-height:1.5}
+.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:22px 0 28px}
+.instruction{background:linear-gradient(135deg,#1e5147,#2f8b80);color:#fff;padding:14px 22px;border-radius:999px;font-weight:800;font-size:17px;box-shadow:0 14px 28px rgba(0,0,0,.16);animation:pulseGlow 2.8s ease-in-out infinite}
+.timeline-area{position:relative;min-height:900px;padding:20px 0 10px}
+.timeline-track{position:absolute;left:60px;top:110px;bottom:40px;width:6px;border-radius:999px;background:repeating-linear-gradient(to bottom,var(--gold) 0 18px, transparent 18px 34px);animation:moveDash 3.2s linear infinite;opacity:.9}
+.timeline-track::before{content:"";position:absolute;left:50%;top:0;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,.95) 0 28%, var(--gold) 30% 72%, rgba(223,190,16,.18) 74% 100%);transform:translateX(-50%);box-shadow:0 0 0 10px rgba(223,190,16,.12), 0 0 24px rgba(223,190,16,.28);animation:travelLine 3.2s linear infinite}
+.timeline-list{position:relative;z-index:2;display:flex;flex-direction:column;gap:26px}
+.step-row{position:relative;display:grid;grid-template-columns:120px 280px 1fr;align-items:center;min-height:130px}
+.step-row:nth-child(1){margin-left:180px}.step-row:nth-child(2){margin-left:120px}.step-row:nth-child(3){margin-left:40px}.step-row:nth-child(4){margin-left:0}.step-row:nth-child(5){margin-left:-60px}
+.node-wrap{position:relative;display:flex;justify-content:center}
+.node-wrap::after{content:"";position:absolute;top:50%;left:86px;width:38px;height:4px;border-radius:999px;background:rgba(223,190,16,.55);transform:translateY(-50%)}
+.node{width:60px;height:60px;border-radius:50%;border:none;background:var(--gold);color:#fff;font-size:30px;font-weight:800;cursor:pointer;box-shadow:0 12px 24px rgba(0,0,0,.14);transition:transform .25s ease, box-shadow .25s ease, opacity .25s ease;position:relative;z-index:2;opacity:.42}
+.node.auto-pop{animation:numberPulse 2.5s ease-in-out infinite}
+.node.is-lit{opacity:1;box-shadow:0 16px 32px rgba(0,0,0,.18),0 0 0 8px rgba(223,190,16,.18),0 0 26px rgba(223,190,16,.3)}
+.node:hover{transform:scale(1.06)}
+.node.active{opacity:1;transform:scale(1.1);box-shadow:0 16px 32px rgba(0,0,0,.18),0 0 0 8px rgba(223,190,16,.18),0 0 30px rgba(223,190,16,.34)}
+.step-title{font-size:18px;line-height:1.25;font-weight:800;padding-right:16px}
+.band{min-height:130px;border-radius:30px;box-shadow:0 18px 34px rgba(0,0,0,.08);position:relative;overflow:hidden;padding:18px 26px;display:flex;align-items:center}
+.band.teal{background:linear-gradient(135deg,#5ea5a4 0%,#7fc1c1 100%)}
+.band.lime{background:linear-gradient(135deg,#c5d253 0%,#dbe47c 100%)}
+.band::before{content:"";position:absolute;inset:auto -10% -30% auto;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.12);animation:floatOrb 6s ease-in-out infinite}
+.band::after{content:"";position:absolute;inset:-20% auto auto 55%;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08);animation:floatOrb 7.5s ease-in-out infinite reverse}
+.band-preview{position:relative;z-index:2;display:flex;flex-direction:column;gap:8px;width:100%}
+.band-label{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.88}
+.band-title{font-size:24px;line-height:1.08;font-weight:800;max-width:72%}
+.band-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.band-chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);font-size:13px;font-weight:700;animation:chipFloat 3.6s ease-in-out infinite}
+.band-chip:nth-child(2){animation-delay:.4s}.band-chip:nth-child(3){animation-delay:.8s}
+.band.lime .band-preview,.band.lime .band-chip{color:#233029}
+.band.teal .band-preview,.band.teal .band-chip{color:#fff}
+.dialog-layer{position:absolute;inset:0;pointer-events:none;z-index:4}
+.dialog{position:absolute;width:min(760px,calc(100% - 120px));background:rgba(255,255,255,.96);border-radius:28px;box-shadow:var(--shadow);opacity:0;transform:translateY(18px) scale(.96);transition:opacity .35s var(--ease), transform .35s var(--ease);pointer-events:none;overflow:hidden}
+.dialog.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.dialog::before{content:"";position:absolute;left:42px;top:-14px;width:28px;height:28px;background:inherit;transform:rotate(45deg);border-radius:6px}
+.dialog-header{padding:20px 24px 16px;color:#fff}.dialog-header.teal{background:linear-gradient(135deg,#5ea5a4 0%,#7fc1c1 100%)}.dialog-header.lime{background:linear-gradient(135deg,#c5d253 0%,#dbe47c 100%);color:#233029}
+.dialog-title-row{display:flex;align-items:center;gap:12px}
+.dialog-index{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.22);font-weight:800;font-size:22px}
+.dialog-header.lime .dialog-index{background:rgba(255,255,255,.36)}
+.dialog-header h3{margin:0;font-size:26px;line-height:1.1}
+.dialog-body{padding:20px 24px 24px}.dialog-body p,.dialog-body li{margin:0;font-size:16px;line-height:1.5;color:#2d3632}.dialog-body ul{margin:0;padding-left:18px}
+.dialog-grid{display:grid;gap:16px}.cols-2{grid-template-columns:1fr 1fr}.cols-3{grid-template-columns:repeat(3,1fr)}.cols-5{grid-template-columns:repeat(5,1fr)}
+.mini-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:16px;box-shadow:0 10px 20px rgba(0,0,0,.05)}
+.mini-card h4{margin:0 0 8px;font-size:18px;line-height:1.15;color:#1d4338}
+@keyframes pulseGlow{0%,100%{box-shadow:0 14px 28px rgba(0,0,0,.16),0 0 0 rgba(47,139,128,0)}50%{box-shadow:0 18px 34px rgba(0,0,0,.16),0 0 24px rgba(47,139,128,.22)}}
+@keyframes moveDash{from{background-position:0 0}to{background-position:0 52px}}
+@keyframes travelLine{0%{top:0;opacity:1}100%{top:calc(100% - 18px);opacity:1}}
+@keyframes numberPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes floatOrb{0%,100%{transform:translateY(0) translateX(0) scale(1)}50%{transform:translateY(-12px) translateX(-8px) scale(1.04)}}
+@keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media (max-width:1300px){.step-row{grid-template-columns:110px 240px 1fr}.step-row:nth-child(1),.step-row:nth-child(2),.step-row:nth-child(3),.step-row:nth-child(4),.step-row:nth-child(5){margin-left:0}}
+@media (max-width:980px){.timeline-track{display:none}.timeline-area{min-height:auto}.timeline-list{gap:16px}.step-row{grid-template-columns:90px 1fr;gap:14px}.band{grid-column:1 / -1;min-height:118px}.step-title{grid-column:2}.dialog-layer{position:relative;margin-top:18px}.dialog{position:relative;width:100%;inset:auto !important}.dialog::before{display:none}.cols-2,.cols-3,.cols-5{grid-template-columns:1fr}.band-title{max-width:100%}}
+@media (max-width:640px){.infographic{padding:22px 16px 24px}.controls{margin-bottom:20px}.instruction{font-size:15px}.step-row{grid-template-columns:76px 1fr}.node{width:52px;height:52px;font-size:26px}.step-title{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <section class="infographic">
+    <header class="header">
+      <div class="hero">
+        <h1>Infracciones al DIH</h1>
+        <p>Ahora la navegación se centra solo en la línea de tiempo y en los bloques de la derecha, que se transforman en cápsulas vivas con microanimaciones para que el diseño se sienta más innovador.</p>
+        <div class="controls">
+          <div class="instruction">Haz clic en cada número para abrir su cuadro de diálogo</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="timeline-area">
+      <div class="timeline-track"></div>
+
+      <div class="timeline-list">
+        <article class="step-row" data-step-row="1">
+          <div class="node-wrap"><button class="node active" data-step="1">1</button></div>
+          <div class="step-title">Infracciones graves vs. violaciones al DIH</div>
+          <div class="band teal"><div class="band-preview"><div class="band-label">Bloque 01</div><div class="band-title">Comparación general y marco normativo</div><div class="band-chips"><span class="band-chip">Convenios de Ginebra</span><span class="band-chip">Protocolo I</span><span class="band-chip">Protocolo II</span></div></div></div>
+        </article>
+
+        <article class="step-row" data-step-row="2">
+          <div class="node-wrap"><button class="node" data-step="2">2</button></div>
+          <div class="step-title">Crímenes de guerra (infracciones graves)</div>
+          <div class="band lime"><div class="band-preview"><div class="band-label">Bloque 02</div><div class="band-title">Ejemplos y tipificación internacional</div><div class="band-chips"><span class="band-chip">Crímenes de guerra</span><span class="band-chip">Rehenes</span><span class="band-chip">Ataques civiles</span></div></div></div>
+        </article>
+
+        <article class="step-row" data-step-row="3">
+          <div class="node-wrap"><button class="node" data-step="3">3</button></div>
+          <div class="step-title">Infracciones graves relacionadas con la población civil</div>
+          <div class="band teal"><div class="band-preview"><div class="band-label">Bloque 03</div><div class="band-title">Conductas dirigidas contra población protegida</div><div class="band-chips"><span class="band-chip">Traslado forzado</span><span class="band-chip">Deportación</span><span class="band-chip">Prisioneros</span></div></div></div>
+        </article>
+
+        <article class="step-row" data-step-row="4">
+          <div class="node-wrap"><button class="node" data-step="4">4</button></div>
+          <div class="step-title">Infracciones al DIH en el ámbito penal nacional</div>
+          <div class="band lime"><div class="band-preview"><div class="band-label">Bloque 04</div><div class="band-title">Tipologías en el Código Penal colombiano</div><div class="band-chips"><span class="band-chip">Ley 599</span><span class="band-chip">Persona protegida</span><span class="band-chip">Bienes protegidos</span></div></div></div>
+        </article>
+
+        <article class="step-row" data-step-row="5">
+          <div class="node-wrap"><button class="node" data-step="5">5</button></div>
+          <div class="step-title">Actos ilícitos específicos</div>
+          <div class="band teal"><div class="band-preview"><div class="band-label">Bloque 05</div><div class="band-title">Conductas prohibidas expresamente por el DIH</div><div class="band-chips"><span class="band-chip">Perfidia</span><span class="band-chip">Represalias</span><span class="band-chip">Reclutamiento</span></div></div></div>
+        </article>
+      </div>
+
+      <div class="dialog-layer" id="dialogLayer">
+        <div class="dialog show" id="dialogBox" style="top: 86px; left: 360px;"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const dialogData = {
+  1: {
+    theme: 'teal',
+    title: 'Infracciones graves vs. violaciones al DIH',
+    content: `
+      <div class="dialog-grid cols-2">
+        <div class="mini-card">
+          <h4>Infracciones graves</h4>
+          <p>Se encuentran en los Convenios de Ginebra de 1949 y el Protocolo I de 1977 para conflictos armados internacionales.</p>
+          <p style="margin-top:10px;">Incluyen crímenes de guerra y acciones contra personas y bienes protegidos.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Violaciones</h4>
+          <p>Se encuentran en el artículo 3 común a los 4 Convenios de Ginebra de 1949 y el Protocolo II de 1977 para conflictos armados no internacionales.</p>
+          <p style="margin-top:10px;"><strong>Son violaciones a los derechos humanos fundamentales</strong> en situaciones de conflicto armado.</p>
+        </div>
+      </div>`
+  },
+  2: {
+    theme: 'lime',
+    title: 'Crímenes de guerra (infracciones graves)',
+    content: `
+      <p style="margin-bottom:14px;">De acuerdo con el Protocolo I de 1977, las infracciones graves son calificadas como crímenes de guerra. Algunos ejemplos incluyen:</p>
+      <div class="dialog-grid cols-2">
+        <div class="mini-card">
+          <ul>
+            <li>Homicidio intencional.</li>
+            <li>Tortura, tratos inhumanos y experimentos biológicos.</li>
+            <li>Omisión deliberada que pone en peligro la integridad personal.</li>
+            <li>Deportación o traslados ilegales.</li>
+            <li>Detención ilegal.</li>
+            <li>Obligar a una persona a servir en las fuerzas armadas enemigas.</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <ul>
+            <li>Privación del derecho de juicio regular.</li>
+            <li>Toma de rehenes.</li>
+            <li>Destrucción y apropiación no justificada de bienes.</li>
+            <li>Ataques a la población civil o bienes de civiles.</li>
+            <li>Ataques indiscriminados con daños desproporcionados.</li>
+            <li>Uso del signo de la Cruz Roja de manera pérfida.</li>
+          </ul>
+        </div>
+      </div>`
+  },
+  3: {
+    theme: 'teal',
+    title: 'Infracciones graves relacionadas con la población civil',
+    content: `
+      <div class="dialog-grid cols-3">
+        <div class="mini-card"><h4>Traslado forzado</h4><p>Traslado de población civil por la potencia ocupante.</p></div>
+        <div class="mini-card"><h4>Deportación</h4><p>Deportación de población civil fuera de los territorios protegidos.</p></div>
+        <div class="mini-card"><h4>Repatriación tardía</h4><p>Demora injustificada en la repatriación de prisioneros.</p></div>
+      </div>`
+  },
+  4: {
+    theme: 'lime',
+    title: 'Infracciones al DIH en el ámbito penal nacional',
+    content: `
+      <p style="margin-bottom:14px;">El Código Penal colombiano (Ley 599 de 2000) contempla tipos penales para sancionar infracciones graves al DIH. Algunos ejemplos:</p>
+      <div class="dialog-grid cols-3">
+        <div class="mini-card"><ul><li>Homicidio en persona protegida.</li><li>Lesiones en persona protegida.</li><li>Tortura en persona protegida.</li><li>Acceso carnal violento en persona protegida.</li></ul></div>
+        <div class="mini-card"><ul><li>Actos de terrorismo y barbarie.</li><li>Tratos inhumanos y degradantes.</li><li>Destrucción y apropiación de bienes protegidos.</li><li>Destrucción de bienes culturales y lugares de culto.</li></ul></div>
+        <div class="mini-card"><ul><li>Omisión de medidas de socorro y asistencia humanitaria.</li><li>Destrucción del medio ambiente.</li></ul></div>
+      </div>`
+  },
+  5: {
+    theme: 'teal',
+    title: 'Actos ilícitos específicos',
+    content: `
+      <div class="dialog-grid cols-5">
+        <div class="mini-card"><h4>Medios y métodos ilícitos</h4><p>Utilización de medios y métodos de guerra ilícitos.</p></div>
+        <div class="mini-card"><h4>Perfidia</h4><p>Engañar a la parte contraria para obtener ventaja en combate.</p></div>
+        <div class="mini-card"><h4>Represalias</h4><p>Represalias ilegales contra personas o bienes protegidos.</p></div>
+        <div class="mini-card"><h4>Despojo</h4><p>Despojo en el campo de batalla.</p></div>
+        <div class="mini-card"><h4>Reclutamiento</h4><p>Reclutamiento ilícito de menores.</p></div>
+      </div>`
+  }
+};
+
+const nodes = document.querySelectorAll('.node');
+const dialogBox = document.getElementById('dialogBox');
+const timelineArea = document.querySelector('.timeline-area');
+const dialogLayer = document.getElementById('dialogLayer');
+let autoIndex = 0;
+let autoTimer = null;
+
+function updateAutoSequence(activeId = null){
+  nodes.forEach((node, index) => {
+    const seqActive = index === autoIndex;
+    node.classList.toggle('is-lit', seqActive);
+    node.classList.toggle('auto-pop', seqActive && node.dataset.step !== String(activeId));
+  });
+}
+
+function startAutoSequence(){
+  if(autoTimer) clearInterval(autoTimer);
+  updateAutoSequence();
+  autoTimer = setInterval(() => {
+    autoIndex = (autoIndex + 1) % nodes.length;
+    updateAutoSequence(document.querySelector('.node.active')?.dataset.step || null);
+  }, 900);
+}
+
+function renderDialog(id){
+  const item = dialogData[id];
+  if(!item) return;
+  dialogBox.innerHTML = `
+    <div class="dialog-header ${item.theme}">
+      <div class="dialog-title-row">
+        <div class="dialog-index">${id}</div>
+        <h3>${item.title}</h3>
+      </div>
+    </div>
+    <div class="dialog-body">${item.content}</div>
+  `;
+
+  nodes.forEach(node => node.classList.toggle('active', node.dataset.step === String(id)));
+  updateAutoSequence(id);
+
+  if(window.innerWidth > 980){
+    const row = document.querySelector(`.step-row[data-step-row="${id}"]`);
+    const rowRect = row.getBoundingClientRect();
+    const areaRect = timelineArea.getBoundingClientRect();
+    const top = rowRect.top - areaRect.top + 6;
+    const left = Math.max(310, rowRect.left - areaRect.left + 250);
+    dialogBox.style.top = `${top}px`;
+    dialogBox.style.left = `${left}px`;
+  } else {
+    dialogBox.style.top = '0px';
+    dialogBox.style.left = '0px';
+  }
+
+  dialogLayer.style.display = 'block';
+  requestAnimationFrame(() => dialogBox.classList.add('show'));
+}
+
+nodes.forEach(node => {
+  node.addEventListener('click', () => {
+    dialogBox.classList.remove('show');
+    setTimeout(() => renderDialog(node.dataset.step), 120);
+  });
+  node.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      dialogBox.classList.remove('show');
+      setTimeout(() => renderDialog(node.dataset.step), 120);
+    }
+  });
+});
+
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.node.active');
+  if(active){
+    renderDialog(active.dataset.step);
+  }
+});
+
+startAutoSequence();
+renderDialog(1);
+</script>
+</body>
+</html>

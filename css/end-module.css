@@ -1,0 +1,171 @@
+/* ─────────────────────────────────────────
+   WELCOME HERO
+   ───────────────────────────────────────── */
+
+.welcome-hero {
+    min-height: 100vh;
+    padding: clamp(40px, 8vh, 60px) clamp(20px, 5vw, 80px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    /* background-image se inyecta dinámicamente por JS */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Overlay */
+.welcome-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.welcome-hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ───────── TOP ───────── */
+
+.hero-top {
+    width: 100%;
+    max-width: 1920px; /* Asegura el límite a 1920px */
+}
+
+/* Imágenes fluidas */
+.hero-left img,
+.hero-right img {
+    max-width: 620px; /* Tu máximo original para 1920px */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ───────── CENTER ───────── */
+
+.hero-center {
+    width: 100%;
+    max-width: 1920px;
+}
+
+/* Módulo 1 */
+.module-one {
+    font-size: clamp(2.5rem, 6vw, 6rem); /* Reducido un poco el máximo para que no rompa en pantallas medianas */
+    font-weight: 800;
+    color: #E8C208;
+    margin-bottom: clamp(5px, 1.5vh, 10px);
+    line-height: 1;
+}
+
+/* Texto principal */
+.hero-text {
+    font-size: clamp(1rem, 2vw, 1.8rem);
+    color: #4a5a70;
+    margin-bottom: clamp(3px, 1vh, 5px);
+}
+
+/* Subtexto */
+.hero-subtext {
+    font-size: clamp(0.9rem, 1.5vw, 1.4rem);
+    color: #7a8594;
+}
+
+/* ───────── PROGRESS ───────── */
+
+.hero-progress-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: clamp(280px, 80vw, 450px);
+    margin: clamp(15px, 3vh, 30px) auto 0;
+}
+
+.hero-progress-wrapper .progress-bar-percentage {
+    flex-shrink: 0;
+    width: 62px;
+    height: 52px;
+    background: #81cac9;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+}
+
+.hero-progress-wrapper .progress-bar-track {
+    position: relative;
+    flex: 1;
+    height: 28px;
+    background: #81cac9;
+    overflow: hidden;
+}
+
+.hero-progress-wrapper .progress-bar-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: #E8B800;
+    transition: width 0.4s ease;
+}
+
+/*.hero-progress-wrapper .progress-bar-percentage {*/
+/*    position: relative;*/
+/*    z-index: 4;*/
+/*    background: var(--teal-main, #008080);*/
+/*    color: var(--white, #ffffff);*/
+/*    font-size: clamp(0.65rem, 1.2vw, 0.85rem);*/
+/*    font-weight: 800;*/
+/*    padding: clamp(10px, 1.2vw, 16px) clamp(8px, 1.2vw, 14px);*/
+/*    margin-left: clamp(-2px, -0.5vw, -4px);*/
+/*    min-width: clamp(36px, 6vw, 48px);*/
+/*    text-align: center;*/
+/*    white-space: nowrap;*/
+/*    box-shadow: clamp(-0.5px, -0.1vw, -1px) clamp(0.5px, 0.2vw, 1px) clamp(2px, 0.5vw, 4px) rgba(0,0,0,0.12);*/
+/*}*/
+
+/*.hero-progress-wrapper .progress-bar-fill {*/
+/*    position: absolute;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    height: 100%;*/
+/*    background: var(--yellow-main, #ffcc00);*/
+/*    width: 20%;*/
+/*    transition: width 0.4s ease;*/
+/*    border-radius: clamp(3px, 0.5vw, 5px) 0 0 clamp(3px, 0.5vw, 5px);*/
+/*    z-index: 1;*/
+/*}*/
+
+/*.hero-progress-wrapper .progress-bar-arrow {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*    z-index: 3;*/
+/*    width: 0;*/
+/*    height: 0;*/
+/*    border-style: solid;*/
+/*    border-width: clamp(12px, 2vw, 18px) 0 clamp(12px, 2vw, 18px) clamp(10px, 1.5vw, 16px);*/
+/*    border-color: transparent transparent transparent var(--yellow-main, #ffcc00);*/
+/*    transition: left 0.4s ease;*/
+/*    left: 20%;*/
+/*}*/
+
+/* REGLAS MANUALES DE RESPALDO (Sin tocar Bootstrap) */
+@media (max-width: 576px) {
+    .welcome-hero {
+        padding: 30px 15px;
+        justify-content: flex-start; /* Permite scroll natural si el móvil es muy pequeño */
+    }
+}
