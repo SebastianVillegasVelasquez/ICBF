@@ -204,18 +204,9 @@ async function renderRoute(route) {
 
         if (route.type === 'html-injection' && route.htmlFile) {
             try {
-                let fileContent = await loadHTMLFile(route);
-
-                // const bodyMatch = fileContent.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-                // if (bodyMatch) {
-                //     fileContent = bodyMatch[1];
-                // }
-
+                const fileContent = await loadHTMLFile(route);
                 const slot = appEl.querySelector('.injection-slot');
-                if (slot) {
-                    slot.innerHTML = fileContent;
-                    ejecutarScriptsInyectados(slot);
-                }
+                if (slot) slot.innerHTML = fileContent;
             } catch (err) {
                 console.error(`[renderRoute] Error cargando htmlFile:`, err);
                 const slot = appEl.querySelector('.injection-slot');

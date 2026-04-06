@@ -1,0 +1,530 @@
+<style>
+  :root{
+    --bg:#f5f5f4;
+    --text:#1f2f2a;
+    --title:#0d5a2f;
+    --line:#c7c7c7;
+    --c1:#7ec7c9;
+    --c2:#0d612c;
+    --c3:#9bbd57;
+    --c4:#e3c30f;
+    --c5:#c7e77a;
+    --c6:#58a7a5;
+    --shadow:0 18px 40px rgba(0,0,0,.12);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:'Nunito',sans-serif;
+    background: #ffffff;
+    color:var(--text);
+  }
+  .page{
+    min-height:100vh;
+    padding:30px;
+    display:flex;
+    justify-content:center;
+  }
+  .infographic{
+    width:min(1500px,100%);
+    background: #ffffff;
+    border-radius:26px;
+    padding:48px 50px 44px;
+    position:relative;
+    /*box-shadow:0 30px 70px rgba(0,0,0,.08);*/
+    overflow:hidden;
+  }
+  .infographic::before,
+  .infographic::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    opacity:.22;
+    filter:blur(12px);
+  }
+  .infographic::before{
+    width:240px;height:240px;
+    right:-60px;top:-40px;
+    background:radial-gradient(circle, rgba(126,199,201,.55), transparent 68%);
+  }
+  .infographic::after{
+    width:260px;height:260px;
+    left:-70px;bottom:-90px;
+    background:radial-gradient(circle, rgba(201,231,122,.42), transparent 68%);
+  }
+  .header h1{
+    margin:0;
+    text-align:center;
+    color:var(--title);
+    font-size:clamp(38px,4vw,62px);
+    font-weight:800;
+  }
+  .header p{
+    text-align:center;
+    max-width:980px;
+    margin:14px auto 0;
+    font-size:clamp(18px,1.4vw,26px);
+    line-height:1.5;
+  }
+  .timeline-wrap{
+    position:relative;
+  }
+  .timeline-svg{
+    width:100%;
+    height:130px;
+    margin-top:40px;
+  }
+  .timeline-path{
+    fill:none;
+    stroke:var(--line);
+    stroke-width:5;
+    stroke-dasharray:12 12;
+    animation:dashMove 18s linear infinite;
+  }
+  .timeline-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    margin-top:-90px;
+    gap:18px;
+    text-align:center;
+  }
+  .node{
+    cursor:pointer;
+    transition:transform .25s ease, filter .25s ease;
+    position:relative;
+  }
+  .node:hover{
+    transform:translateY(-4px);
+    filter:brightness(1.03);
+  }
+  .node.active .bubble{
+    outline:4px solid rgba(13,90,47,.12);
+    transform:translateY(-4px) scale(1.04);
+  }
+  .bubble{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-weight:800;
+    font-size:28px;
+    color:#10231f;
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+    animation:float 3s ease-in-out infinite;
+    position:relative;
+    overflow:hidden;
+  }
+  .bubble::before{
+    content:"";
+    position:absolute;
+    inset:auto -14px -20px auto;
+    width:44px;height:44px;
+    border-radius:50%;
+    background:rgba(255,255,255,.22);
+  }
+  .mini-dot{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    margin:14px auto 10px;
+    position:relative;
+  }
+  .mini-dot::after{
+    content:"";
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    border:1px dashed rgba(0,0,0,.10);
+  }
+  .node p{
+    font-size:14px;
+    line-height:1.35;
+    max-width:190px;
+    margin:0 auto;
+    color:#46504c;
+  }
+  .c1{background:var(--c1)}
+  .c2{background:var(--c2); color:#fff;}
+  .c3{background:var(--c3)}
+  .c4{background:var(--c4)}
+  .c5{background:var(--c5)}
+  .c6{background:var(--c6)}
+
+  .mechanisms{
+    margin-top:48px;
+  }
+  .mechanisms h2{
+    margin:0;
+    text-align:center;
+    color:var(--title);
+    font-size:clamp(34px,3.7vw,58px);
+    font-weight:800;
+  }
+  .instruction-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:18px 0 12px;
+  }
+  .nav-button{
+    background:linear-gradient(135deg,#0d5a2f,#2c9a53);
+    color:#fff;
+    padding:14px 26px;
+    border-radius:40px;
+    font-weight:800;
+    font-size:18px;
+    box-shadow:0 14px 28px rgba(0,0,0,.18);
+    animation:pulseGlow 2.5s infinite;
+  }
+  .helper{
+    text-align:center;
+    color:#5e6a65;
+    font-size:14px;
+    margin-bottom:8px;
+  }
+
+  /* modal */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(17,24,22,.38);
+    backdrop-filter:blur(7px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    z-index:50;
+  }
+  .modal-overlay.show{
+    display:flex;
+    animation:fadeIn .25s ease;
+  }
+  .modal-card{
+    width:min(980px, 100%);
+    background:rgba(255,255,255,.97);
+    border-radius:30px;
+    box-shadow:0 28px 70px rgba(0,0,0,.22);
+    transform:translateY(20px) scale(.96);
+    animation:popIn .35s var(--ease) forwards;
+    position:relative;
+    overflow:visible;
+  }
+  .modal-card::before{
+    content:"";
+    position:absolute;
+    width:180px;height:180px;
+    right:-30px;top:-40px;
+    border-radius:34% 66% 61% 39% / 44% 41% 59% 56%;
+    background:linear-gradient(135deg, rgba(126,199,201,.24), rgba(201,231,122,.18));
+    filter:blur(2px);
+  }
+  .modal-card::after{
+    content:"";
+    position:absolute;
+    width:140px;height:140px;
+    left:-30px;bottom:-40px;
+    border-radius:58% 42% 38% 62% / 48% 59% 41% 52%;
+    background:linear-gradient(135deg, rgba(227,195,15,.18), rgba(88,167,165,.16));
+  }
+  .modal-top{
+    padding:26px 28px 18px;
+    position:relative;
+    overflow:hidden;
+  }
+  .modal-badge-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .modal-badge{
+    width:60px;height:60px;border-radius:20px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;font-weight:800;color:#fff;
+    box-shadow:0 12px 24px rgba(0,0,0,.10);
+    clip-path:polygon(18% 0,100% 0,100% 82%,82% 100%,0 100%,0 18%);
+    position:relative;
+    z-index:1;
+  }
+  .modal-title h3{
+    margin:0;
+    color:#184e34;
+    font-size:clamp(24px,2vw,34px);
+    line-height:1.12;
+  }
+  .modal-title p{
+    margin:6px 0 0;
+    color:#5a6660;
+    font-size:14px;
+  }
+  .close-btn{
+    position:absolute;
+    top:18px;right:18px;
+    border:none;
+    width:42px;height:42px;
+    border-radius:14px;
+    background:rgba(0,0,0,.06);
+    color:#264038;
+    font-size:22px;
+    cursor:pointer;
+    transition:transform .2s ease, background .2s ease;
+    z-index:2;
+  }
+  .close-btn:hover{
+    transform:scale(1.06);
+    background:rgba(0,0,0,.10);
+  }
+  .modal-content{
+    padding:0 28px 28px;
+    position:relative;
+    z-index:1;
+  }
+  .modal-grid{
+    display:grid;
+    gap:18px;
+  }
+  .modal-grid.two{ grid-template-columns:1fr 1fr; }
+  .modal-grid.three{ grid-template-columns:repeat(3,1fr); }
+  .modal-grid.one{ grid-template-columns:1fr; }
+
+  .info-card{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:22px;
+    padding:18px;
+    box-shadow:0 14px 28px rgba(0,0,0,.06);
+    position:relative;
+    overflow:hidden;
+  }
+  .info-card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;
+    width:100%;
+    height:6px;
+    background:var(--card-color, var(--c1));
+  }
+  .info-card h4{
+    margin:0 0 10px 0;
+    color:#184e34;
+    font-size:19px;
+    line-height:1.18;
+  }
+  .info-card p, .info-card li{
+    margin:0;
+    font-size:16px;
+    line-height:1.48;
+  }
+  .info-card ul{
+    margin:0;
+    padding-left:18px;
+  }
+
+  @keyframes dashMove{
+    from{stroke-dashoffset:0}
+    to{stroke-dashoffset:-288}
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+  }
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 0 0 rgba(0,0,0,0), 0 14px 28px rgba(0,0,0,.18)}
+    50%{box-shadow:0 0 20px rgba(44,154,83,.25), 0 16px 30px rgba(0,0,0,.18)}
+  }
+  @keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+  }
+  @keyframes popIn{
+    from{opacity:0;transform:translateY(26px) scale(.95)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+
+  @media (max-width:1200px){
+    .timeline-grid{ grid-template-columns:repeat(3,1fr); margin-top:-40px; row-gap:26px; }
+  }
+  @media (max-width:900px){
+    .modal-grid.two, .modal-grid.three{ grid-template-columns:1fr; }
+  }
+  @media (max-width:760px){
+    .page{ padding:14px; }
+    .infographic{ padding:28px 18px 30px; }
+    .timeline-grid{ grid-template-columns:1fr 1fr; }
+    .timeline-svg{ margin-top:24px; }
+  }
+  @media (max-width:560px){
+    .timeline-svg{ display:none; }
+    .timeline-grid{ grid-template-columns:1fr; margin-top:14px; }
+    .node p{ max-width:100%; }
+    .modal-top{ padding:22px 18px 14px; }
+    .modal-content{ padding:0 18px 22px; }
+    .modal-badge{ width:54px;height:54px;font-size:24px; }
+  }
+</style>
+
+<div class="page">
+  <section class="infographic">
+    <header class="header">
+      <h1>Derechos fundamentales</h1>
+      <p>Los derechos fundamentales tienen un tratamiento especial en la Constitución colombiana, garantizando su protección con inmunidad contra violaciones o restricciones. Es importante tener en cuenta que:</p>
+    </header>
+
+    <div class="timeline-wrap">
+      <svg class="timeline-svg" viewBox="0 0 1440 130" preserveAspectRatio="none" aria-hidden="true">
+        <path class="timeline-path" d="M20,72 C90,132 150,10 240,72 S390,132 480,72 S630,10 720,72 S870,132 960,72 S1110,10 1200,72 S1350,132 1420,72"/>
+      </svg>
+
+      <div class="timeline-grid">
+        <div class="node" data-id="1"><div class="bubble c1">1</div><div class="mini-dot c1"></div><p>Están amparados por la acción de tutela: permite a los ciudadanos proteger sus derechos fundamentales cuando estos son vulnerados.</p></div>
+        <div class="node" data-id="2"><div class="bubble c2">2</div><div class="mini-dot c2"></div><p>Reserva de Ley Estatutaria: solo pueden ser modificados mediante una ley estatutaria aprobada por el Congreso.</p></div>
+        <div class="node" data-id="3"><div class="bubble c3">3</div><div class="mini-dot c3"></div><p>No son susceptibles de limitación durante los estados de excepción.</p></div>
+        <div class="node" data-id="4"><div class="bubble c4">4</div><div class="mini-dot c4"></div><p>Su reforma constitucional debe someterse a referendo.</p></div>
+        <div class="node" data-id="5"><div class="bubble c5">5</div><div class="mini-dot c5"></div><p>Están definidos en la Constitución en el Título II, Capítulo I.</p></div>
+        <div class="node" data-id="6"><div class="bubble c6">6</div><div class="mini-dot c6"></div><p>Tienen conexión con otros derechos: algunos derechos, como el derecho a la salud, están estrechamente relacionados con otros, como el derecho a la vida.</p></div>
+      </div>
+    </div>
+
+    <section class="mechanisms">
+      <h2>Mecanismos de defensa ciudadana</h2>
+      <div class="instruction-wrap">
+        <div class="nav-button">Haz clic en un número para abrir el cuadro emergente</div>
+      </div>
+      <div class="helper">Las tarjetas aparecen como popup centrado, sin palabras clave y sin scroll interno.</div>
+    </section>
+  </section>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal-card" id="modalCard" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="close-btn" id="closeModal" aria-label="Cerrar">×</button>
+    <div class="modal-top">
+      <div class="modal-badge-row">
+        <div class="modal-badge" id="modalBadge"></div>
+        <div class="modal-title">
+          <h3 id="modalTitle"></h3>
+          <p id="modalSubtitle">Mecanismo de defensa ciudadana</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-grid" id="modalGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const data = {
+    1: {
+      color: 'var(--c1)', num: '01', title: 'Acción de tutela',
+      layout: 'one',
+      cards: [{
+        title: 'Qué hace',
+        text: 'Permite a cualquier persona proteger sus derechos fundamentales cuando son vulnerados por acciones u omisiones de autoridades o particulares, sin necesidad de recurrir a un proceso judicial largo.'
+      }]
+    },
+    2: {
+      color: 'var(--c2)', num: '02', title: 'Habeas corpus',
+      layout: 'one',
+      cards: [{
+        title: 'Qué hace',
+        text: 'Es un recurso legal utilizado para proteger la libertad personal, garantizando que nadie sea privado de su libertad de manera ilegal o arbitraria. Si alguien está detenido sin justificación legal, puede solicitar este mecanismo.'
+      }]
+    },
+    3: {
+      color: 'var(--c3)', num: '03', title: 'Derecho de petición',
+      layout: 'one',
+      cards: [{
+        title: 'Qué hace',
+        text: 'Permite a los ciudadanos solicitar información, documentos o realizar peticiones ante cualquier autoridad pública. Deben recibir respuesta en un tiempo determinado.'
+      }]
+    },
+    4: {
+      color: 'var(--c4)', num: '04', title: 'Acción de cumplimiento',
+      layout: 'one',
+      cards: [{
+        title: 'Qué hace',
+        text: 'Este mecanismo permite que las personas exijan el cumplimiento de normas y leyes cuando las autoridades no cumplen con lo establecido, asegurando la ejecución de las leyes.'
+      }]
+    },
+    5: {
+      color: 'var(--c5)', num: '05', title: 'Acción popular',
+      layout: 'one',
+      cards: [{
+        title: 'Qué hace',
+        text: 'Permite que cualquier ciudadano pueda demandar la protección de los derechos colectivos, como el medio ambiente, el orden público y la seguridad, cuando estos sean amenazados por actos de personas o entidades.'
+      }]
+    },
+    6: {
+      color: 'var(--c6)', num: '06', title: 'Acción de grupo',
+      layout: 'one',
+      cards: [{
+        title: 'Qué hace',
+        text: 'Permite que un grupo de personas afectadas por una misma situación de forma colectiva puedan interponer una demanda para exigir la protección de sus derechos, especialmente cuando son víctimas de violaciones de derechos de forma masiva.'
+      }]
+    }
+  };
+
+  const nodes = document.querySelectorAll('.node');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const closeModal = document.getElementById('closeModal');
+  const modalBadge = document.getElementById('modalBadge');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalGrid = document.getElementById('modalGrid');
+
+  function cardTemplate(card, color) {
+    return `<article class="info-card" style="--card-color:${color}">
+    <h4>${card.title}</h4>
+    <p>${card.text}</p>
+  </article>`;
+  }
+
+  function openModal(id) {
+    const item = data[id];
+    if (!item) return;
+
+    nodes.forEach(n => n.classList.remove('active'));
+    const activeNode = document.querySelector(`.node[data-id="${id}"]`);
+    if (activeNode) activeNode.classList.add('active');
+
+    modalBadge.textContent = item.num;
+    modalBadge.style.background = item.color;
+    modalTitle.textContent = item.title;
+
+    modalGrid.className = `modal-grid ${item.layout}`;
+    modalGrid.innerHTML = item.cards.map(card => cardTemplate(card, item.color)).join('');
+
+    modalOverlay.classList.add('show');
+    modalOverlay.setAttribute('aria-hidden', 'false');
+  }
+
+  function closePopup() {
+    modalOverlay.classList.remove('show');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  nodes.forEach(node => {
+    node.addEventListener('click', () => openModal(node.dataset.id));
+    node.setAttribute('tabindex', '0');
+    node.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal(node.dataset.id);
+      }
+    });
+  });
+
+  closeModal.addEventListener('click', closePopup);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closePopup();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
+  });
+</script>

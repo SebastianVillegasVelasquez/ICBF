@@ -39,16 +39,17 @@ export const course = {
             screens: [
                 //Testing
 
-                {
-                    type: "html-injection",
-                    htmlFile: "assets/revistas_didacticas/revista_didactica_m1_1.html",
-                },
-
                 // {
-                //     type: "custom",
-                //     html: "js/screens/front-page/front-page.html",
-                //     css: "css/front-page.css",
+                //     type: "html-injection",
+                //     htmlFile: "assets/revistas_didacticas/revista_didactica_m1_1.html",
                 // },
+
+
+                {
+                    type: "custom",
+                    html: "js/screens/front-page/front-page.html",
+                    css: "css/front-page.css",
+                },
             ],
         },
 
@@ -90,66 +91,6 @@ export const course = {
                     type: "default-content",
                     htmlFile: "assets/tabla-contenidos/tabla-contenido.html",
                 },
-                // {
-                //     type: "default-content",
-                //     contentHtml: renderCarousel({
-                //         slides: [
-                //             {
-                //                 icon: "",
-                //                 title: "MÓDULO 1. DERECHOS HUMANOS Y DERECHO INTERNACIONAL HUMANITARIO",
-                //                 objective: "Reconocer los Derechos Humanos y Derecho Internacional Humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en los contextos sociales, institucionales.",
-                //                 contents: [
-                //                     "Derechos Humanos",
-                //                     "Igualdad y no discriminación",
-                //                     "Derecho Internacional Humanitario"
-                //                 ]
-                //             },
-                //             {
-                //                 icon: "",
-                //                 title: "MÓDULO 2. PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
-                //                 objective: "Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.",
-                //                 contents: [
-                //                     "Derechos civiles y políticos",
-                //                     "Mecanismos de protección",
-                //                     "Mecanismos de participación ciudadana",
-                //                     "Veedurías ciudadanas"
-                //                 ]
-                //             },
-                //             {
-                //                 icon: "",
-                //                 title: "MÓDULO 3. DERECHOS ECONÓMICOS, SOCIALES Y CULTURALES Y SUS MECANISMOS DE PROTECCIÓN",
-                //                 objective: "Reconocer los Derechos Económicos, Sociales y Culturales y sus mecanismos de protección, para orientar acciones que contribuyan a la garantía integral de los derechos de niños, niñas y adolescentes.",
-                //                 contents: [
-                //                     "Los Derechos Económicos, Sociales y Culturales",
-                //                     "Mecanismos de protección de los Derechos Económicos, Sociales y Culturales"
-                //                 ]
-                //             },
-                //             {
-                //                 icon: "",
-                //                 title: "MÓDULO 4. DERECHOS COLECTIVOS Y AMBIENTALES",
-                //                 objective: "Identificar los derechos colectivos y ambientales, los mecanismos nacionales de protección y los enfoques de multiculturalidad y diversidad étnica, para orientar acciones de protección y respeto por los derechos de niños, niñas y adolescentes y de sus comunidades, en los contextos sociales, culturales y territoriales.",
-                //                 contents: [
-                //                     "Derechos colectivos",
-                //                     "Mecanismos nacionales de protección",
-                //                     "Multiculturalidad y diversidad étnica"
-                //                 ]
-                //             },
-                //             {
-                //                 icon: "",
-                //                 title: "MÓDULO 5. GRUPOS POBLACIONALES",
-                //                 objective: "Reconocer los derechos de los distintos grupos poblacionales desde un enfoque diferencial, para orientar acciones institucionales inclusivas, respetuosas y pertinentes en la protección y garantía de los derechos.",
-                //                 contents: [
-                //                     "Derechos de mujeres y niñas",
-                //                     "Derechos de niños, niñas y adolescentes",
-                //                     "Derechos de la comunidad LGBTIQ+",
-                //                     "Derechos de pueblos y comunidades indígenas",
-                //                     "Derechos de las personas migrantes y refugiadas",
-                //                     "Personas con discapacidad y personas mayores"
-                //                 ]
-                //             }
-                //         ]
-                //     })
-                // },
 
                 // PANTALLA 4 - Video animado de concepto básico
                 {
@@ -278,8 +219,7 @@ export const course = {
                 {
                     type: "default-content",
                     hideBackground: true,
-
-                    htmlFile: "assets/infografias/info-m1-2.html",
+                    htmlFile: "assets/infografias/info-m1-2-int.html"
                 },
 
                 // PANTALLA 10 - REVISTA DIDACTICA 3
@@ -308,6 +248,13 @@ export const course = {
 
                 // PANTALLA 13 - CASO DE ESTUDIO
 
+                {
+                    type: "default-content",
+                    hideBackground: true,
+
+                    htmlFile: "assets/actividades/estudio-casos-m1.html"
+                },
+                    // PANTALLA 14 - CAJA DE HERRAMIENTAS
                 {
                     type: "default-content",
                     hideBackground: true,
