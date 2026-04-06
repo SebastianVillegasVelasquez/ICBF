@@ -2,7 +2,8 @@ export function renderWelcome(route) {
   const {
     moduleTitle = "",
     introText = "",
-    subText=""
+    subText="",
+      percentage = 0,
   } = route;
 
 return `
@@ -23,8 +24,14 @@ return `
             <p class="hero-text">${introText}</p>
             <p class="hero-subtext">${subText}</p>
             
-            <div class="hero-progress-wrapper">
-            <div class="progress-bar-target"></div> 
+             <div class="hero-progress-wrapper">
+            <div class="progress-bar-percentage">${percentage}%</div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-percentage="${percentage}"></div>
+            </div>
+        </div>
+</div>
+<!--            <div class="progress-bar-target"></div> -->
             </div>
         </div>
     </div>

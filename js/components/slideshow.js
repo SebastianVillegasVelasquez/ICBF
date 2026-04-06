@@ -11,7 +11,7 @@ export function renderSlideshow(data) {
 
         return `
     <style>
-      .slideshow-wrapper { width: 100%; box-sizing: border-box; padding: 0.5rem 0; }
+      .slideshow-wrapper { width: 100%; height: 100%; box-sizing: border-box; padding: 0.5rem 0; }
       .slideshow-header-bar { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
       .slideshow-counter { font-size: 13px; font-weight: 700; color: #ffffff; background: #E8B800; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
       .slideshow-progress-track { flex: 1; height: 10px; background: #e5e7eb; border-radius: 10px; overflow: hidden; }

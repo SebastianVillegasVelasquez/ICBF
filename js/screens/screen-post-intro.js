@@ -3,6 +3,7 @@ export function renderPostIntro(route) {
         moduleTitle = "",
         introText = "",
         subText = "",
+        percentage = 0,
         elements: [] = []
     } = route;
 
@@ -16,9 +17,17 @@ export function renderPostIntro(route) {
                 <h1 class="mod-number">${moduleTitle}</h1>
                 <h2 class="mod-title">${introText}</h2>
                 <h3 class="mod-subtitle">${subText}</h3>
-               <div class="post-intro-progress-wrapper">
-                <div class="progress-bar-target"></div>
-                </div>
+                <div class="hero-progress-wrapper">
+            <div class="progress-bar-percentage">${percentage}%</div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" data-percentage="${percentage}"></div>
+            </div>
+        </div>
+                
+                
+<!--               <div class="post-intro-progress-wrapper">-->
+<!--                <div class="progress-bar-target"></div>-->
+<!--                </div>-->
             </div>
 
             <div class="ecosystem-illustration">

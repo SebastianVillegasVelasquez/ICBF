@@ -38,25 +38,6 @@ export const course = {
             title: "Portada",
             screens: [
                 //Testing
-
-                // {
-                //     type: "html-injection",
-                //     htmlFile: "assets/revistas_didacticas/revista_didactica_m1_1.html",
-                // },
-
-                {
-                    type: "end-module",
-                    moduleTitle: "Módulo 1",
-                    introText: "El suelo y las raíces del ecosistema",
-                    subText: "",
-                },
-
-                {
-                    type: "default-content",
-                    hideBackground: true,
-                    htmlFile: "assets/infografias/infografia-3-int.html"
-                },
-
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
@@ -271,10 +252,50 @@ export const course = {
                     type: "default-content",
                     hideBackground: true,
 
-                    htmlFile: "assets/actividades/estudio-casos-m1.html"
+                    htmlFile: "assets/caja-herramientas/caja_de_herramientas.html"
+                },
+                {
+                    type: "end-module",
+                    moduleTitle: "Módulo 1",
+                    introText: "El suelo y las raíces del ecosistema",
+                    subText: "",
+                    percentage: 20,
                 },
             ]
-        }
+        },
+        {
+            id:2,
+            title: 'Modulo 2: PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO',
+            screens: [
+                {
+                    type: "module-intro",
+                    moduleTitle: "Módulo 2",
+                    introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO\n",
+                    subText: "El aire y el flujo vital",
+                    percentage: 20,
+                },
+                {
+                    type: "post-intro",
+                    moduleTitle: "Módulo 1",
+                    introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
+                    subText: "El aire y el flujo vital",
+                    elements: [
+                        "Derechos civiles y políticoss",
+                        "Mecanismos de protección",
+                        "Mecanismos de participación ciudadana",
+                        "Veedurías ciudadanas"
+                    ],
+                    percentage: 20
+                },
+
+                {
+                    type: "default-content",
+                    hideBackground: true,
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
+                }
+            ]
+        },
+
 
     ]
 };

@@ -211,6 +211,19 @@ async function renderRoute(route) {
         // 4. Inyectar HTML
         appEl.innerHTML = html;
 
+        requestAnimationFrame(() => {
+            const fill = appEl.querySelector('.progress-bar-fill');
+
+            if (fill) {
+                const pct = fill.dataset.percentage || 0;
+
+                // pequeño delay para animación
+                setTimeout(() => {
+                    fill.style.width = `${pct}%`;
+                }, 100);
+            }
+        });
+
         if (route.type === 'html-injection' && route.htmlFile) {
             try {
                 const fileContent = await loadHTMLFile(route);

@@ -82,11 +82,10 @@
 /* ───────── PROGRESS ───────── */
 
 .hero-progress-wrapper {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    width: 100%;
-    max-width: clamp(280px, 80vw, 450px);
-    margin: clamp(15px, 3vh, 30px) auto 0;
+    justify-content: center;
+    /*gap: 8px;*/
 }
 
 .hero-progress-wrapper .progress-bar-percentage {
@@ -103,9 +102,9 @@
     box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
 }
 
-.hero-progress-wrapper .progress-bar-track {
+.progress-bar-track {
     position: relative;
-    flex: 1;
+    width: clamp(140px, 25vw, 260px);
     height: 28px;
     background: #81cac9;
     overflow: hidden;
@@ -116,52 +115,18 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 0%;
+    width: 20%;
     background: #E8B800;
     transition: width 0.4s ease;
 }
 
-/*.hero-progress-wrapper .progress-bar-percentage {*/
-/*    position: relative;*/
-/*    z-index: 4;*/
-/*    background: var(--teal-main, #008080);*/
-/*    color: var(--white, #ffffff);*/
-/*    font-size: clamp(0.65rem, 1.2vw, 0.85rem);*/
-/*    font-weight: 800;*/
-/*    padding: clamp(10px, 1.2vw, 16px) clamp(8px, 1.2vw, 14px);*/
-/*    margin-left: clamp(-2px, -0.5vw, -4px);*/
-/*    min-width: clamp(36px, 6vw, 48px);*/
-/*    text-align: center;*/
-/*    white-space: nowrap;*/
-/*    box-shadow: clamp(-0.5px, -0.1vw, -1px) clamp(0.5px, 0.2vw, 1px) clamp(2px, 0.5vw, 4px) rgba(0,0,0,0.12);*/
-/*}*/
 
-/*.hero-progress-wrapper .progress-bar-fill {*/
-/*    position: absolute;*/
-/*    left: 0;*/
-/*    top: 0;*/
-/*    height: 100%;*/
-/*    background: var(--yellow-main, #ffcc00);*/
-/*    width: 20%;*/
-/*    transition: width 0.4s ease;*/
-/*    border-radius: clamp(3px, 0.5vw, 5px) 0 0 clamp(3px, 0.5vw, 5px);*/
-/*    z-index: 1;*/
-/*}*/
+@media (min-width: 992px) and (max-width: 1440px) {
+    .progress-bar-track {
+        width: clamp(180px, 20vw, 300px);
+    }
 
-/*.hero-progress-wrapper .progress-bar-arrow {*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    transform: translateY(-50%);*/
-/*    z-index: 3;*/
-/*    width: 0;*/
-/*    height: 0;*/
-/*    border-style: solid;*/
-/*    border-width: clamp(12px, 2vw, 18px) 0 clamp(12px, 2vw, 18px) clamp(10px, 1.5vw, 16px);*/
-/*    border-color: transparent transparent transparent var(--yellow-main, #ffcc00);*/
-/*    transition: left 0.4s ease;*/
-/*    left: 20%;*/
-/*}*/
-
+}
 /* REGLAS MANUALES DE RESPALDO (Sin tocar Bootstrap) */
 @media (max-width: 576px) {
     .welcome-hero {
