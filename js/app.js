@@ -204,12 +204,12 @@ async function renderRoute(route) {
 
         if (route.type === 'html-injection' && route.htmlFile) {
             try {
-                const fileContent = await loadHTMLFile(route);
+                let fileContent = await loadHTMLFile(route);
 
-                const bodyMatch = fileContent.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-                if (bodyMatch) {
-                    fileContent = bodyMatch[1];
-                }
+                // const bodyMatch = fileContent.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+                // if (bodyMatch) {
+                //     fileContent = bodyMatch[1];
+                // }
 
                 const slot = appEl.querySelector('.injection-slot');
                 if (slot) {

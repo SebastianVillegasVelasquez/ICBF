@@ -41,8 +41,7 @@ export const course = {
 
                 {
                     type: "html-injection",
-                    htmlFile: "assets/infografias/linea-tiempo.html",
-                    css: "css/html-injection.css",
+                    htmlFile: "assets/revistas_didacticas/revista_didactica_m1_1.html",
                 },
 
                 // {
