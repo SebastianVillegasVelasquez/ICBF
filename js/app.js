@@ -375,44 +375,53 @@ async function loadHTMLFile(route) {
 
 const cssCache = new Set();
 
+const APP_VERSION = Date.now();
+
 function loadCSS(href) {
     return new Promise((resolve) => {
-        const resolvedHref = window.resolvePath(href);
+        // 1. Normalizar la ruta base y crear la URL con versión
+        const resolvedPath = window.resolvePath(href);
+        const versionedHref = `${resolvedPath}?v=${APP_VERSION}`;
 
-        // Verificar por el href normalizado en el cache
-        if (cssCache.has(resolvedHref)) {
+        // 2. Verificar si ya está en nuestro set de cache interno
+        if (cssCache.has(resolvedPath)) {
             resolve();
             return;
         }
 
-        // Verificar si ya existe en el DOM (por si se cargó fuera del sistema)
-        const existing = document.querySelector(`link[rel="stylesheet"]`);
+        // 3. Verificar si el elemento ya existe físicamente en el DOM (evita duplicados si se recarga la ruta)
         const alreadyInDOM = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-            .some(link => link.href.endsWith(resolvedHref) || link.href === resolvedHref);
+            .some(link => link.href.includes(resolvedPath));
 
         if (alreadyInDOM) {
-            cssCache.add(resolvedHref);
+            cssCache.add(resolvedPath);
             resolve();
             return;
         }
 
+        // 4. Crear el elemento link
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = resolvedHref;
+        link.href = versionedHref;
 
         link.onload = () => {
-            console.log(`[loadCSS] ✅ Cargado: ${resolvedHref}`);
-            cssCache.add(resolvedHref);
-            injectCSSVariables();
+            console.log(`[loadCSS] ✅ Cargado: ${resolvedPath}`);
+            cssCache.add(resolvedPath);
+
+            // Inyectamos variables CSS para asegurar que rutas dinámicas (imágenes) funcionen
+            if (typeof injectCSSVariables === 'function') {
+                injectCSSVariables();
+            }
             resolve();
         };
 
         link.onerror = () => {
-            console.error(`[loadCSS] ❌ Error cargando: ${resolvedHref}`);
-            console.warn(`[loadCSS] No se pudo cargar: ${resolvedHref}`);
-            resolve(); // No bloquear por CSS faltante
+            console.error(`[loadCSS] ❌ Error cargando: ${resolvedPath}`);
+            // Resolvemos de todos modos para no bloquear el renderizado de la página por un error de estilo
+            resolve();
         };
 
+        // 5. Inyectar en el head
         document.head.appendChild(link);
     });
 }
@@ -453,13 +462,10 @@ function injectCSSVariables() {
             background-image: url('${assetsPath}/img/arbol.png') !important;
         }
         
-        .screen-default-content {
-            background-image: url('${assetsPath}/img/background-defecto.png') !important;
-        }
         
-        .screen-default-content.no-background {
-        background-image: none !important;
-        background-color: #ffffff;
+        // .screen-default-content.no-background {
+        // background-image: none !important;
+        // background-color: #ffffff;
     }
     `;
     document.head.appendChild(styleEl);
