@@ -38,6 +38,28 @@ export const course = {
             title: "Portada",
             screens: [
                 //Testing
+
+                {
+                    type: "default-content",
+                    hideBackground: true,
+                    htmlFile: "assets/infografias/info-m1-2-int.html"
+                },
+
+                // PANTALLA 10 - REVISTA DIDACTICA 3
+                {
+                    type: "default-content",
+                    hideBackground: true,
+
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
+                },
+                // PANTALLA 11 - REVISTA DIDACTICA 4
+                {
+                    type: "default-content",
+                    hideBackground: true,
+
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-4.html",
+                },
+
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
@@ -190,7 +212,7 @@ export const course = {
                 {
                     type: "default-content",
                     hideBackground: true,
-                    htmlFile: "assets/revistas_didacticas/revista_didactica_m1_1.html"
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-1.html"
                 },
 
                 // PANTALLA 7 - INFOGRAFIA 1
