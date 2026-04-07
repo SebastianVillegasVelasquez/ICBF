@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Infografía interactiva - Infracciones al DIH</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f3f3f1;
@@ -16,13 +9,70 @@
   --shadow:0 26px 60px rgba(0,0,0,.14);
   --ease:cubic-bezier(.22,1,.36,1);
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text)}
-.page{min-height:100vh;flex:fit-content;  min-width:100%;padding:28px;display:flex;justify-content:center}
-.infographic{width:min(1600px,100%);background:var(--bg);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.08);position:relative;overflow:hidden;padding:34px 34px 40px}
-.infographic::before,.infographic::after{content:"";position:absolute;border-radius:50%;filter:blur(14px);pointer-events:none;opacity:.28}
-.infographic::before{width:240px;height:240px;right:-60px;top:-40px;background:radial-gradient(circle, rgba(97,168,167,.45), transparent 68%)}
-.infographic::after{width:280px;height:280px;left:-70px;bottom:-90px;background:radial-gradient(circle, rgba(200,212,90,.30), transparent 68%)}
+/**{box-sizing:border-box}*/
+/*body{margin:0;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text)}*/
+.page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Un pequeño margen de seguridad */
+  box-sizing: border-box;
+  overflow: hidden; /* Garantizamos NO scroll */
+}
+.infographic {
+  /* En lugar de un ancho fijo, usamos max-width/max-height */
+  width: 100%;
+  height: 100%;
+  max-width: 1400px; /* Te sugiero bajar de 1600 a 1400 para laptops estándar */
+  max-height: 85vh;   /* Evita que toque los bordes superior/inferior */
+
+  background: var(--bg);
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.08);
+  position: relative;
+
+  /* Importante: Flex para que el contenido interno también se ajuste */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  /* Padding responsivo */
+  padding: clamp(15px, 3vh, 34px);
+  box-sizing: border-box;
+}
+.infographic > div,
+.infographic section {
+  max-height: 100%;
+  width: 100%;
+  object-fit: contain; /* Si es una imagen o SVG lo escala sin deformar */
+}
+
+.infographic::before, .infographic::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(14px);
+  pointer-events: none;
+  opacity: .28;
+  z-index: 0;
+}
+.infographic::before {
+  width: 15vw;
+  height: 15vw;
+  right: -2%;
+  top: -2%;
+  background: radial-gradient(circle, rgba(97,168,167,.45), transparent 68%);
+}
+
+.infographic::after {
+  width: 20vw;
+  height: 20vw;
+  left: -5%;
+  bottom: -5%;
+  background: radial-gradient(circle, rgba(200,212,90,.30), transparent 68%);
+}
 .hero h1{margin:0;font-size:clamp(34px,4vw,62px);color:#1c3d33;line-height:1.02}
 .hero p{margin:12px 0 0;font-size:clamp(18px,1.3vw,24px);max-width:980px;color:#2d3632;line-height:1.5}
 .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:22px 0 28px}
@@ -296,5 +346,3 @@ window.addEventListener('resize', () => {
 startAutoSequence();
 renderDialog(1);
 </script>
-</body>
-</html>

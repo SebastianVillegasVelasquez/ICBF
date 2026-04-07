@@ -1,37 +1,17 @@
 /* ─────────────────────────────────────────────────────────
-   PANTALLA DE CONTENIDO DEFAULT - LAYOUT DE INYECCIÓN
+   PANTALLA DE CONTENIDO UNIFICADO (MODO FULL-SCREEN)
    ───────────────────────────────────────────────────────── */
-
-.screen-default-content.no-background {
-
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-
-
-    background-image: none !important;
-    background-color: transparent !important;
-}
-
 
 .screen-default-content {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
     position: relative;
-    background-color: var(--white);
-    overflow-x: hidden;
-
-    background-repeat: no-repeat;
-    background-position: calc(100% - 10px) calc(100% - 10px);
-    background-size: clamp(450px, 45vw, 800px) auto;
+    overflow: hidden;
 }
 
-/* Logos más discretos */
+/* Encabezado: Siempre flotando sobre el contenido */
 .screen-default-content .screen-header {
     position: absolute;
     top: 0;
@@ -40,186 +20,123 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 25px 45px;
-    z-index: 20;
+    padding: clamp(15px, 2.5vh, 25px) clamp(20px, 4vw, 45px);
+    z-index: 100;
     pointer-events: none;
 }
 
 .header-img-left img {
-    width: clamp(140px, 15vw, 220px);
+    width: clamp(120px, 12vw, 200px);
     height: auto;
     pointer-events: auto;
 }
 
 .header-img-right img {
-    width: clamp(70px, 7vw, 95px);
+    width: clamp(60px, 6vw, 90px);
     height: auto;
     pointer-events: auto;
 }
 
-/* ── LAYOUT DE CONTENIDO: Empujado a la izquierda ── */
-
+/* Layout Principal: Centrado absoluto */
 .main-layout {
-    flex: 1;
+    flex: 1; /* Ocupa todo el espacio entre el header y el footer */
     display: flex;
-    align-items: center;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
 
-    justify-content: center;
-
-    padding: 130px 0% 60px;
+    /* Espacio de seguridad para que el contenido no choque con los logos */
+    padding: clamp(60px, 10vh, 100px) 5% clamp(20px, 5vh, 40px);
     z-index: 10;
     box-sizing: border-box;
 }
 
 .content-slot {
     width: 100%;
-    max-width: 80%;
-
-    padding: clamp(15px, 2vw, 35px);
-    border-radius: 12px;
-    animation: fadeInContent 0.5s ease-out;
+    max-width: 1200px; /* Un ancho máximo razonable para lectura */
+    max-height: 100%;  /* No permite que el contenido se salga del área visible */
 
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    flex-direction: column;  /* Apila los elementos si hay más de uno */
-}
-
-.screen-default-content.is-infografia .content-slot .infografia {
-    width: 100%;
-    height: 100%;
-    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Garantiza que no haya scrollbars molestos */
+
+    position: relative;
+    transition: all 0.5s ease;
 }
 
-/* 2. Hacemos que el SVG escale proporcionalmente sin salirse de ese contenedor */
-.screen-default-content.is-infografia .content-slot svg {
-    max-width: 100% !important;
-    max-height: 100% !important;
-    width: auto !important;
-    height: auto !important;
-    display: block;
+.content-slot > * {
+    flex-shrink: 0; /* Evita que los elementos se aplasten */
 }
 
 .content-slot svg {
+    display: block;
+    margin: auto; /* Magia de Flexbox: Centrado perfecto si el contenedor es más grande */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Personaje Dinámico */
+.dynamic-character {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+
+    /* Leemos las variables del JS */
+    bottom: var(--char-y);
+    max-width: var(--char-mw);
+    transform: scale(var(--char-scale));
+
+    /* Posicionamiento dinámico Izquierda o Derecha */
+    left: var(--char-side-left, auto);
+    right: var(--char-side-right, auto);
+    transform-origin: bottom center;
+}
+
+/* Lógica para aplicar el lado correcto */
+[style*="--char-side: left"] .dynamic-character { left: var(--char-x); right: auto; transform-origin: bottom left; }
+[style*="--char-side: right"] .dynamic-character { right: var(--char-x); left: auto; transform-origin: bottom right; }
+
+.dynamic-character img { width: 100%; height: auto; display: block; }
+
+.dynamic-character img {
     width: 100%;
     height: auto;
-    max-height: 80vh; /* Para que no supere el alto de la pantalla */
     display: block;
-    margin: 0 auto; /* Lo centra */
 }
 
-/* Si quieres que en las infografías use TODO el espacio disponible */
-.screen-default-content.is-infografia .content-slot svg {
-    max-height: 100%;
-    width: auto;
-    max-width: 100%;
-}
+/*.dynamic-character {*/
+/*    transform: scale(var(--char-scale));*/
+/*    right: var(--char-x);*/
+/*}*/
 
-@keyframes fadeInContent {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-.screen-default-content.is-infografia {
-    height: 100vh !important;       /* Forzamos a que mida exactamente el alto visible */
-    max-height: 100vh !important;   /* No permitimos que crezca ni un pixel más */
-    /*overflow: hidden !important;*/
-    background-image: none !important;
-    background-color: transparent;
-    overflow: hidden;
-}
-
-.screen-default-content.is-infografia .screen-header {
-    position: absolute;
-    z-index: 100;
-}
-
-.screen-default-content.is-infografia .main-layout {
-    padding: 0 !important;
-    align-items: center !important;
-    height: 100vh;
-}
-
-.screen-default-content.is-infografia .content-slot {
-    max-width: 100% !important;
-    width: 100%;
-    height: 100%;
-    padding: 0 !important;
-    border-radius: 0;
-    margin: 0;
-    animation: none;
-
-    display: flex;
-    justify-content: center; /* Centrado horizontal */
-    align-items: center;     /* Centrado vertical */
-}
-
-/* Responsivo */
-@media (max-width: 1366px), (max-height: 800px) {
-    .screen-default-content.is-infografia .main-layout {
-        padding: 0 !important;
-    }
-    .screen-default-content.is-infografia .content-slot {
-        max-width: 100% !important;
-        padding: 0 !important;
-    }
-}
-
-@media (max-width: 1024px) {
-    .screen-default-content.is-infografia .main-layout {
-        padding: 0 !important;
-    }
-    .screen-default-content.is-infografia .content-slot {
-        max-width: 100% !important;
-        margin: 0 !important;
-    }
-}
 
 /* ─────────────────────────────────────────────────────────
-   RESPONSIVIDAD (Laptops y Tablets)
+   AJUSTES PARA LAPTOPS Y PORTÁTILES (RESPONSIVE)
    ───────────────────────────────────────────────────────── */
 
 @media (max-width: 1366px), (max-height: 800px) {
-
-    .screen-default-content .screen-header {
-        position: relative;
-        padding: 20px 35px;
-    }
-
-    .header-img-left img {
-        width: 200px;
-    }
-
-    .header-img-right img {
-        width: 90px;
-    }
-
     .main-layout {
+        padding-top: 80px; /* Un poco menos de aire en laptops */
+    }
+    .header-img-left img { width: 210px; }
+    .header-img-right img { width: 100px; }
 
-        padding: 30px 5% 40px;
+    /* Ajuste preventivo para que el personaje no tape mucho en pantallas bajas */
+    .dynamic-character {
+        bottom: var(--char-y-res);
+        max-width: var(--char-mw-res);
+        transform: scale(var(--char-scale-res));
     }
 
-    .content-slot {
-        max-width: 80%;
-        padding: 30px;
-    }
+    /* Aplicar X responsivo según el lado */
+    [style*="--char-side: left"] .dynamic-character { left: var(--char-x-res); }
+    [style*="--char-side: right"] .dynamic-character { right: var(--char-x-res); }
 }
 
 @media (max-width: 1024px) {
-    .main-layout {
-        justify-content: center;
-        padding: 100px 25px 50px;
-    }
-
-    .content-slot {
-        max-width: 95%;
-        margin: 0 auto;
-    }
-
-    .screen-default-content {
-        background-size: 350px auto;
+    .dynamic-character {
+        max-width: 280px !important; /* Forzamos reducción en tablets */
+        opacity: 0.8;
     }
 }

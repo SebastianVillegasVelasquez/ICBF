@@ -6,59 +6,16 @@ export const course = {
     title: "Ecosistema de los Derechos Humanos",
 
     modules: [
-        // ─────────────────────────────────────────────────────────
-        // CONFIGURACIÓN DE PANTALLAS
-        // ─────────────────────────────────────────────────────────
-        // Tipos soportados:
-        //   - "module-intro"    : Pantalla de bienvenida con título
-        //   - "post-intro"      : Pantalla resumen post-módulo
-        //   - "video"           : Pantalla de video
-        //   - "content"         : Pantalla con componentes (carousel, cards, etc)
-        //   - "custom"          : Pantalla HTML personalizada + CSS dinámico
-        //   - "default-layout"  : Layout con imágenes izq/derecha + contenido central
-        //
-        // NUNCA USAR RUTAS ABSOLUTAS (/assets/...)
-        // SIEMPRE USAR: window.resolvePath('assets/img/nombre.png')
-        // Esto garantiza funcionamiento en cualquier entorno:
-        //   - localhost
-        //   - subcarpetas
-        //   - Hostinger/producción
-        //
-        // Ejemplo correcto en screen-*.js:
-        //   <img src="${window.resolvePath('assets/img/logo.png')}" />
-        //
-        // REGLA PARA CSS: Las backgrounds ya se inyectan automáticamente
-        // desde app.js con injectCSSVariables(), solo agregar la clase
-        // CSS sin background-image y dejar que app.js lo maneje.
-        // ─────────────────────────────────────────────────────────
-
-
         // FRONT PAGE
         {
             title: "Portada",
             screens: [
                 //Testing
-
-                // {
-                //     type: "default-content",
-                //     htmlFile: "assets/tabla-contenidos/tabla-contenido-int.html",
-                // },
-
                 {
-                    type: "post-intro",
-                    moduleTitle: "Módulo 1",
-                    introText: "Derechos humanos y derecho internacional humanitario",
-                    subText: "El suelo y las raíces del ecosistema",
-                    topics: [
-                        "Derechos humanos",
-                        "Igualdad y no discriminación",
-                        "Derecho internacional humanitario"
-                    ],
-                    characterImageConfig: {
-                        url: "assets/img/personajes/tres_personajes.png",
-                        size: "contain"
-                    },
-                    percentage: 0
+                    type: "default-content",
+                    hideBackground: true,
+
+                    htmlFile: "assets/infografias/infografia-3-int.html"
                 },
                 {
                     type: "custom",
@@ -130,13 +87,18 @@ export const course = {
                 {
                     type: "post-intro",
                     moduleTitle: "Módulo 1",
-                    introText: "El suelo y las raíces del ecosistema",
-                    subText: "",
-                    elements: [
+                    introText: "Derechos humanos y derecho internacional humanitario",
+                    subText: "El suelo y las raíces del ecosistema",
+                    topics: [
                         "Derechos humanos",
                         "Igualdad y no discriminación",
                         "Derecho internacional humanitario"
-                    ]
+                    ],
+                    characterImageConfig: {
+                        url: "assets/img/personajes/tres_personajes.png",
+                        size: "contain"
+                    },
+                    percentage: 0
                 },
                 // PANTALLA 3 - JUSTIFICACION MODULO 1
                 {
@@ -211,8 +173,34 @@ export const course = {
 
                 {
                     type: "default-content",
-                    hideBackground: true,
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-1.html"
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-1.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/hombre.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '-10px',
+                            yOffset: '80px',
+                            scale: 1,
+                            maxWidth: '450px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '-20px',
+                                yOffset: '0px',
+                                scale: 0.9,
+                                maxWidth: '310px'
+                            }
+                        }
+                    }
                 },
 
                 // PANTALLA 7 - INFOGRAFIA 1
@@ -226,8 +214,34 @@ export const course = {
 
                 {
                     type: "default-content",
-                    hideBackground: true,
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-2.html"
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-2.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/niña_sentada.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '50px',
+                            yOffset: '80px',
+                            scale: 1,
+                            maxWidth: '400px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '10px',
+                                yOffset: '0px',
+                                scale: 0.8,
+                                maxWidth: '300px'
+                            }
+                        }
+                    }
                 },
 
                 // PANTALLA 9 - INFOGRAFIA 2
@@ -240,26 +254,71 @@ export const course = {
                 // PANTALLA 10 - REVISTA DIDACTICA 3
                 {
                     type: "default-content",
-                    hideBackground: true,
-
                     htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/niño-revista-3.png',
+                        characterConfig: {
+                            side: 'right',
+                            xOffset: '50px',
+                            yOffset: '80px',
+                            scale: 1,
+                            maxWidth: '600px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '50px',
+                                yOffset: '0px',
+                                scale: 1,
+                                maxWidth: '400px'
+                            }
+                        }
+                    }
                 },
                 // PANTALLA 11 - REVISTA DIDACTICA 4
                 {
                     type: "default-content",
-                    hideBackground: true,
-
                     htmlFile: "assets/revistas_didacticas/revista-didactica-m1-4.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/niña-revista-4.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '50px',
+                            yOffset: '40px',
+                            scale: 0.8,
+                            maxWidth: '600px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '-30px',
+                                yOffset: '-50px',
+                                scale: 0.7,
+                                maxWidth: '400px'
+                            }
+                        }
+                    }
                 },
 
                 // PANTALLA 12 - REVISTA DIDACTICA 5
 
-                {
-                    type: "default-content",
-                    hideBackground: true,
 
-                    htmlFile: "assets/infografias/info-m1-3.html"
-                },
 
                 // PANTALLA 13 - CASO DE ESTUDIO
 

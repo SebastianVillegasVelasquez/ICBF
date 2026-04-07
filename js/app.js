@@ -23,7 +23,7 @@ import {renderWelcome} from './screens/screen-module-intro.js';
 import {renderVideo} from './screens/screen-video.js';
 import {renderPostIntro} from "./screens/screen-post-intro.js";
 import {renderScreenContentDefault} from './screens/screen-content-default.js';
-import {renderHtmlInjectionScreen} from './screens/screen-html-injection.js';
+// import {renderHtmlInjectionScreen} from './screens/screen-html-injection.js';
 import {renderModuleEnd} from "./screens/screen-end-module.js";
 
 // ── Registro de componentes ────────────────────────────────────
@@ -108,13 +108,13 @@ const SCREEN_REGISTRY = {
         showPdf: false,
         render: (route) => renderScreenContentDefault(route)
     },
-    "html-injection": {
-        render: renderHtmlInjectionScreen,
-        layout: 'full',
-        showNav: true,
-        showPdf: false,
-        css: "css/html-injection.css",
-    },
+    // "html-injection": {
+    //     render: renderHtmlInjectionScreen,
+    //     layout: 'full',
+    //     showNav: true,
+    //     showPdf: false,
+    //     css: "css/html-injection.css",
+    // },
     'content': {
         css: 'css/components.css',
         layout: 'default',

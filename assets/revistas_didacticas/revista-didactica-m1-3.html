@@ -1,8 +1,14 @@
 <style>
   :root{--t1:#81CAC9;--t2:#569E9A;--vd:#0B4923;--lm:#94B55A;--yw:#E8C208;--paper:#FAFAF7;--cream:#F4F2EC;--fog:#E4E0D6;}
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html,body{width:100%;height:100%;overflow:hidden;font-family:"Nunito",sans-serif;background:#D0CCC4;display:flex;align-items:center;justify-content:center;}
-  #book{width:980px;height:576px;position:relative;display:flex;align-items:stretch;filter:drop-shadow(0 20px 50px rgba(0,0,0,.22)) drop-shadow(0 4px 12px rgba(0,0,0,.14));border-radius:6px;overflow:hidden;}
+  /**,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}*/
+  /*html,body{width:100%;height:100%;overflow:hidden;font-family:"Nunito",sans-serif;background:#D0CCC4;display:flex;align-items:center;justify-content:center;}*/
+  #book{width:980px;height:550px;position:relative;display:flex;align-items:stretch;filter:drop-shadow(0 20px 50px rgba(0,0,0,.22)) drop-shadow(0 4px 12px rgba(0,0,0,.14));border-radius:6px;overflow:hidden;transform: translate(-250px, 0px);}
+
+  @media (max-width: 1366px), (max-height: 800px) {
+    #book {
+      transform: translate(-120px, 30px);
+    }
+  }
   #spine{width:14px;height:100%;flex-shrink:0;background:linear-gradient(90deg,rgba(0,0,0,.2) 0%,rgba(255,255,255,.1) 35%,rgba(0,0,0,.08) 60%,rgba(0,0,0,.24) 100%);position:relative;z-index:10;}
   #lp{width:490px;height:100%;background:var(--paper);position:relative;overflow:hidden;flex-shrink:0;display:flex;flex-direction:column;}
   #lp::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(270deg,rgba(0,0,0,.05) 0%,transparent 9%);z-index:0;}
@@ -161,8 +167,6 @@
   }
 
 </style>
-</head>
-<body>
 <div id="book">
   <div id="lp">
     <div class="lph">
