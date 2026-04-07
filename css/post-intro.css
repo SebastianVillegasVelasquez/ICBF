@@ -68,11 +68,11 @@ html, body {
 
 
 .ecosystem-illustration {
-    transform: translateY(-60px);
+    transform: translateY(-20px);
 }
 
 .ecosystem-illustration img {
-    max-width: clamp(300px, 35vw, 700px);
+    max-width: clamp(150px, 25vw, 420px);
     height: auto;
     display: block;
 }
@@ -97,7 +97,7 @@ html, body {
 }
 
 .topics-list {
-    transform: translateY(20px);
+    transform: translateY(50px);
     list-style: none;
     padding: 0;
     margin: 0;
@@ -105,7 +105,7 @@ html, body {
     flex-direction: column;
     gap: clamp(12px, 2.2vh, 24px);
     width: 100%;
-    align-items: flex-end;
+    align-items: flex-end
 }
 
 .topics-list li {
@@ -135,10 +135,15 @@ html, body {
     margin-top: auto;
     margin-bottom: clamp(10px, 3vh, 30px);
     width: 100%;
-    transform: translateY(-30px);
+
     display: flex;
-    justify-content: flex-end;
+    justify-content: right;
+    align-items: center;
+    gap: 35px;
+
+    transform: translateY(-30px);
 }
+
 
 .ingresar-btn {
     background-color: #fedb02;
@@ -153,6 +158,7 @@ html, body {
     white-space: nowrap;
 }
 
+
 .ingresar-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 clamp(3px, 0.5vw, 6px) clamp(9px, 1.5vw, 15px) rgba(232, 194, 8, 0.4);
@@ -162,6 +168,61 @@ html, body {
     color: #569e9a !important;
     font-weight: 900;
     font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+}
+
+
+.download-mod-btn {
+    background-color: #539e99;
+    border: none;
+    border-radius: 18px;
+
+    width: 120px;          /* controla proporción */
+    height: 180px;         /* alto tipo card */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    padding: 20px 12px;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.download-mod-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.download-icon-circle {
+    background-color: #ffffff;
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-icon-circle svg {
+
+    width: 25px;
+    height: 25px;
+
+}
+
+.download-mod-btn span {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.70rem;
+    line-height: 1.3;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .arrow-circle {
@@ -188,7 +249,6 @@ html, body {
     left: 0;
     width: 100%;
     height: clamp(30px, 5vh, 60px);
-    background: #e8c208;
     border-top-left-radius: 80px;
     border-top-right-radius: 80px;
     z-index: 1;
@@ -251,9 +311,14 @@ html, body {
     .mod-subtitle { font-size: 1.3rem; margin-bottom: 15px; }
 
     /* 3. Apretamos un poco las listas de temas y la subimos para centrarla */
+    .summary-right {
+        justify-content: center; /* Centra verticalmente el contenido derecho */
+        padding-bottom: 50px;
+    }
+
     .topics-list {
-        gap: 12px; /* Espacio más cerrado entre ítems */
-        transform: translateY(50px);
+        margin: auto 0; /* Empuja la lista al centro del espacio disponible */
+        transform: translateY(40px); /* Quitamos el translate para que el 'auto' haga su trabajo */
     }
     .topics-list li {
         font-size: 1.3rem;
@@ -261,7 +326,7 @@ html, body {
 
     /* 4. Bajamos la escala de la ilustración gigante */
     .ecosystem-illustration img {
-        max-width: 550px;
+        max-width: 350px;
     }
     .ecosystem-illustration {
         transform: translateY(-40px); /* Ajustamos para que no tape los textos */
@@ -270,9 +335,36 @@ html, body {
     /* 5. Apretamos la separación de botones */
     .button-wrapper {
         margin-bottom: 15px;
-        transform: translateY(-30px);
+        transform: translateY(50px);
 
     }
+
+    .download-icon-circle svg {
+
+        width: 15px;
+        height: 15px;
+
+    }
+
+    .download-icon-circle {
+
+        width: 40px;
+        height: 50px;
+
+    }
+
+    .download-mod-btn{
+        width: 100px;
+        height: 130px;
+    }
+
+    .download-mod-btn span {
+        font-weight: 500;
+        font-size: 0.60rem;
+
+    }
+
+
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -335,13 +427,18 @@ html, body {
     }
 
     .button-wrapper {
+
+        flex-direction: row; /* Mantener lado a lado en móvil si hay espacio */
         justify-content: center;
-        margin-top: 30px;
+        flex-wrap: wrap; /* Si el móvil es muy pequeño, uno bajará del otro */
     }
 
-    .ingresar-btn {
-        width: 100%;
-        max-width: 420px;
-        justify-content: center;
+    .download-mod-btn span {
+        font-size: 0.1rem;
+    }
+
+    .ingresar-btn, .download-mod-btn {
+        flex: 1; /* Crecen por igual */
+        max-width: 200px;
     }
 }

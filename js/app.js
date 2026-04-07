@@ -253,14 +253,16 @@ async function renderRoute(route) {
 
         const progressContainer = appEl.querySelector('.progress-bar-target');
 
-        if (progressContainer) {
-            progressBar.renderTo(progressContainer);
-            requestAnimationFrame(() => {
-                progressBar.update(currentIndex, totalRoutes, visitedSet);
-            });
-        } else {
-            progressBar.unmount();
-        }
+
+        // Descomentar si queremos mostrar la barra de progreso dentro de la pantalla (en vez de la fija en el header)
+        // if (progressContainer) {
+        //     progressBar.renderTo(progressContainer);
+        //     requestAnimationFrame(() => {
+        //         progressBar.update(currentIndex, totalRoutes, visitedSet);
+        //     });
+        // } else {
+        //     progressBar.unmount();
+        // }
 
         // 5. Inicializar componentes (solo para pantallas de contenido)
         if (route.type === 'content' || route.type === 'default-content') {

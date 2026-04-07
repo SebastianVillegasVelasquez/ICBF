@@ -39,27 +39,27 @@ export const course = {
             screens: [
                 //Testing
 
+                // {
+                //     type: "default-content",
+                //     htmlFile: "assets/tabla-contenidos/tabla-contenido-int.html",
+                // },
+
                 {
-                    type: "default-content",
-                    hideBackground: true,
-                    htmlFile: "assets/infografias/info-m1-2-int.html"
+                    type: "post-intro",
+                    moduleTitle: "Módulo 1",
+                    introText: "Derechos humanos y derecho internacional humanitario",
+                    subText: "El suelo y las raíces del ecosistema",
+                    topics: [
+                        "Derechos humanos",
+                        "Igualdad y no discriminación",
+                        "Derecho internacional humanitario"
+                    ],
+                    characterImageConfig: {
+                        url: "assets/img/personajes/tres_personajes.png",
+                        size: "contain"
+                    },
+                    percentage: 0
                 },
-
-                // PANTALLA 10 - REVISTA DIDACTICA 3
-                {
-                    type: "default-content",
-                    hideBackground: true,
-
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
-                },
-                // PANTALLA 11 - REVISTA DIDACTICA 4
-                {
-                    type: "default-content",
-                    hideBackground: true,
-
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-4.html",
-                },
-
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
