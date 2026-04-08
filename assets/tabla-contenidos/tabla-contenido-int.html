@@ -1,15 +1,15 @@
 <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{width:100%;min-height:100%}
-    body{
-      font-family:"Nunito",sans-serif;
-      color:#18312a;
-      background:
-              radial-gradient(circle at 10% 10%, rgba(129,202,201,.12), transparent 26%),
-              radial-gradient(circle at 90% 12%, rgba(232,194,8,.12), transparent 24%),
-              linear-gradient(180deg,#fbfcfb 0%,#f4f8f6 48%,#eef5f1 100%);
-      overflow-x:hidden;
-    }
+    /**{box-sizing:border-box;margin:0;padding:0}*/
+    /*html,body{width:100%;min-height:100%}*/
+    /*body{*/
+    /*  font-family:"Nunito",sans-serif;*/
+    /*  color:#18312a;*/
+    /*  background:*/
+    /*          radial-gradient(circle at 10% 10%, rgba(129,202,201,.12), transparent 26%),*/
+    /*          radial-gradient(circle at 90% 12%, rgba(232,194,8,.12), transparent 24%),*/
+    /*          linear-gradient(180deg,#fbfcfb 0%,#f4f8f6 48%,#eef5f1 100%);*/
+    /*  overflow-x:hidden;*/
+    /*}*/
 
     :root{
       --turquesa-claro:#81CAC9;
@@ -26,7 +26,7 @@
 
     body::before{
       content:"";
-      position:fixed;
+      position:relative;
       inset:0;
       background-image:
               linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px),
@@ -40,6 +40,7 @@
       position:relative;
       padding:32px 24px 8px;
       text-align:center;
+      transform: translate(-50px, 50px);
     }
     .hero::after{
       content:"";
@@ -99,6 +100,7 @@
     .mapa{
       position:relative;
       width:min(1350px,96vw);
+      transform: translate(-90px);
       margin:0 auto 18px;
       padding:18px 18px 34px;
     }

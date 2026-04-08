@@ -11,12 +11,6 @@ export const course = {
             title: "Portada",
             screens: [
                 //Testing
-                // {
-                //     type: "default-content",
-                //     hideBackground: true,
-                //
-                //     htmlFile: "assets/infografias/infografia-3-int.html"
-                // },
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",

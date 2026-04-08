@@ -115,12 +115,17 @@
    AJUSTES PARA LAPTOPS Y PORTÁTILES (RESPONSIVE)
    ───────────────────────────────────────────────────────── */
 
-@media (max-width: 1366px), (max-height: 800px) {
+@media (max-width: 1400px){
     .main-layout {
-        padding-top: 80px; /* Un poco menos de aire en laptops */
+        padding-top: 80px;
+        margin-right: 50px;
     }
-    .header-img-left img { width: 210px; }
-    .header-img-right img { width: 100px; }
+    .header-img-left img { width: 170px; }
+    .header-img-right img { width: 75px; }
+
+    .screen-default-content .screen-header {
+        padding: 15px 20px 15px 20px; /* Reducimos el padding del header */
+    }
 
     /* Ajuste preventivo para que el personaje no tape mucho en pantallas bajas */
     .dynamic-character {
