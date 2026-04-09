@@ -11,37 +11,12 @@ export const course = {
             title: "Portada",
             screens: [
 
-                // PANTALLA 10 - REVISTA DIDACTICA 3
                 {
-                    type: "default-content",
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
-                    GraphicResources: {
-                        // Nuevas propiedades para logos del header
-                        headerLogos: {
-                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
-                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
-                        },
-                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
-                        backgroundConfig: {
-                            size: 'cover',
-                            position: 'center'
-                        },
-                        characterUrl: '/assets/img/personajes/niño-revista-3.png',
-                        characterConfig: {
-                            side: 'right',
-                            xOffset: '50px',
-                            yOffset: '80px',
-                            scale: 1,
-                            maxWidth: '600px',
-                            // Configuración para laptops/pantallas bajas
-                            responsive: {
-                                xOffset: '50px',
-                                yOffset: '0px',
-                                scale: 1,
-                                maxWidth: '400px'
-                            }
-                        }
-                    }
+                    type: "module-intro",
+                    moduleTitle: "Módulo 2",
+                    introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO\n",
+                    subText: "El aire y el flujo vital",
+                    percentage: 20,
                 },
 
                 {
@@ -427,9 +402,35 @@ export const course = {
 
                 {
                     type: "default-content",
-                    hideBackground: true,
                     htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
-                }
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/niña-revista-4.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '50px',
+                            yOffset: '40px',
+                            scale: 0.8,
+                            maxWidth: '600px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '-30px',
+                                yOffset: '-50px',
+                                scale: 0.7,
+                                maxWidth: '400px'
+                            }
+                        }
+                    }
+                },
             ]
         },
 
