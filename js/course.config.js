@@ -10,7 +10,6 @@ export const course = {
         {
             title: "Portada",
             screens: [
-               
 
                 {
                     type: "custom",
@@ -364,13 +363,15 @@ export const course = {
                     htmlFile: "assets/actividades/podcast.html",
                 },
 
-                    // PANTALLA 14 - CAJA DE HERRAMIENTAS
+                 // PANTALLA 14 - CAJA DE HERRAMIENTAS
                 {
-                    type: "default-content",
-                    hideBackground: true,
-
-                    htmlFile: "assets/caja-herramientas/caja_de_herramientas.html"
+                    type: "custom",
+                    html: "assets/caja-herramientas/caja_de_herramientas.html",
+                    css: "css/caja-herramientas.css"
                 },
+
+
+                                // MÓDULO FINAL - PANTALLA DE CIERRE
                 {
                     type: "end-module",
                     moduleTitle: "Módulo 1",
@@ -378,6 +379,8 @@ export const course = {
                     subText: "",
                     percentage: 20,
                 },
+
+                
             ]
         },
         {

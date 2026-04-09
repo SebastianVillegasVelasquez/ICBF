@@ -1,1130 +1,862 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El ecosistema de los derechos humanos y DIH</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
 <style>
-    :root {
-        --t1: #00A8A8;
-        --t2: #007C7A;
-        --vd: #0B4923;
-        --lm: #6FBF3A;
-        --yw: #F2B705;
-        --ink: #1A1A1A;
-        --paper: #FAFAF7;
-        --cream: #F4F2EC;
-        --fog: #E4E0D6;
-    }
-
-    /**,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}*/
-    /*html,body{width:100%;height:100%;overflow:hidden;font-family:"Nunito",sans-serif;background:#D0CCC4;display:flex;align-items:center;justify-content:center;}*/
-
-    /* ── RADIOS ── */
-    .pr {
-        display: none;
-    }
-
-    /* ── BOOK ── */
-    #book {
-        width: 1400px;
-        height: 730px;
-        position: absolute;
-        transform: translate(70px, 0px);
-        display: flex;
-        align-items: stretch;
-        filter: drop-shadow(0 20px 50px rgba(0, 0, 0, .22)) drop-shadow(0 4px 12px rgba(0, 0, 0, .14));
-        border-radius: 6px;
-        overflow: hidden;
-    }
-
-    #book *{
-        font-size: 1.1rem !important;
-    }
-
-    @media (max-width: 1400px) {
-        #book {
-            width: 1000px;
-            height: 520px;
-            transform: translate(70px, 20px);
-        }
-
-        #book *{
-            font-size: 0.9rem;
-        }
-
-        #lp, #rp {
-            width: 10px;
-        }
-
-    }
-
-    /* ── TWO HALVES ── */
-    #lp, #rp {
-        width: 470px;
-        height: 100%;
-        background: var(--paper);
-        position: relative;
-        overflow: hidden;
-        flex-shrink: 0;
-    }
-
-    #lp::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(270deg, rgba(0, 0, 0, .05) 0%, transparent 9%);
-    }
-
-    #rp::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(90deg, rgba(0, 0, 0, .05) 0%, transparent 9%);
-    }
-
-    #spine {
-        width: 14px;
-        height: 100%;
-        flex-shrink: 0;
-        background: linear-gradient(90deg, rgba(0, 0, 0, .2) 0%, rgba(255, 255, 255, .1) 35%, rgba(0, 0, 0, .08) 60%, rgba(0, 0, 0, .24) 100%);
-        position: relative;
-        z-index: 10;
-    }
-
-    /* ── PANELS ── */
-    .lv, .rv {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .3s ease;
-        padding: 22px 26px 16px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    /* cada spread muestra su panel izquierdo Y derecho */
-    #p0:checked ~ #book #lp .lv.s0,
-    #p1:checked ~ #book #lp .lv.s1,
-    #p2:checked ~ #book #lp .lv.s2,
-    #p0:checked ~ #book #rp .rv.s0,
-    #p1:checked ~ #book #rp .rv.s1,
-    #p2:checked ~ #book #rp .rv.s2 {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    /* ── ARROWS ── */
-    .arr {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: rgba(11, 73, 35, .07);
-        border: 1.5px solid rgba(11, 73, 35, .14);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all .18s;
-        z-index: 30;
-    }
-
-    .arr:hover {
-        background: var(--vd);
-        border-color: var(--vd);
-    }
-
-    .arr:hover svg {
-        stroke: white;
-    }
-
-    .arr svg {
-        width: 12px;
-        height: 12px;
-        stroke: var(--vd);
-        transition: stroke .18s;
-    }
-
-    .ap {
-        left: 6px;
-    }
-
-    .an {
-        right: 6px;
-    }
-
-    #p0:checked ~ #book .an.n1 {
-        display: flex;
-        position: fixed;
-    }
-
-    #p1:checked ~ #book .an.n2 {
-        display: flex;
-    }
-
-    #p1:checked ~ #book .ap.n0 {
-        display: flex;
-    }
-
-    #p2:checked ~ #book .ap.n1 {
-        display: flex;
-    }
-
-    /* ── DOTS ── */
-    #dots {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 5px;
-        z-index: 30;
-    }
-
-    .dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: rgba(11, 73, 35, .15);
-        cursor: pointer;
-        display: block;
-        transition: all .2s;
-    }
-
-    #p0:checked ~ #book .d0,
-    #p1:checked ~ #book .d1,
-    #p2:checked ~ #book .d2 {
-        background: var(--vd);
-        transform: scale(1.5);
-    }
-
-    /* ══ TOKENS ══ */
-    .lbl {
-        font-size: 30px;
-        font-weight: 800;
-        letter-spacing: 2.5px;
-        text-transform: uppercase;
-        color: var(--t2);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .lbl-dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--t2);
-        flex-shrink: 0;
-    }
-
-    .h1 {
-        font-size: 19px;
-        font-weight: 900;
-        color: var(--vd);
-        line-height: 1.18;
-        margin-top: 5px;
-    }
-
-    .h1 em {
-        color: var(--t2);
-        font-style: normal;
-    }
-
-    .acc {
-        height: 3px;
-        width: 30px;
-        background: linear-gradient(90deg, var(--yw), var(--lm));
-        border-radius: 99px;
-        margin: 6px 0 0;
-    }
-
-    .body {
-        font-size: 10.5px;
-        line-height: 1.78;
-        color: #4a4a4a;
-        text-align: justify;
-    }
-
-    .body strong {
-        color: var(--vd);
-        font-weight: 700;
-    }
-
-    .hl {
-        background: #F0F8F7;
-        border-left: 3px solid var(--t2);
-        border-radius: 0 8px 8px 0;
-        padding: 9px 12px;
-        font-size: 10px;
-        color: #2a5a58;
-        line-height: 1.65;
-        font-style: italic;
-        font-weight: 600;
-    }
-
-    .hl-y {
-        background: #FDFCEF;
-        border-left-color: var(--yw);
-        color: #6a5200;
-    }
-
-    .hl-g {
-        background: #F0F7F0;
-        border-left-color: var(--lm);
-        color: #2a4a20;
-    }
-
-    .hl em {
-        font-style: normal;
-        font-weight: 800;
-    }
-
-    .row {
-        display: flex;
-        gap: 7px;
-    }
-
-    .card {
-        flex: 1;
-        border-radius: 9px;
-        padding: 12px 11px 10px;
-        font-size: 14px;
-        line-height: 1.6;
-        color: #4a4a4a;
-        background: var(--cream);
-        border: 1px solid var(--fog);
-        transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease, border-color .22s ease;
-        transform: translateY(0);
-        box-shadow: 0 1px 0 rgba(255, 255, 255, .65) inset;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 14px 24px rgba(0, 0, 0, .14), 0 3px 0 rgba(255, 255, 255, .55) inset;
-    }
-
-    .cn {
-        display: none;
-    }
-
-    .ct {
-        font-weight: 800;
-        font-size: 10px;
-        margin-bottom: 2px;
-        display: block;
-        color: var(--ink);
-    }
-
-    .c-t {
-        border-top: 2.5px solid var(--t2);
-    }
-
-    .c-l {
-        border-top: 2.5px solid var(--lm);
-    }
-
-    .c-y {
-        border-top: 2.5px solid var(--yw);
-    }
-
-    .c-g {
-        border-top: 2.5px solid var(--vd);
-    }
-
-    .c-t:hover {
-        background: #eef9f9;
-        border-color: rgba(0, 168, 168, .28);
-    }
-
-    .c-l:hover {
-        background: #f3faea;
-        border-color: rgba(111, 191, 58, .3);
-    }
-
-    .c-y:hover {
-        background: #fff8df;
-        border-color: rgba(242, 183, 5, .34);
-    }
-
-    .c-g:hover {
-        background: #eef4ef;
-        border-color: rgba(11, 73, 35, .28);
-    }
-
-    table.t {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    table.t thead tr {
-        border-bottom: 2px solid var(--vd);
-    }
-
-    table.t th {
-        font-size: 8px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: var(--vd);
-        padding: 6px 8px;
-        text-align: left;
-    }
-
-    table.t td {
-        padding: 6px 8px;
-        font-size: 10px;
-        color: #4a4a4a;
-        border-bottom: 1px solid var(--fog);
-    }
-
-    table.t td:first-child {
-        font-weight: 800;
-        color: var(--vd);
-        font-size: 14px;
-    }
-
-    table.t tr:last-child td {
-        border-bottom: none;
-    }
-
-    .tl {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .tli {
-        display: flex;
-        gap: 11px;
-        position: relative;
-        transition: transform .28s ease, filter .28s ease;
-        animation: tlFloat 4.8s ease-in-out infinite;
-    }
-
-    .tli:nth-child(2) {
-        animation-delay: .45s;
-    }
-
-    .tli:nth-child(3) {
-        animation-delay: .9s;
-    }
-
-    .tli:nth-child(4) {
-        animation-delay: 1.35s;
-    }
-
-    .tli:hover {
-        transform: translateX(8px) scale(1.015);
-        filter: drop-shadow(0 10px 18px rgba(11, 73, 35, .12));
-    }
-
-    .tli:hover .tl-n {
-        transform: scale(1.12);
-        box-shadow: 0 10px 18px rgba(0, 0, 0, .18);
-    }
-
-    .tli:hover .tl-b {
-        background: linear-gradient(90deg, rgba(255, 255, 255, .95), rgba(240, 248, 247, .9));
-        border-color: rgba(0, 124, 122, .14);
-    }
-
-    .tli:hover .tl-y {
-        color: var(--t2);
-    }
-
-    .tli:hover .tl-v {
-        background: linear-gradient(180deg, var(--t2), var(--lm));
-    }
-
-    .tl-s {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 22px;
-        flex-shrink: 0;
-    }
-
-    .tl-n {
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 9px;
-        font-weight: 900;
-        color: white;
-        transition: transform .28s ease, box-shadow .28s ease;
-        animation: tlPulse 2.8s ease-in-out infinite;
-    }
-
-    .tli:nth-child(2) .tl-n {
-        animation-delay: .35s;
-    }
-
-    .tli:nth-child(3) .tl-n {
-        animation-delay: .7s;
-    }
-
-    .tli:nth-child(4) .tl-n {
-        animation-delay: 1.05s;
-    }
-
-    .tl-v {
-        width: 2px;
-        flex: 1;
-        min-height: 6px;
-        background: var(--fog);
-        transition: background .28s ease, transform .28s ease;
-        animation: tlGlow 2.8s ease-in-out infinite;
-    }
-
-    .tli:nth-child(2) .tl-v {
-        animation-delay: .3s;
-    }
-
-    .tli:nth-child(3) .tl-v {
-        animation-delay: .6s;
-    }
-
-    .tli:nth-child(4) .tl-v {
-        animation-delay: .9s;
-    }
-
-    .tl-b {
-        flex: 1;
-        padding: 4px 8px 9px 0;
-        border-radius: 12px;
-        border: 1px solid transparent;
-        transition: background .28s ease, border-color .28s ease, transform .28s ease;
-    }
-
-    .tl-y {
-        font-size: 14px;
-        font-weight: 800;
-        color: var(--vd);
-        transition: color .28s ease;
-    }
-
-    .tl-d {
-        font-size: 9px;
-        color: #555;
-        line-height: 1.55;
-    }
-
-    @keyframes tlFloat {
-        0%, 100% {
-            transform: translateX(0) translateY(0);
-        }
-        50% {
-            transform: translateX(2px) translateY(-2px);
-        }
-    }
-
-    @keyframes tlPulse {
-        0%, 100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-        }
-        50% {
-            transform: scale(1.08);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, .12);
-        }
-    }
-
-    @keyframes tlGlow {
-        0%, 100% {
-            opacity: .7;
-        }
-        50% {
-            opacity: 1;
-        }
-    }
-
-    .pf {
-        padding-top: 6px;
-        border-top: 1px solid var(--fog);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .pfn {
-        width: 18px;
-        height: 18px;
-        border-radius: 6px;
-        background: var(--vd);
-        color: white;
-        font-size: 8px;
-        font-weight: 900;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* ── COVER ── */
-    .cov-stripe {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 5px;
-        background: linear-gradient(180deg, var(--t2), var(--lm), var(--yw));
-        z-index: 2;
-        pointer-events: none;
-    }
-
-    .cov-geo1 {
-        position: absolute;
-        top: -50px;
-        right: -60px;
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        background: radial-gradient(circle, var(--t1), var(--lm));
-        opacity: .1;
-        pointer-events: none;
-    }
-
-    .cov-geo2 {
-        position: absolute;
-        bottom: -30px;
-        left: -20px;
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background: var(--yw);
-        opacity: .08;
-        pointer-events: none;
-    }
-
-    .bird-w {
-        position: absolute;
-        top: 18px;
-        right: 22px;
-        width: 30px;
-        opacity: .45;
-        animation: bf 4s ease-in-out infinite;
-        pointer-events: none;
-    }
-
-    @keyframes bf {
-        0%, 100% {
-            transform: translateY(0) rotate(-5deg);
-        }
-        50% {
-            transform: translateY(-7px) rotate(4deg);
-        }
-    }
-
-    .eco-t {
-        font-size: 22px;
-        font-weight: 900;
-        color: var(--vd);
-        line-height: 1.12;
-    }
-
-    .eco-t .tc {
-        color: var(--t2);
-    }
-
-    .dih-p {
-        display: inline-block;
-        background: var(--yw);
-        color: var(--vd);
-        font-size: 8px;
-        font-weight: 900;
-        padding: 3px 10px;
-        border-radius: 5px;
-        margin-top: 6px;
-    }
-
-    .chip {
-        background: var(--cream);
-        border: 1.5px solid var(--fog);
-        border-radius: 7px;
-        padding: 4px 9px;
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--vd);
-    }
-
-    .cov-foot {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-top: 7px;
-        border-top: 1px solid var(--fog);
-    }
-
-    .cov-mod {
-        background: var(--vd);
-        color: white;
-        font-size: 8.5px;
-        font-weight: 900;
-        padding: 4px 12px;
-        border-radius: 7px;
-    }
-
-    /* ── INDEX ── */
-    .idx-wm {
-        position: absolute;
-        bottom: -14px;
-        right: -4px;
-        font-size: 110px;
-        font-weight: 900;
-        color: rgba(11, 73, 35, .04);
-        line-height: 1;
-        pointer-events: none;
-        user-select: none;
-    }
-
-    .idx-hd {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-    }
-
-    .idx-bar {
-        width: 3px;
-        height: 20px;
-        background: linear-gradient(180deg, var(--t2), var(--lm));
-        border-radius: 2px;
-    }
-
-    .idx-title {
-        font-size: 18px;
-        font-weight: 900;
-        color: var(--vd);
-    }
-
-    .idx-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-        flex: 1;
-        justify-content: space-evenly;
-    }
-
-    .ii {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        padding: 7px 10px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
-        background: rgba(255, 255, 255, .45);
-        border: 1px solid transparent;
-    }
-
-    .ii:hover {
-        background: #f3f8f7;
-        transform: translateX(4px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, .08);
-        border-color: rgba(0, 124, 122, .12);
-    }
-
-    .inum {
-        width: 22px;
-        height: 22px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 8.5px;
-        font-weight: 900;
-        color: white;
-        flex-shrink: 0;
-    }
-
-    .itx {
-        flex: 1;
-    }
-
-    .itx strong {
-        font-size: 15px;
-        font-weight: 800;
-        color: var(--vd);
-        display: block;
-        line-height: 1.3;
-    }
-
-    .itx span {
-        font-size: 12.5px;
-        color: #666;
-        line-height: 1.35;
-        display: block;
-        margin-top: 2px;
-    }
-
-    .ipg {
-        font-size: 10px;
-        font-weight: 800;
-        color: #9a9a9a;
-    }
-
-    .isep {
-        height: 1px;
-        background: var(--fog);
-    }
-
-    .itip {
-        background: var(--cream);
-        border-radius: 8px;
-        padding: 7px 10px;
-        font-size: 14px;
-        color: #888;
-        line-height: 1.55;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        border: 1px solid var(--fog);
-    }
-
-    .itip-i {
-        width: 17px;
-        height: 17px;
-        border-radius: 5px;
-        background: var(--t2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
+:root{
+  --t1:#00A8A8;--t2:#007C7A;--vd:#0B4923;--lm:#6FBF3A;--yw:#F2B705;
+  --ink:#1A1A1A;--paper:#FAFAF7;--cream:#F4F2EC;--fog:#E4E0D6;
+
+  /* DIMENSIONES EDITABLES */
+  --book-width: 980px;
+  --book-height: 576px;
+  --spine-width: 14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:"Nunito",sans-serif;background:#D0CCC4;display:flex;align-items:center;justify-content:center;}
+
+/* ── RADIOS ── */
+.pr{display:none;}
+
+/* ── BOOK ── */
+#book{width:min(var(--book-width), calc(100vw - 24px));aspect-ratio:980/576;height:auto;max-height:calc(100vh - 24px);
+  position:relative;
+  display:flex;align-items:stretch;
+  filter:drop-shadow(0 20px 50px rgba(0,0,0,.22)) drop-shadow(0 4px 12px rgba(0,0,0,.14));
+  border-radius:6px;overflow:hidden;
+}
+
+/* ── TWO HALVES ── */
+#lp,#rp{
+  width:calc((var(--book-width) - var(--spine-width)) / 2);height:100%;
+  background:var(--paper);
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+#lp::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(270deg,rgba(0,0,0,.05) 0%,transparent 9%);}
+#rp::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.05) 0%,transparent 9%);}
+#spine{width:var(--spine-width);height:100%;flex-shrink:0;background:linear-gradient(90deg,rgba(0,0,0,.2) 0%,rgba(255,255,255,.1) 35%,rgba(0,0,0,.08) 60%,rgba(0,0,0,.24) 100%);position:relative;z-index:10;}
+
+/* ── PANELS ── */
+.lv,.rv{
+  position:absolute;inset:0;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+  padding:22px 26px 16px;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+}
+
+/* cada spread muestra su panel izquierdo Y derecho */
+#p0:checked ~ #book #lp .lv.s0,
+#p1:checked ~ #book #lp .lv.s1,
+#p2:checked ~ #book #lp .lv.s2,
+#p0:checked ~ #book #rp .rv.s0,
+#p1:checked ~ #book #rp .rv.s1,
+#p2:checked ~ #book #rp .rv.s2
+{opacity:1;pointer-events:all;}
+
+/* ── ARROWS ── */
+.arr{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(11,73,35,.07);border:1.5px solid rgba(11,73,35,.14);display:none;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;z-index:30;}
+.arr:hover{background:var(--vd);border-color:var(--vd);}
+.arr:hover svg{stroke:white;}
+.arr svg{width:12px;height:12px;stroke:var(--vd);transition:stroke .18s;}
+.ap{left:6px;}.an{right:6px;}
+#p0:checked ~ #book .an.n1{display:flex;}
+#p1:checked ~ #book .an.n2{display:flex;}
+#p1:checked ~ #book .ap.n0{display:flex;}
+#p2:checked ~ #book .ap.n1{display:flex;}
+
+/* ── DOTS ── */
+#dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:30;}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(11,73,35,.15);cursor:pointer;display:block;transition:all .2s;}
+#p0:checked ~ #book .d0,
+#p1:checked ~ #book .d1,
+#p2:checked ~ #book .d2
+{background:var(--vd);transform:scale(1.5);}
+
+/* ══ TOKENS ══ */
+.lbl{font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--t2);display:flex;align-items:center;gap:5px;}
+.lbl-dot{width:5px;height:5px;border-radius:50%;background:var(--t2);flex-shrink:0;}
+.h1{font-size:19px;font-weight:900;color:var(--vd);line-height:1.18;margin-top:5px;}
+.h1 em{color:var(--t2);font-style:normal;}
+.acc{height:3px;width:30px;background:linear-gradient(90deg,var(--yw),var(--lm));border-radius:99px;margin:6px 0 0;}
+.body{font-size:10.5px;line-height:1.78;color:#4a4a4a;text-align:justify;}
+.body strong{color:var(--vd);font-weight:700;}
+.hl{background:#F0F8F7;border-left:3px solid var(--t2);border-radius:0 8px 8px 0;padding:9px 12px;font-size:10px;color:#2a5a58;line-height:1.65;font-style:italic;font-weight:600;}
+.hl-y{background:#FDFCEF;border-left-color:var(--yw);color:#6a5200;}
+.hl-g{background:#F0F7F0;border-left-color:var(--lm);color:#2a4a20;}
+.hl em{font-style:normal;font-weight:800;}
+.row{display:flex;gap:7px;}
+.card{flex:1;border-radius:9px;padding:12px 11px 10px;font-size:14px;line-height:1.6;color:#4a4a4a;background:var(--cream);border:1px solid var(--fog);transition:transform .22s ease, box-shadow .22s ease, background-color .22s ease, border-color .22s ease;transform:translateY(0);box-shadow:0 1px 0 rgba(255,255,255,.65) inset;}
+.card:hover{transform:translateY(-5px);box-shadow:0 14px 24px rgba(0,0,0,.14),0 3px 0 rgba(255,255,255,.55) inset;}
+.cn{display:none;}
+.ct{font-weight:800;font-size:10px;margin-bottom:2px;display:block;color:var(--ink);}
+.c-t{border-top:2.5px solid var(--t2);}
+.c-l{border-top:2.5px solid var(--lm);}
+.c-y{border-top:2.5px solid var(--yw);}
+.c-g{border-top:2.5px solid var(--vd);}
+.c-t:hover{background:#eef9f9;border-color:rgba(0,168,168,.28);}
+.c-l:hover{background:#f3faea;border-color:rgba(111,191,58,.3);}
+.c-y:hover{background:#fff8df;border-color:rgba(242,183,5,.34);}
+.c-g:hover{background:#eef4ef;border-color:rgba(11,73,35,.28);}
+table.t{width:100%;border-collapse:collapse;}
+table.t thead tr{border-bottom:2px solid var(--vd);}
+table.t th{font-size:8px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--vd);padding:6px 8px;text-align:left;}
+table.t td{padding:6px 8px;font-size:10px;color:#4a4a4a;border-bottom:1px solid var(--fog);}
+table.t td:first-child{font-weight:800;color:var(--vd);font-size:14px;}
+table.t tr:last-child td{border-bottom:none;}
+.tl{display:flex;flex-direction:column;}
+.tli{display:flex;gap:11px;position:relative;transition:transform .28s ease, filter .28s ease;animation:none;}
+.tli:nth-child(2){animation-delay:.45s;}
+.tli:nth-child(3){animation-delay:.9s;}
+.tli:nth-child(4){animation-delay:1.35s;}
+.tli:hover{transform:translateX(8px) scale(1.015);filter:drop-shadow(0 10px 18px rgba(11,73,35,.12));}
+.tli:hover .tl-n{transform:scale(1.12);box-shadow:0 10px 18px rgba(0,0,0,.18);}
+.tli:hover .tl-b{background:linear-gradient(90deg,rgba(255,255,255,.95),rgba(240,248,247,.9));border-color:rgba(0,124,122,.14);}
+.tli:hover .tl-y{color:var(--t2);}
+.tli:hover .tl-v{background:linear-gradient(180deg,var(--t2),var(--lm));}
+.tl-s{display:flex;flex-direction:column;align-items:center;width:22px;flex-shrink:0;}
+.tl-n{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:white;transition:transform .28s ease, box-shadow .28s ease;animation:none;}
+.tli:nth-child(2) .tl-n{animation-delay:.35s;}
+.tli:nth-child(3) .tl-n{animation-delay:.7s;}
+.tli:nth-child(4) .tl-n{animation-delay:1.05s;}
+.tl-v{width:2px;flex:1;min-height:6px;background:var(--fog);transition:background .28s ease, transform .28s ease;animation:none;}
+.tli:nth-child(2) .tl-v{animation-delay:.3s;}
+.tli:nth-child(3) .tl-v{animation-delay:.6s;}
+.tli:nth-child(4) .tl-v{animation-delay:.9s;}
+.tl-b{flex:1;padding:4px 8px 9px 0;border-radius:12px;border:1px solid transparent;transition:background .28s ease, border-color .28s ease, transform .28s ease;}
+.tl-y{font-size:14px;font-weight:800;color:var(--vd);transition:color .28s ease;}
+.tl-d{font-size:9px;color:#555;line-height:1.55;}
+@keyframes tlFloat{0%,100%{transform:translateX(0) translateY(0);}50%{transform:translateX(2px) translateY(-2px);}}
+@keyframes tlPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 rgba(0,0,0,0);}50%{transform:scale(1.08);box-shadow:0 6px 14px rgba(0,0,0,.12);}}
+@keyframes tlGlow{0%,100%{opacity:.7;}50%{opacity:1;}}
+.pf{padding-top:6px;border-top:1px solid var(--fog);display:flex;justify-content:space-between;align-items:center;}
+.pfn{width:18px;height:18px;border-radius:6px;background:var(--vd);color:white;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+
+/* ── COVER ── */
+.cov-stripe{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--t2),var(--lm),var(--yw));z-index:2;pointer-events:none;}
+.cov-geo1{position:absolute;top:-50px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--t1),var(--lm));opacity:.1;pointer-events:none;}
+.cov-geo2{position:absolute;bottom:-30px;left:-20px;width:150px;height:150px;border-radius:50%;background:var(--yw);opacity:.08;pointer-events:none;}
+.bird-w{position:absolute;top:18px;right:22px;width:30px;opacity:.45;animation:none;pointer-events:none;}
+@keyframes bf{0%,100%{transform:translateY(0)rotate(-5deg);}50%{transform:translateY(-7px)rotate(4deg);}}
+.eco-t{font-size:22px;font-weight:900;color:var(--vd);line-height:1.12;}
+.eco-t .tc{color:var(--t2);}
+.dih-p{display:inline-block;background:var(--yw);color:var(--vd);font-size:8px;font-weight:900;padding:3px 10px;border-radius:5px;margin-top:6px;}
+.chip{background:var(--cream);border:1.5px solid var(--fog);border-radius:7px;padding:4px 9px;font-size:12px;font-weight:800;color:var(--vd);}
+.cov-foot{display:flex;justify-content:flex-end;align-items:center;padding-top:7px;border-top:1px solid var(--fog);}
+.cov-mod{background:var(--vd);color:white;font-size:8.5px;font-weight:900;padding:4px 12px;border-radius:7px;}
+
+/* ── INDEX ── */
+.idx-wm{position:absolute;bottom:-14px;right:-4px;font-size:110px;font-weight:900;color:rgba(11,73,35,.04);line-height:1;pointer-events:none;user-select:none;}
+.idx-hd{display:flex;align-items:center;gap:9px;}
+.idx-bar{width:3px;height:20px;background:linear-gradient(180deg,var(--t2),var(--lm));border-radius:2px;}
+.idx-title{font-size:18px;font-weight:900;color:var(--vd);}
+.idx-list{display:flex;flex-direction:column;gap:1px;flex:1;justify-content:space-evenly;}
+.ii{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:10px;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;background:rgba(255,255,255,.45);border:1px solid transparent;}
+.ii:hover{background:#f3f8f7;transform:translateX(4px);box-shadow:0 8px 16px rgba(0,0,0,.08);border-color:rgba(0,124,122,.12);}
+.inum{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:900;color:white;flex-shrink:0;}
+.itx{flex:1;}
+.itx strong{font-size:15px;font-weight:800;color:var(--vd);display:block;line-height:1.3;}
+.itx span{font-size:12.5px;color:#666;line-height:1.35;display:block;margin-top:2px;}
+.ipg{font-size:10px;font-weight:800;color:#9a9a9a;}
+.isep{height:1px;background:var(--fog);}
+.itip{background:var(--cream);border-radius:8px;padding:7px 10px;font-size:14px;color:#888;line-height:1.55;display:flex;align-items:center;gap:7px;border:1px solid var(--fog);}
+.itip-i{width:17px;height:17px;border-radius:5px;background:var(--t2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* CONTROLES */
+#bookControls{
+position:absolute;
+top:10px;
+right:10px;
+z-index:9999;
+display:flex;
+gap:6px;
+}
+#bookControls button{
+background:rgba(0,0,0,0.6);
+color:white;
+border:none;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+font-size:14px;
+}
+#bookControls button:hover{
+background:rgba(0,0,0,0.8);
+}
+
+
+
+/* PROGRESO + GUÍA + BLOQUEO */
+#progressShell{position:absolute;left:18px;right:18px;top:14px;z-index:40;display:flex;align-items:center;gap:12px;pointer-events:none;}
+#progressShell .progress-meta{min-width:140px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.92);border:1px solid rgba(11,73,35,.09);backdrop-filter:blur(8px);box-shadow:0 8px 22px rgba(0,0,0,.08);font-size:11px;font-weight:800;color:var(--vd);display:flex;justify-content:space-between;gap:10px;pointer-events:auto;}
+#progressTrack{height:12px;flex:1;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(11,73,35,.10);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.08),0 8px 22px rgba(0,0,0,.06);pointer-events:auto;}
+#progressFill{height:100%;width:0%;background:linear-gradient(90deg,var(--t2),var(--lm),var(--yw));transition:width .35s ease;}
+#helpBtn{position:absolute;left:12px;top:12px;z-index:60;width:36px;height:36px;border:none;border-radius:50%;background:rgba(255,255,255,.94);color:var(--vd);font-weight:900;cursor:pointer;box-shadow:0 12px 24px rgba(0,0,0,.12);}
+#helpBtn:hover{transform:translateY(-1px);}
+#navGuide{position:absolute;inset:0;z-index:70;background:rgba(8,27,16,.45);display:none;align-items:center;justify-content:center;padding:18px;}
+#navGuide.open{display:flex;}
+ .guide-card{width:min(560px,92vw);background:white;border-radius:18px;padding:20px 22px;border:1px solid rgba(11,73,35,.1);box-shadow:0 26px 70px rgba(0,0,0,.22);}
+ .guide-card h3{font-size:20px;color:var(--vd);margin-bottom:8px;}
+ .guide-card p{font-size:13px;line-height:1.6;color:#52615b;}
+ .guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 16px;}
+ .guide-item{border:1px solid var(--fog);border-radius:12px;padding:12px;background:#fafcfb;}
+ .guide-item strong{display:block;font-size:12px;color:var(--vd);margin-bottom:4px;}
+ .guide-item span{font-size:12px;line-height:1.5;color:#5c6a64;display:block;}
+ .guide-actions{display:flex;justify-content:flex-end;gap:10px;}
+ .guide-actions button{border:none;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer;}
+ .btn-soft{background:#edf5f2;color:var(--vd);}
+ .btn-main{background:var(--vd);color:white;}
+#gateCard{
+position:fixed;
+right:20px;
+top:50%;
+transform:translateY(-50%);
+z-index:200;
+width:280px;
+background:white;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+padding:14px;
+font-size:12px;
+max-height:72vh;
+overflow:auto;
+}
+
+#gateCard.hidden{display:none;}
+#gateCard .gate-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;}
+#gateCard .gate-title{font-size:13px;font-weight:900;color:var(--vd);}
+#gateCard .gate-chip{font-size:10px;font-weight:900;color:var(--t2);background:#edf7f7;border-radius:999px;padding:4px 8px;}
+#gateCard .gate-copy{font-size:11.5px;line-height:1.55;color:#5a6660;margin-bottom:10px;}
+#gateChecklist{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+.gate-check{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:10px;background:#fafcfb;border:1px solid var(--fog);font-size:11.5px;color:#495650;}
+.gate-check input{margin-top:2px;accent-color:var(--vd);}
+.gate-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+#gateStatus{font-size:10.5px;color:#6a756f;font-weight:700;}
+#completeSectionBtn{border:none;border-radius:10px;background:var(--vd);color:white;font-weight:800;padding:10px 12px;cursor:pointer;}
+#completeSectionBtn[disabled]{opacity:.45;cursor:not-allowed;}
+
+#autoProgressWrap{margin-top:10px;}
+#autoProgressBar{width:100%;height:10px;background:#e9ece8;border-radius:999px;overflow:hidden;}
+#autoProgressFill{height:100%;width:0%;background:linear-gradient(90deg,var(--t1),var(--vd));transition:width .35s ease;}
+#autoMeta{display:flex;justify-content:space-between;gap:10px;margin-top:8px;font-size:10.5px;color:#6a756f;font-weight:800;}
+#autoHint{margin-top:10px;padding:10px 11px;border-radius:10px;background:#f6f8f7;color:#4b5650;line-height:1.35;}
+#autoRequirements{margin-top:10px;padding-left:18px;color:#31443a;line-height:1.4;}
+#autoRequirements li+li{margin-top:6px;}
+
+
+
+#gateTab{left:-46px;width:46px;height:128px;font-size:12px;}
+}
+
+}
+
+#lockToast{position:fixed;right:20px;bottom:20px;z-index:200;background:rgba(11,73,35,.95);color:white;padding:10px 12px;border-radius:12px;font-size:11.5px;font-weight:700;display:none;max-width:280px;box-shadow:0 14px 30px rgba(0,0,0,.24);}
+#lockToast.show{display:block;animation:none;}
+@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.locked-nav{opacity:.38 !important;filter:grayscale(.2);}
+@media (max-width: 840px){
+  #progressShell{left:12px;right:12px;top:58px;}
+  #progressShell .progress-meta{min-width:112px;font-size:10px;padding:6px 8px;}
+  #gateCard{
+position:fixed;
+right:20px;
+top:50%;
+transform:translateY(-50%);
+z-index:200;
+width:280px;
+background:white;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+padding:14px;
+font-size:12px;
+max-height:72vh;
+overflow:auto;
+}
+
+  .guide-grid{grid-template-columns:1fr;}
+}
+
+
+#progressShell{
+  min-width:320px;
+}
+.progress-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+#progressStatus{
+  margin-top:8px;
+  font-size:11px;
+  line-height:1.35;
+  color:#335046;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(11,73,35,.08);
+  border-radius:10px;
+  padding:7px 10px;
+}
+#progressStatus strong{
+  color:var(--vd);
+}
+@media (max-width:700px){
+  #progressShell{
+    min-width:0;
+    width:calc(100% - 90px);
+  }
+  #progressStatus{
+    font-size:10px;
+    padding:6px 8px;
+  }
+}
+
+
+/* AJUSTES RESPONSIVE */
+@media (max-width: 900px){
+  html,body{
+    overflow:auto;
+    align-items:flex-start;
+    justify-content:center;
+  }
+  #book{
+    width:calc(100vw - 16px);
+    max-height:none;
+    margin:8px auto;
+  }
+  #progressShell{
+    width:min(94%, 540px);
+  }
+}
+
+@media (max-width: 700px){
+  #book{
+    width:100vw;
+    border-radius:0;
+    margin:0;
+  }
+  #progressShell{
+    top:8px;
+    left:8px;
+    right:8px;
+    width:auto;
+    transform:none;
+  }
+  #bookControls{
+    right:8px;
+    bottom:8px;
+  }
+}
+
+/* QUITAR MOVIMIENTOS CONTINUOS QUE GENERAN BORROSIDAD */
+[class*="timeline"] *,
+[class*="linea"] *,
+[class*="step"] *,
+[class*="item"] *{
+  animation:none;
+}
+
+/* MICROINTERACCIONES SOLO EN HOVER */
+.timeline-item,
+.tl-item,
+.step-item,
+.point-item,
+.marker-item,
+.card,
+.badge,
+.chip{
+  transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, filter .18s ease;
+  will-change:auto;
+}
+
+.timeline-item:hover,
+.tl-item:hover,
+.step-item:hover,
+.point-item:hover,
+.marker-item:hover,
+.card:hover,
+.badge:hover,
+.chip:hover{
+  transform:translateX(4px);
+  filter:none;
+}
+
+/* Evita blur por transformaciones agresivas */
+.timeline-item *,
+.tl-item *,
+.step-item *,
+.point-item *,
+.marker-item *{
+  backface-visibility:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
 </style>
+</head>
+<body>
 
 <input type="radio" class="pr" name="pg" id="p0" checked>
 <input type="radio" class="pr" name="pg" id="p1">
 <input type="radio" class="pr" name="pg" id="p2">
 
 <div id="book">
-    <div id="lp">
 
-        <!-- ══ S0 IZQUIERDA: Portada ══ -->
-        <div class="lv s0" style="padding:0;overflow:hidden">
-            <div class="cov-stripe"></div>
-            <div class="cov-geo1"></div>
-            <div class="cov-geo2"></div>
-            <svg class="bird-w" viewBox="0 0 60 40" fill="none">
-                <path d="M5 20 Q15 8 30 14 Q45 8 55 18 Q45 22 30 18 Q15 26 5 20Z" fill="#E8C208"/>
-                <circle cx="48" cy="14" r="3" fill="#0B4923"/>
-                <path d="M50 16 L58 12" stroke="#0B4923" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            <div style="height:100%;padding:24px 26px 18px 30px;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2;">
-                <div style="display:inline-flex;align-items:center;gap:7px;background:var(--vd);color:white;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:99px;width:fit-content">
-                    <svg width="7" height="7" viewBox="0 0 8 8">
-                        <circle cx="4" cy="4" r="4" fill="#E8C208"/>
-                    </svg>
-                    Módulo 1 ·
-                </div>
-                <div>
-                    <div class="eco-t">El ecosistema<br>de los <span class="tc">derechos</span><br>humanos y</div>
-                    <div class="dih-p">Derecho Internacional Humanitario</div>
-                    <div class="body" style="margin-top:10px">Conoce los DDHH como un <strong>ecosistema vivo</strong>:
-                        fundamentos, historia y marco normativo colombiano para quienes trabajan por la dignidad.
-                    </div>
-                </div>
-                <div>
-                    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">
-                        <div class="chip">Universales</div>
-                        <div class="chip">Inalienables</div>
-                        <div class="chip">Indivisibles</div>
-                        <div class="chip">Progresivos</div>
-                    </div>
-                    <div class="cov-foot">
-                        <div class="cov-mod">Módulo 1</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══ S1 IZQUIERDA: Página 2 — Definición ══ -->
-        <div class="lv s1">
-            <div>
-                <div class="lbl">
-                    <div class="lbl-dot"></div>
-                    Página 2
-                </div>
-                <div class="h1">¿Qué son los<br><em>Derechos Humanos?</em></div>
-                <div class="acc"></div>
-            </div>
-            <div class="body">Son derechos <strong>inherentes</strong> de todos los seres humanos, independientemente de
-                su nacionalidad, lugar de residencia, sexo, origen nacional o étnico, color, religión, lengua, o
-                cualquier otra condición. Por eso, llamamos <strong>universales</strong> a los derechos humanos.
-            </div>
-            <div class="body">La mayoría de los países han integrado los derechos humanos en su legislación nacional,
-                bajo el amparo del <strong>derecho internacional</strong>. En este marco, los <strong>Estados</strong>
-                son los principales responsables de promover y proteger estos derechos, ya sea para individuos o
-                colectivos.
-            </div>
-            <div class="hl"><em>La noción de derechos humanos se puede relacionar con la afirmación de la dignidad de la
-                persona frente al Estado</em>, pues al reconocer a la persona como ser humano, solo por el hecho de
-                serlo, implica que se le reconozca como portadora de estos derechos.
-            </div>
-            <div class="row">
-                <div class="card c-t"><span class="ct">Universales</span>Para todos los seres humanos sin distinción de
-                    ningún tipo.
-                </div>
-                <div class="card c-g"><span class="ct">Responsables</span>Los <strong>Estados</strong> promueven y
-                    protegen los DDHH para individuos y colectivos.
-                </div>
-            </div>
-            <div class="pf"><span></span>
-                <div class="pfn">2</div>
-            </div>
-        </div>
-
-        <!-- ══ S2 IZQUIERDA: Página 4 — Historia ══ -->
-        <div class="lv s2">
-            <div>
-                <div class="lbl" style="color:var(--yw)">
-                    <div class="lbl-dot" style="background:var(--yw)"></div>
-                    Página 4
-                </div>
-                <div class="h1" style="margin-top:5px">Breve <em style="color:var(--yw)">Historia</em><br>de los DDHH
-                </div>
-                <div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
-            </div>
-            <div class="body">Aunque la denominación «derechos humanos» surgió tras el fin de la Segunda Guerra Mundial,
-                a lo largo de la historia comunidades de diversas culturas manifestaron la importancia de sus derechos
-                fundamentales.
-            </div>
-            <div class="tl">
-                <div class="tli">
-                    <div class="tl-s">
-                        <div class="tl-n" style="background:var(--t2)">1</div>
-                        <div class="tl-v"></div>
-                    </div>
-                    <div class="tl-b">
-                        <div class="tl-y">Siglos XVII–XVIII</div>
-                        <div class="tl-d">Las revoluciones dieron especial relevancia a la <strong>libertad y la
-                            igualdad ante la ley</strong> y al desarrollo de derechos fundamentales.
-                        </div>
-                    </div>
-                </div>
-                <div class="tli">
-                    <div class="tl-s">
-                        <div class="tl-n" style="background:var(--lm)">2</div>
-                        <div class="tl-v"></div>
-                    </div>
-                    <div class="tl-b">
-                        <div class="tl-y">Revolución Industrial</div>
-                        <div class="tl-d">Los cambios en las relaciones laborales gestaron los <strong>derechos
-                            económicos, sociales y culturales</strong>.
-                        </div>
-                    </div>
-                </div>
-                <div class="tli">
-                    <div class="tl-s">
-                        <div class="tl-n" style="background:var(--yw);color:var(--vd)">3</div>
-                        <div class="tl-v"></div>
-                    </div>
-                    <div class="tl-b">
-                        <div class="tl-y">1945 · Fundación de la ONU</div>
-                        <div class="tl-d">Los Estados fundan la <strong>ONU</strong>. Su Carta fue el primer tratado
-                            universal que afirma la fe en los derechos fundamentales y la dignidad humana.
-                        </div>
-                    </div>
-                </div>
-                <div class="tli">
-                    <div class="tl-s">
-                        <div class="tl-n" style="background:var(--vd)">4</div>
-                    </div>
-                    <div class="tl-b">
-                        <div class="tl-y">1948 · Declaración Universal</div>
-                        <div class="tl-d">Acuerdo entre países miembros de la ONU para <strong>respetar y
-                            proteger</strong> las garantías más esenciales del ser humano.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hl hl-g"><em>Las atrocidades en los campos de concentración</em> impulsaron la creación de
-                mecanismos internacionales para evitar nuevas violaciones masivas a la dignidad humana.
-            </div>
-            <div class="pf"><span></span>
-                <div class="pfn">4</div>
-            </div>
-        </div>
-
-    </div><!-- /lp -->
-    <div id="spine"></div>
-    <div id="rp">
-
-        <!-- ══ S0 DERECHA: Índice ══ -->
-        <div class="rv s0">
-            <div class="idx-wm">01</div>
-            <div class="idx-hd">
-                <div class="idx-bar"></div>
-                <div class="idx-title">Contenido</div>
-            </div>
-            <div class="idx-list">
-                <label class="ii" for="p1">
-                    <div class="inum" style="background:var(--t2)">01</div>
-                    <div class="itx"><strong>¿Qué son los Derechos Humanos?</strong><span>Definición, universalidad y responsables</span>
-                    </div>
-                    <div class="ipg">→ 2</div>
-                </label>
-                <div class="isep"></div>
-                <label class="ii" for="p1">
-                    <div class="inum" style="background:var(--lm)">02</div>
-                    <div class="itx"><strong>Características esenciales</strong><span>Universales, inalienables, interdependientes…</span>
-                    </div>
-                    <div class="ipg">→ 3</div>
-                </label>
-                <div class="isep"></div>
-                <label class="ii" for="p2">
-                    <div class="inum" style="background:var(--yw);color:var(--vd)">03</div>
-                    <div class="itx"><strong>Breve historia de los
-                        DDHH</strong><span>De las revoluciones a la ONU</span></div>
-                    <div class="ipg">→ 4</div>
-                </label>
-                <div class="isep"></div>
-                <label class="ii" for="p2">
-                    <div class="inum" style="background:var(--vd)">04</div>
-                    <div class="itx"><strong>Colombia y la Constitución 1991</strong><span>Estado Social de Derecho y DIH</span>
-                    </div>
-                    <div class="ipg">→ 5</div>
-                </label>
-            </div>
-            <div class="itip">
-                <div class="itip-i">
-                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
-                        <path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                Usa las flechas o haz clic en el índice para navegar.
-            </div>
-        </div>
-
-        <!-- ══ S1 DERECHA: Página 3 — Características ══ -->
-        <div class="rv s1">
-            <div>
-                <div class="lbl" style="color:var(--lm)">
-                    <div class="lbl-dot" style="background:var(--lm)"></div>
-                    Página 3
-                </div>
-                <div class="h1" style="margin-top:5px">Principios <em style="color:var(--lm)">Esenciales</em></div>
-                <div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
-            </div>
-            <table class="t">
-                <thead>
-                <tr>
-                    <th>Característica</th>
-                    <th>¿Qué significa?</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Universales</td>
-                    <td>Pertenecen a todas las personas sin distinción alguna.</td>
-                </tr>
-                <tr>
-                    <td>Inalienables</td>
-                    <td>No pueden transferirse ni renunciarse voluntariamente.</td>
-                </tr>
-                <tr>
-                    <td>Indivisibles</td>
-                    <td>Todos los derechos tienen igual importancia.</td>
-                </tr>
-                <tr>
-                    <td>Interdependientes</td>
-                    <td>El cumplimiento de uno favorece a los demás.</td>
-                </tr>
-                <tr>
-                    <td>Progresivos</td>
-                    <td>Su alcance debe ampliarse con el tiempo.</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="hl hl-y"><em>Ningún Estado puede invocar circunstancias especiales</em> para justificar la
-                violación de los Derechos Humanos.
-            </div>
-            <div class="hl hl-g"><em>Como un ecosistema</em> — todos los derechos se necesitan entre sí. Si uno falla,
-                los demás se debilitan inevitablemente.
-            </div>
-            <div class="row">
-                <div class="card c-t"><span class="ct">Inherentes</span>Nacen con la persona. No son una concesión del
-                    Estado.
-                </div>
-                <div class="card c-l"><span class="ct">Protegidos</span>Por tratados internacionales y constituciones
-                    nacionales.
-                </div>
-            </div>
-            <div class="pf"><span></span>
-                <div class="pfn">3</div>
-            </div>
-        </div>
-
-        <!-- ══ S2 DERECHA: Página 5 — Colombia ══ -->
-        <div class="rv s2">
-            <div>
-                <div class="lbl" style="color:var(--vd)">
-                    <div class="lbl-dot" style="background:var(--vd)"></div>
-                    Página 5
-                </div>
-                <div class="h1" style="margin-top:5px">La <em style="color:var(--t2)">Constitución</em><br>de 1991</div>
-                <div class="acc" style="background:linear-gradient(90deg,var(--vd),var(--t2))"></div>
-            </div>
-            <div class="body">Ante los avances internacionales, Colombia adoptó normas y mecanismos de protección. Por
-                situaciones históricas de discriminación, se reconocieron normativamente derechos específicos para
-                poblaciones vulnerables: los pueblos indígenas (autonomía territorial y jurisdicción especial) y las
-                mujeres (derecho al voto).
-            </div>
-            <div class="body">Esta evolución normativa culminó en la <strong>Constitución de 1991</strong>, que define a
-                Colombia como un <strong>Estado social de derecho</strong>. Esto significa que el diseño institucional
-                está en función de garantizar los derechos fundamentales de sus habitantes y de velar por la aplicación
-                del <strong>derecho internacional humanitario (DIH)</strong>.
-            </div>
-            <div class="hl">La Constitución es, en sí misma, una <em>carta de derechos</em> que establece herramientas
-                para su cumplimiento efectivo. El reconocimiento de los DDHH en Colombia trasciende lo estipulado
-                únicamente en el Capítulo I.
-            </div>
-            <div class="row">
-                <div class="card c-t"><span class="ct">Pueblos Indígenas</span>Autonomía territorial y jurisdicción
-                    especial reconocidas normativamente.
-                </div>
-                <div class="card c-y"><span class="ct">Mujeres</span>Derecho al voto reconocido ante situaciones
-                    históricas de discriminación.
-                </div>
-                <div class="card c-g"><span class="ct">Humanitario</span>Vela por la aplicación del derecho
-                    internacional humanitario en el territorio.
-                </div>
-            </div>
-            <div class="pf"><span></span>
-                <div class="pfn">5</div>
-            </div>
-        </div>
-
-    </div><!-- /rp -->
-
-    <!-- ARROWS -->
-    <label class="arr an n1" for="p1">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"/>
-        </svg>
-    </label>
-    <label class="arr an n2" for="p2">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"/>
-        </svg>
-    </label>
-    <label class="arr ap n0" for="p0">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"/>
-        </svg>
-    </label>
-    <label class="arr ap n1" for="p1">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"/>
-        </svg>
-    </label>
-
-    <div id="dots">
-        <label class="dot d0" for="p0"></label>
-        <label class="dot d1" for="p1"></label>
-        <label class="dot d2" for="p2"></label>
-    </div>
+<div id="progressShell">
+  <div class="progress-meta">
+    <span id="sectionLabel">Sección 1</span>
+    <strong id="progressText">0%</strong>
+  </div>
+  <div id="progressTrack" aria-label="Barra de progreso"><div id="progressFill"></div></div>
+  <div id="progressStatus">Lee y revisa el contenido de esta sección para habilitar el avance.</div>
 </div>
+<button id="helpBtn" type="button" aria-label="Instrucciones">?</button>
+<div id="navGuide" aria-hidden="true">
+  <div class="guide-card">
+    <h3>Cómo navegar la revista</h3>
+    <p>Avanza por secciones usando las flechas, los puntos o el índice. Cada sección se desbloquea solo cuando cumples el 100% de la lista de verificación.</p>
+    <div class="guide-grid">
+      <div class="guide-item"><strong>Flechas</strong><span>Te llevan a la sección anterior o siguiente cuando está habilitada.</span></div>
+      <div class="guide-item"><strong>Índice y puntos</strong><span>Sirven para saltar entre secciones ya desbloqueadas.</span></div>
+      <div class="guide-item"><strong>Progreso</strong><span>La barra superior muestra el avance total de la revista.</span></div>
+      <div class="guide-item"><strong>Bloqueo por sección</strong><span>No podrás continuar hasta completar cada requisito de la sección actual.</span></div>
+    </div>
+    <div class="guide-actions">
+      <button type="button" class="btn-soft" id="guideClose">Cerrar</button>
+      <button type="button" class="btn-main" id="guideUnderstood">Entendido</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="bookControls">
+<button onclick="resizeBook(0.9)">−</button>
+<button onclick="resizeBook(1)">100%</button>
+<button onclick="resizeBook(1.1)">+</button>
+</div>
+
+  <div id="lp">
+
+    <!-- ══ S0 IZQUIERDA: Portada ══ -->
+    <div class="lv s0" style="padding:0;overflow:hidden">
+      <div class="cov-stripe"></div><div class="cov-geo1"></div><div class="cov-geo2"></div>
+      <svg class="bird-w" viewBox="0 0 60 40" fill="none"><path d="M5 20 Q15 8 30 14 Q45 8 55 18 Q45 22 30 18 Q15 26 5 20Z" fill="#E8C208"/><circle cx="48" cy="14" r="3" fill="#0B4923"/><path d="M50 16 L58 12" stroke="#0B4923" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div style="height:100%;padding:24px 26px 18px 30px;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2;">
+        <div style="display:inline-flex;align-items:center;gap:7px;background:var(--vd);color:white;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:99px;width:fit-content">
+          <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#E8C208"/></svg>
+          Módulo 1 ·
+        </div>
+        <div>
+          <div class="eco-t">El ecosistema<br>de los <span class="tc">derechos</span><br>humanos y</div>
+          <div class="dih-p">Derecho Internacional Humanitario</div>
+          <div class="body" style="margin-top:10px">Conoce los DDHH como un <strong>ecosistema vivo</strong>: fundamentos, historia y marco normativo colombiano para quienes trabajan por la dignidad.</div>
+        </div>
+        <div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">
+            <div class="chip">Universales</div><div class="chip">Inalienables</div>
+            <div class="chip">Indivisibles</div><div class="chip">Progresivos</div>
+          </div>
+          <div class="cov-foot"><div class="cov-mod">Módulo 1</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ S1 IZQUIERDA: Página 2 — Definición ══ -->
+    <div class="lv s1">
+      <div>
+        <div class="lbl"><div class="lbl-dot"></div>Página 2</div>
+        <div class="h1">¿Qué son los<br><em>Derechos Humanos?</em></div>
+        <div class="acc"></div>
+      </div>
+      <div class="body">Son derechos <strong>inherentes</strong> de todos los seres humanos, independientemente de su nacionalidad, lugar de residencia, sexo, origen nacional o étnico, color, religión, lengua, o cualquier otra condición. Por eso, llamamos <strong>universales</strong> a los derechos humanos.</div>
+      <div class="body">La mayoría de los países han integrado los derechos humanos en su legislación nacional, bajo el amparo del <strong>derecho internacional</strong>. En este marco, los <strong>Estados</strong> son los principales responsables de promover y proteger estos derechos, ya sea para individuos o colectivos.</div>
+      <div class="hl"><em>La noción de derechos humanos se puede relacionar con la afirmación de la dignidad de la persona frente al Estado</em>, pues al reconocer a la persona como ser humano, solo por el hecho de serlo, implica que se le reconozca como portadora de estos derechos.</div>
+      <div class="row">
+        <div class="card c-t"><span class="ct">Universales</span>Para todos los seres humanos sin distinción de ningún tipo.</div>
+        <div class="card c-g"><span class="ct">Responsables</span>Los <strong>Estados</strong> promueven y protegen los DDHH para individuos y colectivos.</div>
+      </div>
+      <div class="pf"><span></span><div class="pfn">2</div></div>
+    </div>
+
+    <!-- ══ S2 IZQUIERDA: Página 4 — Historia ══ -->
+    <div class="lv s2">
+      <div>
+        <div class="lbl" style="color:var(--yw)"><div class="lbl-dot" style="background:var(--yw)"></div>Página 4</div>
+        <div class="h1" style="margin-top:5px">Breve <em style="color:var(--yw)">Historia</em><br>de los DDHH</div>
+        <div class="acc" style="background:linear-gradient(90deg,var(--yw),var(--lm))"></div>
+      </div>
+      <div class="body">Aunque la denominación «derechos humanos» surgió tras el fin de la Segunda Guerra Mundial, a lo largo de la historia comunidades de diversas culturas manifestaron la importancia de sus derechos fundamentales.</div>
+      <div class="tl">
+        <div class="tli"><div class="tl-s"><div class="tl-n" style="background:var(--t2)">1</div><div class="tl-v"></div></div><div class="tl-b"><div class="tl-y">Siglos XVII–XVIII</div><div class="tl-d">Las revoluciones dieron especial relevancia a la <strong>libertad y la igualdad ante la ley</strong> y al desarrollo de derechos fundamentales.</div></div></div>
+        <div class="tli"><div class="tl-s"><div class="tl-n" style="background:var(--lm)">2</div><div class="tl-v"></div></div><div class="tl-b"><div class="tl-y">Revolución Industrial</div><div class="tl-d">Los cambios en las relaciones laborales gestaron los <strong>derechos económicos, sociales y culturales</strong>.</div></div></div>
+        <div class="tli"><div class="tl-s"><div class="tl-n" style="background:var(--yw);color:var(--vd)">3</div><div class="tl-v"></div></div><div class="tl-b"><div class="tl-y">1945 · Fundación de la ONU</div><div class="tl-d">Los Estados fundan la <strong>ONU</strong>. Su Carta fue el primer tratado universal que afirma la fe en los derechos fundamentales y la dignidad humana.</div></div></div>
+        <div class="tli"><div class="tl-s"><div class="tl-n" style="background:var(--vd)">4</div></div><div class="tl-b"><div class="tl-y">1948 · Declaración Universal</div><div class="tl-d">Acuerdo entre países miembros de la ONU para <strong>respetar y proteger</strong> las garantías más esenciales del ser humano.</div></div></div>
+      </div>
+      <div class="hl hl-g"><em>Las atrocidades en los campos de concentración</em> impulsaron la creación de mecanismos internacionales para evitar nuevas violaciones masivas a la dignidad humana.</div>
+      <div class="pf"><span></span><div class="pfn">4</div></div>
+    </div>
+
+  </div><!-- /lp -->
+  <div id="spine"></div>
+  <div id="rp">
+
+    <!-- ══ S0 DERECHA: Índice ══ -->
+    <div class="rv s0">
+      <div class="idx-wm">01</div>
+      <div class="idx-hd"><div class="idx-bar"></div><div class="idx-title">Contenido</div></div>
+      <div class="idx-list">
+        <label class="ii" for="p1"><div class="inum" style="background:var(--t2)">01</div><div class="itx"><strong>¿Qué son los Derechos Humanos?</strong><span>Definición, universalidad y responsables</span></div><div class="ipg">→ 2</div></label>
+        <div class="isep"></div>
+        <label class="ii" for="p1"><div class="inum" style="background:var(--lm)">02</div><div class="itx"><strong>Características esenciales</strong><span>Universales, inalienables, interdependientes…</span></div><div class="ipg">→ 3</div></label>
+        <div class="isep"></div>
+        <label class="ii" for="p2"><div class="inum" style="background:var(--yw);color:var(--vd)">03</div><div class="itx"><strong>Breve historia de los DDHH</strong><span>De las revoluciones a la ONU</span></div><div class="ipg">→ 4</div></label>
+        <div class="isep"></div>
+        <label class="ii" for="p2"><div class="inum" style="background:var(--vd)">04</div><div class="itx"><strong>Colombia y la Constitución 1991</strong><span>Estado Social de Derecho y DIH</span></div><div class="ipg">→ 5</div></label>
+      </div>
+      <div class="itip">
+        <div class="itip-i"><svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Usa las flechas o haz clic en el índice para navegar.
+      </div>
+    </div>
+
+    <!-- ══ S1 DERECHA: Página 3 — Características ══ -->
+    <div class="rv s1">
+      <div>
+        <div class="lbl" style="color:var(--lm)"><div class="lbl-dot" style="background:var(--lm)"></div>Página 3</div>
+        <div class="h1" style="margin-top:5px">Principios <em style="color:var(--lm)">Esenciales</em></div>
+        <div class="acc" style="background:linear-gradient(90deg,var(--lm),var(--t1))"></div>
+      </div>
+      <table class="t">
+        <thead><tr><th>Característica</th><th>¿Qué significa?</th></tr></thead>
+        <tbody>
+          <tr><td>Universales</td><td>Pertenecen a todas las personas sin distinción alguna.</td></tr>
+          <tr><td>Inalienables</td><td>No pueden transferirse ni renunciarse voluntariamente.</td></tr>
+          <tr><td>Indivisibles</td><td>Todos los derechos tienen igual importancia.</td></tr>
+          <tr><td>Interdependientes</td><td>El cumplimiento de uno favorece a los demás.</td></tr>
+          <tr><td>Progresivos</td><td>Su alcance debe ampliarse con el tiempo.</td></tr>
+        </tbody>
+      </table>
+      <div class="hl hl-y"><em>Ningún Estado puede invocar circunstancias especiales</em> para justificar la violación de los Derechos Humanos.</div>
+      <div class="hl hl-g"><em>Como un ecosistema</em> — todos los derechos se necesitan entre sí. Si uno falla, los demás se debilitan inevitablemente.</div>
+      <div class="row">
+        <div class="card c-t"><span class="ct">Inherentes</span>Nacen con la persona. No son una concesión del Estado.</div>
+        <div class="card c-l"><span class="ct">Protegidos</span>Por tratados internacionales y constituciones nacionales.</div>
+      </div>
+      <div class="pf"><span></span><div class="pfn">3</div></div>
+    </div>
+
+    <!-- ══ S2 DERECHA: Página 5 — Colombia ══ -->
+    <div class="rv s2">
+      <div>
+        <div class="lbl" style="color:var(--vd)"><div class="lbl-dot" style="background:var(--vd)"></div>Página 5</div>
+        <div class="h1" style="margin-top:5px">La <em style="color:var(--t2)">Constitución</em><br>de 1991</div>
+        <div class="acc" style="background:linear-gradient(90deg,var(--vd),var(--t2))"></div>
+      </div>
+      <div class="body">Ante los avances internacionales, Colombia adoptó normas y mecanismos de protección. Por situaciones históricas de discriminación, se reconocieron normativamente derechos específicos para poblaciones vulnerables: los pueblos indígenas (autonomía territorial y jurisdicción especial) y las mujeres (derecho al voto).</div>
+      <div class="body">Esta evolución normativa culminó en la <strong>Constitución de 1991</strong>, que define a Colombia como un <strong>Estado social de derecho</strong>. Esto significa que el diseño institucional está en función de garantizar los derechos fundamentales de sus habitantes y de velar por la aplicación del <strong>derecho internacional humanitario (DIH)</strong>.</div>
+      <div class="hl">La Constitución es, en sí misma, una <em>carta de derechos</em> que establece herramientas para su cumplimiento efectivo. El reconocimiento de los DDHH en Colombia trasciende lo estipulado únicamente en el Capítulo I.</div>
+      <div class="row">
+        <div class="card c-t"><span class="ct">Pueblos Indígenas</span>Autonomía territorial y jurisdicción especial reconocidas normativamente.</div>
+        <div class="card c-y"><span class="ct">Mujeres</span>Derecho al voto reconocido ante situaciones históricas de discriminación.</div>
+        <div class="card c-g"><span class="ct">Humanitario</span>Vela por la aplicación del derecho internacional humanitario en el territorio.</div>
+      </div>
+      <div class="pf"><span></span><div class="pfn">5</div></div>
+    </div>
+
+  </div><!-- /rp -->
+
+
+  <div id="lockToast"    role="status" aria-live="polite"></div>
+
+  <!-- ARROWS -->
+  <label class="arr an n1" for="p1"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></label>
+  <label class="arr an n2" for="p2"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></label>
+  <label class="arr ap n0" for="p0"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></label>
+  <label class="arr ap n1" for="p1"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></label>
+
+  <div id="dots">
+    <label class="dot d0" for="p0"></label>
+    <label class="dot d1" for="p1"></label>
+    <label class="dot d2" for="p2"></label>
+  </div>
+</div>
+
+
+
+
+<script>
+const sectionRules = [
+  {
+    title: 'Sección 1 · Inicio',
+    requiredSeconds: 10,
+    requiredZones: 1
+  },
+  {
+    title: 'Sección 2 · Desarrollo',
+    requiredSeconds: 10,
+    requiredZones: 2
+  },
+  {
+    title: 'Sección 3 · Cierre',
+    requiredSeconds: 10,
+    requiredZones: 2
+  }
+];
+
+let currentScale = 1;
+const completedSections = new Set();
+const sectionElapsed = Array(sectionRules.length).fill(0);
+const interactedZones = sectionRules.map(() => new Set());
+let currentIndex = 0;
+let lastTimestamp = Date.now();
+let tickInterval = null;
+let toastTimer = null;
+
+const radios = [...document.querySelectorAll('input.pr[name="pg"]')];
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+const progressStatus = document.getElementById('progressStatus');
+const sectionLabel = document.getElementById('sectionLabel');
+const toast = document.getElementById('lockToast');
+const navGuide = document.getElementById('navGuide');
+const helpBtn = document.getElementById('helpBtn');
+const book = document.getElementById('book');
+const leftPage = document.getElementById('lp');
+const rightPage = document.getElementById('rp');
+const controls = document.getElementById('bookControls');
+
+function getCurrentIndex(){
+  const idx = radios.findIndex(r => r.checked);
+  return idx < 0 ? 0 : idx;
+}
+
+function maxUnlockedIndex(){
+  let idx = 0;
+  while(idx < sectionRules.length - 1 && completedSections.has(idx)) idx++;
+  return idx;
+}
+
+function resizeBook(factor){
+  if(factor === 1){
+    currentScale = 1;
+  } else {
+    currentScale = Math.max(.7, Math.min(1.8, currentScale * factor));
+  }
+  book.style.transform = 'scale(' + currentScale + ')';
+  book.style.transformOrigin = 'center center';
+}
+
+function showToast(message){
+  if(!toast) return;
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+function updateOverallProgress(){
+  const pct = Math.round((completedSections.size / sectionRules.length) * 100);
+  if(progressFill) progressFill.style.width = pct + '%';
+  if(progressText) progressText.textContent = pct + '%';
+}
+
+function interactionSummary(idx){
+  const need = sectionRules[idx].requiredZones;
+  const got = interactedZones[idx].size;
+  if(need === 1){
+    return got >= 1 ? 'Contenido base revisado.' : 'Toca o haz clic sobre el contenido para confirmar lectura.';
+  }
+  if(got === 0){
+    return 'Revisa ambas páginas de la sección: toca o haz clic en cada lado del contenido.';
+  }
+  if(got === 1){
+    return 'Falta revisar el otro lado de la sección para habilitar el avance.';
+  }
+  return 'Las dos páginas de la sección ya fueron revisadas.';
+}
+
+function updateSectionUI(){
+  const idx = currentIndex;
+  const rule = sectionRules[idx];
+  const secondsDone = Math.min(sectionElapsed[idx], rule.requiredSeconds);
+  const timePct = Math.round((secondsDone / rule.requiredSeconds) * 100);
+  const zonesDone = interactedZones[idx].size;
+  const zonesPct = Math.round((Math.min(zonesDone, rule.requiredZones) / rule.requiredZones) * 100);
+  const pct = completedSections.has(idx) ? 100 : Math.round((timePct + zonesPct) / 2);
+
+  if(sectionLabel) sectionLabel.textContent = rule.title;
+  if(progressFill) progressFill.style.width = pct + '%';
+  if(progressText) progressText.textContent = pct + '%';
+
+  const remaining = Math.max(0, Math.ceil(rule.requiredSeconds - secondsDone));
+  const timeMsg = remaining > 0
+    ? 'Tiempo de lectura: ' + secondsDone.toFixed(0) + '/' + rule.requiredSeconds + ' s.'
+    : 'Tiempo mínimo completado.';
+  const interactionMsg = interactionSummary(idx);
+
+  if(progressStatus){
+    if(completedSections.has(idx)){
+      progressStatus.innerHTML = '<strong>Sección habilitada.</strong> Ya puedes avanzar con los botones de la revista.';
+    } else {
+      progressStatus.innerHTML = '<strong>' + timeMsg + '</strong> ' + interactionMsg;
+    }
+  }
+}
+
+function canComplete(idx){
+  return sectionElapsed[idx] >= sectionRules[idx].requiredSeconds &&
+         interactedZones[idx].size >= sectionRules[idx].requiredZones;
+}
+
+function completeSection(idx){
+  if(completedSections.has(idx)) return;
+  completedSections.add(idx);
+  updateOverallProgress();
+  updateSectionUI();
+  showToast(idx === sectionRules.length - 1
+    ? 'Revista completada al 100%.'
+    : 'Sección habilitada. Ya puedes continuar.');
+}
+
+function tickProgress(){
+  if(document.hidden) return;
+
+  const now = Date.now();
+  const delta = (now - lastTimestamp) / 1000;
+  lastTimestamp = now;
+
+  currentIndex = getCurrentIndex();
+
+  if(!completedSections.has(currentIndex)){
+    sectionElapsed[currentIndex] = Math.min(
+      sectionRules[currentIndex].requiredSeconds,
+      sectionElapsed[currentIndex] + delta
+    );
+
+    if(canComplete(currentIndex)){
+      completeSection(currentIndex);
+    } else {
+      updateSectionUI();
+    }
+  } else {
+    updateSectionUI();
+  }
+}
+
+function startTimer(){
+  if(tickInterval) clearInterval(tickInterval);
+  lastTimestamp = Date.now();
+  tickInterval = setInterval(tickProgress, 250);
+}
+
+function registerZone(side){
+  const idx = getCurrentIndex();
+  if(completedSections.has(idx)) return;
+
+  const rule = sectionRules[idx];
+  if(rule.requiredZones === 1){
+    interactedZones[idx].add('content');
+  } else {
+    interactedZones[idx].add(side);
+  }
+
+  if(canComplete(idx)){
+    completeSection(idx);
+  } else {
+    updateSectionUI();
+  }
+}
+
+function registerAuxInteraction(){
+  const idx = getCurrentIndex();
+  if(completedSections.has(idx)) return;
+
+  if(sectionRules[idx].requiredZones === 1){
+    interactedZones[idx].add('content');
+    if(canComplete(idx)){
+      completeSection(idx);
+    } else {
+      updateSectionUI();
+    }
+  }
+}
+
+function canNavigateTo(target){
+  const current = getCurrentIndex();
+  if(target <= current) return true;
+  if(!completedSections.has(current)){
+    showToast('Aún no puedes avanzar. Debes completar el tiempo mínimo y revisar el contenido de esta sección.');
+    return false;
+  }
+  if(target > maxUnlockedIndex() + 1){
+    showToast('Esa sección todavía está bloqueada.');
+    return false;
+  }
+  return true;
+}
+
+function showGuide(){
+  if(!navGuide) return;
+  navGuide.classList.add('open');
+  navGuide.setAttribute('aria-hidden', 'false');
+  registerAuxInteraction();
+}
+
+function hideGuide(){
+  if(!navGuide) return;
+  navGuide.classList.remove('open');
+  navGuide.setAttribute('aria-hidden', 'true');
+}
+
+document.querySelectorAll('label[for^="p"]').forEach(label => {
+  label.addEventListener('click', (e) => {
+    const target = Number(label.getAttribute('for').replace('p',''));
+    if(!canNavigateTo(target)){
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
+});
+
+radios.forEach(radio => radio.addEventListener('change', () => {
+  currentIndex = getCurrentIndex();
+  updateSectionUI();
+  startTimer();
+}));
+
+['click','touchstart'].forEach(evt => {
+  leftPage.addEventListener(evt, () => registerZone('left'), {passive:true});
+  rightPage.addEventListener(evt, () => registerZone('right'), {passive:true});
+});
+
+if(controls){
+  ['click','touchstart'].forEach(evt => {
+    controls.addEventListener(evt, registerAuxInteraction, {passive:true});
+  });
+}
+
+if(helpBtn) helpBtn.addEventListener('click', showGuide);
+const guideClose = document.getElementById('guideClose');
+const guideUnderstood = document.getElementById('guideUnderstood');
+if(guideClose) guideClose.addEventListener('click', hideGuide);
+if(guideUnderstood) guideUnderstood.addEventListener('click', hideGuide);
+if(navGuide) navGuide.addEventListener('click', (e) => { if(e.target === navGuide) hideGuide(); });
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && navGuide && navGuide.classList.contains('open')) hideGuide();
+});
+
+updateOverallProgress();
+currentIndex = getCurrentIndex();
+updateSectionUI();
+startTimer();
+</script>
+
+
+
+
+</body>
+</html>

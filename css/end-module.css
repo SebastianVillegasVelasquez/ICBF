@@ -125,3 +125,96 @@
         justify-content: flex-start; /* Permite scroll natural si el móvil es muy pequeño */
     }
 }
+
+/* CONTENEDOR BOTONES */
+.module-actions {
+    margin-top: 20px;
+}
+
+/* BOTÓN BASE */
+.btn-module {
+    border: none;
+    border-radius: 40px;
+    padding: 12px 28px;
+
+    font-weight: 700;
+    font-size: 1rem;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    min-width: 180px;
+}
+
+/* 🔥 SIGUIENTE */
+.btn-next {
+    background: linear-gradient(135deg, #E8C208, #94B55A);
+    color: #0B4923;
+}
+
+.btn-next:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* 🔙 VOLVER */
+.btn-back {
+    background: #81CAC9;
+    color: #0B4923;
+}
+
+.btn-back:hover {
+    background: #569E9A;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.download-mod-btn {
+    background-color: #539e99;
+    border: none;
+    border-radius: 18px;
+
+    width: auto;           /* 🔥 mejor que fijo */
+    min-width: 180px;      /* opcional */
+    height: auto;          /* 🔥 quitar altura fija */
+
+    display: flex;
+    flex-direction: row;   /* 🔥 horizontal */
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+
+    padding: 12px 16px;    /* 🔥 más lógico */
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.download-mod-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.download-icon-circle {
+    background-color: #ffffff;
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-icon-circle svg {
+    width: 24px;
+    height: 24px;
+}
+
+.download-mod-btn span {
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: left;
+}
