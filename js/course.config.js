@@ -11,38 +11,6 @@ export const course = {
             title: "Portada",
             screens: [
 
-                // PANTALLA 10 - REVISTA DIDACTICA 3
-                {
-                    type: "default-content",
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
-                    GraphicResources: {
-                        // Nuevas propiedades para logos del header
-                        headerLogos: {
-                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
-                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
-                        },
-                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
-                        backgroundConfig: {
-                            size: 'cover',
-                            position: 'center'
-                        },
-                        characterUrl: '/assets/img/personajes/niño-revista-3.png',
-                        characterConfig: {
-                            side: 'right',
-                            xOffset: '50px',
-                            yOffset: '80px',
-                            scale: 1,
-                            maxWidth: '600px',
-                            // Configuración para laptops/pantallas bajas
-                            responsive: {
-                                xOffset: '50px',
-                                yOffset: '0px',
-                                scale: 1,
-                                maxWidth: '400px'
-                            }
-                        }
-                    }
-                },
 
                 {
                     type: "custom",
@@ -495,6 +463,15 @@ export const course = {
                     characterLeft: "Ayla",
                     characterRight: "Simón",
                 },
+
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/podcast.html",
+                },
+
+
 
                 // {
                 //     type: "default-content",
