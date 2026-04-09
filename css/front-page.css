@@ -49,11 +49,21 @@
 
 /* Posiciones responsivas usando calc con vw para escalar fluidamente */
 .m0 { top: 47%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
-.m1 { top: 56%; left: calc(clamp(30%, 42vw, 52%) + var(--offset-x)); transform: translateX(-50%); }
-.m2 { top: 60%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
-.m3 { top: 68%; left: calc(clamp(25%, 39vw, 49%) + var(--offset-x)); transform: translateX(-50%); }
-.m4 { top: 73%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
-.m5 { top: 80%; left: calc(clamp(28%, 41vw, 51%) + var(--offset-x)); transform: translateX(-50%); }
+.m1 { top: 56%; left: calc(clamp(30%, 42vw, 52%) + var(--offset-x)); transform: translateX(-60%); }
+.m2 { top: 63%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-40%); }
+.m3 { top: 68%; left: calc(clamp(25%, 39vw, 49%) + var(--offset-x)); transform: translateX(-60%); }
+.m4 { top: 75%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
+.m5 { top: 80%; left: calc(clamp(28%, 41vw, 51%) + var(--offset-x)); transform: translateX(-70%); }
+
+@media (max-width: 1400px) {
+
+    .m0 { top: 50%; transform: translateX(-50%) scale(0.9); }
+    .m1 { top: 58%; transform: translateX(-60%) scale(0.9); }
+    .m2 { top: 63%; transform: translateX(-40%) scale(0.9); }
+    .m3 { top: 68%; transform: translateX(-60%) scale(0.9); }
+    .m4 { top: 75%; transform: translateX(-50%) scale(0.9); }
+    .m5 { top: 80%; transform: translateX(-70%) scale(0.9); } 
+}
 
 /* Ajustes para pantallas muy pequeñas */
 @media (max-width: 768px) {

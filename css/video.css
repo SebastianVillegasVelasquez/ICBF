@@ -6,7 +6,6 @@
     position: relative;
     overflow: hidden;
     background-color: transparent;
-
     background-repeat: no-repeat;
 }
 
@@ -83,7 +82,7 @@
    RESPONSIVIDAD: LAPTOPS (1366x768)
    ───────────────────────────────────────────────────────── */
 
-@media (max-height: 800px) {
+@media (max-height: 1401px) {
     .screen-header {
         padding: 15px 35px;
     }
@@ -105,6 +104,9 @@
 
     .screen-video {
         /* Ajustamos el fondo para que no tape tanto espacio en pantallas bajas */
-        background-size: 550px auto;
+        background-size: cover;
+    background-position: center;
     }
+
+    
 }

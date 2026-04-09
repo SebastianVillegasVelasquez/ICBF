@@ -136,6 +136,13 @@
 }
 
 .ingresar-btn {
+    position: absolute;
+
+    top: 80%; /* o el valor que estés usando */
+
+    left: 50%;
+    transform: translateX(-150%);
+
     background-color: #fedb02;
     border: none;
     border-radius: clamp(8px, 1vw, 12px);
@@ -150,7 +157,7 @@
 
 
 .ingresar-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) translateX(-150%);
     box-shadow: 0 clamp(3px, 0.5vw, 6px) clamp(9px, 1.5vw, 15px) rgba(232, 194, 8, 0.4);
 }
 
@@ -172,4 +179,14 @@
 
     transform: translate(140px, 30px);
 
+}
+
+@media (max-width: 1366px) {
+
+    .m0 { top: 50%; transform: translateX(-50%) scale(0.9); }
+    .m1 { top: 58%; transform: translateX(-60%) scale(0.9); }
+    .m2 { top: 63%; transform: translateX(-40%) scale(0.9); }
+    .m3 { top: 68%; transform: translateX(-60%) scale(0.9); }
+    .m4 { top: 75%; transform: translateX(-50%) scale(0.9); }
+    .m5 { top: 80%; transform: translateX(-70%) scale(0.9); } 
 }
