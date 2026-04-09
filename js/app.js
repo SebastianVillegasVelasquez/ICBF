@@ -903,6 +903,21 @@ window.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('btn-next')?.addEventListener('click', () => navigateTo(currentIndex + 1));
         document.getElementById('btn-pdf')?.addEventListener('click', exportPDF);
 
+        document.addEventListener('click', function(e) {
+
+    const action = e.target.dataset.action;
+
+    if (action === 'prev') {
+        navigateTo(currentIndex - 1);
+    }
+
+    if (action === 'next') {
+        navigateTo(currentIndex + 1);
+    }
+
+});
+        
+
         // ── SCORM ──
         document.title = getCourseTitle();
         const scormActive = initSCORM();
