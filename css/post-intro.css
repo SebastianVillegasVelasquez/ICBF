@@ -364,6 +364,10 @@ html, body {
 
     }
 
+    .screen-module-summary {
+        background-size: auto 90%;
+    }
+
 
 }
 

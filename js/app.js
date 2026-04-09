@@ -108,13 +108,6 @@ const SCREEN_REGISTRY = {
         showPdf: false,
         render: (route) => renderScreenContentDefault(route)
     },
-    // "html-injection": {
-    //     render: renderHtmlInjectionScreen,
-    //     layout: 'full',
-    //     showNav: true,
-    //     showPdf: false,
-    //     css: "css/html-injection.css",
-    // },
     'content': {
         css: 'css/components.css',
         layout: 'default',
@@ -255,14 +248,14 @@ async function renderRoute(route) {
 
 
         // Descomentar si queremos mostrar la barra de progreso dentro de la pantalla (en vez de la fija en el header)
-        // if (progressContainer) {
-        //     progressBar.renderTo(progressContainer);
-        //     requestAnimationFrame(() => {
-        //         progressBar.update(currentIndex, totalRoutes, visitedSet);
-        //     });
-        // } else {
-        //     progressBar.unmount();
-        // }
+        if (progressContainer) {
+            progressBar.renderTo(progressContainer);
+            requestAnimationFrame(() => {
+                progressBar.update(currentIndex, totalRoutes, visitedSet);
+            });
+        } else {
+            progressBar.unmount();
+        }
 
         // 5. Inicializar componentes (solo para pantallas de contenido)
         if (route.type === 'content' || route.type === 'default-content') {
@@ -462,6 +455,13 @@ function injectCSSVariables() {
         
         .screen-video {
             background-image: url('${assetsPath}/img/background-modulo-1.png') !important;
+        }
+        
+        .screen-module-summary { 
+                background-image: url('${assetsPath}/img/background-modulo-1.png') !important;
+                background-size: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
         }
         
         
