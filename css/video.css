@@ -8,8 +8,6 @@
     background-color: transparent;
 
     background-repeat: no-repeat;
-    background-position: calc(100% - 5px) calc(100% - 5px);
-    background-size: clamp(500px, 48vw, 780px) auto;
 }
 
 .screen-header {

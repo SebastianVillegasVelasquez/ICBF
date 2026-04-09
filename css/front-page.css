@@ -48,10 +48,11 @@
 }
 
 /* Posiciones responsivas usando calc con vw para escalar fluidamente */
-.m1 { top: 50%; left: calc(clamp(30%, 42vw, 52%) + var(--offset-x)); transform: translateX(-50%); }
-.m2 { top: 58%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
-.m3 { top: 65%; left: calc(clamp(25%, 39vw, 49%) + var(--offset-x)); transform: translateX(-50%); }
-.m4 { top: 70%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
+.m0 { top: 47%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
+.m1 { top: 56%; left: calc(clamp(30%, 42vw, 52%) + var(--offset-x)); transform: translateX(-50%); }
+.m2 { top: 60%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
+.m3 { top: 68%; left: calc(clamp(25%, 39vw, 49%) + var(--offset-x)); transform: translateX(-50%); }
+.m4 { top: 73%; left: calc(clamp(40%, 55vw, 65%) + var(--offset-x)); transform: translateX(-50%); }
 .m5 { top: 80%; left: calc(clamp(28%, 41vw, 51%) + var(--offset-x)); transform: translateX(-50%); }
 
 /* Ajustes para pantallas muy pequeñas */

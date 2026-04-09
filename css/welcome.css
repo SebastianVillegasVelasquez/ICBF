@@ -13,7 +13,7 @@
 
     position: relative;
     overflow: hidden;
-    cursor: pointer;
+    /*cursor: pointer;*/
 
     /* background-image se inyecta dinámicamente por JS */
     background-size: cover;
@@ -21,14 +21,14 @@
     background-repeat: no-repeat;
 }
 
-/* Overlay */
+/* Overlay 
 .welcome-hero::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 0;
 }
-
+*/
 .welcome-hero > * {
     position: relative;
     z-index: 1;
@@ -133,4 +133,43 @@
         padding: 30px 15px;
         justify-content: flex-start; /* Permite scroll natural si el móvil es muy pequeño */
     }
+}
+
+.ingresar-btn {
+    background-color: #fedb02;
+    border: none;
+    border-radius: clamp(8px, 1vw, 12px);
+    padding: clamp(6px, 1vh, 10px) clamp(20px, 3vw, 35px);
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.5vw, 20px);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+}
+
+
+.ingresar-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 clamp(3px, 0.5vw, 6px) clamp(9px, 1.5vw, 15px) rgba(232, 194, 8, 0.4);
+}
+
+.ingresar-btn span {
+    color: #569e9a !important;
+    font-weight: 900;
+    font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+}
+
+.button-wrapper {
+    margin-top: auto;
+    margin-bottom: clamp(10px, 3vh, 30px);
+    width: 100%;
+
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 35px;
+
+    transform: translate(140px, 30px);
+
 }

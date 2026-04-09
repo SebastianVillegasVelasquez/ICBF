@@ -10,45 +10,6 @@ export const course = {
         {
             title: "Portada",
             screens: [
-                //Testing
-
-                {
-                    type: "default-content",
-                    hideBackground: true,
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
-                },
-
-                {
-                    type: "default-content",
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-4.html",
-                    GraphicResources: {
-                        // Nuevas propiedades para logos del header
-                        headerLogos: {
-                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
-                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
-                        },
-                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
-                        backgroundConfig: {
-                            size: 'cover',
-                            position: 'center'
-                        },
-                        characterUrl: 'assets/img/personajes/niña-revista-4.png',
-                        characterConfig: {
-                            side: 'left',
-                            xOffset: '50px',
-                            yOffset: '40px',
-                            scale: 0.8,
-                            maxWidth: '600px',
-                            // Configuración para laptops/pantallas bajas
-                            responsive: {
-                                xOffset: '-30px',
-                                yOffset: '-50px',
-                                scale: 0.7,
-                                maxWidth: '400px'
-                            }
-                        }
-                    }
-                },
 
                 {
                     type: "custom",
@@ -59,14 +20,12 @@ export const course = {
         },
 
         // ─────────────────────────────────────────────────────────
-        // MÓDULO 1
+        // MÓDULO INTRODUCTORIO
         // ─────────────────────────────────────────────────────────
         {
-            id: 1,
-            title: "Módulo 1: Introducción",
+            id: 0,
+            title: "Módulo: Introducción",
             screens: [
-
-
                 // MODULO 0 - Introduccion
                 // PANTALLA 1- Video introductorio
                 {
@@ -95,6 +54,13 @@ export const course = {
                 {
                     type: "default-content",
                     htmlFile: "assets/tabla-contenidos/tabla-contenido-int.html",
+                        GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
                 },
 
                 // PANTALLA 4 - Video animado de concepto básico
@@ -108,6 +74,16 @@ export const course = {
                     characterRight: "Simón",
                 },
 
+            ]
+        },
+        // ─────────────────────────────────────────────────────────
+        // MÓDULO 1
+        // ─────────────────────────────────────────────────────────
+        {
+            id: 1,
+            title: "Módulo 1: El suelo y las raíces del ecosistema",
+            screens: [
+                
                 //MODULO 1
                 //PANTALLA 1 — Bienvenida
                 {
@@ -136,8 +112,7 @@ export const course = {
                 // PANTALLA 3 - JUSTIFICACION MODULO 1
                 {
                     type: "default-content",
-                    hideBackground: true,
-
+                    hideBackground: false,
                     contentHtml: renderSlideshow({
                         slides: [
                             {

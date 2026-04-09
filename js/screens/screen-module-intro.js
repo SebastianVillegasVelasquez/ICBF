@@ -30,6 +30,12 @@ return `
                 <div class="progress-bar-fill" data-percentage="${percentage}"></div>
             </div>
         </div>
+        <div class="button-wrapper">
+        <div class="col-12 col-md-10 col-lg-8 text-center">
+            <div class="hero-bottom-content">
+            <button class="ingresar-btn btn-next-screen next-screen-clickable">Empezar</button>
+            </div>
+            </div>
 </div>
 <!--            <div class="progress-bar-target"></div> -->
             </div>

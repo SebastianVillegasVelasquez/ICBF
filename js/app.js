@@ -461,7 +461,7 @@ function injectCSSVariables() {
         }
         
         .screen-video {
-            background-image: url('${assetsPath}/img/arbol.png') !important;
+            background-image: url('${assetsPath}/img/background-modulo-1.png') !important;
         }
         
         
@@ -892,7 +892,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             }
 
             // Pantalla de bienvenida: click en cualquier lugar = siguiente
-            if (event.target.closest('.welcome-hero')) {
+            if (event.target.closest('.next-screen-clickable')) {
                 navigateTo(currentIndex + 1);
             }
         });
