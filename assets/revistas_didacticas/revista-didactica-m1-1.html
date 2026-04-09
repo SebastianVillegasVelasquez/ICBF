@@ -21,10 +21,10 @@
 
     /* ── BOOK ── */
     #book {
-        width: 1200px;
-        height: 576px;
+        width: 1400px;
+        height: 730px;
         position: absolute;
-        transform: translate(100px, 0px);
+        transform: translate(70px, 0px);
         display: flex;
         align-items: stretch;
         filter: drop-shadow(0 20px 50px rgba(0, 0, 0, .22)) drop-shadow(0 4px 12px rgba(0, 0, 0, .14));
@@ -32,15 +32,30 @@
         overflow: hidden;
     }
 
-    @media (max-width: 1366px), (max-height: 800px) {
+    #book *{
+        font-size: 1.1rem !important;
+    }
+
+    @media (max-width: 1400px) {
         #book {
-            transform: translate(150px, 20px);
+            width: 900px;
+            height: 530px;
+            transform: translate(0px, 20px);
         }
+
+        #book *{
+            font-size: 0.9rem;
+        }
+
+        #lp, #rp {
+            width: 10px;
+        }
+
     }
 
     /* ── TWO HALVES ── */
     #lp, #rp {
-        width: 510px;
+        width: 690px;
         height: 100%;
         background: var(--paper);
         position: relative;
@@ -141,6 +156,7 @@
 
     #p0:checked ~ #book .an.n1 {
         display: flex;
+        position: fixed;
     }
 
     #p1:checked ~ #book .an.n2 {
@@ -185,7 +201,7 @@
 
     /* ══ TOKENS ══ */
     .lbl {
-        font-size: 12px;
+        font-size: 30px;
         font-weight: 800;
         letter-spacing: 2.5px;
         text-transform: uppercase;
