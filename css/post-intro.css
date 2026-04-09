@@ -293,10 +293,29 @@ html, body {
     transition: width 0.4s ease;
 }
 
+/* ── Personaje flexible en PostIntro ── */
+.screen-module-summary .post-character {
+    max-width:  var(--char-mw, 100%);
+    transform:
+            translateX(var(--char-x, 0px))
+            translateY(var(--char-y, 0px))
+            scale(var(--char-scale, 1));
+    transform-origin: bottom center;
+    transition: transform 0.3s ease;
+}
+
 /* ─────────────────────────────────────────────────────────
    NUEVO: AJUSTES ESPECIALES PARA LAPTOPS CORTAS (1366x768)
    ───────────────────────────────────────────────────────── */
 @media (max-width: 1400px){
+
+    .screen-module-summary .post-character {
+        max-width:  var(--char-mw-res, 80%);
+        transform:
+                translateX(var(--char-x-res, 0px))
+                translateY(var(--char-y-res, 0px))
+                scale(var(--char-scale-res, 0.85));
+    }
     /* 1. Encogemos el logo para dar aire arriba */
     .icbf-logo img {
         max-width: 90px;

@@ -11,6 +11,65 @@ export const course = {
             title: "Portada",
             screens: [
 
+                {
+                    type: "post-intro",
+                    moduleTitle: "Módulo 2",
+                    introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
+                    subText: "El aire y el flujo vital",
+                    percentage: 20,
+                    topics: ["Derechos civiles y políticos", "Mecanismos de protección", "Mecanismos de participación ciudadana", "Veedurías ciudadanas"],
+                    GraphicResources: {
+                        characterUrl: "assets/img/personajes/personajes-modulo2-post-intro.png",
+                        characterConfig: {
+                            maxWidth:  "700px",
+                            xOffset:   "0px",
+                            yOffset:   "90px",
+                            scale:     1.05,
+                            responsive: {
+                                maxWidth: "550px",
+                                xOffset:  "0px",
+                                yOffset:  "30px",
+                                scale:    0.9
+                            }
+                        },
+                        headerLogos: {
+                            rightUrl: "assets/img/logo.png"
+                        }
+                    }
+                },
+
+                // {
+                //     type: "default-content",
+                //     htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
+                //     GraphicResources: {
+                //         // Nuevas propiedades para logos del header
+                //         headerLogos: {
+                //             leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                //             rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                //         },
+                //         backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                //         backgroundConfig: {
+                //             size: 'cover',
+                //             position: 'center'
+                //         },
+                //         characterUrl: 'assets/img/personajes/niña-revista-4.png',
+                //         characterConfig: {
+                //             side: 'left',
+                //             xOffset: '50px',
+                //             yOffset: '40px',
+                //             scale: 0.8,
+                //             maxWidth: '600px',
+                //             // Configuración para laptops/pantallas bajas
+                //             responsive: {
+                //                 xOffset: '-30px',
+                //                 yOffset: '-50px',
+                //                 scale: 0.7,
+                //                 maxWidth: '400px'
+                //             }
+                //         }
+                //     }
+                // },
+
 
                 {
                     type: "custom",
@@ -402,6 +461,10 @@ export const course = {
                         "Mecanismos de participación ciudadana",
                         "Veedurías ciudadanas"
                     ],
+                    characterImageConfig: {
+                        url: 'assets/img/personajes/personajes-modulo2-post-intro.png',
+                        size: "contain"
+                    },
                     percentage: 20
                 },
                 {
@@ -473,37 +536,37 @@ export const course = {
 
 
 
-                // {
-                //     type: "default-content",
-                //     htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
-                //     GraphicResources: {
-                //         // Nuevas propiedades para logos del header
-                //         headerLogos: {
-                //             leftUrl: 'assets/img/titulos/titulo-blanco.png',
-                //             rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
-                //         },
-                //         backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
-                //         backgroundConfig: {
-                //             size: 'cover',
-                //             position: 'center'
-                //         },
-                //         characterUrl: 'assets/img/personajes/niña-revista-4.png',
-                //         characterConfig: {
-                //             side: 'left',
-                //             xOffset: '50px',
-                //             yOffset: '40px',
-                //             scale: 0.8,
-                //             maxWidth: '600px',
-                //             // Configuración para laptops/pantallas bajas
-                //             responsive: {
-                //                 xOffset: '-30px',
-                //                 yOffset: '-50px',
-                //                 scale: 0.7,
-                //                 maxWidth: '400px'
-                //             }
-                //         }
-                //     }
-                // },
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/niña-revista-4.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '50px',
+                            yOffset: '40px',
+                            scale: 0.8,
+                            maxWidth: '600px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '-30px',
+                                yOffset: '-50px',
+                                scale: 0.7,
+                                maxWidth: '400px'
+                            }
+                        }
+                    }
+                },
 
             ]
         },
