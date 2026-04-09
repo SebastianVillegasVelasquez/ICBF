@@ -11,6 +11,38 @@ export const course = {
             title: "Portada",
             screens: [
 
+                // PANTALLA 10 - REVISTA DIDACTICA 3
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: '/assets/img/personajes/niño-revista-3.png',
+                        characterConfig: {
+                            side: 'right',
+                            xOffset: '50px',
+                            yOffset: '80px',
+                            scale: 1,
+                            maxWidth: '600px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '50px',
+                                yOffset: '0px',
+                                scale: 1,
+                                maxWidth: '400px'
+                            }
+                        }
+                    }
+                },
 
                 {
                     type: "custom",
@@ -317,7 +349,7 @@ export const course = {
                             leftUrl: 'assets/img/titulos/titulo-blanco.png',
                             rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
                         },
-                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra-2.png',
                         backgroundConfig: {
                             size: 'cover',
                             position: 'center'
@@ -328,11 +360,11 @@ export const course = {
                             xOffset: '50px',
                             yOffset: '40px',
                             scale: 0.8,
-                            maxWidth: '600px',
+                            maxWidth: '450px',
                             // Configuración para laptops/pantallas bajas
                             responsive: {
-                                xOffset: '-30px',
-                                yOffset: '-50px',
+                                xOffset: '50px',
+                                yOffset: '40px',
                                 scale: 0.7,
                                 maxWidth: '400px'
                             }
@@ -340,18 +372,30 @@ export const course = {
                     }
                 },
 
-                // PANTALLA 12 - REVISTA DIDACTICA 5
-
-
-
-                // PANTALLA 13 - CASO DE ESTUDIO
+                // PANTALLA 12 - CASO DE ESTUDIO
 
                 {
                     type: "default-content",
-                    hideBackground: true,
+                    hideBackground: false,
 
-                    htmlFile: "assets/actividades/estudio-casos-m1.html"
+                    htmlFile: "assets/actividades/estudio-casos-m1.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
                 },
+
+                //PAGINA 13 - PÓDCAST
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/podcast.html",
+                },
+
                     // PANTALLA 14 - CAJA DE HERRAMIENTAS
                 {
                     type: "default-content",
@@ -392,38 +436,47 @@ export const course = {
                     ],
                     percentage: 20
                 },
-
                 {
                     type: "default-content",
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
+                    hideBackground: false,
+                    htmlFile: "",
                     GraphicResources: {
-                        // Nuevas propiedades para logos del header
-                        headerLogos: {
-                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
-                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
-                        },
-                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
                             position: 'center'
                         },
-                        characterUrl: 'assets/img/personajes/niña-revista-4.png',
-                        characterConfig: {
-                            side: 'left',
-                            xOffset: '50px',
-                            yOffset: '40px',
-                            scale: 0.8,
-                            maxWidth: '600px',
-                            // Configuración para laptops/pantallas bajas
-                            responsive: {
-                                xOffset: '-30px',
-                                yOffset: '-50px',
-                                scale: 0.7,
-                                maxWidth: '400px'
+                    },
+                    contentHtml: renderSlideshow({
+                        slides: [
+                            {
+                                label: "Justificación",
+                                title: "Derechos Humanos y DIH",
+                                body: `
+          <p>Proporciona a los participantes las herramientas necesarias para comprender y aplicar los derechos civiles y políticos, esenciales para la participación activa y el ejercicio pleno de los derechos. </p>
+          <p>A través del estudio de los mecanismos de protección universales, regionales y nacionales, así como de los mecanismos de participación ciudadana, el módulo capacita a los participantes para promover una gestión pública transparente</p>
+        `
+                            },
+                            {
+                                label: "Objetivo general",
+                                title: "Reconocimiento y orientación ética",
+                                body: `
+          <p>Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.</p>
+        `
+                            },
+                            {
+                                label: "Objetivos específicos",
+                                title: "Fundamentos e identificación de vulneraciones",
+                                body: `
+          <p>Identificar los derechos civiles y políticos y los principales mecanismos universales, regionales y nacionales de protección, para reconocer rutas institucionales de garantía y defensa de los derechos de niños, niñas y adolescentes.</p>
+          <p>Analizar el funcionamiento y alcance de los mecanismos de participación ciudadana, para promover una gestión pública transparente y el ejercicio informado de los derechos, en los procesos institucionales relacionados con la protección integral de niños, niñas y adolescentes.</p>
+          <p>Aplicar los mecanismos de protección y participación ciudadana a situaciones contextualizadas, para orientar decisiones y acciones coherentes con los derechos civiles y políticos, en escenarios reales o simulados vinculados a la labor del ICBF y la garantía de derechos en el ámbito público.</p>
+        `
                             }
-                        }
-                    }
+                        ]
+                    })
                 },
+
                 {
                     type: "video",
                     title: "Video navegacion",
@@ -442,6 +495,38 @@ export const course = {
                     characterLeft: "Ayla",
                     characterRight: "Simón",
                 },
+
+                // {
+                //     type: "default-content",
+                //     htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
+                //     GraphicResources: {
+                //         // Nuevas propiedades para logos del header
+                //         headerLogos: {
+                //             leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                //             rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                //         },
+                //         backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                //         backgroundConfig: {
+                //             size: 'cover',
+                //             position: 'center'
+                //         },
+                //         characterUrl: 'assets/img/personajes/niña-revista-4.png',
+                //         characterConfig: {
+                //             side: 'left',
+                //             xOffset: '50px',
+                //             yOffset: '40px',
+                //             scale: 0.8,
+                //             maxWidth: '600px',
+                //             // Configuración para laptops/pantallas bajas
+                //             responsive: {
+                //                 xOffset: '-30px',
+                //                 yOffset: '-50px',
+                //                 scale: 0.7,
+                //                 maxWidth: '400px'
+                //             }
+                //         }
+                //     }
+                // },
 
             ]
         },
