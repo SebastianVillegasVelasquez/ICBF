@@ -20,12 +20,26 @@
     background: #ffffff;
     color:var(--text);
   }
-  .page{
-    max-height:80vh;
-    padding:30px;
-    display:flex;
-    justify-content:center;
-  }
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image: url('assets/img/background-modulo-1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: -1;
+}
   .infographic{
     width:min(1500px,100%);
     background: #ffffff;
@@ -156,7 +170,7 @@
   .c6{background:var(--c6)}
 
   .mechanisms{
-    margin-top:48px;
+    margin-top:-4px;
   }
   .mechanisms h2{
     margin:0;

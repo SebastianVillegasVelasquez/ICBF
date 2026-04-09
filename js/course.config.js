@@ -11,6 +11,39 @@ export const course = {
             title: "Portada",
             screens: [
 
+                // PANTALLA 10 - REVISTA DIDACTICA 3
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-3.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: '/assets/img/personajes/niño-revista-3.png',
+                        characterConfig: {
+                            side: 'right',
+                            xOffset: '50px',
+                            yOffset: '80px',
+                            scale: 1,
+                            maxWidth: '600px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '50px',
+                                yOffset: '0px',
+                                scale: 1,
+                                maxWidth: '400px'
+                            }
+                        }
+                    }
+                },
+
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
@@ -113,6 +146,14 @@ export const course = {
                 {
                     type: "default-content",
                     hideBackground: false,
+                    htmlFile: "",
+                        GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
                     contentHtml: renderSlideshow({
                         slides: [
                             {
@@ -159,8 +200,15 @@ export const course = {
 
                 {
                     type: "default-content",
-                    hideBackground: true,
-
+                    hideBackground: false,
+                    htmlFile: "",
+                        GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
                     contentHtml: renderQuiz({
                         title: "Autodiagnóstico de la comprensión de los DDHH y DIH",
                         description: "",
@@ -214,7 +262,7 @@ export const course = {
                 // PANTALLA 7 - INFOGRAFIA 1
                 {
                     type: "default-content",
-                    hideBackground: true,
+                    hideBackground: false,
                     htmlFile: "assets/infografias/linea-tiempo.html"
                 },
 

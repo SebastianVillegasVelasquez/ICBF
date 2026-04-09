@@ -3,6 +3,7 @@
         height: 100%;
         padding: 0 !important;
         max-width: 100% !important;
+ 
     }
 
     .main-layout {
@@ -10,14 +11,21 @@
         align-items: stretch !important;
     }
 
-    .info-scene {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        overflow-y: auto;
-        font-family: system-ui, -apple-system, sans-serif;
-    }
+.info-scene {
+    position: fixed; /* 🔥 clave */
+
+    top: 0;
+    left: 0;
+    width: 100vw;   /* 🔥 viewport real */
+    height: 100vh;
+
+    overflow-y: auto;
+
+    background-image: url('assets/img/background-modulo-1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
     .info-scene-bg {
         position: absolute;
@@ -223,7 +231,7 @@
     <div class="info-column col-left">
         <div class="info-card-float card-03">
             <div class="info-card-header js-toggle-card">
-                <span class="info-card-num color-03">03</span>
+                <span class="info-card-num color-03">03</span>  
                 <p class="info-card-title">Avances en la protección de los derechos humanos</p>
                 <button class="info-card-toggle">+</button>
             </div>

@@ -131,7 +131,7 @@ html, body {
     flex-shrink: 0;
 }
 
-.button-wrapper {
+.button-wrapper-post {
     margin-top: auto;
     margin-bottom: clamp(10px, 3vh, 30px);
     width: 100%;
@@ -145,7 +145,7 @@ html, body {
 }
 
 
-.ingresar-btn {
+.ingresar-btn-intro {
     background-color: #fedb02;
     border: none;
     border-radius: clamp(8px, 1vw, 12px);
@@ -159,12 +159,12 @@ html, body {
 }
 
 
-.ingresar-btn:hover {
+.ingresar-btn-intro:hover {
     transform: translateY(-3px);
     box-shadow: 0 clamp(3px, 0.5vw, 6px) clamp(9px, 1.5vw, 15px) rgba(232, 194, 8, 0.4);
 }
 
-.ingresar-btn span {
+.ingresar-btn-intro span {
     color: #569e9a !important;
     font-weight: 900;
     font-size: clamp(1.2rem, 1.8vw, 1.8rem);
@@ -333,7 +333,7 @@ html, body {
     }
 
     /* 5. Apretamos la separación de botones */
-    .button-wrapper {
+    .button-wrapper-post {
         margin-bottom: 15px;
         transform: translateY(30px);
 
