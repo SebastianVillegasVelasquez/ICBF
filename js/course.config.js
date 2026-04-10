@@ -10,7 +10,11 @@ export const course = {
         {
             title: "Portada",
             screens: [
-
+                {
+                    type: "custom",
+                    html: "assets/caja-herramientas/caja_de_herramientas.html",
+                    css: "css/caja-herramientas.css"
+                },
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
