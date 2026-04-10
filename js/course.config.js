@@ -11,6 +11,7 @@ export const course = {
             title: "Portada",
             screens: [
 
+
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
@@ -474,8 +475,6 @@ export const course = {
                     htmlFile: "assets/actividades/podcast.html",
                 },
 
-
-
                 // {
                 //     type: "default-content",
                 //     htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
@@ -507,6 +506,206 @@ export const course = {
                 //         }
                 //     }
                 // },
+
+            ]
+        },
+
+
+        {
+            id: 3,
+            title: "Módulo: Derechos económicos, sociales y culturales y sus mecanismos de protección",
+            screens: [
+                // MODULO 3 - Derechos económicos, sociales y culturales y sus mecanismos de protección
+
+                 //PANTALLA 1 — Bienvenida
+                {
+                    type: "module-intro",
+                    moduleTitle: "Módulo 3",
+                    introText: "Derechos económicos, sociales y culturales y sus mecanismos de protección",
+                    subText: "",
+                    percentage: 40,
+                },
+
+                // PANTALLA 2 - Post-intro
+                {
+                    type: "post-intro",
+                    moduleTitle: "Módulo 3",
+                    introText: "Derechos económicos, sociales y culturales y sus mecanismos de protección",
+                    subText: "El agua y sus nutrientes",
+                    topics: [
+                        "Los derechos económicos, sociales y culturales",
+                        "Mecanismos de protección de los derechos económicos, sociales y culturales",
+                    ],
+                    characterImageConfig: {
+                        url: "assets/img/personajes/tres_personajes.png",
+                        size: "contain"
+                    },
+                    percentage: 40
+                },
+
+                // PANTALLA 3 - JUSTIFICACION MODULO 3
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/modulo-3/personaje-1.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '600px',
+                            yOffset: '-10px',
+                            scale: 1,
+                            maxWidth: '700px',
+                            zIndex: 9999,
+                            
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '400px',
+                                yOffset: '-10px',
+                                scale: 0.9,
+                                maxWidth: '550px',
+                                zIndex: 9999,
+                            }
+                        }
+                    
+                    },
+                    contentHtml: renderSlideshow({
+                        slides: [
+                            {
+                                label: "Justificación",
+                                title: "Derechos Humanos y DIH",
+                                body: `
+          <p>Los derechos económicos, sociales y culturales (DESC) y sus mecanismos de protección, son esenciales para garantizar el bienestar y la dignidad de las personas. Comprender estos derechos es fundamental para identificar las necesidades sociales y para orientar las acciones que permitan su plena satisfacción. Además, este conocimiento capacita a los participantes para promover políticas públicas y medidas eficaces que aseguren que estos derechos sean respetados y protegidos en el contexto nacional e internacional, contribuyendo así a su protección integral</p>
+        `
+                            },
+                            {
+                                label: "Objetivo general",
+                                title: "Reconocimiento y orientación ética",
+                                body: `
+          <p>Reconocer los derechos económicos, sociales y culturales y sus mecanismos de protección para orientar acciones que contribuyan a la garantía integral de los derechos de niños, niñas y adolescentes.</p>
+        `
+                            },
+                            {
+                                label: "Objetivos específicos",
+                                title: "Fundamentos e identificación de vulneraciones",
+                                body: `
+          <p>Identificar los derechos económicos, sociales y culturales y sus mecanismos de protección para reconocer condiciones que afectan el bienestar y el desarrollo integral de niños, niñas y adolescentes.</p>
+          <p>Analizar situaciones contextualizadas relacionadas con la garantía de los derechos económicos, sociales y culturales para orientar acciones institucionales que contribuyan a su protección efectiva.</p>
+        `
+                            }
+                        ]
+                    })
+                },
+
+                // PANTALLA 4 - Video animado de concepto básico
+                {
+                    type: "video",
+                    title: "Video animado de concepto básico",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                // PANTALLA 5 - PÓDCAST
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/podcast-m3.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                    }
+                },
+
+                // PANTALLA 6 - Video animado de concepto básico
+                {
+                    type: "video",
+                    title: "Video animado de concepto básico",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                // PANTALLA 7 - Revista didáctica 1
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/modulo-3/revista-1.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    }
+                },
+
+                // PANTALLA 8 - Revista didáctica 2
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/modulo-3/revista-2.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-2.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/modulo-3/personaje-2.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '100px',
+                            yOffset: '30px',
+                            scale: 1,
+                            maxWidth: '450px',
+                            zIndex: 99999,
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '100px',
+                                yOffset: '30px',
+                                scale: 0.9,
+                                maxWidth: '310px',
+                                zIndex: 99999,
+                            }
+                        }
+                    }
+                },
+
+                // PANTALLA 9 - INFOGRAFIA 1
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "assets/infografias/modulo-3/infografia-1.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                },
+                
 
             ]
         },

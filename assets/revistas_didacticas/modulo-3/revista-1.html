@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>DESC — Módulo 3 Tema 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vd:#0B4923;--vd2:#0d5c2e;--vd3:#094020;
+  --lm:#94B55A;--yw:#E8C208;--t2:#569E9A;
+  --paper:#fff;--cream:#F2F0EA;--fog:#E4E0D6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:"Nunito",sans-serif;
+  background:#1e2820;display:flex;align-items:center;justify-content:center;}
+
+/* ══ BOOK ══ */
+#book{width:980px;height:580px;display:flex;flex-direction:column;
+  border-radius:20px;overflow:hidden;position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.2);}
+
+/* top strip */
+#top-strip{height:5px;background:linear-gradient(90deg,var(--vd),var(--lm) 60%,var(--yw));flex-shrink:0;}
+
+/* content row */
+#content-row{flex:1;display:flex;overflow:hidden;}
+
+/* ══ SIDEBAR ══ */
+#sidebar{width:250px;flex-shrink:0;background:var(--vd);display:flex;flex-direction:column;
+  padding:24px 0 0;position:relative;overflow:hidden;}
+#sidebar::before{content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;
+  border-radius:50%;background:rgba(148,181,90,.08);pointer-events:none;}
+#sidebar::after{content:"";position:absolute;bottom:-50px;left:-30px;width:160px;height:160px;
+  border-radius:50%;background:rgba(232,194,8,.06);pointer-events:none;}
+.sb-inner{height:100%;display:flex;flex-direction:column;position:relative;z-index:1;padding:0 0 16px;}
+.sb-mod{font-size:7px;font-weight:900;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);padding:0 20px;margin-bottom:6px;}
+.sb-title{font-size:15px;font-weight:900;color:#fff;line-height:1.25;padding:0 20px;margin-bottom:20px;}
+.sb-title em{color:var(--yw);font-style:normal;}
+.sb-sep{height:1px;background:rgba(255,255,255,.1);margin:0 16px 16px;}
+.sb-label{font-size:7.5px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);padding:0 20px;margin-bottom:8px;}
+.sb-items{display:flex;flex-direction:column;gap:2px;padding:0 10px;flex:1;}
+.sb-item{display:flex;align-items:flex-start;gap:10px;padding:10px 10px;
+  border-radius:10px;cursor:pointer;transition:all .22s;
+  border-left:3px solid transparent;}
+.sb-item.active{background:rgba(255,255,255,.12);border-left-color:var(--yw);}
+.sb-item:not(.active):hover{background:rgba(255,255,255,.06);}
+.sb-num{width:24px;height:24px;border-radius:7px;font-size:9px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:1px;transition:all .22s;}
+.sb-item.active .sb-num{background:var(--yw);color:var(--vd);}
+.sb-item:not(.active) .sb-num{background:rgba(255,255,255,.1);color:rgba(255,255,255,.3);}
+.sb-item.visited:not(.active) .sb-num{background:rgba(148,181,90,.25);color:var(--lm);}
+.sb-name{font-size:9px;font-weight:700;line-height:1.35;color:rgba(255,255,255,.4);transition:color .22s;}
+.sb-item.active .sb-name{color:#fff;}
+.sb-item.visited:not(.active) .sb-name{color:rgba(148,181,90,.7);}
+.sb-check{width:10px;height:10px;flex-shrink:0;opacity:0;transition:opacity .3s;margin-top:5px;}
+.sb-item.visited:not(.active) .sb-check{opacity:1;}
+.sb-prog-wrap{padding:14px 20px 0;border-top:1px solid rgba(255,255,255,.08);}
+.sb-prog-label{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);margin-bottom:5px;
+  display:flex;justify-content:space-between;}
+.sb-prog-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.sb-prog-fill{height:100%;background:var(--lm);border-radius:2px;
+  transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+/* ══ MAIN ══ */
+#main{flex:1;background:var(--paper);position:relative;overflow:hidden;display:flex;flex-direction:column;}
+
+/* page transition */
+.pg{position:absolute;inset:0;bottom:64px;display:flex;flex-direction:column;
+  transition:transform .42s cubic-bezier(.4,0,.2,1),opacity .32s ease;will-change:transform,opacity;}
+.pg.out-r{transform:translateX(55px) scale(.98);opacity:0;pointer-events:none;}
+.pg.out-l{transform:translateX(-55px) scale(.98);opacity:0;pointer-events:none;}
+.pg.visible{transform:translateX(0) scale(1);opacity:1;pointer-events:all;}
+
+/* page inner */
+.pg-wrap{height:100%;display:flex;flex-direction:column;padding:28px 36px 16px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--fog) transparent;}
+.pg-wrap::-webkit-scrollbar{width:3px;}
+.pg-wrap::-webkit-scrollbar-thumb{background:var(--fog);}
+
+/* watermark */
+.wm{position:absolute;bottom:-20px;right:0;font-size:200px;font-weight:900;
+  color:rgba(11,73,35,.04);line-height:1;pointer-events:none;user-select:none;}
+
+/* typography */
+.step-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(11,73,35,.07);
+  border-radius:20px;padding:4px 12px;font-size:8px;font-weight:900;
+  color:var(--vd);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;width:fit-content;}
+.step-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--vd);flex-shrink:0;}
+.pg-h{font-size:24px;font-weight:900;color:#111;line-height:1.1;margin-bottom:5px;}
+.pg-h em{font-style:normal;color:var(--vd);}
+.pg-sub{font-size:10px;color:#bbb;font-weight:600;line-height:1.5;margin-bottom:16px;}
+.divider{height:1px;background:var(--fog);margin-bottom:16px;flex-shrink:0;}
+
+.body-t{font-size:10px;line-height:1.78;color:#4a4a4a;margin-bottom:10px;flex-shrink:0;text-align:justify;}
+.body-t strong{color:var(--vd);font-weight:800;}
+
+/* ══ ACCORDION ══ */
+.accord{border:1.5px solid var(--fog);border-radius:14px;overflow:hidden;margin-bottom:10px;flex-shrink:0;}
+.accord-hd{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  cursor:pointer;user-select:none;transition:background .2s;}
+.accord-hd:hover{background:rgba(11,73,35,.03);}
+.accord.open .accord-hd{background:var(--vd);}
+.accord-hd-txt{font-size:10px;font-weight:700;color:#333;line-height:1.5;flex:1;padding-right:10px;transition:color .2s;}
+.accord.open .accord-hd-txt{color:#fff;}
+.accord-icon{width:24px;height:24px;border-radius:7px;background:rgba(11,73,35,.08);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s;}
+.accord-icon svg{width:12px;height:12px;stroke:var(--vd);fill:none;stroke-width:2.5;transition:all .3s;}
+.accord.open .accord-icon{background:rgba(255,255,255,.2);}
+.accord.open .accord-icon svg{stroke:#fff;transform:rotate(180deg);}
+.accord-body{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.4,0,.2,1);}
+.accord.open .accord-body{max-height:400px;}
+.accord-body-inner{padding:14px 16px;font-size:9.5px;line-height:1.75;color:#555;
+  border-top:1px solid rgba(11,73,35,.1);}
+.accord-body-inner strong{color:var(--vd);font-weight:800;}
+.accord-cite{font-size:8px;color:#bbb;font-style:italic;margin-top:6px;display:block;}
+
+/* ══ FLIP CARDS ══ */
+.flip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;flex-shrink:0;}
+.flip-c{height:100px;cursor:pointer;perspective:700px;user-select:none;}
+.flip-c:hover .flip-inner{transform:rotateY(12deg);}
+.flip-c.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-inner{width:100%;height:100%;transition:transform .4s cubic-bezier(.4,0,.2,1);
+  transform-style:preserve-3d;position:relative;}
+.flip-f,.flip-b{position:absolute;inset:0;border-radius:12px;padding:12px 14px;
+  backface-visibility:hidden;display:flex;flex-direction:column;}
+.flip-f{background:#fff;border:1.5px solid var(--fog);}
+.flip-b{background:var(--vd);transform:rotateY(180deg);}
+.flip-f-top{display:flex;align-items:center;gap:7px;margin-bottom:6px;}
+.flip-f-ico{width:26px;height:26px;border-radius:8px;background:rgba(11,73,35,.08);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.flip-f-ico svg{width:13px;height:13px;stroke:var(--vd);fill:none;stroke-width:2;}
+.flip-f-t{font-size:10px;font-weight:800;color:var(--vd);}
+.flip-f-hint{font-size:8px;color:#ccc;margin-top:auto;font-weight:600;}
+.flip-b-txt{font-size:9px;font-weight:700;color:#fff;line-height:1.65;flex:1;}
+.flip-b-txt strong{color:var(--yw);}
+
+/* ══ TIMELINE INTERACTIVO ══ */
+#tl-wrap{position:relative;flex:1;min-height:0;}
+#tl-rail{position:absolute;top:30px;left:20px;right:20px;height:3px;background:var(--fog);}
+#tl-fill{position:absolute;left:0;top:0;height:100%;background:var(--vd);
+  border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1);width:0%;}
+.tl-node{position:absolute;top:0;transform:translateX(-50%);cursor:pointer;}
+.tl-dot{width:18px;height:18px;border-radius:50%;background:#fff;border:2.5px solid var(--fog);
+  margin:0 auto;transition:all .25s;display:flex;align-items:center;justify-content:center;}
+.tl-node.active .tl-dot{background:var(--vd);border-color:var(--vd);
+  box-shadow:0 0 0 5px rgba(11,73,35,.15);transform:scale(1.2);}
+.tl-node.visited:not(.active) .tl-dot{background:var(--lm);border-color:var(--lm);}
+.tl-dot-n{font-size:7px;font-weight:900;color:var(--fog);}
+.tl-node.active .tl-dot-n{color:#fff;}
+.tl-node.visited:not(.active) .tl-dot-n{color:#fff;}
+.tl-lbl{font-size:8px;font-weight:800;color:#bbb;text-align:center;margin-top:6px;
+  white-space:nowrap;transition:color .25s;max-width:90px;margin-left:-36px;}
+.tl-node.active .tl-lbl{color:var(--vd);}
+.tl-node.visited:not(.active) .tl-lbl{color:var(--lm);}
+#tl-card{position:absolute;top:75px;left:16px;right:16px;bottom:0;
+  background:var(--vd);border-radius:14px;padding:18px 20px;overflow-y:auto;
+  transition:all .35s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(8px);}
+#tl-card.show{opacity:1;transform:translateY(0);}
+#tl-card-h{font-size:12px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:4px;}
+#tl-card-law{font-size:9px;font-weight:700;color:var(--lm);margin-bottom:10px;}
+#tl-card-body{font-size:9.5px;line-height:1.75;color:rgba(255,255,255,.7);}
+#tl-card-body strong{color:#fff;font-weight:800;}
+#tl-empty{position:absolute;top:75px;left:0;right:0;text-align:center;
+  font-size:11px;color:#ddd;font-weight:700;padding-top:20px;transition:opacity .2s;}
+
+/* ══ REGRESIVIDAD ══ */
+.rg-items{display:flex;flex-direction:column;gap:0;flex-shrink:0;}
+.rg-row{display:flex;align-items:stretch;cursor:pointer;
+  border-bottom:1px solid var(--fog);transition:all .22s;position:relative;overflow:hidden;}
+.rg-row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;
+  background:var(--vd);transition:width .25s cubic-bezier(.4,0,.2,1);}
+.rg-row:hover::before{width:4px;}
+.rg-row.pinned::before{width:4px;background:var(--yw);}
+.rg-num{width:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.rg-ball{width:30px;height:30px;border-radius:50%;background:var(--fog);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+  font-weight:900;color:#aaa;transition:all .25s;}
+.rg-row:hover .rg-ball{background:var(--vd);color:#fff;transform:scale(1.1);}
+.rg-row.pinned .rg-ball{background:var(--yw);color:var(--vd);}
+.rg-txt{flex:1;padding:14px 12px 14px 0;font-size:9.5px;line-height:1.7;color:#555;transition:color .22s;}
+.rg-txt strong{color:#999;font-weight:800;transition:color .22s;}
+.rg-row:hover .rg-txt{color:#222;}
+.rg-row:hover .rg-txt strong{color:var(--vd);}
+.rg-row.pinned .rg-txt{color:#1a1a1a;}
+.rg-row.pinned .rg-txt strong{color:var(--vd);}
+.rg-excep{border-radius:14px;background:rgba(232,194,8,.08);padding:13px 16px;
+  margin-top:10px;font-size:9.5px;line-height:1.72;color:#5a4800;flex-shrink:0;
+  border-left:3px solid var(--yw);}
+.rg-excep strong{font-weight:800;color:#7a6000;}
+.rg-excep-cite{display:block;font-size:8px;color:#bbb;font-style:italic;margin-top:5px;}
+
+/* ══ PORTADA ══ */
+#pg0{bottom:64px;}
+.cov-left{background:var(--vd);height:100%;display:flex;flex-direction:column;
+  padding:36px 36px;position:relative;overflow:hidden;}
+.cov-left::before{content:"";position:absolute;top:-60px;right:-60px;
+  width:240px;height:240px;border-radius:50%;background:rgba(148,181,90,.08);}
+.cov-left::after{content:"";position:absolute;bottom:-50px;left:-40px;
+  width:180px;height:180px;border-radius:50%;background:rgba(232,194,8,.06);}
+.cov-eye{font-size:7.5px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-bottom:12px;position:relative;z-index:1;}
+.cov-h{font-size:28px;font-weight:900;color:#fff;line-height:1.08;
+  margin-bottom:8px;position:relative;z-index:1;}
+.cov-h em{color:var(--yw);font-style:normal;}
+.cov-h2{font-size:16px;font-weight:700;color:rgba(255,255,255,.5);
+  margin-bottom:20px;position:relative;z-index:1;}
+.cov-desc{font-size:9.5px;color:rgba(255,255,255,.4);line-height:1.8;
+  flex:1;position:relative;z-index:1;}
+.cov-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;
+  border-radius:20px;background:rgba(148,181,90,.18);border:1px solid rgba(148,181,90,.3);
+  font-size:8px;font-weight:800;color:var(--lm);margin-bottom:16px;
+  position:relative;z-index:1;width:fit-content;}
+
+/* toc portada */
+.cov-toc{display:flex;flex-direction:column;gap:0;overflow:hidden;}
+.cov-toc-hd{font-size:8px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(11,73,35,.3);margin-bottom:12px;padding:28px 28px 0;}
+.cov-toc-item{display:flex;align-items:center;gap:11px;padding:11px 28px;
+  border-bottom:1px solid var(--fog);cursor:pointer;transition:all .2s;}
+.cov-toc-item:last-child{border-bottom:none;}
+.cov-toc-item:hover{background:rgba(11,73,35,.03);padding-left:34px;}
+.cov-toc-n{width:24px;height:24px;border-radius:7px;background:var(--vd);color:#fff;
+  font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background .2s;}
+.cov-toc-item:hover .cov-toc-n{background:var(--lm);color:var(--vd);}
+.cov-toc-name{font-size:10px;font-weight:800;color:#1a1a1a;line-height:1.3;flex:1;}
+.cov-toc-desc{font-size:8px;color:#aaa;margin-top:1px;}
+.cov-toc-arr{font-size:16px;color:var(--fog);transition:color .2s;}
+.cov-toc-item:hover .cov-toc-arr{color:var(--vd);}
+.cov-toc-foot{padding:16px 28px;border-top:1px solid var(--fog);margin-top:auto;flex-shrink:0;}
+.cov-toc-q{font-size:8.5px;color:#888;line-height:1.65;font-style:italic;
+  border-left:2.5px solid var(--vd);padding-left:10px;}
+.cov-toc-q strong{color:var(--vd);font-style:normal;}
+
+/* ══ NAV BAR ══ */
+#nav-bar{position:absolute;bottom:0;left:0;right:0;height:64px;
+  background:#fff;border-top:2px solid var(--fog);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;z-index:50;}
+.nbtn{height:42px;border-radius:22px;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:9px;font-family:"Nunito",sans-serif;
+  font-size:12px;font-weight:800;padding:0 20px;transition:all .2s;letter-spacing:.01em;}
+.nbtn:active{transform:scale(.96);}
+#nb-prev{background:var(--cream);color:var(--vd);border:2px solid var(--fog);}
+#nb-prev:hover:not(:disabled){background:var(--fog);}
+#nb-prev:disabled{opacity:.3;cursor:not-allowed;}
+#nb-next{background:var(--vd);color:#fff;min-width:130px;justify-content:center;}
+#nb-next:hover:not(:disabled){background:var(--vd2);}
+#nb-next:disabled{opacity:.3;cursor:not-allowed;}
+.nbtn svg{width:14px;height:14px;fill:none;stroke-width:2.5;flex-shrink:0;}
+#nb-prev svg{stroke:var(--vd);}
+#nb-next svg{stroke:#fff;}
+.nav-center{display:flex;flex-direction:column;align-items:center;gap:5px;}
+#nav-hint{font-size:10px;font-weight:700;color:var(--vd);opacity:.55;
+  display:flex;align-items:center;gap:5px;}
+#nav-hint svg{width:13px;height:13px;stroke:var(--vd);fill:none;stroke-width:2;opacity:.55;}
+#dots{display:flex;gap:6px;align-items:center;}
+.dot{height:8px;border-radius:4px;cursor:pointer;transition:all .28s;background:var(--fog);}
+.dot.active{background:var(--vd);width:24px;}
+.dot:not(.active){width:8px;}
+.dot.visited:not(.active){background:var(--lm);}
+</style>
+
+<div id="book">
+<div id="top-strip"></div>
+<div id="content-row">
+
+<!-- ══ SIDEBAR ══ -->
+<div id="sidebar">
+<div class="sb-inner">
+  <div class="sb-mod">ICBF · Módulo 3 · Tema 1</div>
+  <div class="sb-title">Los Derechos<br><em>Económicos,</em><br>Sociales y Culturales</div>
+  <div class="sb-sep"></div>
+  <div class="sb-label">Contenido</div>
+  <div class="sb-items" id="sbItems">
+    <div class="sb-item active" data-page="0" onclick="goPage(0)">
+      <div class="sb-num">·</div>
+      <div style="flex:1"><div class="sb-name">Portada e índice</div></div>
+      <svg class="sb-check" viewBox="0 0 24 24" fill="none" stroke="#94B55A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="sb-item" data-page="1" onclick="goPage(1)">
+      <div class="sb-num">1</div>
+      <div style="flex:1"><div class="sb-name">¿Qué son los derechos económicos, sociales y culturales?</div></div>
+      <svg class="sb-check" viewBox="0 0 24 24" fill="none" stroke="#94B55A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="sb-item" data-page="2" onclick="goPage(2)">
+      <div class="sb-num">2</div>
+      <div style="flex:1"><div class="sb-name">¿Son derechos individuales?</div></div>
+      <svg class="sb-check" viewBox="0 0 24 24" fill="none" stroke="#94B55A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="sb-item" data-page="3" onclick="goPage(3)">
+      <div class="sb-num">3</div>
+      <div style="flex:1"><div class="sb-name">La "realización progresiva"</div></div>
+      <svg class="sb-check" viewBox="0 0 24 24" fill="none" stroke="#94B55A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="sb-item" data-page="4" onclick="goPage(4)">
+      <div class="sb-num">4</div>
+      <div style="flex:1"><div class="sb-name">La prohibición de regresividad</div></div>
+      <svg class="sb-check" viewBox="0 0 24 24" fill="none" stroke="#94B55A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+  </div>
+  <div class="sb-prog-wrap">
+    <div class="sb-prog-label">
+      <span>Progreso</span>
+      <span id="sb-pct">0%</span>
+    </div>
+    <div class="sb-prog-bar"><div class="sb-prog-fill" id="sbFill" style="width:0%"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div id="main">
+
+<!-- PG0 PORTADA -->
+<div class="pg visible" id="pg0" style="flex-direction:row;bottom:64px;">
+  <div class="cov-left" style="width:42%;flex-shrink:0;">
+    <div class="cov-eye">Módulo 3 · Tema 1</div>
+    <div class="cov-badge"><span style="width:5px;height:5px;border-radius:50%;background:var(--lm);flex-shrink:0"></span>Módulo 3 · Tema 1</div>
+    <div class="cov-h">Los Derechos <em>Económicos,</em></div>
+    <div class="cov-h2">Sociales y Culturales</div>
+    <div class="cov-desc">Son los Derechos Humanos relacionados con las <strong style="color:rgba(255,255,255,.7)">necesidades básicas</strong> de las personas: trabajo, seguridad social, vivienda, alimentación, agua, salud y educación. Su realización aplica el principio de <strong style="color:rgba(255,255,255,.7)">dignidad humana</strong>.</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;">
+    <div class="cov-toc-hd">Toca un tema para ir directo</div>
+    <div class="cov-toc">
+      <div class="cov-toc-item" onclick="goPage(1)">
+        <div class="cov-toc-n">1</div>
+        <div style="flex:1"><div class="cov-toc-name">¿Qué son los derechos económicos, sociales y culturales?</div><div class="cov-toc-desc">Definición y obligación del Estado</div></div>
+        <div class="cov-toc-arr">›</div>
+      </div>
+      <div class="cov-toc-item" onclick="goPage(2)">
+        <div class="cov-toc-n">2</div>
+        <div style="flex:1"><div class="cov-toc-name">¿Son derechos individuales?</div><div class="cov-toc-desc">Titularidad universal y ejemplos concretos</div></div>
+        <div class="cov-toc-arr">›</div>
+      </div>
+      <div class="cov-toc-item" onclick="goPage(3)">
+        <div class="cov-toc-n">3</div>
+        <div style="flex:1"><div class="cov-toc-name">La "realización progresiva"</div><div class="cov-toc-desc">Obligación e instrumentos internacionales</div></div>
+        <div class="cov-toc-arr">›</div>
+      </div>
+      <div class="cov-toc-item" onclick="goPage(4)">
+        <div class="cov-toc-n">4</div>
+        <div style="flex:1"><div class="cov-toc-name">La prohibición de regresividad</div><div class="cov-toc-desc">Eventos regresivos y excepción constitucional</div></div>
+        <div class="cov-toc-arr">›</div>
+      </div>
+    </div>
+    <div class="cov-toc-foot">
+      <div class="cov-toc-q">"La realización de estos derechos es la aplicación efectiva del principio de <strong>dignidad humana</strong> que funda los derechos humanos."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PG1 -->
+<div class="pg out-r" id="pg1">
+<div class="pg-wrap">
+  <div class="wm">1</div>
+  <div class="step-pill">Paso 1 de 4</div>
+  <div class="pg-h">¿Qué son los derechos <em>económicos,<br>sociales y culturales</em>?</div>
+  <div class="pg-sub">Haz clic en cada bloque para expandir su contenido</div>
+  <div class="divider"></div>
+
+  <div class="accord" id="ac1" onclick="toggleAc('ac1')">
+    <div class="accord-hd">
+      <div class="accord-hd-txt">Son los Derechos Humanos relacionados con las <strong>necesidades básicas</strong> de las personas — haz clic para ver cuáles son</div>
+      <div class="accord-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="accord-body"><div class="accord-body-inner">El lugar de trabajo, la seguridad social, la vida en familia, la participación en la vida cultural y el acceso a la vivienda, la alimentación, el agua, la atención de la salud y la educación. Son derechos que son a su vez una <strong>obligación para el Estado</strong>: debe proporcionar los recursos necesarios para el goce efectivo de los mismos.</div></div>
+  </div>
+
+  <div class="accord" id="ac2" onclick="toggleAc('ac2')">
+    <div class="accord-hd">
+      <div class="accord-hd-txt">¿Qué rol tiene el <strong>Estado</strong> frente a estos derechos?</div>
+      <div class="accord-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="accord-body"><div class="accord-body-inner">El Estado tiene la obligación de <strong>proporcionar los recursos necesarios</strong> para el goce efectivo de los mismos. No puede mantenerse indiferente: debe actuar activamente para garantizarlos.</div></div>
+  </div>
+
+  <div class="accord" id="ac3" onclick="toggleAc('ac3')">
+    <div class="accord-hd">
+      <div class="accord-hd-txt">¿Cuál es el vínculo con la <strong>dignidad humana</strong>?</div>
+      <div class="accord-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="accord-body"><div class="accord-body-inner">La realización de estos derechos es la <strong>aplicación efectiva del principio de dignidad humana</strong> que funda los derechos humanos. No son beneficios otorgados por el Estado, sino derechos inherentes a toda persona desde que nace.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- PG2 -->
+<div class="pg out-r" id="pg2">
+<div class="pg-wrap">
+  <div class="wm">2</div>
+  <div class="step-pill">Paso 2 de 4</div>
+  <div class="pg-h">¿Son derechos <em>individuales</em>?</div>
+  <div class="pg-sub">Haz clic en cada tarjeta para voltearla y ver el ejemplo completo</div>
+  <div class="divider"></div>
+  <div class="accord" id="ac4" onclick="toggleAc('ac4')" style="margin-bottom:14px">
+    <div class="accord-hd">
+      <div class="accord-hd-txt"><strong>Sí.</strong> Son derechos que tiene todo ser humano desde que nace — ver explicación completa</div>
+      <div class="accord-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="accord-body"><div class="accord-body-inner">Los derechos económicos, sociales y culturales, en el mismo sentido que otros derechos humanos, son derechos que tiene <strong>todo ser humano desde que nace</strong>. No dependen de condiciones especiales. El Estado debe garantizarlos para cada individuo sin distinción.</div></div>
+  </div>
+  <div class="flip-grid">
+    <div class="flip-c" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-f">
+          <div class="flip-f-top"><div class="flip-f-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="flip-f-t">Niños y niñas</div></div>
+          <div style="font-size:8.5px;color:#aaa;line-height:1.5">Derecho a la educación</div>
+          <div class="flip-f-hint">↩ clic para ver el ejemplo</div>
+        </div>
+        <div class="flip-b"><div class="flip-b-txt">Deben poder acceder a la <strong>educación primaria o secundaria</strong>, sin restricciones por condición económica o social.</div></div>
+      </div>
+    </div>
+    <div class="flip-c" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-f">
+          <div class="flip-f-top"><div class="flip-f-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg></div><div class="flip-f-t">Personas de la tercera edad</div></div>
+          <div style="font-size:8.5px;color:#aaa;line-height:1.5">Derecho a la salud</div>
+          <div class="flip-f-hint">↩ clic para ver el ejemplo</div>
+        </div>
+        <div class="flip-b"><div class="flip-b-txt">No se les debería negar la <strong>atención en salud</strong> bajo ninguna circunstancia.</div></div>
+      </div>
+    </div>
+    <div class="flip-c" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-f">
+          <div class="flip-f-top"><div class="flip-f-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div class="flip-f-t">Las familias</div></div>
+          <div style="font-size:8.5px;color:#aaa;line-height:1.5">Derecho a la vivienda</div>
+          <div class="flip-f-hint">↩ clic para ver el ejemplo</div>
+        </div>
+        <div class="flip-b"><div class="flip-b-txt">Deberían tener acceso a <strong>viviendas dignas</strong> que garanticen condiciones mínimas de habitabilidad.</div></div>
+      </div>
+    </div>
+    <div class="flip-c" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-f">
+          <div class="flip-f-top"><div class="flip-f-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="flip-f-t">Personas con discapacidad</div></div>
+          <div style="font-size:8.5px;color:#aaa;line-height:1.5">Derecho de acceso</div>
+          <div class="flip-f-hint">↩ clic para ver el ejemplo</div>
+        </div>
+        <div class="flip-b"><div class="flip-b-txt">Deberían contar con <strong>accesos adecuados</strong> para entrar a cualquier lugar.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PG3 TIMELINE -->
+<div class="pg out-r" id="pg3">
+<div class="pg-wrap" style="padding-bottom:8px">
+  <div class="wm">3</div>
+  <div class="step-pill">Paso 3 de 4</div>
+  <div class="pg-h">La <em>"realización progresiva"</em></div>
+  <div class="pg-sub">Toca cada punto de la línea de tiempo para leer el instrumento</div>
+  <div class="divider"></div>
+  <div id="tl-wrap">
+    <div id="tl-rail"><div id="tl-fill"></div></div>
+    <div class="tl-node" style="left:12%" id="tn0" onclick="selectTl(0)">
+      <div class="tl-dot"><span class="tl-dot-n">C</span></div>
+      <div class="tl-lbl">Corte<br>Constitucional</div>
+    </div>
+    <div class="tl-node" style="left:37%" id="tn1" onclick="selectTl(1)">
+      <div class="tl-dot"><span class="tl-dot-n">1</span></div>
+      <div class="tl-lbl">Pacto<br>Internacional</div>
+    </div>
+    <div class="tl-node" style="left:63%" id="tn2" onclick="selectTl(2)">
+      <div class="tl-dot"><span class="tl-dot-n">2</span></div>
+      <div class="tl-lbl">Convención<br>Americana</div>
+    </div>
+    <div class="tl-node" style="left:88%" id="tn3" onclick="selectTl(3)">
+      <div class="tl-dot"><span class="tl-dot-n">3</span></div>
+      <div class="tl-lbl">Protocolo<br>San Salvador</div>
+    </div>
+    <div id="tl-empty">← Toca un punto para explorar</div>
+    <div id="tl-card">
+      <div id="tl-card-h"></div>
+      <div id="tl-card-law"></div>
+      <div id="tl-card-body"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PG4 -->
+<div class="pg out-r" id="pg4">
+<div class="pg-wrap">
+  <div class="wm">4</div>
+  <div class="step-pill">Paso 4 de 4</div>
+  <div class="pg-h">La prohibición de <em>regresividad</em></div>
+  <div class="pg-sub">Pasa el cursor · Clic para fijar un evento en amarillo</div>
+  <div class="divider"></div>
+  <div class="rg-items">
+    <div class="rg-row" onclick="this.classList.toggle('pinned')">
+      <div class="rg-num"><div class="rg-ball">1</div></div>
+      <div class="rg-txt">Cuando <strong>recorta o limita</strong> el ámbito sustantivo de protección del respectivo derecho.</div>
+    </div>
+    <div class="rg-row" onclick="this.classList.toggle('pinned')">
+      <div class="rg-num"><div class="rg-ball">2</div></div>
+      <div class="rg-txt">Cuando <strong>aumentan sustancialmente los requisitos</strong> exigidos para acceder al respectivo derecho.</div>
+    </div>
+    <div class="rg-row" onclick="this.classList.toggle('pinned')">
+      <div class="rg-num"><div class="rg-ball">3</div></div>
+      <div class="rg-txt">Cuando <strong>disminuye o desvía sensiblemente los recursos públicos</strong> destinados a la satisfacción del derecho.</div>
+    </div>
+    <div class="rg-row" onclick="this.classList.toggle('pinned')">
+      <div class="rg-num"><div class="rg-ball">4</div></div>
+      <div class="rg-txt">Por el <strong>aumento significativo del costo</strong> para la persona de escasos recursos en proceso de acceder al derecho.</div>
+    </div>
+  </div>
+  <div style="font-size:8px;color:#ccc;font-style:italic;margin:6px 0 8px;flex-shrink:0">Corte Constitucional. Sentencia C-556 del 20 de agosto de 2009. M.P. Nilson Pinilla Pinilla</div>
+  <div class="rg-excep"><strong>Excepción:</strong> Una medida regresiva puede justificarse mediante un <strong>estricto juicio de proporcionalidad</strong> que demuestre que es imprescindible para cumplir con un fin constitucionalmente imperioso.<span class="rg-excep-cite">Corte Constitucional. Sentencia C-288 del 18 de abril de 2012. M.P. Luis Ernesto Vargas Silva</span></div>
+</div>
+</div>
+
+<!-- ══ NAV BAR ══ -->
+<div id="nav-bar">
+  <button class="nbtn" id="nb-prev" onclick="goPage(cur-1)" disabled>
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Anterior
+  </button>
+  <div class="nav-center">
+    <div id="nav-hint">
+      <svg viewBox="0 0 24 24"><path d="M15 15l-6-6M9 15l6-6"/></svg>
+      Toca el índice para navegar directamente
+    </div>
+    <div id="dots">
+      <span class="dot active" onclick="goPage(0)"></span>
+      <span class="dot" onclick="goPage(1)"></span>
+      <span class="dot" onclick="goPage(2)"></span>
+      <span class="dot" onclick="goPage(3)"></span>
+      <span class="dot" onclick="goPage(4)"></span>
+    </div>
+  </div>
+  <button class="nbtn" id="nb-next" onclick="goPage(cur+1)">
+    Siguiente
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+</div><!-- /main -->
+</div><!-- /content-row -->
+</div><!-- /book -->
+
+<script>
+let cur=0;const total=5;const visited=new Set([0]);
+const hints=[
+  'Toca un tema del índice para ir directo',
+  'Haz clic en cada bloque para expandir',
+  'Haz clic en las tarjetas para voltearlas',
+  'Toca la línea de tiempo para explorar',
+  'Clic en cada evento para fijarlo'
+];
+const labels=['Portada','01/04','02/04','03/04','04/04'];
+
+window.goPage = function(n){
+  if(n<0||n>=total)return;
+  const dir=n>cur?1:-1;
+  const pgs=document.querySelectorAll('.pg');
+  pgs[cur].classList.remove('visible');
+  pgs[cur].classList.add(dir>0?'out-l':'out-r');
+  setTimeout(()=>{
+    pgs[n].classList.remove('out-l','out-r');
+    pgs[n].classList.add('visible');
+  },35);
+  cur=n;visited.add(n);
+  const pct=Math.round((n/4)*100);
+  document.getElementById('sbFill').style.width=pct+'%';
+  document.getElementById('sb-pct').textContent=pct+'%';
+  document.querySelectorAll('.sb-item').forEach(it=>{
+    const pg=parseInt(it.dataset.page);
+    it.classList.remove('active','visited');
+    if(pg===n)it.classList.add('active');
+    else if(visited.has(pg))it.classList.add('visited');
+  });
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.classList.remove('active','visited');
+    if(i===n)d.classList.add('active');
+    else if(visited.has(i))d.classList.add('visited');
+  });
+  document.getElementById('nb-prev').disabled=n===0;
+  document.getElementById('nb-next').disabled=n===total-1;
+  document.getElementById('nav-hint').innerHTML=
+    `<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:var(--vd);fill:none;stroke-width:2;opacity:.55"><path d="M9 18l6-6-6-6"/></svg> ${hints[n]}`;
+  if(n===total-1){
+    document.getElementById('nb-next').textContent='';
+    document.getElementById('nb-next').innerHTML='¡Completado! <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+  } else {
+    document.getElementById('nb-next').innerHTML='Siguiente <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.5"><polyline points="9 18 15 12 9 6"/></svg>';
+  }
+}
+
+window.toggleAc = function(id){
+  const el=document.getElementById(id);
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.accord').forEach(a=>a.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+
+const tlData=[
+  {h:'Sentencia C-288-2012',law:'Corte Constitucional · M.P. Luis Ernesto Vargas Silva',
+   b:'"El Estado no puede quedarse quieto ante la satisfacción de los mismos; éste siempre debe desplegar acciones para alcanzar el <strong>aumento de la cobertura y de las garantías</strong>, hasta el máximo posible, a través de la adopción de medidas legislativas y de cualquier otra índole."'},
+  {h:'Pacto Internacional de Derechos Económicos, Sociales y Culturales · Art. 2',
+   law:'Colombia: Ley 74 de 1968',
+   b:'Obliga a los Estados a adoptar medidas hasta el <strong>máximo de los recursos disponibles</strong> para lograr progresivamente la plena efectividad de los derechos reconocidos.'},
+  {h:'Convención Americana sobre Derechos Humanos · Art. 26',
+   law:'Colombia: Ley 16 de 1972',
+   b:'Los Estados parte se comprometen a adoptar providencias para lograr progresivamente la <strong>plena efectividad</strong> de los derechos que se derivan de las normas económicas, sociales, y sobre educación, ciencia y cultura.'},
+  {h:'Protocolo Adicional a la Convención Americana · Arts. 1 y 2 (Protocolo de San Salvador)',
+   law:'Colombia: Ley 319 de 1996',
+   b:'Los Estados parte se comprometen a adoptar las medidas necesarias hasta el <strong>máximo de los recursos disponibles</strong> con miras a lograr progresivamente la plena efectividad de los derechos reconocidos en el Protocolo.'}
+];
+let curTl=-1;
+window.selectTl = function(i){
+  if(curTl===i){
+    curTl=-1;
+    document.querySelectorAll('.tl-node').forEach(n=>n.classList.remove('active','visited'));
+    document.getElementById('tl-fill').style.width='0%';
+    document.getElementById('tl-card').classList.remove('show');
+    document.getElementById('tl-empty').style.opacity='1';
+    return;
+  }
+  curTl=i;
+  document.querySelectorAll('.tl-node').forEach((n,j)=>{
+    n.classList.remove('active','visited');
+    if(j===i)n.classList.add('active');
+    else if(j<i)n.classList.add('visited');
+  });
+  const pcts=[12,37,63,88];
+  document.getElementById('tl-fill').style.width=pcts[i]+'%';
+  document.getElementById('tl-card-h').textContent=tlData[i].h;
+  document.getElementById('tl-card-law').textContent=tlData[i].law;
+  document.getElementById('tl-card-body').innerHTML=tlData[i].b;
+  document.getElementById('tl-empty').style.opacity='0';
+  document.getElementById('tl-card').classList.add('show');
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')goPage(cur+1);
+  if(e.key==='ArrowLeft')goPage(cur-1);
+});
+</script>
+</html>
