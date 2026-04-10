@@ -499,7 +499,7 @@ export const course = {
                 },
                 {
                     type: "default-content",
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m1-4.html",
+                    htmlFile: "assets/revistas_didacticas/m2/revista-didactica-m2-1.html",
                     GraphicResources: {
                         // Nuevas propiedades para logos del header
                         headerLogos: {
