@@ -204,6 +204,10 @@ async function renderRoute(route) {
         // 4. Inyectar HTML
         appEl.innerHTML = html;
 
+        if (route.type === 'custom') {
+            ejecutarScriptsInyectados(appEl);
+        }
+
         requestAnimationFrame(() => {
             const fill = appEl.querySelector('.progress-bar-fill');
 

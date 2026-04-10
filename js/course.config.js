@@ -115,7 +115,7 @@ export const course = {
                     type: "default-content",
                     hideBackground: false,
                     htmlFile: "",
-                    GraphicResources: {
+                        GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
@@ -128,24 +128,24 @@ export const course = {
                                 label: "Justificación",
                                 title: "Derechos Humanos y DIH",
                                 body: `
-          <p>Proporciona a los participantes las herramientas necesarias para comprender y aplicar los derechos civiles y políticos, esenciales para la participación activa y el ejercicio pleno de los derechos. </p>
-          <p>A través del estudio de los mecanismos de protección universales, regionales y nacionales, así como de los mecanismos de participación ciudadana, el módulo capacita a los participantes para promover una gestión pública transparente</p>
+          <p>El presente módulo aborda los aspectos generales de los derechos humanos y el derecho internacional humanitario desde la perspectiva de que los derechos son inherentes a todos los seres humanos...</p>
+          <p>El módulo hace referencia a la pregunta: ¿Qué son los derechos humanos? y realiza un esbozo general de estos a través del tiempo.</p>
+          <p>La noción de derechos humanos se puede relacionar con la afirmación de la dignidad de la persona frente al Estado...</p>
         `
                             },
                             {
                                 label: "Objetivo general",
                                 title: "Reconocimiento y orientación ética",
                                 body: `
-          <p>Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.</p>
+          <p>Reconocer los derechos humanos y el derecho internacional humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en contextos sociales e institucionales.</p>
         `
                             },
                             {
                                 label: "Objetivos específicos",
                                 title: "Fundamentos e identificación de vulneraciones",
                                 body: `
-          <p>Identificar los derechos civiles y políticos y los principales mecanismos universales, regionales y nacionales de protección, para reconocer rutas institucionales de garantía y defensa de los derechos de niños, niñas y adolescentes.</p>
-          <p>Analizar el funcionamiento y alcance de los mecanismos de participación ciudadana, para promover una gestión pública transparente y el ejercicio informado de los derechos, en los procesos institucionales relacionados con la protección integral de niños, niñas y adolescentes.</p>
-          <p>Aplicar los mecanismos de protección y participación ciudadana a situaciones contextualizadas, para orientar decisiones y acciones coherentes con los derechos civiles y políticos, en escenarios reales o simulados vinculados a la labor del ICBF y la garantía de derechos en el ámbito público.</p>
+          <p>Identificar los fundamentos de los derechos humanos y el derecho internacional humanitario (DIH), para reconocer situaciones de vulneración y riesgo que afectan a niños, niñas y adolescentes, en contextos sociales e institucionales.</p>
+          <p>Analizar situaciones asociadas a la protección de los derechos de niños, niñas y adolescentes, para orientar decisiones éticas y responsables desde el enfoque de derechos humanos y derecho internacional humanitario (DIH)...</p>
         `
                             }
                         ]
@@ -364,15 +364,13 @@ export const course = {
                     htmlFile: "assets/actividades/podcast.html",
                 },
 
-                 // PANTALLA 14 - CAJA DE HERRAMIENTAS
+                    // PANTALLA 14 - CAJA DE HERRAMIENTAS
                 {
-                    type: "custom",
-                    html: "assets/caja-herramientas/caja_de_herramientas.html",
-                    css: "css/caja-herramientas.css"
+                    type: "default-content",
+                    hideBackground: true,
+
+                    htmlFile: "assets/caja-herramientas/caja_de_herramientas.html"
                 },
-
-
-                                // MÓDULO FINAL - PANTALLA DE CIERRE
                 {
                     type: "end-module",
                     moduleTitle: "Módulo 1",
@@ -380,8 +378,6 @@ export const course = {
                     subText: "",
                     percentage: 20,
                 },
-
-                
             ]
         },
         {
@@ -397,10 +393,10 @@ export const course = {
                 },
                 {
                     type: "post-intro",
-                    moduleTitle: "Módulo 2",
+                    moduleTitle: "Módulo 1",
                     introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
                     subText: "El aire y el flujo vital",
-                    topics: [
+                    elements: [
                         "Derechos civiles y políticoss",
                         "Mecanismos de protección",
                         "Mecanismos de participación ciudadana",
@@ -408,108 +404,14 @@ export const course = {
                     ],
                     percentage: 20
                 },
-                {
-                    type: "default-content",
-                    hideBackground: false,
-                    htmlFile: "",
-                    GraphicResources: {
-                        backgroundUrl: 'assets/img/background-modulo-1.png',
-                        backgroundConfig: {
-                            size: 'cover',
-                            position: 'center'
-                        },
-                    },
-                    contentHtml: renderSlideshow({
-                        slides: [
-                            {
-                                label: "Justificación",
-                                title: "Derechos Humanos y DIH",
-                                body: `
-          <p>Proporciona a los participantes las herramientas necesarias para comprender y aplicar los derechos civiles y políticos, esenciales para la participación activa y el ejercicio pleno de los derechos. </p>
-          <p>A través del estudio de los mecanismos de protección universales, regionales y nacionales, así como de los mecanismos de participación ciudadana, el módulo capacita a los participantes para promover una gestión pública transparente</p>
-        `
-                            },
-                            {
-                                label: "Objetivo general",
-                                title: "Reconocimiento y orientación ética",
-                                body: `
-          <p>Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.</p>
-        `
-                            },
-                            {
-                                label: "Objetivos específicos",
-                                title: "Fundamentos e identificación de vulneraciones",
-                                body: `
-          <p>Identificar los derechos civiles y políticos y los principales mecanismos universales, regionales y nacionales de protección, para reconocer rutas institucionales de garantía y defensa de los derechos de niños, niñas y adolescentes.</p>
-          <p>Analizar el funcionamiento y alcance de los mecanismos de participación ciudadana, para promover una gestión pública transparente y el ejercicio informado de los derechos, en los procesos institucionales relacionados con la protección integral de niños, niñas y adolescentes.</p>
-          <p>Aplicar los mecanismos de protección y participación ciudadana a situaciones contextualizadas, para orientar decisiones y acciones coherentes con los derechos civiles y políticos, en escenarios reales o simulados vinculados a la labor del ICBF y la garantía de derechos en el ámbito público.</p>
-        `
-                            }
-                        ]
-                    })
-                },
-
-                {
-                    type: "video",
-                    title: "Video navegacion",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
-                },
-                {
-                    type: "video",
-                    title: "Video navegacion",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
-                },
 
                 {
                     type: "default-content",
-                    hideBackground: false,
-
-                    htmlFile: "assets/actividades/podcast.html",
-                },
-
-                // {
-                //     type: "default-content",
-                //     htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
-                //     GraphicResources: {
-                //         // Nuevas propiedades para logos del header
-                //         headerLogos: {
-                //             leftUrl: 'assets/img/titulos/titulo-blanco.png',
-                //             rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
-                //         },
-                //         backgroundUrl: 'assets/img/fondos/fondo-tierra-seca.png',
-                //         backgroundConfig: {
-                //             size: 'cover',
-                //             position: 'center'
-                //         },
-                //         characterUrl: 'assets/img/personajes/niña-revista-4.png',
-                //         characterConfig: {
-                //             side: 'left',
-                //             xOffset: '50px',
-                //             yOffset: '40px',
-                //             scale: 0.8,
-                //             maxWidth: '600px',
-                //             // Configuración para laptops/pantallas bajas
-                //             responsive: {
-                //                 xOffset: '-30px',
-                //                 yOffset: '-50px',
-                //                 scale: 0.7,
-                //                 maxWidth: '400px'
-                //             }
-                //         }
-                //     }
-                // },
-
+                    hideBackground: true,
+                    htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
+                }
             ]
         },
-
 
         {
             id: 3,
