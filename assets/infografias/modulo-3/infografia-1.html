@@ -278,28 +278,30 @@ linear-gradient(135deg, #f6f7f9 0%, #eceff1 100%);
     }
 
     /* MODAL */
-    .modal {
-      perspective: 1400px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      padding: 2rem;
-    }
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; /* Asegúrate de que sea mayor al de la card */
+  
+  /* ESTO ES LO MÁS IMPORTANTE */
+  opacity: 0;
+  pointer-events: none; /* Los clics atraviesan el modal cuando está oculto */
+  visibility: hidden;   /* Refuerza que no esté ahí para el navegador */
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
-    .modal.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+.modal.active {
+  opacity: 1;
+  pointer-events: auto; /* El modal captura los clics solo cuando está activo */
+  visibility: visible;
+}
 
     .modal-content {
       transform-style: preserve-3d;
@@ -549,6 +551,8 @@ linear-gradient(135deg, #f6f7f9 0%, #eceff1 100%);
 background:#86d6d8;
 color:#083333;
 }
+
+
 </style>
 
 </head>
@@ -581,33 +585,34 @@ color:#083333;
     </svg>
   </div>
 
-  <div class="card container m-2" style="z-index: 1000;">
-  <div class="container">
-    <div class="header">
-      <h1>Mecanismos de protección de los DESC</h1>
-      <p>Progresión de los mecanismos universales, regionales y nacionales para garantizar derechos económicos, sociales y culturales</p>
-    </div>
+<div class="card container main-project-container shadow" 
+     style="width: 100%; max-width: 1000px; max-height: 85vh; height: auto; display: flex; flex-direction: column; padding: 0; overflow: hidden; margin: 10px auto;">
+  
+  <div class="header" style="padding: 1.5rem 1rem 0.5rem 1rem; text-align: center;">
+    <h1>Mecanismos de protección de los DESC</h1>
+    <p>Progresión de los mecanismos universales, regionales y nacionales para garantizar derechos económicos, sociales y culturales</p>
+  </div>
 
-    <!-- TITLES ROW -->
-    <div class="titles-row">
-      <div class="title-item">
+  <div class="card-body" style="overflow-y: auto; padding: 1rem 2rem;">
+    
+    <div class="titles-row" style="display: flex; justify-content: space-around; margin-bottom: 1rem;">
+      <div class="title-item" style="text-align: center; flex: 1;">
         <h2>Universal</h2>
         <p>Naciones Unidas</p>
       </div>
-      <div class="title-item">
+      <div class="title-item" style="text-align: center; flex: 1;">
         <h2>Regional</h2>
         <p>Sistema Interamericano</p>
       </div>
-      <div class="title-item">
+      <div class="title-item" style="text-align: center; flex: 1;">
         <h2>Nacional</h2>
         <p>Colombia</p>
       </div>
     </div>
 
-    <!-- CONTENT ROW -->
-    <div class="content-row">
-      <!-- UNIVERSAL -->
-      <div class="mechanism-item">
+    <div class="content-row" style="display: flex; gap: 20px; align-items: stretch;">
+      
+      <div class="mechanism-item" style="flex: 1; display: flex; flex-direction: column;">
         <div class="description-box">
           Mecanismos establecidos por organismos internacionales para garantizar el respeto de los DESC en todos los países.
         </div>
@@ -618,8 +623,7 @@ color:#083333;
         </div>
       </div>
 
-      <!-- REGIONAL -->
-      <div class="mechanism-item">
+      <div class="mechanism-item" style="flex: 1; display: flex; flex-direction: column;">
         <div class="description-box">
           Mecanismos que refuerzan el cumplimiento de los DESC en América Latina y el Caribe.
         </div>
@@ -630,8 +634,7 @@ color:#083333;
         </div>
       </div>
 
-      <!-- NACIONAL -->
-      <div class="mechanism-item">
+      <div class="mechanism-item" style="flex: 1; display: flex; flex-direction: column;">
         <div class="description-box">
           Mecanismos respaldados por la Constitución Política de Colombia que garantizan la efectividad de los DESC.
         </div>
@@ -643,12 +646,12 @@ color:#083333;
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="footer">
-      Infografía interactiva sobre mecanismos de protección de derechos económicos, sociales y culturales (DESC)
-    </div>
+  <div class="footer" style="padding: 10px; text-align: center; font-size: 0.8rem; border-top: 1px solid #eee;">
+    Infografía interactiva sobre mecanismos de protección de derechos económicos, sociales y culturales (DESC)
   </div>
-  </div>
+</div>
 
   <!-- MODAL -->
   <div class="modal" id="modal" onclick="closeOnBackdrop(event)">
@@ -877,23 +880,38 @@ color:#083333;
     };
 
     function openModal(id, type) {
-      const item = data[id];
-      if (!item) return;
+  const item = data[id];
+  if (!item) return;
 
-      document.getElementById('modal').classList.add('active', type);
-      document.getElementById('modalBadge').textContent = item.badge;
-      document.getElementById('modalTitle').textContent = item.title;
-      document.getElementById('modalSubtitle').textContent = item.subtitle;
-      document.getElementById('modalBody').innerHTML = item.body;
-      document.getElementById('modalFooter').textContent = item.footer;
+  const modal = document.getElementById('modal');
+  
+  // Limpiamos cualquier categoría previa para que no se mezclen colores
+  modal.classList.remove('universal', 'regional', 'national');
+  
+  // Añadimos la clase activa y el tipo (asegúrate que 'type' sea igual a la clase en CSS)
+  modal.classList.add('active', type);
+  
+  document.getElementById('modalBadge').textContent = item.badge;
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalSubtitle').textContent = item.subtitle;
+  document.getElementById('modalBody').innerHTML = item.body;
+  document.getElementById('modalFooter').textContent = item.footer;
 
-      document.body.style.overflow = 'hidden';
-    }
+  document.body.style.overflow = 'hidden';
+}
 
     function closeModal() {
-      document.getElementById('modal').classList.remove('active', 'universal', 'regional', 'national');
-      document.body.style.overflow = 'auto';
-    }
+  const modal = document.getElementById('modal');
+  modal.classList.remove('active');
+  
+  // Esperamos a que termine la transición de opacidad (0.3s) para quitar las clases de color
+  // Esto evita que el badge cambie de color mientras se desvanece
+  setTimeout(() => {
+    modal.classList.remove('universal', 'regional', 'national');
+  }, 300);
+  
+  document.body.style.overflow = 'auto';
+}
 
     function closeOnBackdrop(event) {
       if (event.target.id === 'modal') {

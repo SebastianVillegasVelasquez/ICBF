@@ -11,6 +11,7 @@ export const course = {
             title: "Portada",
             screens: [
 
+               
 
                 {
                     type: "custom",
@@ -576,7 +577,7 @@ export const course = {
                         },
                         characterUrl: 'assets/img/personajes/modulo-3/personaje-2.png',
                         characterConfig: {
-                            side: 'left',
+                            side: 'right',
                             xOffset: '100px',
                             yOffset: '30px',
                             scale: 1,
@@ -607,7 +608,77 @@ export const course = {
                         },
                     },
                 },
+
+
+                // PANTALLA 10 - CASO DE ESTUDIO
+
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/estudio-casos-m1.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                },
+
+
+                // PANTALLA 11 - Video animado de concepto básico
+                {
+                    type: "video",
+                    title: "Video animado de concepto básico",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
                 
+                 // PANTALLA 12 - BIBLIOGRAFIA
+
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/modulo-3/bibliografia.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-3.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/modulo-3/personaje-3.png',
+                        characterConfig: {
+                            side: 'right',
+                            xOffset: '200px',
+                            yOffset: '30px',
+                            scale: 1,
+                            maxWidth: '450px',
+                            zIndex: 9999,
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '150px',
+                                yOffset: '0px',
+                                scale: 0.9,
+                                maxWidth: '310px',
+                                zIndex: 9999
+                            }
+                        }
+                    },
+                },
+
+                // PANTALLA 13 - FINALIZACIÓN DE MÓDULO
+                {
+                    type: "end-module",
+                    moduleTitle: "Módulo 3",
+                    introText: "Derechos económicos, sociales y culturales y sus mecanismos de protección",
+                    subText: "",
+                    percentage: 40,
+                },
 
             ]
         },
