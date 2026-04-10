@@ -10,11 +10,9 @@ export const course = {
         {
             title: "Portada",
             screens: [
-                {
-                    type: "custom",
-                    html: "assets/caja-herramientas/caja_de_herramientas.html",
-                    css: "css/caja-herramientas.css"
-                },
+
+
+
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
@@ -30,7 +28,48 @@ export const course = {
             id: 0,
             title: "Módulo: Introducción",
             screens: [
-                // MODULO 0 - Introduccion
+                // PANTALLA 0 - JUSTIFICACION MODULO 0
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                    contentHtml: renderSlideshow({
+                        slides: [
+                            {
+                                label: "Justificación",
+                                title: "Derechos Humanos y DIH",
+                                body: `
+          <p>El presente módulo aborda los aspectos generales de los derechos humanos y el derecho internacional humanitario desde la perspectiva de que los derechos son inherentes a todos los seres humanos...</p>
+          <p>El módulo hace referencia a la pregunta: ¿Qué son los derechos humanos? y realiza un esbozo general de estos a través del tiempo.</p>
+          <p>La noción de derechos humanos se puede relacionar con la afirmación de la dignidad de la persona frente al Estado...</p>
+        `
+                            },
+                            {
+                                label: "Objetivo general",
+                                title: "Reconocimiento y orientación ética",
+                                body: `
+          <p>Reconocer los derechos humanos y el derecho internacional humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en contextos sociales e institucionales.</p>
+        `
+                            },
+                            {
+                                label: "Objetivos específicos",
+                                title: "Fundamentos e identificación de vulneraciones",
+                                body: `
+          <p>Identificar los fundamentos de los derechos humanos y el derecho internacional humanitario (DIH), para reconocer situaciones de vulneración y riesgo que afectan a niños, niñas y adolescentes, en contextos sociales e institucionales.</p>
+          <p>Analizar situaciones asociadas a la protección de los derechos de niños, niñas y adolescentes, para orientar decisiones éticas y responsables desde el enfoque de derechos humanos y derecho internacional humanitario (DIH)...</p>
+        `
+                            }
+                        ]
+                    })
+                },
+
                 // PANTALLA 1- Video introductorio
                 {
                     type: "video",
@@ -58,7 +97,7 @@ export const course = {
                 {
                     type: "default-content",
                     htmlFile: "assets/tabla-contenidos/tabla-contenido-int.html",
-                        GraphicResources: {
+                    GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
@@ -87,7 +126,7 @@ export const course = {
             id: 1,
             title: "Módulo 1: El suelo y las raíces del ecosistema",
             screens: [
-                
+
                 //MODULO 1
                 //PANTALLA 1 — Bienvenida
                 {
@@ -102,30 +141,16 @@ export const course = {
                     moduleTitle: "Módulo 1",
                     introText: "Derechos humanos y derecho internacional humanitario",
                     subText: "El suelo y las raíces del ecosistema",
-                    percentage: 0,
                     topics: [
                         "Derechos humanos",
                         "Igualdad y no discriminación",
                         "Derecho internacional humanitario"
                     ],
-                    GraphicResources: {
-                        characterUrl: "assets/img/personajes/tres_personajes.png",
-                        characterConfig: {
-                            maxWidth:  "350px",
-                            xOffset:   "90px",
-                            yOffset:   "60px",
-                            scale:     1.05,
-                            responsive: {
-                                maxWidth: "340px",
-                                xOffset:  "40px",
-                                yOffset:  "-40px",
-                                scale:    0.9
-                            }
-                        },
-                        headerLogos: {
-                            rightUrl: "assets/img/logo.png"
-                        }
-                    }
+                    characterImageConfig: {
+                        url: "assets/img/personajes/tres_personajes.png",
+                        size: "contain"
+                    },
+                    percentage: 0
                 },
                 // PANTALLA 3 - JUSTIFICACION MODULO 1
                 {
@@ -145,24 +170,24 @@ export const course = {
                                 label: "Justificación",
                                 title: "Derechos Humanos y DIH",
                                 body: `
-          <p>Proporciona a los participantes las herramientas necesarias para comprender y aplicar los derechos civiles y políticos, esenciales para la participación activa y el ejercicio pleno de los derechos. </p>
-          <p>A través del estudio de los mecanismos de protección universales, regionales y nacionales, así como de los mecanismos de participación ciudadana, el módulo capacita a los participantes para promover una gestión pública transparente</p>
+          <p>El presente módulo aborda los aspectos generales de los derechos humanos y el derecho internacional humanitario desde la perspectiva de que los derechos son inherentes a todos los seres humanos...</p>
+          <p>El módulo hace referencia a la pregunta: ¿Qué son los derechos humanos? y realiza un esbozo general de estos a través del tiempo.</p>
+          <p>La noción de derechos humanos se puede relacionar con la afirmación de la dignidad de la persona frente al Estado...</p>
         `
                             },
                             {
                                 label: "Objetivo general",
                                 title: "Reconocimiento y orientación ética",
                                 body: `
-          <p>Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.</p>
+          <p>Reconocer los derechos humanos y el derecho internacional humanitario (DIH), para orientar la toma de decisiones éticas y responsables en la protección y garantía de los derechos de niños, niñas y adolescentes, en contextos sociales e institucionales.</p>
         `
                             },
                             {
                                 label: "Objetivos específicos",
                                 title: "Fundamentos e identificación de vulneraciones",
                                 body: `
-          <p>Identificar los derechos civiles y políticos y los principales mecanismos universales, regionales y nacionales de protección, para reconocer rutas institucionales de garantía y defensa de los derechos de niños, niñas y adolescentes.</p>
-          <p>Analizar el funcionamiento y alcance de los mecanismos de participación ciudadana, para promover una gestión pública transparente y el ejercicio informado de los derechos, en los procesos institucionales relacionados con la protección integral de niños, niñas y adolescentes.</p>
-          <p>Aplicar los mecanismos de protección y participación ciudadana a situaciones contextualizadas, para orientar decisiones y acciones coherentes con los derechos civiles y políticos, en escenarios reales o simulados vinculados a la labor del ICBF y la garantía de derechos en el ámbito público.</p>
+          <p>Identificar los fundamentos de los derechos humanos y el derecho internacional humanitario (DIH), para reconocer situaciones de vulneración y riesgo que afectan a niños, niñas y adolescentes, en contextos sociales e institucionales.</p>
+          <p>Analizar situaciones asociadas a la protección de los derechos de niños, niñas y adolescentes, para orientar decisiones éticas y responsables desde el enfoque de derechos humanos y derecho internacional humanitario (DIH)...</p>
         `
                             }
                         ]
@@ -187,7 +212,7 @@ export const course = {
                     type: "default-content",
                     hideBackground: false,
                     htmlFile: "",
-                        GraphicResources: {
+                    GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
@@ -381,15 +406,13 @@ export const course = {
                     htmlFile: "assets/actividades/podcast.html",
                 },
 
-                 // PANTALLA 14 - CAJA DE HERRAMIENTAS
+                // PANTALLA 14 - CAJA DE HERRAMIENTAS
                 {
-                    type: "custom",
-                    html: "assets/caja-herramientas/caja_de_herramientas.html",
-                    css: "css/caja-herramientas.css"
+                    type: "default-content",
+                    hideBackground: true,
+
+                    htmlFile: "assets/caja-herramientas/caja_de_herramientas.html"
                 },
-
-
-                                // MÓDULO FINAL - PANTALLA DE CIERRE
                 {
                     type: "end-module",
                     moduleTitle: "Módulo 1",
@@ -397,8 +420,6 @@ export const course = {
                     subText: "",
                     percentage: 20,
                 },
-
-
             ]
         },
         {
@@ -406,9 +427,9 @@ export const course = {
             title: 'Modulo 2: PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO',
             screens: [
                 {
-                    type: "post-intro",
+                    type: "module-intro",
                     moduleTitle: "Módulo 2",
-                    introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
+                    introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO\n",
                     subText: "El aire y el flujo vital",
                     percentage: 20,
                     topics: ["Derechos civiles y políticos", "Mecanismos de protección", "Mecanismos de participación ciudadana", "Veedurías ciudadanas"],
@@ -430,6 +451,18 @@ export const course = {
                             rightUrl: "assets/img/logo.png"
                         }
                     }
+                }, {
+                    type: "post-intro",
+                    moduleTitle: "Módulo 2",
+                    introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
+                    subText: "El aire y el flujo vital",
+                    topics: [
+                        "Derechos civiles y políticoss",
+                        "Mecanismos de protección",
+                        "Mecanismos de participación ciudadana",
+                        "Veedurías ciudadanas"
+                    ],
+                    percentage: 20
                 },
                 {
                     type: "default-content",
@@ -495,11 +528,12 @@ export const course = {
                     type: "default-content",
                     hideBackground: false,
 
-                    htmlFile: "assets/actividades/podcast-m2-1.html",
+                    htmlFile: "assets/actividades/podcast.html",
                 },
+
                 {
                     type: "default-content",
-                    htmlFile: "assets/revistas_didacticas/m2/revista-didactica-m2-1.html",
+                    htmlFile: "assets/revistas_didacticas/m2/revista-didactica-m2-1-1.html",
                     GraphicResources: {
                         // Nuevas propiedades para logos del header
                         headerLogos: {
@@ -520,13 +554,286 @@ export const course = {
                             maxWidth: '500px',
                             // Configuración para laptops/pantallas bajas
                             responsive: {
-                                xOffset: '50px',
+                                xOffset: '-20px',
                                 yOffset: '40px',
-                                scale: 0.7,
+                                scale: 0.9,
                                 maxWidth: '400px'
                             }
                         }
                     }
+                },
+            ]
+        },
+
+        {
+            id: 3,
+            title: "Módulo: Derechos económicos, sociales y culturales y sus mecanismos de protección",
+            screens: [
+                // MODULO 3 - Derechos económicos, sociales y culturales y sus mecanismos de protección
+
+                //PANTALLA 1 — Bienvenida
+                {
+                    type: "module-intro",
+                    moduleTitle: "Módulo 3",
+                    introText: "Derechos económicos, sociales y culturales y sus mecanismos de protección",
+                    subText: "",
+                    percentage: 40,
+                },
+
+                // PANTALLA 2 - Post-intro
+                {
+                    type: "post-intro",
+                    moduleTitle: "Módulo 3",
+                    introText: "Derechos económicos, sociales y culturales y sus mecanismos de protección",
+                    subText: "El agua y sus nutrientes",
+                    topics: [
+                        "Los derechos económicos, sociales y culturales",
+                        "Mecanismos de protección de los derechos económicos, sociales y culturales",
+                    ],
+                    characterImageConfig: {
+                        url: "assets/img/personajes/tres_personajes.png",
+                        size: "contain"
+                    },
+                    percentage: 40
+                },
+
+                // PANTALLA 3 - JUSTIFICACION MODULO 3
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/modulo-3/personaje-1.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '600px',
+                            yOffset: '-10px',
+                            scale: 1,
+                            maxWidth: '700px',
+                            zIndex: 9999,
+
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '400px',
+                                yOffset: '-10px',
+                                scale: 0.9,
+                                maxWidth: '550px',
+                                zIndex: 9999,
+                            }
+                        }
+
+                    },
+                    contentHtml: renderSlideshow({
+                        slides: [
+                            {
+                                label: "Justificación",
+                                title: "Derechos Humanos y DIH",
+                                body: `
+          <p>Los derechos económicos, sociales y culturales (DESC) y sus mecanismos de protección, son esenciales para garantizar el bienestar y la dignidad de las personas. Comprender estos derechos es fundamental para identificar las necesidades sociales y para orientar las acciones que permitan su plena satisfacción. Además, este conocimiento capacita a los participantes para promover políticas públicas y medidas eficaces que aseguren que estos derechos sean respetados y protegidos en el contexto nacional e internacional, contribuyendo así a su protección integral</p>
+        `
+                            },
+                            {
+                                label: "Objetivo general",
+                                title: "Reconocimiento y orientación ética",
+                                body: `
+          <p>Reconocer los derechos económicos, sociales y culturales y sus mecanismos de protección para orientar acciones que contribuyan a la garantía integral de los derechos de niños, niñas y adolescentes.</p>
+        `
+                            },
+                            {
+                                label: "Objetivos específicos",
+                                title: "Fundamentos e identificación de vulneraciones",
+                                body: `
+          <p>Identificar los derechos económicos, sociales y culturales y sus mecanismos de protección para reconocer condiciones que afectan el bienestar y el desarrollo integral de niños, niñas y adolescentes.</p>
+          <p>Analizar situaciones contextualizadas relacionadas con la garantía de los derechos económicos, sociales y culturales para orientar acciones institucionales que contribuyan a su protección efectiva.</p>
+        `
+                            }
+                        ]
+                    })
+                },
+
+                // PANTALLA 4 - Video animado de concepto básico
+                {
+                    type: "video",
+                    title: "Video animado de concepto básico",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                // PANTALLA 5 - PÓDCAST
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/podcast-m3.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                    }
+                },
+
+                // PANTALLA 6 - Video animado de concepto básico
+                {
+                    type: "video",
+                    title: "Video animado de concepto básico",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                // PANTALLA 7 - Revista didáctica 1
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/modulo-3/revista-1.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    }
+                },
+
+                // PANTALLA 8 - Revista didáctica 2
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/modulo-3/revista-2.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-2.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/modulo-3/personaje-2.png',
+                        characterConfig: {
+                            side: 'right',
+                            xOffset: '100px',
+                            yOffset: '30px',
+                            scale: 1,
+                            maxWidth: '450px',
+                            zIndex: 99999,
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '100px',
+                                yOffset: '30px',
+                                scale: 0.9,
+                                maxWidth: '310px',
+                                zIndex: 99999,
+                            }
+                        }
+                    }
+                },
+
+                // PANTALLA 9 - INFOGRAFIA 1
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "assets/infografias/modulo-3/infografia-1.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                },
+
+
+                // PANTALLA 10 - CASO DE ESTUDIO
+
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/estudio-casos-m1.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                },
+
+
+                // PANTALLA 11 - Video animado de concepto básico
+                {
+                    type: "video",
+                    title: "Video animado de concepto básico",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+
+                // PANTALLA 12 - BIBLIOGRAFIA
+
+                {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/modulo-3/bibliografia.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-3.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/modulo-3/personaje-3.png',
+                        characterConfig: {
+                            side: 'right',
+                            xOffset: '200px',
+                            yOffset: '30px',
+                            scale: 1,
+                            maxWidth: '450px',
+                            zIndex: 9999,
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '150px',
+                                yOffset: '0px',
+                                scale: 0.9,
+                                maxWidth: '310px',
+                                zIndex: 9999
+                            }
+                        }
+                    },
+                },
+
+                // PANTALLA 13 - FINALIZACIÓN DE MÓDULO
+                {
+                    type: "end-module",
+                    moduleTitle: "Módulo 3",
+                    introText: "Derechos económicos, sociales y culturales y sus mecanismos de protección",
+                    subText: "",
+                    percentage: 40,
                 },
 
             ]

@@ -80,7 +80,7 @@
 /* Personaje Dinámico */
 .dynamic-character {
     position: absolute;
-    z-index: 5;
+    z-index: var(--char-z, 5); /* 🔥 dinámico */
     pointer-events: none;
 
     /* Leemos las variables del JS */

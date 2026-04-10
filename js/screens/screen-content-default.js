@@ -10,7 +10,7 @@ export function renderScreenContentDefault(route) {
         backgroundConfig,
         characterUrl,
         characterConfig,
-        headerLogos
+        headerLogos,
     } = GraphicResources;
 
     // 1. Logos del Header (con fallback por si no vienen en el dict)
@@ -28,6 +28,7 @@ export function renderScreenContentDefault(route) {
         --char-y: ${char.yOffset || '0px'};
         --char-scale: ${char.scale || 1};
         --char-mw: ${char.maxWidth || '450px'};
+         --char-z: ${char.zIndex ?? 5}; /* NUEVO */
         
         --char-x-res: ${res.xOffset || char.xOffset || '0px'};
         --char-y-res: ${res.yOffset || char.yOffset || '0px'};
