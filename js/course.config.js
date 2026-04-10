@@ -11,19 +11,6 @@ export const course = {
             title: "Portada",
             screens: [
 
-               {
-                    type: "default-content",
-                    hideBackground: false,
-
-                    htmlFile: "assets/infografias/infografia-3-m1.html",
-                    GraphicResources: {
-                        backgroundUrl: 'assets/img/background-modulo-1.png',
-                        backgroundConfig: {
-                            size: 'cover',
-                            position: 'center'
-                        },
-                    },
-                },
 
                 {
                     type: "custom",
@@ -108,7 +95,7 @@ export const course = {
                 {
                     type: "default-content",
                     htmlFile: "assets/tabla-contenidos/tabla-contenido-int.html",
-                        GraphicResources: {
+                    GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
@@ -137,7 +124,7 @@ export const course = {
             id: 1,
             title: "Módulo 1: El suelo y las raíces del ecosistema",
             screens: [
-                
+
                 //MODULO 1
                 //PANTALLA 1 — Bienvenida
                 {
@@ -168,7 +155,7 @@ export const course = {
                     type: "default-content",
                     hideBackground: false,
                     htmlFile: "",
-                        GraphicResources: {
+                    GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
@@ -223,7 +210,7 @@ export const course = {
                     type: "default-content",
                     hideBackground: false,
                     htmlFile: "",
-                        GraphicResources: {
+                    GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
@@ -597,7 +584,7 @@ export const course = {
             screens: [
                 // MODULO 3 - Derechos económicos, sociales y culturales y sus mecanismos de protección
 
-                 //PANTALLA 1 — Bienvenida
+                //PANTALLA 1 — Bienvenida
                 {
                     type: "module-intro",
                     moduleTitle: "Módulo 3",
@@ -642,7 +629,7 @@ export const course = {
                             scale: 1,
                             maxWidth: '700px',
                             zIndex: 9999,
-                            
+
                             // Configuración para laptops/pantallas bajas
                             responsive: {
                                 xOffset: '400px',
@@ -652,7 +639,7 @@ export const course = {
                                 zIndex: 9999,
                             }
                         }
-                    
+
                     },
                     contentHtml: renderSlideshow({
                         slides: [
@@ -814,8 +801,8 @@ export const course = {
                     characterLeft: "Ayla",
                     characterRight: "Simón",
                 },
-                
-                 // PANTALLA 12 - BIBLIOGRAFIA
+
+                // PANTALLA 12 - BIBLIOGRAFIA
 
                 {
                     type: "default-content",
