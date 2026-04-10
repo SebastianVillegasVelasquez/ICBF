@@ -11,7 +11,19 @@ export const course = {
             title: "Portada",
             screens: [
 
-               
+               {
+                    type: "default-content",
+                    hideBackground: false,
+
+                    htmlFile: "assets/infografias/infografia-3-m1.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                },
 
                 {
                     type: "custom",
@@ -28,7 +40,47 @@ export const course = {
             id: 0,
             title: "Módulo: Introducción",
             screens: [
-                // MODULO 0 - Introduccion
+                // PANTALLA 0 - JUSTIFICACION MODULO 0
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "",
+                        GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                    contentHtml: renderSlideshow({
+                        slides: [
+                            {
+                                label: "Justificación",
+                                title: "Derechos Humanos y DIH",
+                                body: `
+          <p>Este curso busca fortalecer la comprensión y aplicación de los principios y normas que garantizan la dignidad y protección de las personas en Colombia. Se facilita un aprendizaje integral y contextualizado que conecta los derechos fundamentales con los escenarios sociales, institucionales y del conflicto armado. El enfoque diferencial, inclusivo y de protección integral permite a los participantes reconocer su rol activo en la promoción y garantía de los derechos, promoviendo decisiones éticas y responsables desde su rol social. </p>
+        `
+                            },
+                            {
+                                label: "Objetivo general",
+                                title: "Reconocimiento y orientación ética",
+                                body: `
+          <p>Desarrollar la comprensión de los derechos humanos y el derecho internacional humanitario, con el fin de promover la toma de decisiones éticas y responsables en la protección y garantía de los derechos de las personas, en los contextos sociales, institucionales y del conflicto armado colombiano.</p>
+        `
+                            },
+                            {
+                                label: "Objetivos específicos",
+                                title: "Fundamentos e identificación de vulneraciones",
+                                body: `
+          <p>Reconocer las bases teóricas fundamentales de los derechos humanos, para su aplicación en la protección y garantía de los derechos de las personas en contextos sociales e institucionales.</p>
+          <p>Explicar la relación entre los derechos humanos y el derecho internacional humanitario, para comprender su complementariedad en la protección de la dignidad humana.</p>
+          <p>Identificar las características y fundamentos de los derechos civiles y políticos, los mecanismos de participación ciudadana y de gestión pública transparente, los derechos económicos, sociales y culturales y los derechos colectivos y ambientales, para orientar decisiones éticas y responsables en la protección y garantía de los derechos de las personas.</p>
+        `
+                            }
+                        ]
+                    })
+                },
+
                 // PANTALLA 1- Video introductorio
                 {
                     type: "video",
@@ -308,7 +360,22 @@ export const course = {
                         }
                     }
                 },
-                // PANTALLA 11 - REVISTA DIDACTICA 4
+
+                // PANTALLA 11 - INFOGRAFIA 1
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "assets/infografias/modulo-3/infografia-1.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                },
+
+                // PANTALLA 12 - REVISTA DIDACTICA 4
                 {
                     type: "default-content",
                     htmlFile: "assets/revistas_didacticas/revista-didactica-m1-4.html",
@@ -341,13 +408,13 @@ export const course = {
                     }
                 },
 
-                // PANTALLA 12 - CASO DE ESTUDIO
+                // PANTALLA 13 - CASO DE ESTUDIO
 
                 {
                     type: "default-content",
                     hideBackground: false,
 
-                    htmlFile: "assets/actividades/estudio-casos-m1.html",
+                    htmlFile: "assets/infografias/infografia-3-m1.html",
                     GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
@@ -357,7 +424,7 @@ export const course = {
                     },
                 },
 
-                //PAGINA 13 - PÓDCAST
+                //PAGINA 14 - PÓDCAST
                 {
                     type: "default-content",
                     hideBackground: false,
@@ -365,7 +432,7 @@ export const course = {
                     htmlFile: "assets/actividades/podcast.html",
                 },
 
-                    // PANTALLA 14 - CAJA DE HERRAMIENTAS
+                    // PANTALLA 15 - CAJA DE HERRAMIENTAS
                 {
                     type: "default-content",
                     hideBackground: true,
@@ -391,13 +458,31 @@ export const course = {
                     introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO\n",
                     subText: "El aire y el flujo vital",
                     percentage: 20,
-                },
-                {
+                    topics: ["Derechos civiles y políticos", "Mecanismos de protección", "Mecanismos de participación ciudadana", "Veedurías ciudadanas"],
+                    GraphicResources: {
+                        characterUrl: "assets/img/personajes/personajes-modulo2-post-intro.png",
+                        characterConfig: {
+                            maxWidth:  "700px",
+                            xOffset:   "0px",
+                            yOffset:   "90px",
+                            scale:     1.05,
+                            responsive: {
+                                maxWidth: "550px",
+                                xOffset:  "0px",
+                                yOffset:  "30px",
+                                scale:    0.9
+                            }
+                        },
+                        headerLogos: {
+                            rightUrl: "assets/img/logo.png"
+                        }
+                    }
+                }, {
                     type: "post-intro",
-                    moduleTitle: "Módulo 1",
+                    moduleTitle: "Módulo 2",
                     introText: "PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO",
                     subText: "El aire y el flujo vital",
-                    elements: [
+                    topics: [
                         "Derechos civiles y políticoss",
                         "Mecanismos de protección",
                         "Mecanismos de participación ciudadana",
@@ -405,12 +490,104 @@ export const course = {
                     ],
                     percentage: 20
                 },
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                    contentHtml: renderSlideshow({
+                        slides: [
+                            {
+                                label: "Justificación",
+                                title: "Derechos Humanos y DIH",
+                                body: `
+          <p>Proporciona a los participantes las herramientas necesarias para comprender y aplicar los derechos civiles y políticos, esenciales para la participación activa y el ejercicio pleno de los derechos. </p>
+          <p>A través del estudio de los mecanismos de protección universales, regionales y nacionales, así como de los mecanismos de participación ciudadana, el módulo capacita a los participantes para promover una gestión pública transparente</p>
+        `
+                            },
+                            {
+                                label: "Objetivo general",
+                                title: "Reconocimiento y orientación ética",
+                                body: `
+          <p>Reconocer los derechos civiles y políticos, los mecanismos universales, regionales y nacionales de protección y los mecanismos de participación ciudadana, para orientar la gestión pública transparente y la participación informada en la garantía de los derechos de niños, niñas y adolescentes.</p>
+        `
+                            },
+                            {
+                                label: "Objetivos específicos",
+                                title: "Fundamentos e identificación de vulneraciones",
+                                body: `
+          <p>Identificar los derechos civiles y políticos y los principales mecanismos universales, regionales y nacionales de protección, para reconocer rutas institucionales de garantía y defensa de los derechos de niños, niñas y adolescentes.</p>
+          <p>Analizar el funcionamiento y alcance de los mecanismos de participación ciudadana, para promover una gestión pública transparente y el ejercicio informado de los derechos, en los procesos institucionales relacionados con la protección integral de niños, niñas y adolescentes.</p>
+          <p>Aplicar los mecanismos de protección y participación ciudadana a situaciones contextualizadas, para orientar decisiones y acciones coherentes con los derechos civiles y políticos, en escenarios reales o simulados vinculados a la labor del ICBF y la garantía de derechos en el ámbito público.</p>
+        `
+                            }
+                        ]
+                    })
+                },
+
+                {
+                    type: "video",
+                    title: "Video navegacion",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
+                {
+                    type: "video",
+                    title: "Video navegacion",
+                    videoUrl: "",
+                    characterName: "Ayla",
+                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
+                    characterLeft: "Ayla",
+                    characterRight: "Simón",
+                },
 
                 {
                     type: "default-content",
-                    hideBackground: true,
-                    htmlFile: "assets/revistas_didacticas/revista-didactica-m2-1.html",
-                }
+                    hideBackground: false,
+
+                    htmlFile: "assets/actividades/podcast.html",
+                },
+
+                {
+                    type: "default-content",
+                    htmlFile: "assets/revistas_didacticas/m2/revista-didactica-m2-1-1.html",
+                    GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/El-ecosistema-de-derechos.png',
+                            rightUrl: 'assets/img/logo.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-cielo.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/personaje-m2-2.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '-20px',
+                            yOffset: '0px',
+                            scale: 1,
+                            maxWidth: '500px',
+                            // Configuración para laptops/pantallas bajas
+                            responsive: {
+                                xOffset: '-20px',
+                                yOffset: '40px',
+                                scale: 0.9,
+                                maxWidth: '400px'
+                            }
+                        }
+                    }
+                },
             ]
         },
 
@@ -601,7 +778,7 @@ export const course = {
                     hideBackground: false,
                     htmlFile: "assets/infografias/modulo-3/infografia-1.html",
                     GraphicResources: {
-                        backgroundUrl: 'assets/img/fondos/modulo-3/fondo-1.png',
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
                             position: 'center'
@@ -646,6 +823,11 @@ export const course = {
 
                     htmlFile: "assets/actividades/modulo-3/bibliografia.html",
                     GraphicResources: {
+                        // Nuevas propiedades para logos del header
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logos/logo-icbf-blanco.png'
+                        },
                         backgroundUrl: 'assets/img/fondos/modulo-3/fondo-3.png',
                         backgroundConfig: {
                             size: 'cover',
