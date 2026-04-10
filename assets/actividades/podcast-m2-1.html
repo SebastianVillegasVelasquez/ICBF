@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Podcast</title>
+
+    <style>
+
+        /* RESET GLOBAL */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: system-ui, sans-serif;
+        }
+
+        /* 🎧 ESCENA (FONDO REAL FULL SCREEN) */
+        .podcast-scene {
+            position: fixed; /* 🔥 CLAVE */
+            inset: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background-image: url('assets/img/podcast/podcast-m2-1.png'); /* 👈 TU IMAGEN */
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+
+            z-index: 0;
+        }
+
+        /* 🎧 CAPA DE CONTENIDO */
+        .podcast-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            z-index: 2;
+        }
+
+        /* 🎧 BOTÓN */
+        .play-btn {
+            background: linear-gradient(135deg, #E8C208, #94B55A);
+            border: none;
+            border-radius: 50px;
+
+            padding: 16px 40px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0B4923;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
+
+        /* HOVER */
+        .play-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* ICONO PLAY */
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 14px solid #0B4923;
+            border-top: 9px solid transparent;
+            border-bottom: 9px solid transparent;
+        }
+
+        /* ESTADO ACTIVO */
+        .playing {
+            background: linear-gradient(135deg, #81CAC9, #569E9A);
+            color: #ffffff;
+        }
+
+        /* TEXTO DE ESTADO */
+        .status-text {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 6px 14px;
+            border-radius: 12px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- 🎧 FONDO -->
+<div class="podcast-scene"></div>
+
+<!-- 🎧 CONTENIDO -->
+<div class="podcast-container">
+
+    <button class="play-btn" id="playBtn">
+        <div class="play-icon" id="icon"></div>
+        <span id="btnText">Escuchar Podcast</span>
+    </button>
+
+    <div class="status-text" id="status">Listo para reproducir</div>
+
+</div>
+
+<!-- 🎧 AUDIO
+<audio id="podcastAudio" src="assets/audio/podcast.mp3"></audio> -->
+
+<script>
+
+    const btn = document.getElementById("playBtn");
+    const audio = document.getElementById("podcastAudio");
+    const text = document.getElementById("btnText");
+    const status = document.getElementById("status");
+    const icon = document.getElementById("icon");
+
+    let isPlaying = false;
+
+    btn.addEventListener("click", () => {
+
+        if (!isPlaying) {
+            audio.play();
+            isPlaying = true;
+
+            btn.classList.add("playing");
+            text.textContent = "Pausar Podcast";
+            status.textContent = "Reproduciendo...";
+
+            // Cambiar icono a pausa
+            icon.style.border = "none";
+            icon.style.width = "16px";
+            icon.style.height = "16px";
+            icon.style.background = "#fff";
+
+        } else {
+            audio.pause();
+            isPlaying = false;
+
+            btn.classList.remove("playing");
+            text.textContent = "Escuchar Podcast";
+            status.textContent = "Pausado";
+
+            // Volver a icono play
+            icon.style.background = "transparent";
+            icon.style.width = "0";
+            icon.style.height = "0";
+            icon.style.borderLeft = "14px solid #0B4923";
+            icon.style.borderTop = "9px solid transparent";
+            icon.style.borderBottom = "9px solid transparent";
+        }
+
+    });
+
+    // Cuando termina el audio
+    audio.addEventListener("ended", () => {
+        isPlaying = false;
+        btn.classList.remove("playing");
+        text.textContent = "Escuchar Podcast";
+        status.textContent = "Finalizado";
+    });
+
+</script>
+
+</body>
+</html>
