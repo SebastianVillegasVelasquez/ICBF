@@ -100,20 +100,43 @@
     .mapa{
       position:relative;
       width:min(1350px,96vw);
-      transform: translate(-90px);
+      /*transform: translate(-90px);*/
       margin:0 auto 18px;
       padding:18px 18px 34px;
+    }
+
+    @media (max-width:1400px){
+      .mapa{
+        zoom:0.85;
+        transform: translate(65px, 30px);
+      }
+      .hero{
+        transform: translate(50px);
+      }
+
+      .isla-blob{
+        width: 500px;
+      }
+
+      .isla-blob .isla-name{
+        font-size: 0.9rem;
+      }
+
+
     }
     .mapa-shell{
       position:relative;
       padding:24px 18px 34px;
       border-radius:34px;
       border:1px solid rgba(255,255,255,.7);
-      background:linear-gradient(180deg, rgba(255,255,255,.68) 0%, rgba(255,255,255,.52) 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.68) 0%, rgba(255,255,255,.52) 50%);
       /*box-shadow:var(--sombra);*/
       backdrop-filter:blur(10px);
       overflow:visible;
     }
+
+
+
     .mapa-hint{
       text-align:center;
       font-size:12px;

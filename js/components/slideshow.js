@@ -36,7 +36,7 @@ export function renderSlideshow(data) {
 
     <div class="slideshow-wrapper" data-booted="slideshow" data-total="${slides.length}">
       <div class="slideshow-header-bar">
-        <span class="slideshow-counter">Slide 1 / ${slides.length}</span>
+        <span class="slideshow-counter">1 / ${slides.length}</span>
         <div class="slideshow-progress-track">
           <div class="slideshow-progress-fill" style="width: ${slides.length ? (1 / slides.length) * 100 : 100}%"></div>
         </div>

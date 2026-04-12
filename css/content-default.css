@@ -29,6 +29,7 @@
 .header-img-left img {
     width: clamp(120px, 12vw, 200px);
     height: auto;
+    padding-top: 5px;
     pointer-events: auto;
 }
 
@@ -121,7 +122,7 @@
         padding-top: 80px;
         margin-right: 50px;
     }
-    .header-img-left img { width: 170px; }
+    .header-img-left img { width: 170px; padding-top: 5px; }
     .header-img-right img { width: 75px; }
 
     .screen-default-content .screen-header {

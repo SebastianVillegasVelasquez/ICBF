@@ -5,188 +5,141 @@
 .welcome-hero {
     min-height: 100vh;
     padding: clamp(40px, 8vh, 60px) clamp(20px, 5vw, 80px);
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     position: relative;
     overflow: hidden;
-    /*cursor: pointer;*/
-
-    /* background-image se inyecta dinámicamente por JS */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* Overlay 
-.welcome-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-}
-*/
 .welcome-hero > * {
     position: relative;
     z-index: 1;
 }
 
-/* ───────── TOP ───────── */
+/* ───────── TOP (IMÁGENES) ───────── */
 
 .hero-top {
     width: 100%;
-    max-width: 1920px; /* Asegura el límite a 1920px */
+    max-width: 1920px;
 }
 
-/* Imágenes fluidas */
 .hero-left img,
 .hero-right img {
-    max-width: 620px; /* Tu máximo original para 1920px */
+    max-width: 620px;
     width: 100%;
     height: auto;
     object-fit: contain;
 }
 
-/* ───────── CENTER ───────── */
+/* ───────── CENTER (TEXTOS) ───────── */
 
 .hero-center {
     width: 100%;
     max-width: 1920px;
 }
 
-/* Módulo 1 */
 .module-one {
-    font-size: clamp(2.5rem, 6vw, 6rem); /* Reducido un poco el máximo para que no rompa en pantallas medianas */
+    font-size: clamp(2.5rem, 6vw, 6rem);
     font-weight: 800;
     color: #E8C208;
     margin-bottom: clamp(5px, 1.5vh, 10px);
     line-height: 1;
 }
 
-/* Texto principal */
 .hero-text {
     font-size: clamp(1rem, 2vw, 1.8rem);
     color: #4a5a70;
     margin-bottom: clamp(3px, 1vh, 5px);
 }
 
-/* Subtexto */
 .hero-subtext {
     font-size: clamp(0.9rem, 1.5vw, 1.4rem);
     color: #7a8594;
 }
 
-/* ───────── PROGRESS ───────── */
+/* ───────── BOTÓN Y ANIMACIONES ───────── */
 
-.hero-progress-wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    /*gap: 8px;*/
-}
-
-.hero-progress-wrapper .progress-bar-percentage {
-    flex-shrink: 0;
-    width: 62px;
-    height: 52px;
-    background: #81cac9;
-    color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: 800;
+.button-wrapper {
+    margin-top: 40px;
+    width: 100%;
     display: flex;
+    justify-content: center; /* Centrado por defecto */
     align-items: center;
-    justify-content: center;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
-}
-
-.progress-bar-track {
     position: relative;
-    width: clamp(140px, 25vw, 260px);
-    height: 28px;
-    background: #81cac9;
-    overflow: hidden;
-}
-
-.hero-progress-wrapper .progress-bar-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 20%;
-    background: #E8B800;
-    transition: width 0.4s ease;
-}
-
-
-@media (min-width: 992px) and (max-width: 1440px) {
-    .progress-bar-track {
-        width: clamp(180px, 20vw, 300px);
-    }
-
-}
-/* REGLAS MANUALES DE RESPALDO (Sin tocar Bootstrap) */
-@media (max-width: 576px) {
-    .welcome-hero {
-        padding: 30px 15px;
-        justify-content: flex-start; /* Permite scroll natural si el móvil es muy pequeño */
-    }
 }
 
 .ingresar-btn {
-    position: absolute;
-
-    top: 80%; /* o el valor que estés usando */
-
-    left: 50%;
-    transform: translateX(-150%);
-
     background-color: #fedb02;
     border: none;
     border-radius: clamp(8px, 1vw, 12px);
-    padding: clamp(6px, 1vh, 10px) clamp(20px, 3vw, 35px);
+    padding: clamp(10px, 1.5vh, 15px) clamp(25px, 3vw, 40px); /* Ajustado padding derecho para el icono */
     display: flex;
     align-items: center;
-    gap: clamp(10px, 1.5vw, 20px);
+    justify-content: center;
+    gap: 15px; /* Espacio entre texto e icono */
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones más suaves */
     white-space: nowrap;
 }
 
-
-.ingresar-btn:hover {
-    transform: translateY(-3px) translateX(-150%);
-    box-shadow: 0 clamp(3px, 0.5vw, 6px) clamp(9px, 1.5vw, 15px) rgba(232, 194, 8, 0.4);
-}
-
+/* Texto del botón */
 .ingresar-btn span {
     color: #569e9a !important;
     font-weight: 900;
     font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+    line-height: 1;
 }
 
-.button-wrapper {
-    margin-top: auto;
-    margin-bottom: clamp(10px, 3vh, 30px);
-    width: 100%;
-
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    gap: 35px;
-
-    transform: translate(140px, 30px);
-
+/* Estilo del Icono de Flecha */
+.ingresar-btn svg.arrow-icon {
+    width: clamp(18px, 1.5vw, 24px);
+    height: clamp(18px, 1.5vw, 24px);
+    transition: transform 0.3s ease; /* Transición para la animación de hover */
 }
 
-@media (max-width: 1366px) {
+/* ─── HOVER STATES ─── */
 
-    .m0 { top: 50%; transform: translateX(-50%) scale(0.9); }
-    .m1 { top: 58%; transform: translateX(-60%) scale(0.9); }
-    .m2 { top: 63%; transform: translateX(-40%) scale(0.9); }
-    .m3 { top: 68%; transform: translateX(-60%) scale(0.9); }
-    .m4 { top: 75%; transform: translateX(-50%) scale(0.9); }
-    .m5 { top: 80%; transform: translateX(-70%) scale(0.9); } 
+.ingresar-btn:hover {
+    transform: translateY(-5px) scale(1.02); /* Pequeño salto y aumento de tamaño */
+    box-shadow: 0 clamp(5px, 0.8vw, 10px) clamp(15px, 2.5vw, 25px) rgba(232, 194, 8, 0.5); /* Sombra más pronunciada en hover */
+}
+
+/* Animación de la flecha en hover */
+.ingresar-btn:hover svg.arrow-icon {
+    transform: translateX(8px); /* La flecha se mueve a la derecha al pasar el ratón */
+}
+
+/* ─── ANIMACIÓN DE ATENCIÓN (PULSO) ─── */
+
+/* Define la animación de resplandor */
+@keyframes buttonGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(254, 219, 2, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 clamp(10px, 1.5vw, 20px) rgba(254, 219, 2, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(254, 219, 2, 0);
+    }
+}
+
+/* Aplica la animación al botón con la clase .attention-pulse */
+.attention-pulse {
+    animation: buttonGlow 2s infinite; /* Pulsa infinitamente cada 2 segundos */
+}
+
+
+/* ───────── RESPONSIVE ───────── */
+
+@media (max-width: 576px) {
+    .welcome-hero {
+        padding: 30px 15px;
+        justify-content: flex-start;
+    }
 }

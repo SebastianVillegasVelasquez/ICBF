@@ -13,40 +13,38 @@
     --shadow:0 18px 40px rgba(0,0,0,.12);
     --ease:cubic-bezier(.22,1,.36,1);
   }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:'Nunito',sans-serif;
-    background: #ffffff;
-    color:var(--text);
+  .page{
+    min-height:100vh;
+    padding:30px;
+    display:flex;
+    justify-content:center;
   }
-.page {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.page::before {
-  content: "";
-  position: fixed;
-  inset: 0;
+  @media (max-width:1400px){
+    .page{
+      zoom: 0.9
+    }
+  }
 
-  background-image: url('assets/img/background-modulo-1.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  .page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
 
-  z-index: -1;
-}
+    background-image: url('assets/img/background-modulo-1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: -1;
+  }
+
+
   .infographic{
     width:min(1500px,100%);
-    background: #ffffff;
     border-radius:26px;
     padding:48px 50px 44px;
     position:relative;
-    /*box-shadow:0 30px 70px rgba(0,0,0,.08);*/
     overflow:hidden;
   }
   .infographic::before,
@@ -170,7 +168,7 @@
   .c6{background:var(--c6)}
 
   .mechanisms{
-    margin-top:-4px;
+    margin-top:48px;
   }
   .mechanisms h2{
     margin:0;
@@ -228,7 +226,7 @@
     transform:translateY(20px) scale(.96);
     animation:popIn .35s var(--ease) forwards;
     position:relative;
-    overflow:visible;
+    overflow:hidden;
   }
   .modal-card::before{
     content:"";
@@ -238,6 +236,8 @@
     border-radius:34% 66% 61% 39% / 44% 41% 59% 56%;
     background:linear-gradient(135deg, rgba(126,199,201,.24), rgba(201,231,122,.18));
     filter:blur(2px);
+    overflow: hidden;
+
   }
   .modal-card::after{
     content:"";
@@ -246,6 +246,8 @@
     left:-30px;bottom:-40px;
     border-radius:58% 42% 38% 62% / 48% 59% 41% 52%;
     background:linear-gradient(135deg, rgba(227,195,15,.18), rgba(88,167,165,.16));
+    overflow: hidden;
+
   }
   .modal-top{
     padding:26px 28px 18px;
@@ -381,8 +383,150 @@
     .modal-content{ padding:0 18px 22px; }
     .modal-badge{ width:54px;height:54px;font-size:24px; }
   }
-</style>
 
+
+  /* estado explorado */
+  .node.visited .bubble,
+  .node.visited .mini-dot{
+    filter:grayscale(100%);
+    opacity:.65;
+    transition:filter .45s ease, opacity .45s ease, transform .25s ease;
+  }
+  .node.visited p{
+    color:#6d7471;
+    transition:color .45s ease;
+  }
+
+
+  html, body{
+    width:100%;
+    overflow-x:hidden;
+  }
+  img, svg{
+    max-width:100%;
+    height:auto;
+  }
+  .timeline-grid{
+    align-items:start;
+  }
+  .node{
+    min-width:0;
+  }
+  .node p{
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+  .nav-button{
+    max-width:min(100%, 760px);
+    text-align:center;
+  }
+  .modal-card{
+    max-height:min(88vh, 900px);
+    overflow-y:auto;
+  }
+  .info-card{
+    min-width:0;
+  }
+  .info-card p, .info-card li, .modal-title h3{
+    overflow-wrap:anywhere;
+  }
+  @media (max-width:1024px){
+    .infographic{
+      padding:38px 28px 34px;
+    }
+    .timeline-grid{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:22px 16px;
+      margin-top:-24px;
+    }
+    .node p{
+      max-width:100%;
+      font-size:13px;
+    }
+  }
+  @media (max-width:760px){
+    .header p{
+      font-size:clamp(16px,4vw,20px);
+    }
+    .mechanisms{
+      margin-top:34px;
+    }
+    .nav-button{
+      width:100%;
+      padding:14px 18px;
+      font-size:16px;
+      line-height:1.35;
+    }
+    .helper{
+      padding:0 8px;
+    }
+    .modal-overlay{
+      padding:14px;
+    }
+    .modal-card{
+      width:100%;
+      border-radius:22px;
+      max-height:90vh;
+    }
+  }
+  @media (max-width:680px){
+    .timeline-grid{
+      grid-template-columns:1fr;
+      gap:18px;
+      margin-top:12px;
+    }
+    .node{
+      max-width:100%;
+    }
+    .node p{
+      max-width:100%;
+      font-size:14px;
+    }
+    .bubble{
+      width:64px;
+      height:64px;
+      font-size:24px;
+    }
+    .mini-dot{
+      margin:12px auto 8px;
+    }
+  }
+  @media (max-width:420px){
+    .page{
+      padding:10px;
+    }
+    .infographic{
+      padding:22px 14px 24px;
+      border-radius:18px;
+    }
+    .header h1{
+      font-size:clamp(28px,9vw,36px);
+    }
+    .header p{
+      margin-top:10px;
+      font-size:15px;
+      line-height:1.45;
+    }
+    .mechanisms h2{
+      font-size:clamp(26px,8vw,34px);
+    }
+    .modal-top{
+      padding:18px 14px 12px;
+    }
+    .modal-content{
+      padding:0 14px 18px;
+    }
+    .close-btn{
+      top:12px;
+      right:12px;
+      width:38px;
+      height:38px;
+    }
+  }
+
+</style>
+</head>
+<body>
 <div class="page">
   <section class="infographic">
     <header class="header">
@@ -408,9 +552,9 @@
     <section class="mechanisms">
       <h2>Mecanismos de defensa ciudadana</h2>
       <div class="instruction-wrap">
-        <div class="nav-button">Haz clic en un número para abrir el cuadro emergente</div>
+        <div class="nav-button">Haz clic en un número y conoce los mecanismos de defensa ciudadana</div>
       </div>
-      <div class="helper">Las tarjetas aparecen como popup centrado, sin palabras clave y sin scroll interno.</div>
+      <div class="helper">Los circulos en gris son las secciones que ya visitaste.</div>
     </section>
   </section>
 </div>
@@ -505,7 +649,14 @@
 
     nodes.forEach(n => n.classList.remove('active'));
     const activeNode = document.querySelector(`.node[data-id="${id}"]`);
-    if (activeNode) activeNode.classList.add('active');
+    if (activeNode) {
+      activeNode.classList.add('active');
+      activeNode.classList.add('visited');
+      visitedNodes.add(id);
+      if (visitedNodes.size === nodes.length) {
+        setTimeout(showCompletionModal, 5000);
+      }
+    }
 
     modalBadge.textContent = item.num;
     modalBadge.style.background = item.color;
@@ -541,4 +692,39 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePopup();
   });
+
+  let visitedNodes = new Set();
+
+  function showCompletionModal() {
+    modalGrid.className = 'modal-grid one';
+    modalBadge.textContent = "✓";
+    modalBadge.style.background = "#2c9a53";
+    modalTitle.textContent = "¡Felicitaciones!";
+    modalGrid.innerHTML = `
+    <article class="info-card">
+      <h4>Has completado el recorrido</h4>
+      <p>Ya exploraste todos los mecanismos de defensa ciudadana.</p>
+      <br>
+      <button onclick="goNext()" style="
+        background:#0d5a2f;
+        color:#fff;
+        padding:12px 20px;
+        border:none;
+        border-radius:12px;
+        font-weight:700;
+        cursor:pointer;
+        width:100%;
+        max-width:260px;">
+        Continuar
+      </button>
+    </article>
+  `;
+    modalOverlay.classList.add('show');
+  }
+
+  function goNext() {
+    closePopup();
+    alert("Aquí pasas a la siguiente sección");
+  }
+
 </script>

@@ -11,7 +11,6 @@ export const course = {
             title: "Portada",
             screens: [
 
-
                 {
                     type: "custom",
                     html: "js/screens/front-page/front-page.html",
@@ -27,12 +26,19 @@ export const course = {
             id: 0,
             title: "Módulo: Introducción",
             screens: [
-                // PANTALLA 0 - JUSTIFICACION MODULO 0
+
+                // PANTALLA 0 - INTRODUCCION
+                {
+                    type: "module-intro",
+                    isIntroduction: true
+
+                },
+                // PANTALLA 1 - JUSTIFICACION MODULO 0
                 {
                     type: "default-content",
                     hideBackground: false,
                     htmlFile: "",
-                        GraphicResources: {
+                    GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
                             size: 'cover',
@@ -72,23 +78,16 @@ export const course = {
                 {
                     type: "video",
                     title: "Video introductorio",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
 
                 // PANTALLA 2 - Video navegacion
                 {
                     type: "video",
-                    title: "Video navegacion",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    title: "Video introductorio",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
+
 
                 // PANTALLA 3 — Contenido tematico
 
@@ -104,15 +103,41 @@ export const course = {
                     },
                 },
 
+
                 // PANTALLA 4 - Video animado de concepto básico
                 {
                     type: "video",
-                    title: "Video animado de concepto básico",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    title: "Video introductorio",
+                    videoUrl: "assets/videos/video-1.mp4"
+                },
+                // PANTALLA 5 - ACTIVIDAD QUIZ
+
+                {
+                    type: "default-content",
+                    hideBackground: false,
+                    htmlFile: "",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    },
+                    contentHtml: renderQuiz({
+                        title: "Autodiagnóstico de la comprensión de los DDHH y DIH",
+                        description: "",
+                        questions: getOrPickQuizQuestions(
+                            QUESTIONS_BANK,
+                            [
+                                'dh-001', 'dh-002', 'part-003', 'part-004', 'iva-005',
+                                'dih-006', 'dh-007', 'part-008', 'dh-009', 'iva-010',
+                                'dh-011', 'part-012', 'dh-013', 'dh-014', 'iva-015',
+                                'dih-016', 'part-017', 'iva-018', 'dh-019', 'dh-020'
+                            ],
+                            'quiz-autodiagnostico',
+                            5
+                        )
+                    })
                 },
 
             ]
@@ -131,8 +156,8 @@ export const course = {
                     type: "module-intro",
                     moduleTitle: "Módulo 1",
                     introText: "El suelo y las raíces del ecosistema",
-                    subText: "",
                 },
+
                 // PANTALLA 2 - Post-intro
                 {
                     type: "post-intro",
@@ -144,12 +169,33 @@ export const course = {
                         "Igualdad y no discriminación",
                         "Derecho internacional humanitario"
                     ],
-                    characterImageConfig: {
-                        url: "assets/img/personajes/tres_personajes.png",
-                        size: "contain"
-                    },
-                    percentage: 0
+                    GraphicResources: {
+                        headerLogos: {
+                            leftUrl: 'assets/img/titulos/titulo-blanco.png',
+                            rightUrl: 'assets/img/logo.png'
+                        },
+                        backgroundUrl: 'assets/img/fondos/fondo-tierra.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                        characterUrl: 'assets/img/personajes/tres_personajes.png',
+                        characterConfig: {
+                            side: 'left',
+                            xOffset: '150px',
+                            yOffset: '-10px',
+                            scale: 0.9,
+                            maxWidth: '450px',
+                            responsive: {
+                                xOffset: '70px',
+                                yOffset: '20px',
+                                scale: 1,
+                                maxWidth: '310px'
+                            }
+                        }
+                    }
                 },
+
                 // PANTALLA 3 - JUSTIFICACION MODULO 1
                 {
                     type: "default-content",
@@ -162,6 +208,7 @@ export const course = {
                             position: 'center'
                         },
                     },
+
                     contentHtml: renderSlideshow({
                         slides: [
                             {
@@ -197,42 +244,9 @@ export const course = {
                 {
                     type: "video",
                     title: "Video introductorio",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
 
-                // PANTALLA 5 - ACTIVIDAD QUIZ
-
-                {
-                    type: "default-content",
-                    hideBackground: false,
-                    htmlFile: "",
-                    GraphicResources: {
-                        backgroundUrl: 'assets/img/background-modulo-1.png',
-                        backgroundConfig: {
-                            size: 'cover',
-                            position: 'center'
-                        },
-                    },
-                    contentHtml: renderQuiz({
-                        title: "Autodiagnóstico de la comprensión de los DDHH y DIH",
-                        description: "",
-                        questions: getOrPickQuizQuestions(
-                            QUESTIONS_BANK,
-                            [
-                                'dh-001', 'dh-002', 'part-003', 'part-004', 'iva-005',
-                                'dih-006', 'dh-007', 'part-008', 'dh-009', 'iva-010',
-                                'dh-011', 'part-012', 'dh-013', 'dh-014', 'iva-015',
-                                'dih-016', 'part-017', 'iva-018', 'dh-019', 'dh-020'
-                            ],
-                            'quiz-autodiagnostico',
-                            5
-                        )
-                    })
-                },
                 // PANTALLA 6 - REVISTA DIDÁCTICA
 
                 {
@@ -312,7 +326,14 @@ export const course = {
                 {
                     type: "default-content",
                     hideBackground: true,
-                    htmlFile: "assets/infografias/info-m1-2-int.html"
+                    htmlFile: "assets/infografias/info-m1-2-int.html",
+                    GraphicResources: {
+                        backgroundUrl: 'assets/img/background-modulo-1.png',
+                        backgroundConfig: {
+                            size: 'cover',
+                            position: 'center'
+                        },
+                    }
                 },
 
                 // PANTALLA 10 - REVISTA DIDACTICA 3
@@ -334,7 +355,7 @@ export const course = {
                         characterConfig: {
                             side: 'right',
                             xOffset: '50px',
-                            yOffset: '80px',
+                            yOffset: '0px',
                             scale: 1,
                             maxWidth: '600px',
                             // Configuración para laptops/pantallas bajas
@@ -348,11 +369,11 @@ export const course = {
                     }
                 },
 
-                // PANTALLA 11 - INFOGRAFIA 1
+                // PANTALLA 11 - INFOGRAFIA 3
                 {
                     type: "default-content",
                     hideBackground: false,
-                    htmlFile: "assets/infografias/modulo-3/infografia-1.html",
+                    htmlFile: "assets/infografias/info-1-3.html",
                     GraphicResources: {
                         backgroundUrl: 'assets/img/background-modulo-1.png',
                         backgroundConfig: {
@@ -419,7 +440,7 @@ export const course = {
                     htmlFile: "assets/actividades/podcast.html",
                 },
 
-                    // PANTALLA 15 - CAJA DE HERRAMIENTAS
+                // PANTALLA 15 - CAJA DE HERRAMIENTAS
                 {
                     type: "default-content",
                     hideBackground: true,
@@ -436,7 +457,7 @@ export const course = {
             ]
         },
         {
-            id:2,
+            id: 2,
             title: 'Modulo 2: PARTICIPACIÓN, PROTECCIÓN Y EJERCICIO DE LOS DERECHOS EN EL ÁMBITO PÚBLICO',
             screens: [
                 {
@@ -449,15 +470,15 @@ export const course = {
                     GraphicResources: {
                         characterUrl: "assets/img/personajes/personajes-modulo2-post-intro.png",
                         characterConfig: {
-                            maxWidth:  "700px",
-                            xOffset:   "0px",
-                            yOffset:   "90px",
-                            scale:     1.05,
+                            maxWidth: "700px",
+                            xOffset: "0px",
+                            yOffset: "90px",
+                            scale: 1.05,
                             responsive: {
                                 maxWidth: "550px",
-                                xOffset:  "0px",
-                                yOffset:  "30px",
-                                scale:    0.9
+                                xOffset: "0px",
+                                yOffset: "30px",
+                                scale: 0.9
                             }
                         },
                         headerLogos: {
@@ -520,21 +541,13 @@ export const course = {
 
                 {
                     type: "video",
-                    title: "Video navegacion",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    title: "Video introductorio",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
                 {
                     type: "video",
-                    title: "Video navegacion",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    title: "Video introductorio",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
 
                 {
@@ -672,12 +685,8 @@ export const course = {
                 // PANTALLA 4 - Video animado de concepto básico
                 {
                     type: "video",
-                    title: "Video animado de concepto básico",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    title: "Video introductorio",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
 
                 // PANTALLA 5 - PÓDCAST
@@ -698,12 +707,8 @@ export const course = {
                 // PANTALLA 6 - Video animado de concepto básico
                 {
                     type: "video",
-                    title: "Video animado de concepto básico",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    title: "Video introductorio",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
 
                 // PANTALLA 7 - Revista didáctica 1
@@ -794,12 +799,8 @@ export const course = {
                 // PANTALLA 11 - Video animado de concepto básico
                 {
                     type: "video",
-                    title: "Video animado de concepto básico",
-                    videoUrl: "",
-                    characterName: "Ayla",
-                    subtitle: "Conoce los objetivos del curso y los personajes que te acompañarán. En este módulo aprenderás las bases fundamentales sobre los ecosistemas de derechos de manera interactiva.",
-                    characterLeft: "Ayla",
-                    characterRight: "Simón",
+                    title: "Video introductorio",
+                    videoUrl: "assets/videos/video-1.mp4"
                 },
 
                 // PANTALLA 12 - BIBLIOGRAFIA

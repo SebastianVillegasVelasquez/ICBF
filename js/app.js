@@ -1,43 +1,17 @@
-/**
- * app.js — Controlador principal de la aplicación (REFACTORIZADO)
- *
- * ARQUITECTURA:
- * ─────────────────────────────────────────────────────────────
- * 1. SCREEN REGISTRY: Registro centralizado de tipos de pantalla
- * 2. PROGRESS BAR: Módulo inyectable para barra de progreso
- * 3. CSS LOADER: Cargador inteligente de CSS con caché
- * 4. ROUTE RENDERER: Renderizador genérico que despacha por tipo
- * 5. LAYOUT SYSTEM: Controla layout + visibilidad de píldora
- *
- * Para agregar una pantalla nueva:
- *   → Agregar entrada a SCREEN_REGISTRY
- *   → Listo! El sistema se encarga del resto.
- */
-
 import {buildRoutes, getCourseTitle, getFirstPageIndexByModuleId, getRoute, getTotalRoutes} from './router.js';
 import {finishSCORM, getLocation, initSCORM, setCompleted, setIncomplete, setLocation, setProgress} from './scorm.js';
 import {initSlideshow, renderSlideshow} from './components/slideshow.js';
-import {initQuiz, renderQuiz} from './components/quiz.js';
 // ── Renderizadores de pantallas ────────────────────────────
 import {renderWelcome} from './screens/screen-module-intro.js';
 import {renderVideo} from './screens/screen-video.js';
 import {renderPostIntro} from "./screens/screen-post-intro.js";
 import {renderScreenContentDefault} from './screens/screen-content-default.js';
-// import {renderHtmlInjectionScreen} from './screens/screen-html-injection.js';
 import {renderModuleEnd} from "./screens/screen-end-module.js";
 
 // ── Registro de componentes ────────────────────────────────────
-import {initAccordion, renderAccordion} from './components/accordion.js';
-import {initCards, renderCards} from './components/cards.js';
 import {initCarousel, renderCarousel} from './components/carousel.js';
-import {initChecklist, renderChecklist} from './components/checklist.js';
-import {initComparisonTable, renderComparisonTable} from './components/comparison-table.js';
-import {initDragDrop, renderDragDrop} from './components/drag-drop.js';
-import {initHotspot, renderHotspot} from './components/hotspot.js';
-import {initMultipleChoice, renderMultipleChoice} from './components/multiple-choice.js';
-import {initTimeline, renderTimeline} from './components/timeline.js';
-import {initToolbox, renderToolbox} from './components/toolbox.js';
-import {initNarrativeScroll, renderNarrativeScroll} from './components/narrative-scroll.js';
+import {initQuiz, renderQuiz} from './components/quiz.js';
+
 import {progressBar} from './components/progress-bar.js';
 
 if (!window.resolvePath) {
@@ -53,17 +27,7 @@ if (!window.resolvePath) {
 // ════════════════════════════════════════════════════════════════
 
 const COMPONENTS = {
-    'accordion': {render: renderAccordion, init: initAccordion},
-    'cards': {render: renderCards, init: initCards},
     'carousel': {render: renderCarousel, init: initCarousel},
-    'checklist': {render: renderChecklist, init: initChecklist},
-    'comparison-table': {render: renderComparisonTable, init: initComparisonTable},
-    'drag-drop': {render: renderDragDrop, init: initDragDrop},
-    'hotspot': {render: renderHotspot, init: initHotspot},
-    'multiple-choice': {render: renderMultipleChoice, init: initMultipleChoice},
-    'timeline': {render: renderTimeline, init: initTimeline},
-    'toolbox': {render: renderToolbox, init: initToolbox},
-    'narrative-scroll': {render: renderNarrativeScroll, init: initNarrativeScroll},
     'slideshow': {render: renderSlideshow, init: initSlideshow},
     'quiz': {render: renderQuiz, init: initQuiz},
 };
@@ -95,10 +59,10 @@ const SCREEN_REGISTRY = {
         render: (route) => renderPostIntro(route)
     },
     'end-module': {
-      css: 'css/end-module.css',
+        css: 'css/end-module.css',
         layout: 'full',
         showNav: false,
-        showPdf:false,
+        showPdf: false,
         render: (route) => renderModuleEnd(route)
     },
     'default-content': {
@@ -314,8 +278,8 @@ function inicializarTarjetasInfografia() {
         const newHeader = header.cloneNode(true);
         header.parentNode.replaceChild(newHeader, header);
 
-        newHeader.addEventListener('click', function() {
-            const card   = this.closest('.info-card-float');
+        newHeader.addEventListener('click', function () {
+            const card = this.closest('.info-card-float');
             const toggle = this.querySelector('.info-card-toggle');
             const isOpen = card.classList.contains('is-open');
 
@@ -353,7 +317,7 @@ async function loadHTMLFile(route) {
         const resolvedPath = window.resolvePath(route.htmlFile);
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000);
-        const res = await fetch(resolvedPath, { signal: controller.signal });
+        const res = await fetch(resolvedPath, {signal: controller.signal});
         clearTimeout(timeoutId);
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -467,12 +431,9 @@ function injectCSSVariables() {
                 background-position: center;
                 background-repeat: no-repeat;
         }
+   
         
         
-        // .screen-default-content.no-background {
-        // background-image: none !important;
-        // background-color: #ffffff;
-    }
     `;
     document.head.appendChild(styleEl);
 }
@@ -702,7 +663,6 @@ function bootComponents(container) {
 }
 
 
-
 // ════════════════════════════════════════════════════════════════
 // NAVIGATION & STATE
 // ════════════════════════════════════════════════════════════════
@@ -731,7 +691,7 @@ async function navigateTo(index) {
         if (btnPrev) btnPrev.disabled = currentIndex === 0;
         if (btnNext) btnNext.disabled = currentIndex === totalRoutes - 1;
 
-    } catch(err) {
+    } catch (err) {
         console.error('[navigateTo]', err);
     } finally {
         loadingVeil.hide();
@@ -907,20 +867,20 @@ window.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('btn-next')?.addEventListener('click', () => navigateTo(currentIndex + 1));
         document.getElementById('btn-pdf')?.addEventListener('click', exportPDF);
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
 
-    const action = e.target.dataset.action;
+            const action = e.target.dataset.action;
 
-    if (action === 'prev') {
-        navigateTo(currentIndex - 1);
-    }
+            if (action === 'prev') {
+                navigateTo(currentIndex - 1);
+            }
 
-    if (action === 'next') {
-        navigateTo(currentIndex + 1);
-    }
+            if (action === 'next') {
+                navigateTo(currentIndex + 1);
+            }
 
-});
-        
+        });
+
 
         // ── SCORM ──
         document.title = getCourseTitle();
